@@ -114,7 +114,7 @@ int make_texture(struct Picture * picturedata)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
 	fprintf(stderr,"Building MipMaps\n");
-    gluBuild2DMipmaps(GL_TEXTURE_2D,3,picturedata->width, picturedata->height,GL_RGB , GL_UNSIGNED_BYTE, picturedata->rgb_data );
+    gluBuild2DMipmaps(GL_TEXTURE_2D,4,picturedata->width, picturedata->height,GL_RGB , GL_UNSIGNED_BYTE, picturedata->rgb_data );
 
     /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN MEMORY */
       if ( picturedata->rgb_data != 0 ) free(picturedata->rgb_data);
