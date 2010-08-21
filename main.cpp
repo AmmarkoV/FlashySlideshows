@@ -164,7 +164,7 @@ static void display(void)
       CAMERA SMOOTH ZOOM/PAN ETC
       -------------------------------------
     */
-    float speed_multiplier=150;
+    float speed_multiplier=250;
     if ( desired_x != vx ) { if ( desired_x < vx )
                                  {
                                    /* CLOSING IN OPERATION */   vx = vx- ( vx - desired_x ) / speed_multiplier;
@@ -221,6 +221,12 @@ static void key(unsigned char key, int x, int y)
     unsigned int nokey=0;
     switch (key)
     {
+        //case GLUT_KEY_LEFT	:  desired_x+=desired_step; break;
+        //case GLUT_KEY_RIGHT : desired_x-=desired_step; break;
+        //case GLUT_KEY_DOWN : desired_y+=desired_step; break;
+        //case GLUT_KEY_UP : desired_y-=desired_step; break;
+        case 'o': desired_x=0; desired_y=0; desired_z=0; break;
+
         case 'r': desired_z+=desired_step; break;
         case 'f': desired_z-=desired_step; break;
         case 'a': desired_x+=desired_step; break;
