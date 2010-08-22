@@ -43,6 +43,7 @@ float vx=00.0,vy=00.0,vz=00.0;
 float desired_x=00.0,desired_y=00.0,desired_z=00.0,desired_step=1.35;
 float angle_x=0.0,angle_y=0.0,angle_z=180.0,step=0.05;
 double last_load;
+unsigned int frame,time,timebase,fps;
 /* GLUT callback Handlers */
 
 static void resize(int width, int height)
@@ -122,6 +123,18 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
 
 static void display(void)
 {
+
+	frame+=1;
+	time=glutGet(GLUT_ELAPSED_TIME);
+	if (time - timebase>1000)
+	{
+	    fps = (unsigned int) frame * 1000.0 / (time-timebase) ;
+	 	timebase = time;
+		frame = 0;
+	}
+
+
+
 //    const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -164,7 +177,10 @@ static void display(void)
       CAMERA SMOOTH ZOOM/PAN ETC
       -------------------------------------
     */
-    float speed_multiplier=250;
+    float speed_multiplier=fps/5; // 250;
+    if ( speed_multiplier == 0 ) speed_multiplier=250;
+
+
     if ( desired_x != vx ) { if ( desired_x < vx )
                                  {
                                    /* CLOSING IN OPERATION */   vx = vx- ( vx - desired_x ) / speed_multiplier;

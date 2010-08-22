@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo apt-get install freeglut3 freeglut3-dev glutg3 glutg3-dev libxxf86vm-dev
+exit 0
