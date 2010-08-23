@@ -27,6 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
+#include <GL/freeglut.h>
 #endif
 
 #include <stdlib.h>
@@ -120,6 +121,15 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
   return;
 }
 
+void RenderString(float x, float y, void *font, const char* string,float r,float g,float b)
+{
+
+  glColor3f(r,g,b);
+  glRasterPos2f(x, y);
+
+  glutBitmapString(font,(const unsigned char*) string);
+}
+
 
 static void display(void)
 {
@@ -132,6 +142,9 @@ static void display(void)
 	 	timebase = time;
 		frame = 0;
 	}
+
+   char fps_string[40]={0};
+   sprintf(fps_string,"Rendering Speed : %u fps",fps);
 
 
 
@@ -148,6 +161,8 @@ static void display(void)
 
 
           glTranslatef(-vx, -vy, -vz);
+
+                 RenderString(-0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24,fps_string,1,1,0);
 
               DisplayPicture(album[0],-7,-6,0,0,0,0);
               DisplayPicture(album[1],0,-6,0,0,0,0);

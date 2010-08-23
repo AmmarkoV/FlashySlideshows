@@ -8,7 +8,7 @@
 1282385576 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282394434 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282521515 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -16,6 +16,7 @@
 	"load_images.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
+	<GL/freeglut.h>
 	<stdlib.h>
 
 1282392740 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp

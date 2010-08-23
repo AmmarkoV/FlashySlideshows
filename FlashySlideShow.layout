@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="4739" topLine="76" />
 	</File>
@@ -8,7 +8,7 @@
 		<Cursor position="265" topLine="3" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6657" topLine="163" />
+		<Cursor position="6609" topLine="189" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="60" topLine="0" />
