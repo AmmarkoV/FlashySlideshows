@@ -11,12 +11,14 @@ int OpenGL_is_making_textures=0;
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
-    fprintf(stderr,"PreparePictureForImage Called for an image %ux%u:%u\n",width,height,depth);
+    fprintf(stderr,"PreparePictureForImage Called for an image %u x %u : %u \n",width,height,depth);
 
     if ((pic->rgb_data!=0) || (pic->rgb_data_size!=0))
      {
          /* CLEAR MEMORY TO ALLOCATE IT LATER*/
+         fprintf(stderr,"Picture Structure is dirty\n");
          free (pic->rgb_data);
+         pic->rgb_data_size=0;
      }
 
     if ( ( width == 0 ) || ( height == 0 ) || ( depth == 0 ) ) {  fprintf(stderr,"PreparePictureForImage only cleared allocated memory\n");
@@ -26,8 +28,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      {
          /* ALLOCATE ENOUGH MEMORY FOR THE RAW IMAGE */
          pic->overflow_guard=OVERFLOW_GUARD_BYTES;
-         pic->rgb_data=(char *) malloc(width*height*depth+3);
-
+         pic->rgb_data=(char *) malloc( ( width*height*depth ) + depth );
 
          if  ( pic->rgb_data <=0 )
           {
@@ -39,6 +40,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      pic->width=width;
      pic->height=height;
      pic->depth=depth;
+     pic->rgb_data_size=width*height*depth;
      fprintf(stderr,"PreparePictureForImage completed\n");
 
     return 1;
@@ -101,48 +103,57 @@ int ReadPPM(char * filename,struct Picture * pic)
 
 void complain_about_errors()
 {
-  if  ( glGetError()!=0 ) fprintf(stderr,"OpenGL Error %u ",glGetError());
+  int err=glGetError();
+  if  ( glGetError()!=0 ) fprintf(stderr,"OpenGL Error %u ",(unsigned int )err);
+  return;
 }
 
 int wait_before_making_textures()
 {
-    OpenGL_is_making_textures=0;
-    while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for OpenGL to pause rendering to make textures \n"); }
+    fprintf(stderr,"Trying to wait patiently before making any textures\n");
     OpenGL_is_making_textures=1;
+    while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for OpenGL to pause rendering to make textures \n"); }
+  //  OpenGL_is_making_textures=1;
     usleep(100);
     while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for display thread to yield \n"); }
+    return 1;
 }
 
 int make_texture(struct Picture * picturedata)
 {
 
     wait_before_making_textures();
-
     fprintf(stderr,"Time to make some textures \n");
 
-	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n"); return 0; }
-    picturedata->gl_rgb_texture=0;
-    fprintf(stderr,"OpenGL Making Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
+	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
+	                          return 0; }
 
-
-    complain_about_errors();
+   // picturedata->gl_rgb_texture=0;
+   // fprintf(stderr,"OpenGL Making Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,(unsigned int) picturedata->gl_rgb_texture);
+   // fprintf(stderr,"For some strange reason the next lines SEGFAULT\n");
 
     /*   !!!!!!!!!!!!!!!!!!!!!!!!!!!
               CODE NEEDS FIX SEGFAULTS
          !!!!!!!!!!!!!!!!!!!!!!!!!!!
     */
+
+
     fprintf(stderr,"For some strange reason the next lines SEGFAULT\n");
 
+    GLint texSize;
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+    fprintf(stderr,"Maximum Texture Size is %u\n",(unsigned int) texSize);
 
+    GLuint new_tex_id=0;
     fprintf(stderr,"OpenGL Generating new Texture \n");
-    glGenTextures(1,&picturedata->gl_rgb_texture);
-	fprintf(stderr,"OpenGL new Texture is %u \n", picturedata->gl_rgb_texture);
+    glGenTextures(1,&new_tex_id);
 
     complain_about_errors();
 
     fprintf(stderr,"OpenGL Binding new Texture \n");
-    glBindTexture(GL_TEXTURE_2D,picturedata->gl_rgb_texture);
+    glBindTexture(GL_TEXTURE_2D,new_tex_id);
 
+    picturedata->gl_rgb_texture=new_tex_id;
     complain_about_errors();
 
     /*   !!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -155,14 +166,15 @@ int make_texture(struct Picture * picturedata)
 	fprintf(stderr,"Setting Linear Filter\n");
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+
 	fprintf(stderr,"Building MipMaps\n");
-    gluBuild2DMipmaps(GL_TEXTURE_2D,4,picturedata->width, picturedata->height,GL_RGB , GL_UNSIGNED_BYTE, picturedata->rgb_data );
+    gluBuild2DMipmaps(GL_TEXTURE_2D,4,picturedata->width,picturedata->height,GL_RGB,GL_UNSIGNED_BYTE,picturedata->rgb_data);
 
     complain_about_errors();
 
-    /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN MEMORY */
-      if ( picturedata->rgb_data != 0 ) free(picturedata->rgb_data);
-      picturedata->rgb_data_size=0;
+    /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN RAM MEMORY */
+ //     if ( picturedata->rgb_data != 0 ) free(picturedata->rgb_data);
+ //     picturedata->rgb_data_size=0;
 
     fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
 
@@ -205,29 +217,17 @@ int LoadPicture(char * filename,struct Picture * pic)
 }
 
 
-int UnLoadPicture(struct Picture * pic)
-{
-  fprintf(stderr,"Unloading Picture\n");
-
-  pic->rgb_data_size=0;
-  if ( pic->rgb_data != 0 ) free(pic->rgb_data);
-
-  glDeleteTextures(1,&pic->gl_rgb_texture);
-
-  if ( pic != 0 ) free(pic);
- return 1;
-}
 
 struct Picture * CreatePicture(char * filename)
 {
-    struct Picture * new_picture=0;
+  struct Picture * new_picture=0;
 
-    new_picture = (struct Picture *) malloc( sizeof( struct Picture ) );
-    if (  new_picture == 0 ) { fprintf(stderr,"Could not allocate memory for picture %s \n",filename); return 0; }
+  new_picture = (struct Picture *) malloc( sizeof( struct Picture ) );
+  if (  new_picture == 0 ) { fprintf(stderr,"Could not allocate memory for picture %s \n",filename); return 0; }
 
     new_picture->rgb_data=0;
     new_picture->rgb_data_size=0;
-    new_picture->gl_rgb_texture=0;
+    //new_picture->gl_rgb_texture=0;
 
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
 
@@ -245,3 +245,15 @@ struct Picture * CreatePicture(char * filename)
 }
 
 
+int UnLoadPicture(struct Picture * pic)
+{
+  fprintf(stderr,"Unloading Picture\n");
+
+  pic->rgb_data_size=0;
+  if ( pic->rgb_data != 0 ) free(pic->rgb_data);
+
+  glDeleteTextures(1,&pic->gl_rgb_texture);
+
+  if ( pic != 0 ) free(pic);
+ return 1;
+}

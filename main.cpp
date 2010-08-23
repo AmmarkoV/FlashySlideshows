@@ -107,6 +107,7 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
    ymin=-4.5;
    ymax=4.5;
 
+
    glBegin(GL_QUADS);
     glColor4f(1.0,1.0,1.0,1.0);
 
@@ -116,6 +117,7 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z-5);
 
    glEnd();
+
 
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);
@@ -143,11 +145,15 @@ void RenderString(float x, float y, void *font, const char* string,float r,float
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
+  while ( frame < 1000)
+   {
+       /* WAIT FOR SOME TIME BEFORE STARTING  / DEBUGING REASONS*/
+   }
 
   while (!STOP_APPLICATION)
   {
-   if ( right_picture == loading )  right_picture=CreatePicture((char * )"album/DSC05380.JPG");
-   //if ( main_picture == loading )  main_picture=CreatePicture((char * )"album/DSC00871.JPG");
+   if ( main_picture == loading )  main_picture=CreatePicture((char * )"album/DSC00871.JPG");
+   //if ( right_picture == loading )  right_picture=CreatePicture((char * )"album/DSC05380.JPG");
    //if ( left_picture == loading ) { left_picture=CreatePicture((char * )"album/DSC01140.JPG"); }
 /*
 
@@ -414,10 +420,13 @@ int main(int argc, char *argv[])
     InitSlideShow();
 
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
+
     left_picture=loading;
     main_picture=loading;
     right_picture=loading;
     int i=0;  for (i=0; i<6; i++) { album[i]=loading; }
+
+
 
     OpenGL_is_rendering = 1; /* <<- WE CONSIDER OPENGL RENDERING TO BLOCK ANY TEXTURE OPERATIONS BEFORE EVERYTHING IS INITIALIZED! */
 

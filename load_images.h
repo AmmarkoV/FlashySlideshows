@@ -17,10 +17,10 @@ struct Picture
   unsigned int width;
   unsigned int depth;
 
+  GLuint gl_rgb_texture;
+
   unsigned int time_viewed;
   unsigned int times_viewed;
-
-  GLuint gl_rgb_texture;
 
   struct Position3D position;
 
