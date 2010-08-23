@@ -9,7 +9,7 @@
 1282562673 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282565654 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282565869 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>

@@ -176,14 +176,6 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
 static void display(void)
 {
-  OpenGL_is_rendering = 0;
-  while ( OpenGL_is_making_textures == 1 )
-    {
-       /* WE WAIT IT OUT!*/
-        fprintf(stderr,"Waiting for OpenGL to stop making textures to start rendering\n");
-    }
-  OpenGL_is_rendering = 1;
-
 
 	frame+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
@@ -215,6 +207,14 @@ static void display(void)
 
                  RenderString(-0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24,fps_string,1,1,0);
 
+             OpenGL_is_rendering = 0;
+  if ( OpenGL_is_making_textures == 1 )
+    {
+       /* WE WAIT IT OUT!*/
+        fprintf(stderr,"Waiting for OpenGL to stop making textures to start rendering\n");
+    } else
+    {
+  OpenGL_is_rendering = 1;
               DisplayPicture(album[0],-7,-6,0,0,0,0);
               DisplayPicture(album[1],0,-6,0,0,0,0);
               DisplayPicture(album[2],7,-6,0,0,0,0);
@@ -229,8 +229,8 @@ static void display(void)
               DisplayPicture(album[3],-7,6,0,0,0,0);
               DisplayPicture(album[4],0,6,0,0,0,0);
               DisplayPicture(album[5],7,6,0,0,0,0);
-
-
+    OpenGL_is_rendering = 0;
+    }
           glTranslatef(vx,vy,vz);
        glPopMatrix();
 
