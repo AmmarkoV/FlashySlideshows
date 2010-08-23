@@ -33,6 +33,10 @@ struct Picture
 
 };
 
+
+extern int OpenGL_is_rendering;
+extern int OpenGL_is_making_textures;
+
 struct Picture * CreatePicture(char * filename);
 int LoadPicture(char * filename,struct Picture * pic);
 int UnLoadPicture(struct Picture * pic);

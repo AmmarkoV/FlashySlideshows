@@ -20,6 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "slideshow.h"
 #include "load_images.h"
 
@@ -31,6 +32,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include <stdlib.h>
+
+int STOP_APPLICATION=0;
+
+void * ManageLoadingPicturesMemory_Thread(void * ptr);
+pthread_t loadpicturesthread_id;
 
 
 struct Picture *album[100];
@@ -44,7 +50,7 @@ float vx=00.0,vy=00.0,vz=00.0;
 float desired_x=00.0,desired_y=00.0,desired_z=00.0,desired_step=1.35;
 float angle_x=0.0,angle_y=0.0,angle_z=180.0,step=0.05;
 double last_load;
-unsigned int frame,time,timebase,fps;
+unsigned int frame,timenow,timebase,fps;
 /* GLUT callback Handlers */
 
 static void resize(int width, int height)
@@ -69,6 +75,8 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 
 void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
 {
+  if ( pic == 0 ) return;
+
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_NORMALIZE);
@@ -128,18 +136,55 @@ void RenderString(float x, float y, void *font, const char* string,float r,float
   glRasterPos2f(x, y);
 
   glutBitmapString(font,(const unsigned char*) string);
+  glColor4f(1.0,1.0,1.0,1.0);
+
+}
+
+
+void * ManageLoadingPicturesMemory_Thread(void * ptr)
+{
+
+  while (!STOP_APPLICATION)
+  {
+   if ( right_picture == loading )  right_picture=CreatePicture((char * )"album/DSC05380.JPG");
+   //if ( main_picture == loading )  main_picture=CreatePicture((char * )"album/DSC00871.JPG");
+   //if ( left_picture == loading ) { left_picture=CreatePicture((char * )"album/DSC01140.JPG"); }
+/*
+
+
+    // loading=CreatePicture((char * )"raw/dali-persistence-of-time.jpg");
+
+   //int i=0;  for (i=0; i<6; i++) { if ( album[i]!=loading ) album[i]=CreatePicture((char * )"album/DSC01114.JPG"); }
+    if ( album[0]==loading ) album[0]=CreatePicture((char * )"album/DSC01114.JPG");
+    if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG");
+    if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG");
+    if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC01515.JPG");
+    if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC01928.JPG");
+    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC02732.JPG");*/
+
+    usleep(100);
+  }
+  return 0;
 }
 
 
 static void display(void)
 {
+  OpenGL_is_rendering = 0;
+  while ( OpenGL_is_making_textures == 1 )
+    {
+       /* WE WAIT IT OUT!*/
+        fprintf(stderr,"Waiting for OpenGL to stop making textures to start rendering\n");
+    }
+  OpenGL_is_rendering = 1;
+
 
 	frame+=1;
-	time=glutGet(GLUT_ELAPSED_TIME);
-	if (time - timebase>1000)
+	timenow=glutGet(GLUT_ELAPSED_TIME);
+	if (timenow - timebase>1000)
 	{
-	    fps = (unsigned int) frame * 1000.0 / (time-timebase) ;
-	 	timebase = time;
+	    fps = (unsigned int) frame * 1000.0 / (timenow-timebase) ;
+	 	timebase = timenow;
 		frame = 0;
 	}
 
@@ -184,7 +229,6 @@ static void display(void)
        glPopMatrix();
 
     glutSwapBuffers();
-    usleep(100);
 
 
     /*
@@ -238,6 +282,11 @@ static void display(void)
   */
    if ( vz<=main_slideshow.distance_block_lower) { vz=main_slideshow.distance_block_lower; desired_z= vz; } /* DO NOT ALLOW ANY CLOSER */
    if ( vz>=main_slideshow.distance_block_upper) { vz=main_slideshow.distance_block_upper; desired_z= vz; } /* DO NOT ALLOW ANY CLOSER */
+
+
+   OpenGL_is_rendering = 0;
+   usleep(100);
+
 }
 
 
@@ -364,22 +413,16 @@ int main(int argc, char *argv[])
 
     InitSlideShow();
 
-    left_picture=CreatePicture((char * )"album/DSC01140.JPG");
-
-    main_picture=CreatePicture((char * )"album/DSC00871.JPG");
-
-    right_picture=CreatePicture((char * )"album/DSC05380.JPG");
-
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
-   // loading=CreatePicture((char * )"raw/dali-persistence-of-time.jpg");
+    left_picture=loading;
+    main_picture=loading;
+    right_picture=loading;
+    int i=0;  for (i=0; i<6; i++) { album[i]=loading; }
 
-    album[0]=CreatePicture((char * )"album/DSC01114.JPG");
-    album[1]=CreatePicture((char * )"album/DSC01367.JPG");
-    album[2]=CreatePicture((char * )"album/DSC01428.JPG");
-    album[3]=CreatePicture((char * )"album/DSC01515.JPG");
-    album[4]=CreatePicture((char * )"album/DSC01928.JPG");
-    album[5]=CreatePicture((char * )"album/DSC02732.JPG");
+    OpenGL_is_rendering = 1; /* <<- WE CONSIDER OPENGL RENDERING TO BLOCK ANY TEXTURE OPERATIONS BEFORE EVERYTHING IS INITIALIZED! */
 
+    //(void*) &param
+    pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
       glutMainLoop();
 
