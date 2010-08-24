@@ -9,8 +9,6 @@
 #define PPMREADBUFLEN 256
 
 struct Picture *loading=0;
-int OpenGL_is_rendering=0;
-int OpenGL_is_making_textures=0;
 
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)

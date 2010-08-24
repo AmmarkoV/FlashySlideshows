@@ -15,11 +15,6 @@ void complain_about_errors()
 int wait_before_making_textures()
 {
     fprintf(stderr,"Trying to wait patiently before making any textures\n");
-    OpenGL_is_making_textures=1;
-    while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for OpenGL to pause rendering to make textures \n"); }
-    OpenGL_is_making_textures=1;
-    usleep(100);
-    while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for display thread to yield \n"); }
     return 1;
 }
 
@@ -71,6 +66,8 @@ int make_texture(struct Picture * picturedata)
               CODE NEEDS FIX SEGFAULTS
          !!!!!!!!!!!!!!!!!!!!!!!!!!!
     */
+
+
      fprintf(stderr,"CREATING ACTUAL TEXTURE \n");
      glPixelStorei(GL_UNPACK_ALIGNMENT,1);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -82,15 +79,15 @@ int make_texture(struct Picture * picturedata)
                                       //3
       picturedata->ready_for_texture=0;
 
-/*
+  /*
     // mip mapping
 	fprintf(stderr,"Setting Linear Filter\n");
 
 	fprintf(stderr,"Building MipMaps\n");
-    gluBuild2DMipmaps is depreceated as a call gluBuild2DMipmaps(GL_TEXTURE_2D,3,picturedata->width,picturedata->height,GL_RGB,GL_UNSIGNED_BYTE,picturedata->rgb_data);
+    gluBuild2DMipmaps is depreceated as a call  gluBuild2DMipmaps(GL_TEXTURE_2D,3,picturedata->width,picturedata->height,GL_RGB,GL_UNSIGNED_BYTE,picturedata->rgb_data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
-*/
+ */
 
 
     complain_about_errors();
@@ -103,7 +100,6 @@ int make_texture(struct Picture * picturedata)
 
     glFlush();
 
-	OpenGL_is_making_textures=0;
     return 1;
 }
 

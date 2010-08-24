@@ -49,7 +49,7 @@ static int stacks = 16;
 unsigned char video_color[640*480*3]={0};
 unsigned char video_depth[640*480*3]={0};
 float vx=00.0,vy=00.0,vz=00.0;
-float desired_x=00.0,desired_y=00.0,desired_z=00.0,desired_step=1.35;
+float desired_x=00.0,desired_y=00.0,desired_z=14.0,desired_step=1.35;
 float angle_x=0.0,angle_y=0.0,angle_z=180.0,step=0.05;
 double last_load;
 unsigned int frame,timenow,timebase,fps;
@@ -166,7 +166,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC01928.JPG");
     if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC02732.JPG");
 
-    usleep(100);
+    usleep(1000);
   }
   return 0;
 }
@@ -187,16 +187,6 @@ void ManageCreatingTextures()
 
 static void display(void)
 {
-  OpenGL_is_rendering = 0;
-  if ( OpenGL_is_making_textures == 1 )
-    {
-       /* WE WAIT IT OUT!*/
-        fprintf(stderr,"Waiting for OpenGL to stop making textures to start rendering\n");
-        return;
-    }
-  OpenGL_is_rendering = 1;
-
-
 	frame+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
 	if (timenow - timebase>1000)
@@ -311,7 +301,6 @@ static void display(void)
 
    ManageCreatingTextures();
 
-   OpenGL_is_rendering = 0;
    usleep(100);
 
 }
@@ -449,7 +438,6 @@ int main(int argc, char *argv[])
     int i=0;  for (i=0; i<6; i++) { album[i]=loading; }
 
 
-    OpenGL_is_rendering = 1; /* <<- WE CONSIDER OPENGL RENDERING TO BLOCK ANY TEXTURE OPERATIONS BEFORE EVERYTHING IS INITIALIZED! */
 
     //(void*) &param
       loadpicturesthread_id=0;
