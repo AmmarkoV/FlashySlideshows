@@ -42,6 +42,8 @@
 		</Linker>
 		<Unit filename="load_images.cpp" />
 		<Unit filename="load_images.h" />
+		<Unit filename="load_textures.cpp" />
+		<Unit filename="load_textures.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="slideshow.cpp" />
 		<Unit filename="slideshow.h" />

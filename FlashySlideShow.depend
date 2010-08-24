@@ -10,7 +10,7 @@
 1282651164 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282653562 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282655780 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -32,7 +32,7 @@
 1282651346 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1282653742 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1282657791 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	<stdlib.h>

@@ -67,8 +67,8 @@ int make_texture(struct Picture * picturedata)
          !!!!!!!!!!!!!!!!!!!!!!!!!!!
     */
 
-
-     fprintf(stderr,"CREATING ACTUAL TEXTURE \n");
+/*
+     fprintf(stderr,"CREATING ACTUAL SIMPLE TEXTURE \n");
      glPixelStorei(GL_UNPACK_ALIGNMENT,1);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -77,10 +77,20 @@ int make_texture(struct Picture * picturedata)
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
                                       //3
-      picturedata->ready_for_texture=0;
+*/
+
+
+      glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE, (const GLvoid *) picturedata->rgb_data);
+
 
   /*
-    // mip mapping
+    // mip mapping OLD CODE
 	fprintf(stderr,"Setting Linear Filter\n");
 
 	fprintf(stderr,"Building MipMaps\n");
@@ -89,6 +99,8 @@ int make_texture(struct Picture * picturedata)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
  */
 
+
+    picturedata->ready_for_texture=0;
 
     complain_about_errors();
 

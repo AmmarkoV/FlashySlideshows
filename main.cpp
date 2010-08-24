@@ -42,7 +42,6 @@ pthread_t loadpicturesthread_id;
 
 
 struct Picture *album[100];
-struct Picture *left_picture,*main_picture,*right_picture;
 
 static int slices = 16;
 static int stacks = 16;
@@ -150,23 +149,17 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
   while (!STOP_APPLICATION)
   {
-   if ( main_picture == loading )  main_picture=CreatePicture((char * )"album/DSC00871.JPG");
-   if ( right_picture == loading )  right_picture=CreatePicture((char * )"album/DSC05380.JPG");
-   if ( left_picture == loading ) { left_picture=CreatePicture((char * )"album/DSC01140.JPG"); }
+    if ( album[0]==loading ) album[0]=CreatePicture((char * )"album/DSC01114.JPG"); else
+    if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG"); else
+    if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG"); else
+    if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC00871.JPG"); else
+    if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC05380.JPG"); else
+    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC01140.JPG"); else
+    if ( album[6]==loading ) album[6]=CreatePicture((char * )"album/DSC01515.JPG"); else
+    if ( album[7]==loading ) album[7]=CreatePicture((char * )"album/DSC01928.JPG"); else
+    if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");
 
-
-
-    // loading=CreatePicture((char * )"raw/dali-persistence-of-time.jpg");
-
-   //int i=0;  for (i=0; i<6; i++) { if ( album[i]!=loading ) album[i]=CreatePicture((char * )"album/DSC01114.JPG"); }
-    if ( album[0]==loading ) album[0]=CreatePicture((char * )"album/DSC01114.JPG");
-    if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG");
-    if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG");
-    if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC01515.JPG");
-    if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC01928.JPG");
-    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC02732.JPG");
-
-    usleep(1000);
+    usleep(200000);
   }
   return 0;
 }
@@ -174,15 +167,15 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
 void ManageCreatingTextures()
 {
-  if ( PictureLoadedOpenGLTexturePending(main_picture) ) { make_texture(main_picture); } else
-  if ( PictureLoadedOpenGLTexturePending(right_picture) ) { make_texture(right_picture); } else
-  if ( PictureLoadedOpenGLTexturePending(left_picture) ) { make_texture(left_picture); }else
   if ( PictureLoadedOpenGLTexturePending(album[0]) ) { make_texture(album[0]); } else
   if ( PictureLoadedOpenGLTexturePending(album[1]) ) { make_texture(album[1]); } else
   if ( PictureLoadedOpenGLTexturePending(album[2]) ) { make_texture(album[2]); } else
   if ( PictureLoadedOpenGLTexturePending(album[3]) ) { make_texture(album[3]); } else
   if ( PictureLoadedOpenGLTexturePending(album[4]) ) { make_texture(album[4]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { make_texture(album[5]); }
+  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { make_texture(album[5]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { make_texture(album[6]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { make_texture(album[7]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { make_texture(album[8]); }
 }
 
 static void display(void)
@@ -225,16 +218,16 @@ static void display(void)
               DisplayPicture(album[1],0,-6,0,0,0,0);
               DisplayPicture(album[2],7,-6,0,0,0,0);
 
-              DisplayPicture(left_picture,-7,0,0,0,0,0);
-              DisplayPicture(main_picture,0,0,0,0,0,0);
-              DisplayPicture(right_picture,7,0,0,0,0,0);
+              DisplayPicture(album[3],-7,0,0,0,0,0);
+              DisplayPicture(album[4],0,0,0,0,0,0);
+              DisplayPicture(album[5],7,0,0,0,0,0);
               DisplayPicture(loading,14,0,0,0,0,0);
 
 
 
-              DisplayPicture(album[3],-7,6,0,0,0,0);
-              DisplayPicture(album[4],0,6,0,0,0,0);
-              DisplayPicture(album[5],7,6,0,0,0,0);
+              DisplayPicture(album[6],-7,6,0,0,0,0);
+              DisplayPicture(album[7],0,6,0,0,0,0);
+              DisplayPicture(album[8],7,6,0,0,0,0);
 
 
           glTranslatef(vx,vy,vz);
@@ -301,7 +294,7 @@ static void display(void)
 
    ManageCreatingTextures();
 
-   usleep(100);
+   usleep(10);
 
 }
 
@@ -389,7 +382,7 @@ int main(int argc, char *argv[])
 
 
     glutInit(&argc, argv);
-    glutInitWindowSize(800,600);
+    glutInitWindowSize(1024,768);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
@@ -430,12 +423,8 @@ int main(int argc, char *argv[])
     InitSlideShow();
 
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
-    //left_picture=CreatePicture((char * )"album/philosoraptor.jpg");
 
-    left_picture=loading;
-    main_picture=loading;
-    right_picture=loading;
-    int i=0;  for (i=0; i<6; i++) { album[i]=loading; }
+    int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
 
 
 
