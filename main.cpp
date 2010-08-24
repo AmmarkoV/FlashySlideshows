@@ -321,7 +321,7 @@ static void key(unsigned char key, int x, int y)
         //case GLUT_KEY_RIGHT : desired_x-=desired_step; break;
         //case GLUT_KEY_DOWN : desired_y+=desired_step; break;
         //case GLUT_KEY_UP : desired_y-=desired_step; break;
-        case 'o': desired_x=0; desired_y=0; desired_z=0; break;
+        case 'o': desired_x=0; desired_y=0; desired_z=0; angle_x=0; angle_y=0; angle_z=180; break;
 
         case 'r': desired_z+=desired_step; break;
         case 'f': desired_z-=desired_step; break;
