@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1282565678 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1282615421 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<unistd.h>
 
-1282562673 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1282614529 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282565869 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282616348 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -19,6 +19,7 @@
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
+	<GL/glu.h>
 	<stdlib.h>
 
 1282392740 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp

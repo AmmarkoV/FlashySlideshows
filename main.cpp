@@ -29,6 +29,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #else
 #include <GL/glut.h>
 #include <GL/freeglut.h>
+#include <GL/glu.h>
 #endif
 
 #include <stdlib.h>
@@ -145,7 +146,7 @@ void RenderString(float x, float y, void *font, const char* string,float r,float
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
-  while ( frame < 1000)
+  while ( frame < 2000)
    {
        /* WAIT FOR SOME TIME BEFORE STARTING  / DEBUGING REASONS*/
    }
@@ -176,6 +177,14 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
 static void display(void)
 {
+  OpenGL_is_rendering = 0;
+  if ( OpenGL_is_making_textures == 1 )
+    {
+       /* WE WAIT IT OUT!*/
+        fprintf(stderr,"Waiting for OpenGL to stop making textures to start rendering\n");
+        return;
+    }
+  OpenGL_is_rendering = 1;
 
 	frame+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
@@ -207,14 +216,9 @@ static void display(void)
 
                  RenderString(-0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24,fps_string,1,1,0);
 
-             OpenGL_is_rendering = 0;
-  if ( OpenGL_is_making_textures == 1 )
-    {
-       /* WE WAIT IT OUT!*/
-        fprintf(stderr,"Waiting for OpenGL to stop making textures to start rendering\n");
-    } else
-    {
-  OpenGL_is_rendering = 1;
+
+
+
               DisplayPicture(album[0],-7,-6,0,0,0,0);
               DisplayPicture(album[1],0,-6,0,0,0,0);
               DisplayPicture(album[2],7,-6,0,0,0,0);
@@ -229,8 +233,8 @@ static void display(void)
               DisplayPicture(album[3],-7,6,0,0,0,0);
               DisplayPicture(album[4],0,6,0,0,0,0);
               DisplayPicture(album[5],7,6,0,0,0,0);
-    OpenGL_is_rendering = 0;
-    }
+
+
           glTranslatef(vx,vy,vz);
        glPopMatrix();
 
@@ -420,6 +424,7 @@ int main(int argc, char *argv[])
     InitSlideShow();
 
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
+    //left_picture=CreatePicture((char * )"album/philosoraptor.jpg");
 
     left_picture=loading;
     main_picture=loading;
@@ -427,11 +432,11 @@ int main(int argc, char *argv[])
     int i=0;  for (i=0; i<6; i++) { album[i]=loading; }
 
 
-
     OpenGL_is_rendering = 1; /* <<- WE CONSIDER OPENGL RENDERING TO BLOCK ANY TEXTURE OPERATIONS BEFORE EVERYTHING IS INITIALIZED! */
 
     //(void*) &param
-    pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
+      loadpicturesthread_id=0;
+      pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
       glutMainLoop();
 

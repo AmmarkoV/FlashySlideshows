@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+
+
+
 #define PPMREADBUFLEN 256
 
 int OpenGL_is_rendering=0;
@@ -113,7 +116,7 @@ int wait_before_making_textures()
     fprintf(stderr,"Trying to wait patiently before making any textures\n");
     OpenGL_is_making_textures=1;
     while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for OpenGL to pause rendering to make textures \n"); }
-  //  OpenGL_is_making_textures=1;
+    OpenGL_is_making_textures=1;
     usleep(100);
     while ( OpenGL_is_rendering == 1 ) { fprintf(stderr,"Waiting for display thread to yield \n"); }
     return 1;
@@ -160,15 +163,22 @@ int make_texture(struct Picture * picturedata)
               CODE NEEDS FIX SEGFAULTS
          !!!!!!!!!!!!!!!!!!!!!!!!!!!
     */
-
-
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
+                                      //3
+/*
     // mip mapping
 	fprintf(stderr,"Setting Linear Filter\n");
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
 
 	fprintf(stderr,"Building MipMaps\n");
-    gluBuild2DMipmaps(GL_TEXTURE_2D,4,picturedata->width,picturedata->height,GL_RGB,GL_UNSIGNED_BYTE,picturedata->rgb_data);
+    gluBuild2DMipmaps is depreceated as a call gluBuild2DMipmaps(GL_TEXTURE_2D,3,picturedata->width,picturedata->height,GL_RGB,GL_UNSIGNED_BYTE,picturedata->rgb_data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+*/
+
 
     complain_about_errors();
 
