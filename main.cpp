@@ -23,6 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <pthread.h>
 #include "slideshow.h"
 #include "load_images.h"
+#include "load_textures.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -41,7 +42,7 @@ pthread_t loadpicturesthread_id;
 
 
 struct Picture *album[100];
-struct Picture *loading,*left_picture,*main_picture,*right_picture;
+struct Picture *left_picture,*main_picture,*right_picture;
 
 static int slices = 16;
 static int stacks = 16;
@@ -146,17 +147,13 @@ void RenderString(float x, float y, void *font, const char* string,float r,float
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
-  while ( frame < 2000)
-   {
-       /* WAIT FOR SOME TIME BEFORE STARTING  / DEBUGING REASONS*/
-   }
 
   while (!STOP_APPLICATION)
   {
    if ( main_picture == loading )  main_picture=CreatePicture((char * )"album/DSC00871.JPG");
-   //if ( right_picture == loading )  right_picture=CreatePicture((char * )"album/DSC05380.JPG");
-   //if ( left_picture == loading ) { left_picture=CreatePicture((char * )"album/DSC01140.JPG"); }
-/*
+   if ( right_picture == loading )  right_picture=CreatePicture((char * )"album/DSC05380.JPG");
+   if ( left_picture == loading ) { left_picture=CreatePicture((char * )"album/DSC01140.JPG"); }
+
 
 
     // loading=CreatePicture((char * )"raw/dali-persistence-of-time.jpg");
@@ -167,13 +164,26 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG");
     if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC01515.JPG");
     if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC01928.JPG");
-    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC02732.JPG");*/
+    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC02732.JPG");
 
     usleep(100);
   }
   return 0;
 }
 
+
+void ManageCreatingTextures()
+{
+  if ( PictureLoadedOpenGLTexturePending(main_picture) ) { make_texture(main_picture); } else
+  if ( PictureLoadedOpenGLTexturePending(right_picture) ) { make_texture(right_picture); } else
+  if ( PictureLoadedOpenGLTexturePending(left_picture) ) { make_texture(left_picture); }else
+  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { make_texture(album[0]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { make_texture(album[1]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { make_texture(album[2]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { make_texture(album[3]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { make_texture(album[4]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { make_texture(album[5]); }
+}
 
 static void display(void)
 {
@@ -186,6 +196,7 @@ static void display(void)
     }
   OpenGL_is_rendering = 1;
 
+
 	frame+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
 	if (timenow - timebase>1000)
@@ -197,6 +208,7 @@ static void display(void)
 
    char fps_string[40]={0};
    sprintf(fps_string,"Rendering Speed : %u fps",fps);
+
 
 
 
@@ -293,6 +305,11 @@ static void display(void)
    if ( vz<=main_slideshow.distance_block_lower) { vz=main_slideshow.distance_block_lower; desired_z= vz; } /* DO NOT ALLOW ANY CLOSER */
    if ( vz>=main_slideshow.distance_block_upper) { vz=main_slideshow.distance_block_upper; desired_z= vz; } /* DO NOT ALLOW ANY CLOSER */
 
+
+   glFlush();
+
+
+   ManageCreatingTextures();
 
    OpenGL_is_rendering = 0;
    usleep(100);

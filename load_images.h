@@ -3,6 +3,7 @@
 
 #include <GL/glu.h>
 
+
 #define OVERFLOW_GUARD_BYTES 10101001
 
 struct Position3D
@@ -17,6 +18,7 @@ struct Picture
   unsigned int width;
   unsigned int depth;
 
+  unsigned int ready_for_texture;
   GLuint gl_rgb_texture;
 
   unsigned int time_viewed;
@@ -33,6 +35,7 @@ struct Picture
 
 };
 
+extern struct Picture *loading;
 extern int OpenGL_is_rendering;
 extern int OpenGL_is_making_textures;
 
