@@ -66,6 +66,8 @@ unsigned char video_depth[640*480*3]={0};
 
 unsigned int framecount,timenow,timebase,fps;
 
+void ToggleFullscreen();
+
 /* GLUT callback Handlers */
 static void resize(int width, int height)
 {
@@ -201,12 +203,10 @@ static void display(void)
       PerformCameraStep();
 
 
-
    ManageCreatingTextures(0);
    usleep(10);
 
 }
-
 
 
 // Method to handle the mouse motion
@@ -220,7 +220,6 @@ void Motion(int x, int y)
 
 
 // Method to handle the mouse buttons
-         //
 void Mouse( int button,int state, int x, int y)
 {
 
@@ -236,6 +235,7 @@ void Mouse( int button,int state, int x, int y)
 static void key(unsigned char key, int x, int y)
 {
   if (key=='q') exit(0);
+  //else if (key=='j') ToggleFullscreen();
   unsigned int nokey=0;
 
 
@@ -271,13 +271,47 @@ void SpecialFunction (int key, int x, int y)
 }
 
 
-
-
-
 static void idle(void)
 {
     glutPostRedisplay();
 }
+
+
+void InitGlut()
+{
+    glutReshapeFunc(resize);
+    glutMouseFunc ( Mouse );
+    glutPassiveMotionFunc( Motion );
+    glutDisplayFunc(display);
+    glutKeyboardFunc(key);
+    glutSpecialFunc( SpecialFunction);
+    glutIdleFunc(idle);
+
+}
+
+void ToggleFullscreen()
+{
+   if ( frame.fullscreen == 0 )
+    {
+      if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  glutEnterGameMode(); else
+                                                     fprintf(stderr,"Cannot enter fullscreen\n");
+
+      glutGameModeString("1024x768:32");
+      InitGlut();
+      frame.fullscreen=1;
+
+      /* TODO : ADD STATE RELOADING HERE */
+
+      glutMainLoop();
+    } else
+   if ( frame.fullscreen == 1 )
+    {
+      glutLeaveGameMode();
+      frame.fullscreen=0;
+    }
+
+}
+
 
 /* Program entry point */
 
@@ -292,13 +326,7 @@ int main(int argc, char *argv[])
 
     glutCreateWindow(APP_VERSION_STRING);
 
-    glutReshapeFunc(resize);
-    glutMouseFunc ( Mouse );
-    glutPassiveMotionFunc( Motion );
-    glutDisplayFunc(display);
-    glutKeyboardFunc(key);
-    glutSpecialFunc( SpecialFunction);
-    glutIdleFunc(idle);
+    InitGlut();
 
     glClearColor(1,1,1,1);
     //glEnable(GL_CULL_FACE);

@@ -1,6 +1,18 @@
 #include "slideshow.h"
 #include "camera_control.h"
 
+#include <stdlib.h>
+#include <stdio.h>
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+#include <GL/glu.h>
+#endif
+
+
 
 void SetDestinationCenter()
 {

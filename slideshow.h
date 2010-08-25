@@ -10,6 +10,7 @@ struct SlideShowData
   unsigned int lookahead;
   unsigned int max_memory_commited;
 
+  unsigned int fullscreen;
   unsigned int currently_loading;
 
   unsigned int time_before_next_slide;
