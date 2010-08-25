@@ -111,7 +111,8 @@ int LoadPicture(char * filename,struct Picture * pic)
   sprintf(pic->ppm_filename,"%s.ppm",filename);
 
   /* COMMAND LINE CONVERSION OF FILE TO PPM */
-  sprintf(command,"convert %s %s",filename,pic->ppm_filename);
+   //
+  sprintf(command,"convert %s -resize 50%% %s",filename,pic->ppm_filename);
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);
   ReadPPM(pic->ppm_filename,pic);

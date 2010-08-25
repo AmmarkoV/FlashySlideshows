@@ -1,28 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="8">
-		<Cursor position="90" topLine="0" />
+	<File name="camera_control.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="211" topLine="0" />
 	</File>
-	<File name="load_images.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="103" topLine="0" />
+	<File name="camera_control.h" open="1" top="0" tabpos="13">
+		<Cursor position="70" topLine="0" />
 	</File>
-	<File name="load_images.h" open="1" top="0" tabpos="4">
+	<File name="controls.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="2356" topLine="55" />
+	</File>
+	<File name="controls.h" open="1" top="0" tabpos="11">
+		<Cursor position="27" topLine="0" />
+	</File>
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="385" topLine="4" />
+	</File>
+	<File name="directory_listing.h" open="1" top="0" tabpos="16">
+		<Cursor position="108" topLine="0" />
+	</File>
+	<File name="load_images.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="3423" topLine="99" />
+	</File>
+	<File name="load_images.h" open="1" top="0" tabpos="5">
 		<Cursor position="293" topLine="6" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="3181" topLine="0" />
+		<Cursor position="3591" topLine="58" />
+	</File>
+	<File name="load_textures.h" open="1" top="0" tabpos="3">
+		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1075" topLine="474" />
+		<Cursor position="7048" topLine="144" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="60" topLine="0" />
+	<File name="slideshow.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="869" topLine="9" />
 	</File>
-	<File name="slideshow.h" open="1" top="0" tabpos="6">
-		<Cursor position="462" topLine="0" />
+	<File name="slideshow.h" open="1" top="0" tabpos="7">
+		<Cursor position="149" topLine="3" />
 	</File>
-	<File name="sound.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="19" topLine="0" />
+	<File name="sound.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="3253" topLine="141" />
+	</File>
+	<File name="visuals.cpp" open="1" top="0" tabpos="14">
+		<Cursor position="247" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

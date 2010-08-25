@@ -1,5 +1,6 @@
 #include "load_textures.h"
 #include "load_images.h"
+#include "slideshow.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -67,7 +68,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     complain_about_errors();
 
 
-  if ( enable_mipmaping == 1 )
+  if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
    {
       /* LOADING TEXTURE --WITH-- MIPMAPING */
       glPixelStorei(GL_UNPACK_ALIGNMENT,1);

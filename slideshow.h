@@ -8,6 +8,7 @@ struct SlideShowData
 {
   unsigned int fps;
   unsigned int lookahead;
+  unsigned int force_mipmap_generation;
   unsigned int max_memory_commited;
 
   unsigned int fullscreen;

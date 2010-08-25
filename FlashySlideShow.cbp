@@ -42,6 +42,10 @@
 			<Add library="alut" />
 			<Add directory="usr/lib" />
 		</Linker>
+		<Unit filename="camera_control.cpp" />
+		<Unit filename="camera_control.h" />
+		<Unit filename="controls.cpp" />
+		<Unit filename="controls.h" />
 		<Unit filename="directory_listing.cpp" />
 		<Unit filename="directory_listing.h" />
 		<Unit filename="load_images.cpp" />
@@ -53,6 +57,8 @@
 		<Unit filename="slideshow.h" />
 		<Unit filename="sound.cpp" />
 		<Unit filename="sound.h" />
+		<Unit filename="visuals.cpp" />
+		<Unit filename="visuals.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

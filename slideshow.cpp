@@ -39,6 +39,7 @@ void InitSlideShow()
 
    frame.total_images=0;
    frame.fullscreen=0;
+   frame.force_mipmap_generation = 0;
 
    frame.active_image_x=1;
    frame.active_image_y=1;
