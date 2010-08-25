@@ -6,15 +6,18 @@
 
 struct SlideShowData
 {
+  unsigned int tick_count;
   unsigned int fps;
   unsigned int lookahead;
   unsigned int force_mipmap_generation;
   unsigned int max_memory_commited;
 
   unsigned int fullscreen;
+  unsigned int automatic_slideshow_on;
   unsigned int currently_loading;
 
-  unsigned int time_before_next_slide;
+  unsigned int time_ms_before_last_slide_change;
+  unsigned int time_ms_between_two_transitions;
   unsigned int next_transition;
 
    unsigned int pictures_number;
@@ -41,5 +44,9 @@ extern struct SlideShowData frame;
 void InitSlideShow();
 
 void ToggleAutomaticSlideshow();
+
+void AutomaticSlideShowControl_if_needed();
+
+void TriggerEndOfSlideShow();
 
 #endif // SLIDESHOW_H_INCLUDED

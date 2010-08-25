@@ -61,11 +61,12 @@ void SetDestinationOverNextPicture()
     new_active_picture = new_active_x+new_active_y*frame.images_per_line;
 
     if ( new_active_picture >= frame.total_images ) { /* WE PASSED THE LAST ACTIVE PICTURE SO THERE ACTUALY ISN`t A NEXT PICTURE! */
-                                                          // TODO ADD STOPPING SLIDESHOW INFO
+                                                      TriggerEndOfSlideShow();
                                                     } else
     if ( new_active_picture == frame.active_image_place )
                                                     {
                                                       /* Weirdly no change was made to the image this is a bug ? Should stop slide show */
+                                                      TriggerEndOfSlideShow();
                                                     } else
                                                     {
                                                        /*There is a next picture :) , we`re gonna change to it*/

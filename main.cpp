@@ -135,6 +135,7 @@ static void display(void)
 {
 	framecount+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
+	frame.tick_count=timenow; // <- Slideshow triggering
 	if (timenow - timebase>1000)
 	{
 	    fps = (unsigned int) framecount * 1000.0 / (timenow-timebase) ;
@@ -143,6 +144,7 @@ static void display(void)
 		framecount = 0;
 	}
 
+   AutomaticSlideShowControl_if_needed();
 
    if (ManageCreatingTextures(1)>0)  { frame.currently_loading=1; } else
                                      { frame.currently_loading=0; }

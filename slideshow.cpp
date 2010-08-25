@@ -19,6 +19,10 @@ void InitSlideShow()
 
    frame.images_per_line=3;
 
+   frame.automatic_slideshow_on=0;
+   frame.time_ms_before_last_slide_change=0;
+   frame.time_ms_between_two_transitions=5000;
+
    frame.active_image_x=2;  frame.active_image_y=2;
    frame.active_image_place=4;
 
@@ -46,8 +50,41 @@ void InitSlideShow()
    frame.active_image_place=4;
 }
 
+void TriggerEndOfSlideShow()
+{
+    if ( frame.automatic_slideshow_on==1 )
+      {
+          frame.automatic_slideshow_on=0;
+      }
+}
+
+void TriggerNextPictureSlideShow()
+{
+    SetDestinationOverNextPicture();
+    frame.time_ms_before_last_slide_change=frame.tick_count;
+}
+
 void ToggleAutomaticSlideshow()
 {
-     SetDestinationOverNextPicture();
+     if ( frame.automatic_slideshow_on==0 )
+      {
+          SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
+          frame.time_ms_before_last_slide_change=frame.tick_count;
+          frame.automatic_slideshow_on=1;
+      } else
+      {
+          frame.automatic_slideshow_on=0;
+      }
+}
+
+void AutomaticSlideShowControl_if_needed()
+{
+  if ( frame.automatic_slideshow_on==0 ) { return; }
+
+
+     if ( frame.tick_count-frame.time_ms_before_last_slide_change > frame.time_ms_between_two_transitions )
+       {
+         TriggerNextPictureSlideShow();
+       }
 }
 
