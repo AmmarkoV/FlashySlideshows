@@ -28,7 +28,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
 
   frame.desired_x=vx;
   frame.desired_y=vy;
-  frame.desired_z=0;
+  frame.desired_z=-1.0;
 }
 
 
