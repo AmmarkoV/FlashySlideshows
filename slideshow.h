@@ -40,4 +40,6 @@ extern struct SlideShowData frame;
 
 void InitSlideShow();
 
+void ToggleAutomaticSlideshow();
+
 #endif // SLIDESHOW_H_INCLUDED

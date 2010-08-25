@@ -114,15 +114,15 @@ int ManageCreatingTextures(int count_only)
 {
   int count=0;
 
-  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[0],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[1],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[2],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[3],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[4],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[5],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[6],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[7],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[8],0); }
+  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { ++count;  if(!count_only) make_texture(album[0],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count;  if(!count_only) make_texture(album[1],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count;  if(!count_only) make_texture(album[2],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count;  if(!count_only) make_texture(album[3],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { ++count;  if(!count_only) make_texture(album[4],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count;  if(!count_only) make_texture(album[5],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count;  if(!count_only) make_texture(album[6],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count;  if(!count_only) make_texture(album[7],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count;  if(!count_only) make_texture(album[8],0); }
 
 
   return count;
@@ -237,7 +237,6 @@ static void key(unsigned char key, int x, int y)
   if (key=='q') exit(0);
   //else if (key=='j') ToggleFullscreen();
   unsigned int nokey=0;
-
 
   nokey=Controls_Handle_Keyboard(key,x,y);
   if ( nokey == 0 )
@@ -356,6 +355,7 @@ int main(int argc, char *argv[])
 
     StartSoundLibrary(); //Kanoume Initialize to OpenAL :)
     InitSlideShow();
+    frame.total_images=9;
 
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
 

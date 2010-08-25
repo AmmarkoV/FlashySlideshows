@@ -1,4 +1,5 @@
 #include "slideshow.h"
+#include "camera_control.h"
 
 struct SlideShowData frame;
 
@@ -32,7 +33,6 @@ void InitSlideShow()
 
    frame.currently_loading=0;
 
-
    frame.vx=00.0;
    frame.vy=00.0;
    frame.vz=00.0;
@@ -45,3 +45,9 @@ void InitSlideShow()
    frame.active_image_y=1;
    frame.active_image_place=4;
 }
+
+void ToggleAutomaticSlideshow()
+{
+     SetDestinationOverNextPicture();
+}
+

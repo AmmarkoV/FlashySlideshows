@@ -58,7 +58,9 @@ int MoveToPicture(int direction)
       fprintf(stderr,"Changing destination\n");
       frame.active_image_place=current_active_picture;
       SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
+      return 1;
     }
+   return 0;
 }
 
 
@@ -75,6 +77,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 2 : /* DOWN */ MoveToPicture(2); break;
         case 3 : /* LEFT */ MoveToPicture(3); break;
         case 4 : /* RIGHT */ MoveToPicture(4); break;
+
+
+        case 13 : /* ENTER */ ToggleAutomaticSlideshow(); break;
+
         case 'o': SetDestinationCenter();
                   break;
 

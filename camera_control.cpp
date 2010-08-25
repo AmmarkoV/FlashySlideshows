@@ -43,6 +43,40 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
   frame.desired_z=-1.0;
 }
 
+void SetDestinationOverNextPicture()
+{
+   unsigned int new_active_x=frame.active_image_x;
+   unsigned int new_active_y=frame.active_image_y;
+   unsigned int new_active_picture=frame.active_image_place;
+
+   if ( new_active_x>=frame.images_per_line-1 )
+    {
+      new_active_x=0;
+      ++new_active_y;
+    } else
+    {
+      ++new_active_x;
+    }
+
+    new_active_picture = new_active_x+new_active_y*frame.images_per_line;
+
+    if ( new_active_picture >= frame.total_images ) { /* WE PASSED THE LAST ACTIVE PICTURE SO THERE ACTUALY ISN`t A NEXT PICTURE! */
+                                                          // TODO ADD STOPPING SLIDESHOW INFO
+                                                    } else
+    if ( new_active_picture == frame.active_image_place )
+                                                    {
+                                                      /* Weirdly no change was made to the image this is a bug ? Should stop slide show */
+                                                    } else
+                                                    {
+                                                       /*There is a next picture :) , we`re gonna change to it*/
+                                                       fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture, frame.total_images);
+
+                                                       frame.active_image_x=new_active_x;
+                                                       frame.active_image_y=new_active_y;
+                                                       frame.active_image_place=new_active_picture;
+                                                       SetDestinationOverPicture(new_active_x,new_active_y);
+                                                    }
+}
 
 void PerformCameraStep()
 {

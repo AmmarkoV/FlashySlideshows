@@ -10,7 +10,7 @@
 // Maximum data buffers we will need.
 #define NUM_BUFFERS 200
 // Maximum emissions we will need.
-#define NUM_SOURCES 12
+#define NUM_SOURCES 16
 
 
 
@@ -159,7 +159,7 @@ void StartSoundLibrary()
 
 void SoundLibrary_PlaySound(unsigned int num)
 {
-   if (num<total_loaded_buffers) { alSourcePlay(Sources[num]); }
+   if (num<total_loaded_buffers) { alSourcePlay(Sources[num]);}
 }
 
 void SoundLibrary_LoopSound(unsigned int num)
