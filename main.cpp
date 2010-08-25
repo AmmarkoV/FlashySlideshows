@@ -24,6 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "slideshow.h"
 #include "load_images.h"
 #include "load_textures.h"
+#include "sound.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -35,6 +36,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
+char APP_VERSION_STRING[50]="FlashySlideShow ver 0.1 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr);
@@ -74,6 +76,45 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 }
 
 
+void * ManageLoadingPicturesMemory_Thread(void * ptr)
+{
+
+  while (!STOP_APPLICATION)
+  {
+    if ( album[0]==loading ) album[0]=CreatePicture((char * )"album/DSC01114.JPG"); else
+    if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG"); else
+    if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG"); else
+    if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC00871.JPG"); else
+    if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC05380.JPG"); else
+    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC01140.JPG"); else
+    if ( album[6]==loading ) album[6]=CreatePicture((char * )"album/DSC01515.JPG"); else
+    if ( album[7]==loading ) album[7]=CreatePicture((char * )"album/DSC01928.JPG"); else
+    if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");
+
+    usleep(10000);
+  }
+  return 0;
+}
+
+
+int ManageCreatingTextures(int count_only)
+{
+  int count=0;
+
+  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { ++count; if(!count_only) make_texture(album[0]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count; if(!count_only) make_texture(album[1]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count; if(!count_only) make_texture(album[2]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count; if(!count_only) make_texture(album[3]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { ++count; if(!count_only) make_texture(album[4]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count; if(!count_only) make_texture(album[5]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count; if(!count_only) make_texture(album[6]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count; if(!count_only) make_texture(album[7]); } else
+  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count; if(!count_only) make_texture(album[8]); }
+
+
+  return count;
+}
+
 void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
 {
   if ( pic == 0 ) return;
@@ -87,9 +128,6 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 ) { glRotated(pitch,1.0,0.0,0.0); }
 
- // glEnable(GL_BLEND);
- // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-  // glColor4f(0.5,0.5,0.5,1.0);
 
   glDisable(GL_CULL_FACE);
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
@@ -131,12 +169,88 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
   glPopMatrix();
   return;
 }
+void setOrthographicProjection() {
 
-void RenderString(float x, float y, void *font, const char* string,float r,float g,float b)
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+	// save previous matrix which contains the
+	//settings for the perspective projection
+	glPushMatrix();
+	// reset matrix
+	glLoadIdentity();
+	// set a 2D orthographic projection
+	gluOrtho2D(0, 1024, 0, 768);
+	// invert the y axis, down is positive
+	//glScalef(1, -1, 1);
+	// mover the origin from the bottom left corner
+	// to the upper left corner
+	glTranslatef(0,0, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+}
+
+
+
+void resetPerspectiveProjection()
+{
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
+	glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
+}
+
+void DisplayHUD()
+{
+ setOrthographicProjection();
+ glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+   glBegin(GL_QUADS);
+    glColor4f(0.9,0.9,0.9,0.9);
+
+    glVertex2f(0,50);	// Bottom Left Of The Texture and Quad
+    glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
+    glVertex2f(1024,0);	// Top Right Of The Texture and Quad
+    glVertex2f(0,0);
+   glEnd();
+ glDisable(GL_BLEND);
+
+      glColor3f(1,0.0,0.0);
+      glRasterPos2f(0,0);
+
+      glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) APP_VERSION_STRING);
+
+       if (ManageCreatingTextures(1)>0)
+       {
+         PlaySound("sounds/pop.wav");
+         glRasterPos2f(0,20);
+         glColor3f(1.0,0.0,0.0);
+         glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE MIPMAPS");
+        }
+
+      char fps_string[40]={0};
+      sprintf(fps_string,"Rendering Speed : %u fps",fps);
+      glColor3f(1.0,1.0,0.0);
+      glRasterPos2f(700,10);
+      glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
+
+
+ glColor4f(1.0,1.0,1.0,1.0);
+ resetPerspectiveProjection();
+}
+
+
+void RenderString(float x, float y,float z, void *font, const char* string,float r,float g,float b)
 {
 
   glColor3f(r,g,b);
-  glRasterPos2f(x, y);
+  glRasterPos3f(x,y,z);
 
   glutBitmapString(font,(const unsigned char*) string);
   glColor4f(1.0,1.0,1.0,1.0);
@@ -144,39 +258,6 @@ void RenderString(float x, float y, void *font, const char* string,float r,float
 }
 
 
-void * ManageLoadingPicturesMemory_Thread(void * ptr)
-{
-
-  while (!STOP_APPLICATION)
-  {
-    if ( album[0]==loading ) album[0]=CreatePicture((char * )"album/DSC01114.JPG"); else
-    if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG"); else
-    if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG"); else
-    if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC00871.JPG"); else
-    if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC05380.JPG"); else
-    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC01140.JPG"); else
-    if ( album[6]==loading ) album[6]=CreatePicture((char * )"album/DSC01515.JPG"); else
-    if ( album[7]==loading ) album[7]=CreatePicture((char * )"album/DSC01928.JPG"); else
-    if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");
-
-    usleep(200000);
-  }
-  return 0;
-}
-
-
-void ManageCreatingTextures()
-{
-  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { make_texture(album[0]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { make_texture(album[1]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { make_texture(album[2]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { make_texture(album[3]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { make_texture(album[4]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { make_texture(album[5]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { make_texture(album[6]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { make_texture(album[7]); } else
-  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { make_texture(album[8]); }
-}
 
 static void display(void)
 {
@@ -189,8 +270,7 @@ static void display(void)
 		frame = 0;
 	}
 
-   char fps_string[40]={0};
-   sprintf(fps_string,"Rendering Speed : %u fps",fps);
+
 
 
 
@@ -209,10 +289,6 @@ static void display(void)
 
           glTranslatef(-vx, -vy, -vz);
 
-                 RenderString(-0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24,fps_string,1,1,0);
-
-
-
 
               DisplayPicture(album[0],-7,-6,0,0,0,0);
               DisplayPicture(album[1],0,-6,0,0,0,0);
@@ -230,8 +306,22 @@ static void display(void)
               DisplayPicture(album[8],7,6,0,0,0,0);
 
 
+
           glTranslatef(vx,vy,vz);
        glPopMatrix();
+
+
+
+
+
+   /* DRAW APPLICATION HUD */
+       if ( main_slideshow.distance_barrier_after_considered_close<desired_z )
+        {
+          /* Display HUD only if not zoomed */
+          DisplayHUD();
+        }
+   /* -  -  -  -  -  -  -  */
+
 
     glutSwapBuffers();
 
@@ -291,8 +381,7 @@ static void display(void)
 
    glFlush();
 
-
-   ManageCreatingTextures();
+   ManageCreatingTextures(0);
 
    usleep(10);
 
