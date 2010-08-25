@@ -1,0 +1,6 @@
+#ifndef CAMERA_CONTROL_H_INCLUDED
+#define CAMERA_CONTROL_H_INCLUDED
+
+void PerformCameraStep();
+
+#endif // CAMERA_CONTROL_H_INCLUDED

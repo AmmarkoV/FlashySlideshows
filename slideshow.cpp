@@ -1,18 +1,39 @@
 #include "slideshow.h"
 
-struct SlideShowData main_slideshow;
+struct SlideShowData frame;
 
 
 void InitSlideShow()
 {
-   main_slideshow.distance_block_upper=20;
-   main_slideshow.distance_block_lower=-4.0;
+   frame.distance_block_upper=20;
+   frame.distance_block_lower=-4.0;
 
-   main_slideshow.distance_barrier_after_considered_zoom=-2;
-   main_slideshow.distance_barrier_after_considered_close=3;
-   main_slideshow.distance_barrier_after_considered_far=5;
+   frame.distance_barrier_after_considered_zoom=-2;
+   frame.distance_barrier_after_considered_close=3;
+   frame.distance_barrier_after_considered_far=5;
 
-   main_slideshow.desired_step_zoom=0.2;
-   main_slideshow.desired_step_close=1;
-   main_slideshow.desired_step_far=5;
+   frame.desired_step_zoom=0.2;
+   frame.desired_step_close=1;
+   frame.desired_step_far=5;
+
+   frame.images_per_line=3;
+
+   frame.active_image_x=2;  frame.active_image_y=2;
+   frame.active_image_place=4;
+
+   frame.desired_x=00.0; frame.desired_y=00.0; frame.desired_z=14.0;
+   frame.desired_step=1.35;
+
+   frame.angle_x=0.0;
+   frame.angle_y=0.0;
+   frame.angle_z=180.0;
+
+   frame.step=0.05;
+
+   frame.currently_loading=0;
+
+
+   frame.vx=00.0;
+   frame.vy=00.0;
+   frame.vz=00.0;
 }

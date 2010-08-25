@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1282653263 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1282730781 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
@@ -10,12 +10,16 @@
 1282651164 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282701951 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282735167 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
 	<pthread.h>
 	"slideshow.h"
+	"visuals.h"
+	"directory_listing.h"
+	"camera_control.h"
+	"controls.h"
 	"load_images.h"
 	"load_textures.h"
 	"sound.h"
@@ -25,15 +29,15 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1282392740 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1282735118 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 
-1282392399 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1282735058 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
-1282651346 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
+1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1282657791 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1282735025 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	<stdlib.h>
@@ -41,7 +45,7 @@
 	<string.h>
 	<unistd.h>
 
-1282702036 source:/home/ammar/Documents/Programming/FlashySlideShow/sound.cpp
+1282702379 source:/home/ammar/Documents/Programming/FlashySlideShow/sound.cpp
 	"sound.h"
 	<stdlib.h>
 	<stdio.h>
@@ -50,5 +54,27 @@
 	<AL/alc.h>
 	<AL/alut.h>
 
-1282701916 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
+1282702370 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
+
+1282702457 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+	"directory_listing.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1282702227 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+
+1282734234 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+	"slideshow.h"
+	"controls.h"
+
+1282733796 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
+
+1282734651 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+	"slideshow.h"
+	"camera_control.h"
+
+1282734560 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
+
+1282734842 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 

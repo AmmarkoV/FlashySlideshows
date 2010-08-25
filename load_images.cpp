@@ -130,7 +130,7 @@ int LoadPicture(char * filename,struct Picture * pic)
   if ( loading != 0 ) { pic->gl_rgb_texture=loading->gl_rgb_texture;
                         pic->ready_for_texture=1;
                       } else
-                      {  make_texture(pic); } // <- STARTING TEXTURE WILL BE CALLED ON MAIN THREAD
+                      {  make_texture(pic,1); } // <- STARTING TEXTURE WILL BE CALLED ON MAIN THREAD
 
   /* MAKE TEXTURE */
   //  make_texture(pic);

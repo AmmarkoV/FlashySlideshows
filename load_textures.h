@@ -3,7 +3,8 @@
 
 #include <GL/glu.h>
 
+
 int PictureLoadedOpenGLTexturePending(struct Picture * picturedata);
-int make_texture(struct Picture * picturedata);
+int make_texture(struct Picture * picturedata,int enable_mipmaping);
 
 #endif // LOAD_TEXTURES_H_INCLUDED

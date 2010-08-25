@@ -6,11 +6,14 @@
 
 struct SlideShowData
 {
-   unsigned int lookahead;
-   unsigned int max_memory_commited;
+  unsigned int fps;
+  unsigned int lookahead;
+  unsigned int max_memory_commited;
 
-   unsigned int time_before_next_slide;
-   unsigned int next_transition;
+  unsigned int currently_loading;
+
+  unsigned int time_before_next_slide;
+  unsigned int next_transition;
 
    unsigned int pictures_number;
    struct Pictures * pictures_data;
@@ -21,10 +24,16 @@ struct SlideShowData
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
 
+  int images_per_line;
+  int active_image_x,active_image_y,active_image_place;
 
+  float desired_x,desired_y,desired_z,desired_step;
+  float angle_x,angle_y,angle_z,step;
+
+  float vx,vy,vz;
 };
 
-extern struct SlideShowData main_slideshow;
+extern struct SlideShowData frame;
 
 void InitSlideShow();
 

@@ -5,6 +5,10 @@
 #include <string.h>
 #include <unistd.h>
 
+
+
+
+
 void complain_about_errors()
 {
   int err=glGetError();
@@ -23,7 +27,7 @@ int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
   return picturedata->ready_for_texture;
 }
 
-int make_texture(struct Picture * picturedata)
+int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
 
    // wait_before_making_textures();
@@ -62,24 +66,10 @@ int make_texture(struct Picture * picturedata)
     picturedata->gl_rgb_texture=new_tex_id;
     complain_about_errors();
 
-    /*   !!!!!!!!!!!!!!!!!!!!!!!!!!!
-              CODE NEEDS FIX SEGFAULTS
-         !!!!!!!!!!!!!!!!!!!!!!!!!!!
-    */
 
-/*
-     fprintf(stderr,"CREATING ACTUAL SIMPLE TEXTURE \n");
-     glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
-                                      //3
-*/
-
-
+  if ( enable_mipmaping == 1 )
+   {
+      /* LOADING TEXTURE --WITH-- MIPMAPING */
       glPixelStorei(GL_UNPACK_ALIGNMENT,1);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -87,17 +77,18 @@ int make_texture(struct Picture * picturedata)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE, (const GLvoid *) picturedata->rgb_data);
+   } else
+   {
+      /* LOADING TEXTURE --WITHOUT-- MIPMAPING - IT IS LOADED RAW*/
+      glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
+   }
 
-
-  /*
-    // mip mapping OLD CODE
-	fprintf(stderr,"Setting Linear Filter\n");
-
-	fprintf(stderr,"Building MipMaps\n");
-    gluBuild2DMipmaps is depreceated as a call  gluBuild2DMipmaps(GL_TEXTURE_2D,3,picturedata->width,picturedata->height,GL_RGB,GL_UNSIGNED_BYTE,picturedata->rgb_data);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
- */
 
 
     picturedata->ready_for_texture=0;
