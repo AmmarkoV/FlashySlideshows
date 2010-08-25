@@ -1,8 +1,48 @@
 #include "slideshow.h"
 #include "camera_control.h"
 
+
+void SetDestinationCenter()
+{
+    frame.desired_x=0;
+    frame.desired_y=0;
+    frame.desired_z=0;
+
+    frame.angle_x=0;
+    frame.angle_y=0;
+    frame.angle_z=180;
+
+}
+
+void SetDestinationOverPicture(unsigned int x,unsigned int y)
+{
+  float vx=0.0,vy=0.0;
+  if ( x==0 ) { vx= 14.0; } else
+  if ( x==1 ) { vx= 0.0; } else
+  if ( x==2 ) { vx=-14.0; }
+
+  if ( y==0 ) { vy=-12.0; } else
+  if ( y==1 ) { vy= 0.0; } else
+  if ( y==2 ) { vy= 12.0; }
+
+
+  frame.desired_x=vx;
+  frame.desired_y=vy;
+  frame.desired_z=0;
+}
+
+
 void PerformCameraStep()
 {
+   /*
+       THE IDEA IS THE FOLLOWING
+       We have to 3d states the desired coordinates ( desired_x , desired_y , desired_z )
+       and the current render coordinates ( vx , vy , vz )
+
+       We need to make a smooth transition to the desired coordinates from the current coordinates
+
+    */
+
 
     /*
       -------------------------------------

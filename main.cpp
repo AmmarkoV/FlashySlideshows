@@ -1,5 +1,5 @@
 /* FancySlideShow..
-An fancy , OpenGL slideshow application !
+A fancy , OpenGL slideshow application !
 URLs: http://ammarkov.ath.cx
 Written by Ammar Qammaz a.k.a. AmmarkoV 2010
 
@@ -47,16 +47,26 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr);
 pthread_t loadpicturesthread_id;
 
 
+const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
+const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+
+const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
+const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
+const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat high_shininess[] = { 100.0f };
+
+
 struct Picture *album[100];
 
 unsigned char video_color[640*480*3]={0};
 unsigned char video_depth[640*480*3]={0};
 
 
-double last_load;
 unsigned int framecount,timenow,timebase,fps;
-/* GLUT callback Handlers */
 
+/* GLUT callback Handlers */
 static void resize(int width, int height)
 {
     const float ar = (float) width / (float) height;
@@ -136,7 +146,6 @@ static void display(void)
                                      { frame.currently_loading=0; }
 
 
-//    const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	  glPushMatrix();
@@ -185,16 +194,15 @@ static void display(void)
 
 
     glutSwapBuffers();
+   glFlush();
 
 
     /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER INPUT*/
       PerformCameraStep();
 
 
-   glFlush();
 
    ManageCreatingTextures(0);
-
    usleep(10);
 
 }
@@ -251,8 +259,8 @@ void SpecialFunction (int key, int x, int y)
 	{
 		case GLUT_KEY_UP:    { Controls_Handle_Keyboard(1,x,y); break; }
 		case GLUT_KEY_DOWN:  { Controls_Handle_Keyboard(2,x,y); break; }
-		case GLUT_KEY_RIGHT: { Controls_Handle_Keyboard(3,x,y); break; }
-		case GLUT_KEY_LEFT:  { Controls_Handle_Keyboard(4,x,y); break; }
+		case GLUT_KEY_RIGHT: { Controls_Handle_Keyboard(4,x,y); break; }
+		case GLUT_KEY_LEFT:  { Controls_Handle_Keyboard(3,x,y); break; }
         default: nokey=1; break;
 	}
 
@@ -271,16 +279,6 @@ static void idle(void)
     glutPostRedisplay();
 }
 
-const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
-const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
-
-const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
-const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
-const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat high_shininess[] = { 100.0f };
-
 /* Program entry point */
 
 int main(int argc, char *argv[])
@@ -292,7 +290,6 @@ int main(int argc, char *argv[])
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
-    //"FlashySlideShow"
     glutCreateWindow(APP_VERSION_STRING);
 
     glutReshapeFunc(resize);

@@ -80,7 +80,7 @@ int LoadSoundBuffers()
 	if(alGetError() != AL_NO_ERROR) { fprintf(stderr,"Error Generating Buffers!\n");
                                       return 0; }
 
-    for (int i=0; i<total_loaded_buffers; i++)
+    for (unsigned int i=0; i<total_loaded_buffers; i++)
       {
          alutLoadWAVFile((ALbyte *)filenames[i], &format, &data, &size, &freq, &loop);
          theerror=alGetError();
@@ -105,7 +105,7 @@ int LoadSoundBuffers()
                                   return 0; }
 
 
-    for (int i=0; i<total_loaded_buffers; i++)
+    for (unsigned int i=0; i<total_loaded_buffers; i++)
       {
          /*alGenSources( 1, &Sources[i] );
          theerror=alGetError();

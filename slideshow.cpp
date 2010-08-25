@@ -36,4 +36,9 @@ void InitSlideShow()
    frame.vx=00.0;
    frame.vy=00.0;
    frame.vz=00.0;
+
+
+   frame.active_image_x=1;
+   frame.active_image_y=1;
+   frame.active_image_place=4;
 }
