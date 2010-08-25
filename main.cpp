@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <unistd.h>
 #include <pthread.h>
 #include "slideshow.h"
+#include "directory_listing.h"
 #include "load_images.h"
 #include "load_textures.h"
 #include "sound.h"

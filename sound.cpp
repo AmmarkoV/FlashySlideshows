@@ -94,7 +94,7 @@ int LoadSoundBuffers()
 	     theerror=alGetError();
 	     if(theerror != AL_NO_ERROR) { fprintf(stderr,"Error (%u) loading Wav sound Buffer %u %s\n",theerror,i,filenames[i]);   }
 
-	     free(filenames[i]);
+	     free(filenames[i]); /* Release memory for filename */
       }
 	// Bind buffers into audio sources.
 
@@ -131,27 +131,7 @@ int LoadSoundBuffers()
 
 
 
-void PlaySound(char * thesound)
-{
-  int linux_sound=0;
 
-  #ifdef __WIN32__
-        linux_sound=0;
-  #else
-        linux_sound=1;
-  #endif
-
- if (linux_sound==1)
-  {
-  /* PLAY SOUND VIA MPLAYER*/
-  char command[512]={0};
-  sprintf(command,"mpg123 -q %s",thesound);
-  int i=system((const char *)command);
-  if ( i != 0 ) fprintf(stderr,"Error (%d) playing sound\n",i);
-  /*----------------------------------------*/
-  }  else
-  fprintf(stderr,"PlaySound not implemented for platform :( \n");
-}
 
 /*
  * void KillALData()

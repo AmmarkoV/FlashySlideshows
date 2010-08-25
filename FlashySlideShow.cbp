@@ -38,8 +38,12 @@
 			<Add library="GLU" />
 			<Add library="Xxf86vm" />
 			<Add library="pthread" />
+			<Add library="openal" />
+			<Add library="alut" />
 			<Add directory="usr/lib" />
 		</Linker>
+		<Unit filename="directory_listing.cpp" />
+		<Unit filename="directory_listing.h" />
 		<Unit filename="load_images.cpp" />
 		<Unit filename="load_images.h" />
 		<Unit filename="load_textures.cpp" />
@@ -47,6 +51,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="slideshow.cpp" />
 		<Unit filename="slideshow.h" />
+		<Unit filename="sound.cpp" />
+		<Unit filename="sound.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

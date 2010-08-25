@@ -1,7 +1,6 @@
 #ifndef SOUND_H_INCLUDED
 #define SOUND_H_INCLUDED
 
-void PlaySound(char * thesound);
 void StartSoundLibrary();
 
 void AddSoundBufferForLoad(char * bufferpath);
