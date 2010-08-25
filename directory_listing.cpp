@@ -22,6 +22,29 @@ void GetDirectoryList(char * thedirectory)
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) listing directory \n",i);
   /*----------------------------------------*/
+
+  /* TODO */
+
   }  else
   fprintf(stderr,"GetDirectoryList not implemented for platform :( \n");
+}
+
+
+int GetTotalFilesInDirectory()
+{
+    /* TODO */
+    return 0;
+}
+
+
+int GetTotalViewableFilesInDirectory()
+{
+    /* TODO */
+    return 0;
+}
+
+int GetViewableFilenameforFile(int file_id,char *filename)
+{
+    /* TODO */
+    return 0;
 }

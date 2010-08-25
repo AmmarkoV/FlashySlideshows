@@ -102,7 +102,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album[7]==loading ) album[7]=CreatePicture((char * )"album/DSC01928.JPG"); else
     if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");
 
-    usleep(10000);
+    usleep(1000);
   }
   return 0;
 }
@@ -112,15 +112,15 @@ int ManageCreatingTextures(int count_only)
 {
   int count=0;
 
-  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { ++count; if(!count_only) make_texture(album[0],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count; if(!count_only) make_texture(album[1],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count; if(!count_only) make_texture(album[2],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count; if(!count_only) make_texture(album[3],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { ++count; if(!count_only) make_texture(album[4],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count; if(!count_only) make_texture(album[5],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count; if(!count_only) make_texture(album[6],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count; if(!count_only) make_texture(album[7],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count; if(!count_only) make_texture(album[8],0); }
+  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[0],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[1],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[2],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[3],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[4],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[5],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[6],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[7],0); } else
+  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count; ++frame.total_images; if(!count_only) make_texture(album[8],0); }
 
 
   return count;

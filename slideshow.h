@@ -24,6 +24,7 @@ struct SlideShowData
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
 
+  int total_images;
   int images_per_line;
   int active_image_x,active_image_y,active_image_place;
 
