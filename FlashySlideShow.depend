@@ -10,7 +10,7 @@
 1282651164 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282698903 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282701951 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -41,10 +41,14 @@
 	<string.h>
 	<unistd.h>
 
-1282698688 source:/home/ammar/Documents/Programming/FlashySlideShow/sound.cpp
+1282701770 source:/home/ammar/Documents/Programming/FlashySlideShow/sound.cpp
 	"sound.h"
 	<stdlib.h>
 	<stdio.h>
+	<string.h>
+	<AL/al.h>
+	<AL/alc.h>
+	<AL/alut.h>
 
-1282694803 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
+1282701916 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 

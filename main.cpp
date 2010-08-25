@@ -228,7 +228,8 @@ void DisplayHUD()
 
        if (ManageCreatingTextures(1)>0)
        {
-         PlaySound("sounds/pop.wav");
+         SoundLibrary_PlaySound(0);
+
          glRasterPos2f(0,20);
          glColor3f(1.0,0.0,0.0);
          glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE MIPMAPS");
@@ -475,7 +476,8 @@ int main(int argc, char *argv[])
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
-    glutCreateWindow("FlashySlideShow");
+    //"FlashySlideShow"
+    glutCreateWindow(APP_VERSION_STRING);
 
     glutReshapeFunc(resize);
     glutDisplayFunc(display);
@@ -508,13 +510,15 @@ int main(int argc, char *argv[])
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
 
-
+    StartSoundLibrary(); //Kanoume Initialize to OpenAL :)
     InitSlideShow();
 
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
 
     int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
 
+    AddSoundBufferForLoad("sounds/pop.wav");
+    LoadSoundBuffers();
 
 
     //(void*) &param
