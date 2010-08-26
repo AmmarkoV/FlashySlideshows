@@ -13,6 +13,12 @@
 #include <GL/glu.h>
 #endif
 
+
+void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
+{
+  glColor3f((float) R/255,(float) G/255,(float) B/255);
+}
+
 void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
 {
   if ( pic == 0 ) return;

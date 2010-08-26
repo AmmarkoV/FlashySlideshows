@@ -40,7 +40,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[50]="FlashySlideShow ver 0.1 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[50]="FlashySlideShow ver 0.2 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr);
@@ -64,29 +64,11 @@ unsigned char video_color[640*480*3]={0};
 unsigned char video_depth[640*480*3]={0};
 
 
-unsigned int framecount,timenow,timebase,fps;
+unsigned int framecount=0,timenow=0,timebase=0,fps=0;
 
 void ToggleFullscreen();
 
-/* GLUT callback Handlers */
-static void resize(int width, int height)
-{
-    const float ar = (float) width / (float) height;
 
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();           /*NEAR*/
-    glFrustum(-ar, ar, -1.0, 1.0, 1.0, 800.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity() ;
-}
-
-
-void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
-{
-  glColor3f((float) R/255,(float) G/255,(float) B/255);
-}
 
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
@@ -129,6 +111,22 @@ int ManageCreatingTextures(int count_only)
 }
 
 
+
+
+
+/* GLUT callback Handlers */
+static void resize(int width, int height)
+{
+    const float ar = (float) width / (float) height;
+
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();           /*NEAR*/
+    glFrustum(-ar, ar, -1.0, 1.0, 1.0, 800.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity() ;
+}
 
 
 static void display(void)
@@ -237,13 +235,13 @@ void Mouse( int button,int state, int x, int y)
 static void key(unsigned char key, int x, int y)
 {
   if (key=='q') exit(0);
-  //else if (key=='j') ToggleFullscreen();
-  unsigned int nokey=0;
+  else if (key=='j') ToggleFullscreen();
 
-  nokey=Controls_Handle_Keyboard(key,x,y);
+
+  unsigned int nokey = Controls_Handle_Keyboard(key,x,y);
   if ( nokey == 0 )
   {
-    fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
+     fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
      key=0;
      glutPostRedisplay();
   }
@@ -292,6 +290,8 @@ void InitGlut()
 
 void ToggleFullscreen()
 {
+   fprintf(stderr,"Fullscreen toggling not fully implemented , skipping command for safety \n");
+   return;
    if ( frame.fullscreen == 0 )
     {
       if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  glutEnterGameMode(); else
@@ -318,8 +318,7 @@ void ToggleFullscreen()
 
 int main(int argc, char *argv[])
 {
-
-
+    /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
     glutInitWindowSize(1024,768);
     glutInitWindowPosition(10,10);
@@ -328,17 +327,23 @@ int main(int argc, char *argv[])
     glutCreateWindow(APP_VERSION_STRING);
 
     InitGlut();
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
+
+
+
+    /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
     glClearColor(1,1,1,1);
-    //glEnable(GL_CULL_FACE);
-   // glCullFace(GL_BACK);
+    /*
+     glEnable(GL_CULL_FACE);
+     glCullFace(GL_BACK);
+     glEnable(GL_COLOR_MATERIAL);*/
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
     glEnable(GL_LIGHT0);
     glEnable(GL_NORMALIZE);
- //   glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
 
     glShadeModel(GL_SMOOTH);
@@ -353,27 +358,39 @@ int main(int argc, char *argv[])
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-    StartSoundLibrary(); //Kanoume Initialize to OpenAL :)
-    InitSlideShow();
-    frame.total_images=9;
 
-    loading=CreatePicture((char * )"album/philosoraptor.jpg");
-
-    int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
-
-    GetDirectoryList((char * )".");
-
+    /* OpenAL Initialization >>>>>>>>>>>>>>>>> */
+    StartSoundLibrary();
     AddSoundBufferForLoad((char *)"sounds/pop.wav");
     LoadSoundBuffers();
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
+
+
+
+    /* Initialize Slideshow variables */
+    InitSlideShow();
+
+
+
+    /* DEMO , DEVELOPMENT SETTINGS < WILL BE REMOVED > */
+    frame.total_images=9;
+    loading=CreatePicture((char * )"album/philosoraptor.jpg");
+    int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
+    GetDirectoryList((char * )".");
+
+
+
+
+    /* Initialize Picture Loading Thread , start rendering  */
 
     loadpicturesthread_id=0;
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
     glutMainLoop();
-
 
     return EXIT_SUCCESS;
 }

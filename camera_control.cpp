@@ -70,7 +70,7 @@ void SetDestinationOverNextPicture()
                                                     } else
                                                     {
                                                        /*There is a next picture :) , we`re gonna change to it*/
-                                                       fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture, frame.total_images);
+                                                       fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture+1, frame.total_images);
 
                                                        frame.active_image_x=new_active_x;
                                                        frame.active_image_y=new_active_y;

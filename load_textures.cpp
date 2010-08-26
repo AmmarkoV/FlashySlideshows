@@ -6,10 +6,6 @@
 #include <string.h>
 #include <unistd.h>
 
-
-
-
-
 void complain_about_errors()
 {
   int err=glGetError();
@@ -30,27 +26,11 @@ int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
 
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
-
-   // wait_before_making_textures();
-    fprintf(stderr,"Time to make some textures \n");
-
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
 	                          return 0; }
 
-   // picturedata->gl_rgb_texture=0;
-   // fprintf(stderr,"OpenGL Making Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,(unsigned int) picturedata->gl_rgb_texture);
-   // fprintf(stderr,"For some strange reason the next lines SEGFAULT\n");
-
-    /*   !!!!!!!!!!!!!!!!!!!!!!!!!!!
-              CODE NEEDS FIX SEGFAULTS
-         !!!!!!!!!!!!!!!!!!!!!!!!!!!
-    */
-
     glEnable(GL_TEXTURE_2D);
-
-    fprintf(stderr,"For some strange reason the next lines SEGFAULT\n");
-
-    GLint texSize;
+    GLint texSize=0;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
     fprintf(stderr,"Maximum Texture Size is %u\n",(unsigned int) texSize);
 

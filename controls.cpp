@@ -31,6 +31,8 @@ int MoveToPicture(int direction)
 {
   fprintf(stderr,"Move to picture direction = %u \n",direction);
   unsigned int last_active_picture=frame.active_image_place;
+  unsigned int last_line=0;
+  if ( frame.images_per_line>0) last_line=frame.total_images/frame.images_per_line;
 
   fprintf(stderr,"Picture X/Y was %u / %u \n",frame.active_image_x,frame.active_image_y);
   if ( direction == 1 )
@@ -39,7 +41,7 @@ int MoveToPicture(int direction)
    } else
     if ( direction == 2 )
    {  /* DOWN */
-     if ( frame.active_image_y < 10 ) {  frame.active_image_y+=1; }
+     if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; }
    } else
     if ( direction == 3 )
    {  /* LEFT */
