@@ -50,6 +50,15 @@ void InitSlideShow()
    frame.active_image_place=4;
 
 
+   /*MOUSE SPECIFIC*/
+   frame.dragging_screen=0;
+   frame.mouse.mouse_x=0;
+   frame.mouse.mouse_y=0;
+   frame.mouse.mouse_z=0;
+   frame.mouse.button_pressed=0;
+   frame.mouse.is_currently_pressed=0;
+
+
    frame.pictures_in_folder=0;
 }
 

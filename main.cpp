@@ -212,9 +212,7 @@ static void display(void)
 // Method to handle the mouse motion
 void Motion(int x, int y)
 {
- //  MouseLook(x,y);
-         //   glutPostRedisplay();
-
+   Controls_Handle_MouseMotion(0,0,x,y);
 }
 
 

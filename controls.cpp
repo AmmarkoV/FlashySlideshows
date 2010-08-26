@@ -5,6 +5,13 @@
 #include "camera_control.h"
 #include "controls.h"
 
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+#include <GL/glu.h>
+#endif
 
 void inline MouseLook(int x,int y)
 {
@@ -16,14 +23,83 @@ void inline MouseLook(int x,int y)
 
 }
 
+#if !defined(GLUT_WHEEL_UP)
+#  define GLUT_WHEEL_UP   3
+#  define GLUT_WHEEL_DOWN 4
+#endif
+
 void Controls_Handle_MouseButtons(int button,int state, int x, int y)
 {
+    /*
+       According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
+       RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
+    */
+    RefreshDesiredStep_AccordingToPosition();
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+
+   int is_not_mouse_wheel_event=0;
+   if (state == GLUT_UP )
+	{
+	       if ( button == GLUT_WHEEL_UP )   { frame.desired_z-=frame.desired_step; }
+      else if ( button == GLUT_WHEEL_DOWN ) { frame.desired_z+=frame.desired_step; }
+      else is_not_mouse_wheel_event=1;
+	} else is_not_mouse_wheel_event=1;
+
+    if ( is_not_mouse_wheel_event == 1 )
+    {
+       /* To event den exei na kanei me to mouse wheel*/
+
+       if (state == GLUT_DOWN )
+	   {
+           fprintf(stderr,"Click Released at %u %u , button %u \n",x,y,button);
+	       /*frame.mouse.mouse_x=x;
+	       frame.mouse.mouse_y=y;
+	       frame.mouse.mouse_z=0;*/
+	       frame.mouse.button_pressed=0;
+	       frame.mouse.is_currently_pressed=0;
+	   } else
+	    if (state == GLUT_UP )
+	   {
+	     if ( frame.dragging_screen ==0 )
+	      {
+           fprintf(stderr,"Click Pressed at %u %u , button %u \n",x,y,button);
+	       frame.mouse.last_mouseclick_at_x=x;
+	       frame.mouse.last_mouseclick_at_y=y;
+	       frame.mouse.last_mouseclick_at_z=0;
+	       frame.mouse.button_pressed=button;
+	       frame.mouse.is_currently_pressed=1;
+	       frame.dragging_screen=1;
+	      } else
+	      {
+	        frame.mouse.is_currently_pressed=0;
+            frame.dragging_screen=0;
+	      }
+	   }
+    }
 
 }
 
 void Controls_Handle_MouseMotion(int button,int state, int x, int y)
 {
+  //fprintf(stderr,"Mouse moved at %u %u\n",x,y);
+  frame.mouse.mouse_x=x;
+  frame.mouse.mouse_y=y;
 
+  if ( frame.mouse.is_currently_pressed == 1 )
+   {
+      if ( ( frame.mouse.button_pressed == 0 ) && ( frame.dragging_screen == 1 ) )
+      {
+         float difference_x = frame.mouse.mouse_x - frame.mouse.last_mouseclick_at_x ;
+         float difference_y = frame.mouse.mouse_y - frame.mouse.last_mouseclick_at_y ;
+
+         frame.mouse.last_mouseclick_at_x = frame.mouse.mouse_x;
+         frame.mouse.last_mouseclick_at_y = frame.mouse.mouse_y;
+
+         frame.desired_x+=difference_x/24; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
+         frame.desired_y-=difference_y/16; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
+      }
+   }
 }
 
 
@@ -35,22 +111,11 @@ int MoveToPicture(int direction)
   if ( frame.images_per_line>0) last_line=frame.total_images/frame.images_per_line;
 
   fprintf(stderr,"Picture X/Y was %u / %u \n",frame.active_image_x,frame.active_image_y);
-  if ( direction == 1 )
-   {  /* UP */
-     if ( frame.active_image_y > 0 ) {  frame.active_image_y-=1; }
-   } else
-    if ( direction == 2 )
-   {  /* DOWN */
-     if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; }
-   } else
-    if ( direction == 3 )
-   {  /* LEFT */
-     if ( frame.active_image_x > 0 ) {  frame.active_image_x-=1; }
-   } else
-    if ( direction == 4 )
-   {  /* RIGHT */
-     if ( frame.active_image_x < frame.images_per_line-1 ) {  frame.active_image_x+=1; }
-   }
+
+    if ( direction == 1 ) {  /* UP */    if ( frame.active_image_y > 0 ) {  frame.active_image_y-=1; } } else
+    if ( direction == 2 ) {  /* DOWN */  if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; } } else
+    if ( direction == 3 ) {  /* LEFT */  if ( frame.active_image_x > 0 ) {  frame.active_image_x-=1; } } else
+    if ( direction == 4 ) {  /* RIGHT */ if ( frame.active_image_x < frame.images_per_line-1 ) {  frame.active_image_x+=1; } }
 
    fprintf(stderr,"Picture X/Y now is %u / %u \n",frame.active_image_x,frame.active_image_y);
    unsigned int current_active_picture=frame.active_image_x+frame.active_image_y*frame.images_per_line;
@@ -68,9 +133,12 @@ int MoveToPicture(int direction)
 
 int Controls_Handle_Keyboard(unsigned char key, int x, int y)
 {
-    if (frame.vz<frame.distance_barrier_after_considered_zoom)  frame.desired_step=frame.desired_step_zoom; else
-    if (frame.vz<frame.distance_barrier_after_considered_close)  frame.desired_step=frame.desired_step_close; else
-    if (frame.vz<frame.distance_barrier_after_considered_far)  frame.desired_step=frame.desired_step_far;
+    /*
+       According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
+       RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
+    */
+    RefreshDesiredStep_AccordingToPosition();
+    /*---------------------------------------------------------------------------------------------------------------*/
 
     int nokey=0;
     switch (key)

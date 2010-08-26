@@ -1,6 +1,15 @@
 #ifndef SLIDESHOW_H_INCLUDED
 #define SLIDESHOW_H_INCLUDED
 
+struct MouseState
+{
+  float last_click_time;
+  float last_mouseclick_at_x,last_mouseclick_at_y,last_mouseclick_at_z;
+
+  float mouse_x,mouse_y,mouse_z;
+  unsigned button_pressed;
+  unsigned is_currently_pressed;
+};
 
 struct FilePicture
 {
@@ -43,6 +52,9 @@ struct SlideShowData
   float vx,vy,vz;
 
   unsigned int total_files;
+
+  unsigned int dragging_screen;
+  struct MouseState mouse;
 
   struct FilePicture * pictures_in_folder;
 };

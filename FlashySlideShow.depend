@@ -10,7 +10,7 @@
 1282651164 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282788149 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282826293 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -29,16 +29,16 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1282785938 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1282827163 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 
-1282785956 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1282827153 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1282754094 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1282788419 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"slideshow.h"
@@ -67,16 +67,20 @@
 
 1282785462 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1282788321 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1282826244 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
 	"camera_control.h"
 	"controls.h"
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
 
-1282733796 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
+1282826309 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1282787631 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1282823607 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	<stdlib.h>
