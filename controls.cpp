@@ -30,6 +30,9 @@ void inline MouseLook(int x,int y)
 
 void Controls_Handle_MouseButtons(int button,int state, int x, int y)
 {
+    if ( frame.mouse.block_mouse_calls_until > frame.tick_count ) { return; /* We are blocking mouse calls to improve user friendlieness :P */ }
+
+
     /*
        According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
        RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
@@ -39,6 +42,9 @@ void Controls_Handle_MouseButtons(int button,int state, int x, int y)
 
 
    int is_not_mouse_wheel_event=0;
+   int is_a_doubleclick_event=0;
+
+
    if (state == GLUT_UP )
 	{
 	       if ( button == GLUT_WHEEL_UP )   { frame.desired_z-=frame.desired_step; }
@@ -53,14 +59,21 @@ void Controls_Handle_MouseButtons(int button,int state, int x, int y)
        if (state == GLUT_DOWN )
 	   {
            fprintf(stderr,"Click Released at %u %u , button %u \n",x,y,button);
-	       /*frame.mouse.mouse_x=x;
-	       frame.mouse.mouse_y=y;
-	       frame.mouse.mouse_z=0;*/
 	       frame.mouse.button_pressed=0;
 	       frame.mouse.is_currently_pressed=0;
 	   } else
 	    if (state == GLUT_UP )
 	   {
+	     if ( frame.tick_count - frame.mouse.last_click_time < 1200 )
+	     {
+	         /* DOUBLE CLICK*/
+	         fprintf(stderr,"Double Click Pressed at %u %u , button %u time %u - %u = %u \n",x,y,button,frame.tick_count,frame.mouse.last_click_time,frame.tick_count - frame.mouse.last_click_time);
+	         SetDestinationCenter();
+	         frame.dragging_screen=0;
+	         frame.mouse.block_mouse_calls_until=frame.tick_count+1000;
+	         return;
+         }
+
 	     if ( frame.dragging_screen ==0 )
 	      {
            fprintf(stderr,"Click Pressed at %u %u , button %u \n",x,y,button);
@@ -70,11 +83,19 @@ void Controls_Handle_MouseButtons(int button,int state, int x, int y)
 	       frame.mouse.button_pressed=button;
 	       frame.mouse.is_currently_pressed=1;
 	       frame.dragging_screen=1;
+
+           frame.mouse.last_click_time=frame.tick_count;
+
 	      } else
 	      {
 	        frame.mouse.is_currently_pressed=0;
             frame.dragging_screen=0;
 	      }
+
+
+
+
+
 	   }
     }
 

@@ -3,12 +3,14 @@
 
 struct MouseState
 {
+  unsigned int block_mouse_calls_until;
+
   float last_click_time;
   float last_mouseclick_at_x,last_mouseclick_at_y,last_mouseclick_at_z;
 
   float mouse_x,mouse_y,mouse_z;
-  unsigned button_pressed;
-  unsigned is_currently_pressed;
+  unsigned int button_pressed;
+  unsigned int is_currently_pressed;
 };
 
 struct FilePicture
