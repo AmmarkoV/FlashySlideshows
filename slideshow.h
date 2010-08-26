@@ -2,7 +2,11 @@
 #define SLIDESHOW_H_INCLUDED
 
 
-
+struct FilePicture
+{
+  unsigned int filename_size;
+  char * filename;
+};
 
 struct SlideShowData
 {
@@ -37,6 +41,10 @@ struct SlideShowData
   float angle_x,angle_y,angle_z,step;
 
   float vx,vy,vz;
+
+  unsigned int total_files;
+
+  struct FilePicture * pictures_in_folder;
 };
 
 extern struct SlideShowData frame;

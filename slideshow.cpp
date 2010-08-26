@@ -48,6 +48,9 @@ void InitSlideShow()
    frame.active_image_x=1;
    frame.active_image_y=1;
    frame.active_image_place=4;
+
+
+   frame.pictures_in_folder=0;
 }
 
 void TriggerEndOfSlideShow()

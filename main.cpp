@@ -363,6 +363,8 @@ int main(int argc, char *argv[])
 
     int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
 
+    GetDirectoryList((char * )".");
+
     AddSoundBufferForLoad((char *)"sounds/pop.wav");
     LoadSoundBuffers();
 
