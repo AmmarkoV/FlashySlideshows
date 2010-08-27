@@ -52,6 +52,8 @@
 		<Unit filename="controls.h" />
 		<Unit filename="directory_listing.cpp" />
 		<Unit filename="directory_listing.h" />
+		<Unit filename="image_sensing.cpp" />
+		<Unit filename="image_sensing.h" />
 		<Unit filename="load_images.cpp" />
 		<Unit filename="load_images.h" />
 		<Unit filename="load_textures.cpp" />

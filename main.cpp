@@ -63,6 +63,8 @@ struct Picture *album[100];
 unsigned char video_color[640*480*3]={0};
 unsigned char video_depth[640*480*3]={0};
 
+char pictures_filename_shared_stack[1024]={0};
+
 
 unsigned int framecount=0,timenow=0,timebase=0,fps=0;
 
@@ -73,10 +75,20 @@ void ToggleFullscreen();
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
-
+  unsigned int album_traveler=0;
   while (!STOP_APPLICATION)
   {
-    if ( album[0]==loading ) album[0]=CreatePicture((char * )"album/DSC01114.JPG"); else
+
+    if ( album[album_traveler]==loading )
+      {
+          if ( GetViewableFilenameforFile(album_traveler,pictures_filename_shared_stack) == 1 )
+            {
+               fprintf(stderr,"directory_listing query for picture %u returned string `%s`",album_traveler,pictures_filename_shared_stack);
+               album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
+            }
+      }
+/*
+    album[0]=CreatePicture((char * )"album/DSC01114.JPG"); else
     if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG"); else
     if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG"); else
     if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC00871.JPG"); else
@@ -84,8 +96,10 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC01140.JPG"); else
     if ( album[6]==loading ) album[6]=CreatePicture((char * )"album/DSC01515.JPG"); else
     if ( album[7]==loading ) album[7]=CreatePicture((char * )"album/DSC01928.JPG"); else
-    if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");
+    if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");*/
 
+    ++album_traveler;
+    if ( album_traveler > GetTotalViewableFilesInDirectory() )  { album_traveler == 0; }
     usleep(1000);
   }
   return 0;
@@ -94,9 +108,16 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
 int ManageCreatingTextures(int count_only)
 {
-  int count=0;
+  int count=0,i=0;
+  unsigned int album_traveler=0;
 
-  if ( PictureLoadedOpenGLTexturePending(album[0]) ) { ++count;  if(!count_only) make_texture(album[0],0); } else
+  for ( i=0; i<GetTotalViewableFilesInDirectory(); i++)
+   {
+     if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
+   }
+
+
+/*
   if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count;  if(!count_only) make_texture(album[1],0); } else
   if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count;  if(!count_only) make_texture(album[2],0); } else
   if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count;  if(!count_only) make_texture(album[3],0); } else
@@ -104,7 +125,7 @@ int ManageCreatingTextures(int count_only)
   if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count;  if(!count_only) make_texture(album[5],0); } else
   if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count;  if(!count_only) make_texture(album[6],0); } else
   if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count;  if(!count_only) make_texture(album[7],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count;  if(!count_only) make_texture(album[8],0); }
+  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count;  if(!count_only) make_texture(album[8],0); }*/
 
 
   return count;
@@ -375,10 +396,15 @@ int main(int argc, char *argv[])
 
 
     /* DEMO , DEVELOPMENT SETTINGS < WILL BE REMOVED > */
-    frame.total_images=9;
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
     int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
-    GetDirectoryList((char * )".");
+
+
+    GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */
+    fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
+    GetDirectoryList((char * )"album/",GetTotalViewableFilesInDirectory()); /* Load Directory List */
+
+    frame.total_images=GetTotalViewableFilesInDirectory();
 
 
 

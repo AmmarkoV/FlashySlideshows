@@ -67,7 +67,7 @@ void Controls_Handle_MouseButtons(int button,int state, int x, int y)
 	     if ( frame.tick_count - frame.mouse.last_click_time < 1200 )
 	     {
 	         /* DOUBLE CLICK*/
-	         fprintf(stderr,"Double Click Pressed at %u %u , button %u time %u - %u = %u \n",x,y,button,frame.tick_count,frame.mouse.last_click_time,frame.tick_count - frame.mouse.last_click_time);
+	         //fprintf(stderr,"Double Click Pressed at %u %u , button %u time %u - %u = %u \n",x,y,button,frame.tick_count,frame.mouse.last_click_time,frame.tick_count - frame.mouse.last_click_time);
 	         SetDestinationCenter();
 	         frame.dragging_screen=0;
 	         frame.mouse.block_mouse_calls_until=frame.tick_count+1000;
@@ -99,6 +99,11 @@ void Controls_Handle_MouseButtons(int button,int state, int x, int y)
 	   }
     }
 
+    if ( is_a_doubleclick_event == 1 )
+    {
+        /* WILL HAVE TO USE THIS SPACE TO CLEAR UP MOUSE FUNCTIONS !*/
+    }
+
 }
 
 void Controls_Handle_MouseMotion(int button,int state, int x, int y)
@@ -124,7 +129,7 @@ void Controls_Handle_MouseMotion(int button,int state, int x, int y)
 }
 
 
-int MoveToPicture(int direction)
+int MoveToPicture(unsigned int direction)
 {
   fprintf(stderr,"Move to picture direction = %u \n",direction);
   unsigned int last_active_picture=frame.active_image_place;

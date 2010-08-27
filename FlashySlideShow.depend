@@ -1,16 +1,17 @@
 # depslib dependency file v1.0
-1282754980 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1282872624 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<unistd.h>
 	"load_textures.h"
+	"image_sensing.h"
 
 1282651164 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282826293 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282872914 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -33,7 +34,7 @@
 	"slideshow.h"
 	"camera_control.h"
 
-1282828358 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1282871113 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -58,16 +59,16 @@
 
 1282769921 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1282787431 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1282871848 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"InputParser_C.h"
 
-1282785462 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1282874003 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1282826244 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1282871171 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -114,4 +115,11 @@
 	<stdio.h>
 	<string.h>
 	<ctype.h>
+
+1282870525 source:/home/ammar/Documents/Programming/FlashySlideShow/image_sensing.cpp
+	"image_sensing.h"
+	<stdlib.h>
+	<stdio.h>
+
+1282870470 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 

@@ -44,9 +44,9 @@ struct SlideShowData
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
 
-  int total_images;
-  int images_per_line;
-  int active_image_x,active_image_y,active_image_place;
+  unsigned int total_images;
+  unsigned int images_per_line;
+  unsigned int active_image_x,active_image_y,active_image_place;
 
   float desired_x,desired_y,desired_z,desired_step;
   float angle_x,angle_y,angle_z,step;

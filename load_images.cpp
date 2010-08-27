@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "load_textures.h"
+#include "image_sensing.h"
 
 #define PPMREADBUFLEN 256
 
@@ -115,9 +116,11 @@ int LoadPicture(char * filename,struct Picture * pic)
   sprintf(command,"convert %s -resize 50%% %s",filename,pic->ppm_filename);
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);
-  ReadPPM(pic->ppm_filename,pic);
+  if ( ReadPPM(pic->ppm_filename,pic) )  {} else
+                                         { fprintf(stderr,"Failed to open and load picture \n"); return 0; }
   /*----------------------------------------*/
 
+  GetInterestingAreasList(pic);
 
   /* REMOVE TEMPORARY PPM FILE */
   sprintf(command,"rm %s",pic->ppm_filename);
