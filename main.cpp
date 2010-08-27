@@ -58,7 +58,7 @@ const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat high_shininess[] = { 100.0f };
 
 unsigned int ALBUM_SIZE=100;
-struct Picture *album[100];
+struct Picture *album[100]={0};
 
 
 char pictures_filename_shared_stack[1024]={0};
@@ -168,7 +168,6 @@ static void display(void)
           float y=-6;
           unsigned int album_traveler=0;
 
-          fprintf(stderr,"Drawing %u pictures ",frame.total_images);
           for ( album_traveler=0; album_traveler<frame.total_images; album_traveler++ )
            {
                if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],-7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
@@ -176,7 +175,6 @@ static void display(void)
                if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } else { y+=6; } } else
                                           { fprintf(stderr,"Wtf"); }
            }
-           fprintf(stderr,"Drawn %u pictures ",album_traveler);
 
 
 
@@ -377,7 +375,6 @@ int main(int argc, char *argv[])
 
     /* DEMO , DEVELOPMENT SETTINGS < WILL BE REMOVED > */
     loading=CreatePicture((char * )"album/philosoraptor.jpg");
-    int i=0;  for (i=0; i<9; i++) { album[i]=loading; }
 
 
     GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */
@@ -385,7 +382,7 @@ int main(int argc, char *argv[])
     GetDirectoryList((char * )"album/",GetTotalViewableFilesInDirectory()); /* Load Directory List */
 
     frame.total_images=GetTotalViewableFilesInDirectory();
-
+    int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }
 
 
 

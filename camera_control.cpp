@@ -39,15 +39,12 @@ void SetDestinationCenter()
 
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
 {
-  float vx=0.0,vy=0.0;
+  float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
   if ( x==1 ) { vx= 0.0; } else
   if ( x==2 ) { vx=-14.0; }
 
-  if ( y==0 ) { vy=-12.0; } else
-  if ( y==1 ) { vy= 0.0; } else
-  if ( y==2 ) { vy= 12.0; }
-
+  vy=-12.0 + y_inc * y;
 
   frame.desired_x=vx;
   frame.desired_y=vy;
