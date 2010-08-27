@@ -15,15 +15,15 @@ unsigned int list_size=0;
 unsigned int last_list_total_count=0;
 unsigned int last_list_total_pictures_count=0;
 
-void AllocateDirectoryList(unsigned int size)
+void AllocateDirectoryList(unsigned int requested_size)
 {
  if ( list != 0 ) { fprintf(stderr,"List already contained data , freeing memory \n"); free(list); }
- list = ( struct filename_holder * ) malloc(   sizeof(struct filename_holder) * (size+5)  );
- list_size=size;
+ list = ( struct filename_holder * ) malloc(   sizeof(struct filename_holder) * (requested_size+5)  );
+ list_size=requested_size;
 
  if ( list != 0 )
   {
-    fprintf(stderr,"Allocated %u records of filename_holders\n",size);
+    fprintf(stderr,"Allocated %u records of filename_holders\n",requested_size);
   }
 }
 
@@ -55,7 +55,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
   char command[512]={0};
 
   /* crazy r.e by c00kiemon5ter \/*/
-  sprintf(command,"for file in $(find \"%s\" -maxdepth 1 -type f ! -name \".*\" -exec file {} + | grep \": \\s*\\w* image data\" | sed \"s/\\(.*\\):.*/\\1/\"); do basename $file; done > filelist.dat",thedirectory);
+  sprintf(command,"for file in $(find \"%s\" -maxdepth 1 -type f ! -name \".*\" -exec file {} + | grep \": \\s*\\w* image data\" | sed \"s/\\(.*\\):.*/\\1/\"  ); do basename $file; done > filelist.dat",thedirectory);
 
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) listing directory using system command \n",i);
@@ -117,6 +117,12 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
                          printf("Filename Coming from memory %s ",list[last_list_total_pictures_count].filename);
                        }
                         ++last_list_total_pictures_count;
+
+                        if ( list_size <= last_list_total_pictures_count )
+                          {
+                              fprintf(stderr,"Our initial size was mistaken stoping procedure \n");
+                              break;
+                          }
                       }
 
                  }
@@ -147,15 +153,17 @@ unsigned int GetTotalViewableFilesInDirectory()
     return last_list_total_pictures_count;
 }
 
-unsigned int GetViewableFilenameforFile(unsigned int file_id,char *filename)
+unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename)
 {
-    fprintf(stderr,"This code section is a little sloppy , may segfault \n");
+  //  fprintf(stderr,"This code section is a little sloppy , may segfault \n");
     if ( list_size <= file_id ) return 0;
     if ( list == 0 ) return 0;
     if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
 
     fprintf(stderr,"Copying %s \n",list[file_id].filename);
-    strcpy(filename,list[file_id].filename);
+    strcpy(filename,directory);
+    strcat(filename,(char *)"/");
+    strcat(filename,list[file_id].filename);
 
     return 1;
 }

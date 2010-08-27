@@ -78,28 +78,19 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   unsigned int album_traveler=0;
   while (!STOP_APPLICATION)
   {
-
+    if ( album_traveler >10 ) { fprintf(stderr,"SOMEONE!"); }
     if ( album[album_traveler]==loading )
       {
-          if ( GetViewableFilenameforFile(album_traveler,pictures_filename_shared_stack) == 1 )
+          if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
             {
                fprintf(stderr,"directory_listing query for picture %u returned string `%s`",album_traveler,pictures_filename_shared_stack);
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
             }
       }
-/*
-    album[0]=CreatePicture((char * )"album/DSC01114.JPG"); else
-    if ( album[1]==loading ) album[1]=CreatePicture((char * )"album/DSC01367.JPG"); else
-    if ( album[2]==loading ) album[2]=CreatePicture((char * )"album/DSC01428.JPG"); else
-    if ( album[3]==loading ) album[3]=CreatePicture((char * )"album/DSC00871.JPG"); else
-    if ( album[4]==loading ) album[4]=CreatePicture((char * )"album/DSC05380.JPG"); else
-    if ( album[5]==loading ) album[5]=CreatePicture((char * )"album/DSC01140.JPG"); else
-    if ( album[6]==loading ) album[6]=CreatePicture((char * )"album/DSC01515.JPG"); else
-    if ( album[7]==loading ) album[7]=CreatePicture((char * )"album/DSC01928.JPG"); else
-    if ( album[8]==loading ) album[8]=CreatePicture((char * )"album/DSC02732.JPG");*/
+
 
     ++album_traveler;
-    if ( album_traveler > GetTotalViewableFilesInDirectory() )  { album_traveler == 0; }
+    if ( album_traveler > GetTotalViewableFilesInDirectory() )  { album_traveler = 0; }
     usleep(1000);
   }
   return 0;
@@ -108,24 +99,12 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
 int ManageCreatingTextures(int count_only)
 {
-  int count=0,i=0;
-  unsigned int album_traveler=0;
+  unsigned int count=0,i=0;
 
   for ( i=0; i<GetTotalViewableFilesInDirectory(); i++)
    {
      if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
    }
-
-
-/*
-  if ( PictureLoadedOpenGLTexturePending(album[1]) ) { ++count;  if(!count_only) make_texture(album[1],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[2]) ) { ++count;  if(!count_only) make_texture(album[2],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[3]) ) { ++count;  if(!count_only) make_texture(album[3],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[4]) ) { ++count;  if(!count_only) make_texture(album[4],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[5]) ) { ++count;  if(!count_only) make_texture(album[5],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[6]) ) { ++count;  if(!count_only) make_texture(album[6],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[7]) ) { ++count;  if(!count_only) make_texture(album[7],0); } else
-  if ( PictureLoadedOpenGLTexturePending(album[8]) ) { ++count;  if(!count_only) make_texture(album[8],0); }*/
 
 
   return count;
