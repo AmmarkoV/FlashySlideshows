@@ -21,6 +21,7 @@ int wait_before_making_textures()
 
 int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
 {
+  if ( picturedata == 0 ) return 0;
   return picturedata->ready_for_texture;
 }
 

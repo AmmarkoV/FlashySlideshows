@@ -60,8 +60,6 @@ const GLfloat high_shininess[] = { 100.0f };
 
 struct Picture *album[100];
 
-unsigned char video_color[640*480*3]={0};
-unsigned char video_depth[640*480*3]={0};
 
 char pictures_filename_shared_stack[1024]={0};
 
@@ -83,14 +81,14 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
       {
           if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
             {
-               fprintf(stderr,"directory_listing query for picture %u returned string `%s`",album_traveler,pictures_filename_shared_stack);
+               fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
             }
       }
 
 
     ++album_traveler;
-    if ( album_traveler > GetTotalViewableFilesInDirectory() )  { album_traveler = 0; }
+    if ( album_traveler >= GetTotalViewableFilesInDirectory() )  { album_traveler = 0; }
     usleep(1000);
   }
   return 0;

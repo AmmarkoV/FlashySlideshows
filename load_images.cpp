@@ -106,16 +106,23 @@ int ReadPPM(char * filename,struct Picture * pic)
 
 int LoadPicture(char * filename,struct Picture * pic)
 {
+  fprintf(stderr,"Loading picture\n");
   if ( pic == 0 ) { fprintf(stderr,"Error loading picture (%s) , accomodation structure is not allocated\n",filename); return 0; }
 
-  char command[512]={0};
-  sprintf(pic->ppm_filename,"%s.ppm",filename);
+  char loc_filename[512]={0};
+  strcpy(loc_filename,filename);
+
+  sprintf(pic->ppm_filename,"%s.ppm",loc_filename);
+
+  char command[1024]={0};
 
   /* COMMAND LINE CONVERSION OF FILE TO PPM */
    //
-  sprintf(command,"convert %s -resize 50%% %s",filename,pic->ppm_filename);
+  sprintf(command,"convert %s -resize 50%% %s",loc_filename,pic->ppm_filename);
+  fprintf(stderr,"Converting picture using command `%s` \n",command);
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);
+  fprintf(stderr,"Converted picture\n");
   if ( ReadPPM(pic->ppm_filename,pic) )  {} else
                                          { fprintf(stderr,"Failed to open and load picture \n"); return 0; }
   /*----------------------------------------*/
