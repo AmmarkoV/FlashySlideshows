@@ -40,7 +40,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[50]="FlashySlideShow ver 0.2 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[50]="FlashySlideShow ver 0.3 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr);
@@ -57,7 +57,7 @@ const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
 const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat high_shininess[] = { 100.0f };
 
-
+unsigned int ALBUM_SIZE=100;
 struct Picture *album[100];
 
 
@@ -76,19 +76,24 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   unsigned int album_traveler=0;
   while (!STOP_APPLICATION)
   {
-    if ( album_traveler >10 ) { fprintf(stderr,"SOMEONE!"); }
+    if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); } else
     if ( album[album_traveler]==loading )
       {
           if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
             {
                fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
+            } else
+            {
+               fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images);
             }
       }
 
 
     ++album_traveler;
-    if ( album_traveler >= GetTotalViewableFilesInDirectory() )  { album_traveler = 0; }
+    if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
+    if ( album_traveler >= frame.total_images )  { album_traveler = 0; }
+    //GetTotalViewableFilesInDirectory()
     usleep(1000);
   }
   return 0;
@@ -99,7 +104,7 @@ int ManageCreatingTextures(int count_only)
 {
   unsigned int count=0,i=0;
 
-  for ( i=0; i<GetTotalViewableFilesInDirectory(); i++)
+  for ( i=0; i<frame.total_images; i++)
    {
      if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
    }
@@ -160,20 +165,18 @@ static void display(void)
           glTranslatef(-frame.vx, -frame.vy, -frame.vz);
 
 
-              DisplayPicture(album[0],-7,-6,0,0,0,0);
-              DisplayPicture(album[1],0,-6,0,0,0,0);
-              DisplayPicture(album[2],7,-6,0,0,0,0);
+          float y=-6;
+          unsigned int album_traveler=0;
 
-              DisplayPicture(album[3],-7,0,0,0,0,0);
-              DisplayPicture(album[4],0,0,0,0,0,0);
-              DisplayPicture(album[5],7,0,0,0,0,0);
-              DisplayPicture(loading,14,0,0,0,0,0);
-
-
-
-              DisplayPicture(album[6],-7,6,0,0,0,0);
-              DisplayPicture(album[7],0,6,0,0,0,0);
-              DisplayPicture(album[8],7,6,0,0,0,0);
+          fprintf(stderr,"Drawing %u pictures ",frame.total_images);
+          for ( album_traveler=0; album_traveler<frame.total_images; album_traveler++ )
+           {
+               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],-7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
+               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler], 0,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
+               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } else { y+=6; } } else
+                                          { fprintf(stderr,"Wtf"); }
+           }
+           fprintf(stderr,"Drawn %u pictures ",album_traveler);
 
 
 

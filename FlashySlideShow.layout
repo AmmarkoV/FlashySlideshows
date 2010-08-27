@@ -14,13 +14,13 @@
 		<Cursor position="200" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="1933" topLine="51" />
+		<Cursor position="1933" topLine="0" />
 	</File>
 	<File name="controls.h" open="1" top="0" tabpos="11">
 		<Cursor position="340" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="3881" topLine="90" />
+		<Cursor position="5161" topLine="35" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="15">
 		<Cursor position="350" topLine="0" />
@@ -32,19 +32,19 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3757" topLine="99" />
+		<Cursor position="3447" topLine="48" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="5">
 		<Cursor position="293" topLine="6" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="154" topLine="53" />
+		<Cursor position="113" topLine="0" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="3">
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="2912" topLine="71" />
+		<Cursor position="1787" topLine="30" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="938" topLine="23" />

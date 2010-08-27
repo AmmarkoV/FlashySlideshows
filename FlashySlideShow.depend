@@ -11,7 +11,7 @@
 1282651164 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1282911819 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1282948370 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -93,9 +93,9 @@
 
 1282772104 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
-1282734842 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
+1282950253 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1282788019 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1282950268 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"

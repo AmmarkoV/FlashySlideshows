@@ -19,9 +19,9 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
   glColor3f((float) R/255,(float) G/255,(float) B/255);
 }
 
-void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
+int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
 {
-  if ( pic == 0 ) return;
+  if ( pic == 0 ) { fprintf(stderr,"DisplayPicture called for non existing picture outputed ( %f %f %f ) \n",x,y,z); return 0; }
 
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
@@ -42,8 +42,8 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
 
    float size_x=12,size_y=9,ratio=0.0;
    if ( pic->height != 0 ) { ratio=pic->width/pic->height; } else
-                           { fprintf(stderr,"Zero Height on this image %s !\n",pic->filename); return; }
-   if ( ratio == 0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename); return; }
+                           { fprintf(stderr,"Zero Height on this image %s !\n",pic->filename); return 0; }
+   if ( ratio == 0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename); return 0; }
 
    size_y=size_x/ratio;
    float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
@@ -71,7 +71,7 @@ void DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,f
   glTranslated(-x,-y,-z);
 //  glDisable(GL_NORMALIZE);
   glPopMatrix();
-  return;
+  return 1;
 }
 void setOrthographicProjection() {
 
