@@ -393,6 +393,8 @@ int main(int argc, char *argv[])
     loadpicturesthread_id=0;
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
+  //  sleep(1);
+  //  return 0;
     glutMainLoop();
 
     return EXIT_SUCCESS;

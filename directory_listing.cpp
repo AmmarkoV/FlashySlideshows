@@ -4,12 +4,12 @@
 #include <string.h>
 #include "InputParser_C.h"
 
-struct filename_holder
+struct FilenameHolder
 {
      char filename[512];
 };
 
-struct filename_holder * list=0;
+struct FilenameHolder * list=0;
 
 unsigned int list_size=0;
 unsigned int last_list_total_count=0;
@@ -18,7 +18,14 @@ unsigned int last_list_total_pictures_count=0;
 void AllocateDirectoryList(unsigned int requested_size)
 {
  if ( list != 0 ) { fprintf(stderr,"List already contained data , freeing memory \n"); free(list); }
- list = ( struct filename_holder * ) malloc(   sizeof(struct filename_holder) * (requested_size+5)  );
+ list = ( struct FilenameHolder * ) malloc(   sizeof(struct FilenameHolder) * (requested_size+5)  );
+
+ unsigned int i=0;
+ for ( i=0; i<requested_size; i++)
+  {
+    strcpy(list[i].filename,"\0");
+  }
+
  list_size=requested_size;
 
  if ( list != 0 )
@@ -47,14 +54,14 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
   #endif
  if (linux_system==0)
   {
-    /* WINDOWS MAC ETC. */
-   fprintf(stderr,"GetDirectoryList not implemented for platform :( \n");
+    /* WINDOWS MAC ETC. */ fprintf(stderr,"GetDirectoryList not implemented for platform :( \n");
   }
+    else
  if (linux_system==1)
   {
   char command[512]={0};
 
-  /* crazy r.e by c00kiemon5ter \/*/
+  /* crazy r.e by c00kiemon5ter <-> http://github.com/c00kiemon5ter \/*/
   sprintf(command,"for file in $(find \"%s\" -maxdepth 1 -type f ! -name \".*\" -exec file {} + | grep \": \\s*\\w* image data\" | sed \"s/\\(.*\\):.*/\\1/\"  ); do basename $file; done > filelist.dat",thedirectory);
 
   int i=system((const char *)command);
@@ -87,7 +94,8 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
           char extension[512]={0};
           unsigned int linelen=2048;
 
-          last_list_total_count=0;
+          unsigned int this_list_total_count=0;
+          unsigned int this_list_total_pictures_count=0;
 
           if ( store_results_in_space > 0 )
             {
@@ -99,6 +107,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
            {
             if (fgets(line,linelen,fp)!=0)
              {
+                 /* START of Read loop that fills in line variable */
                  int res = InputParser_SeperateWords(ipc,line,linelen);
                  InputParser_GetWord(ipc,0,filename,2048);
                  printf("%u arguments <--> %s / %s  \n ",res,line,filename);
@@ -106,30 +115,35 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
                  res = InputParser_SeperateWords(ipc2,filename,linelen);
                  if ( res > 1 )
                  {
-                  ++last_list_total_count;
+                  ++this_list_total_count;
                   InputParser_GetWord(ipc2,1,extension,512);
                   printf( (char*) "EXTENSION : %s \n",extension);
+
                   if ( InputParser_WordCompareNoCase(ipc2,1,(char *)"JPG",3)==1 )
                       {
                        if ( store_results_in_space > 0 )
                        {
-                         strncpy(list[last_list_total_pictures_count].filename,filename,512);
-                         printf("Filename Coming from memory %s ",list[last_list_total_pictures_count].filename);
-                       }
-                        ++last_list_total_pictures_count;
-
-                        if ( list_size <= last_list_total_pictures_count )
+                         if ( list_size <= this_list_total_pictures_count )
                           {
-                              fprintf(stderr,"Our initial size was mistaken stoping procedure \n");
+                              fprintf(stderr,"Our initial size (%u) was mistaken (%u) , while accessing %u stoping procedure \n",store_results_in_space,list_size,this_list_total_pictures_count);
                               break;
+                          } else
+                          {
+                             strncpy(list[this_list_total_pictures_count].filename,filename,512);
+                             printf("Filename Coming from memory %s ",list[this_list_total_pictures_count].filename);
                           }
+                       }
+                        ++this_list_total_pictures_count;
                       }
 
                  }
-
+                 /* END of Read loop that fills in line variable */
              }
            }
            fclose (fp);
+
+           last_list_total_count=this_list_total_count;
+           last_list_total_pictures_count=this_list_total_pictures_count;
 
            fprintf(stderr," %u of total %u files are pictures \n",last_list_total_pictures_count,last_list_total_count);
        }
@@ -158,11 +172,11 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
   //  fprintf(stderr,"This code section is a little sloppy , may segfault \n");
     if ( list_size <= file_id ) return 0;
     if ( list == 0 ) return 0;
+    if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
     if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
 
-    fprintf(stderr,"Copying %s \n",list[file_id].filename);
+    fprintf(stderr,"Copying `%s` \n",list[file_id].filename);
     strcpy(filename,directory);
-    strcat(filename,(char *)"/");
     strcat(filename,list[file_id].filename);
 
     return 1;
