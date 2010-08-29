@@ -19,6 +19,7 @@ struct Picture
   unsigned int depth;
   float transparency; /* 0.0 -> 1.0 */
 
+  unsigned int failed_to_load;
   unsigned int ready_for_texture;
   GLuint gl_rgb_texture;
 
@@ -37,6 +38,7 @@ struct Picture
 };
 
 extern struct Picture *loading;
+extern struct Picture *failed;
 extern int OpenGL_is_rendering;
 extern int OpenGL_is_making_textures;
 

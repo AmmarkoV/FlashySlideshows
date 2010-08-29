@@ -65,6 +65,7 @@ GLfloat fogColor[4]= {0.5f, 0.5f, 0.5f, 1.0f};		// Fog Color
 
 
 
+
 unsigned int ALBUM_SIZE=100;
 struct Picture *album[100]={0};
 
@@ -102,7 +103,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
     if ( album_traveler >= frame.total_images )  { album_traveler = 0; }
     //GetTotalViewableFilesInDirectory()
-    usleep(1000);
+    usleep(100);
   }
   return 0;
 }
@@ -396,7 +397,10 @@ int main(int argc, char *argv[])
 
 
     /* DEMO , DEVELOPMENT SETTINGS < WILL BE REMOVED > */
-    loading=CreatePicture((char * )"album/philosoraptor.jpg");
+    loading=CreatePicture((char * )"app_clipart/philosoraptor.jpg");
+    make_texture(loading,1);
+    failed=CreatePicture((char * )"app_clipart/failed.jpg");
+    make_texture(failed,1);
 
 
     GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */

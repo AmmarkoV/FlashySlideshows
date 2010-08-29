@@ -23,6 +23,10 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 {
   if ( pic == 0 ) { fprintf(stderr,"DisplayPicture called for non existing picture outputed ( %f %f %f ) \n",x,y,z); return 0; }
 
+
+  if ( pic -> failed_to_load == 1 ) { pic=failed; } else
+
+
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_NORMALIZE);
@@ -38,6 +42,7 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
   glEnable ( GL_TEXTURE_2D );
   glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
+
 
 
    float size_x=12,size_y=9,ratio=0.0;

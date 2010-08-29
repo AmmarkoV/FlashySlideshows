@@ -10,7 +10,7 @@
 #define PPMREADBUFLEN 256
 
 struct Picture *loading=0;
-
+struct Picture *failed=0;
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
@@ -62,18 +62,18 @@ int ReadPPM(char * filename,struct Picture * pic)
         int r=0;
 
         t = fgets(buf, PPMREADBUFLEN, pf);
-        if ( (t == 0) || ( strncmp(buf, "P6\n", 3) != 0 ) ) { fclose(pf); return 0; }
+        if ( (t == 0) || ( strncmp(buf, "P6\n", 3) != 0 ) ) { fclose(pf); fprintf(stderr,"ReadPPM error 1\n"); return 0; }
         do
         { /* Px formats can have # comments after first line */
            t = fgets(buf, PPMREADBUFLEN, pf);
-           if ( t == 0 ) { fclose(pf); return 0; }
+           if ( t == 0 ) { fclose(pf); fprintf(stderr,"ReadPPM error 2\n"); return 0; }
         } while ( strncmp(buf, "#", 1) == 0 );
         r = sscanf(buf, "%u %u", &w, &h);
-        if ( r < 2 ) { fclose(pf); return 0; }
+        if ( r < 2 ) { fclose(pf); fprintf(stderr,"ReadPPM error 3\n"); return 0; }
         // The program fails if the first byte of the image is equal to 32. because
         // the fscanf eats the space and the image is read with some bit less
         r = fscanf(pf, "%u\n", &d);
-        if ( (r < 1) || ( d != 255 ) ) { fclose(pf); return 0; }
+        if ( (r < 1) || ( d != 255 ) ) { fclose(pf); fprintf(stderr,"ReadPPM error 4\n"); return 0; }
 
        PreparePictureForImage(pic,w,h,3);
 
@@ -94,6 +94,7 @@ int ReadPPM(char * filename,struct Picture * pic)
             fclose(pf);
             if ( rd < w*h )
             {
+               fprintf(stderr,"ReadPPM error 5\n");
                return 0;
             }
             return 1;
@@ -124,7 +125,8 @@ int LoadPicture(char * filename,struct Picture * pic)
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);
   fprintf(stderr,"Converted picture\n");
   if ( ReadPPM(pic->ppm_filename,pic) )  {} else
-                                         { fprintf(stderr,"Failed to open and load picture \n"); return 0; }
+                                         { pic->failed_to_load=1;
+                                           fprintf(stderr,"Failed to open and load picture \n"); return 0; }
   /*----------------------------------------*/
 
   GetInterestingAreasList(pic);
@@ -140,12 +142,15 @@ int LoadPicture(char * filename,struct Picture * pic)
 
   if ( loading != 0 ) { pic->gl_rgb_texture=loading->gl_rgb_texture;
                         pic->ready_for_texture=1;
-                      } else
-                      {  make_texture(pic,1); } // <- STARTING TEXTURE WILL BE CALLED ON MAIN THREAD
+                        /* Signal picture ready for texture creating*/
+                      }
 
-  /* MAKE TEXTURE */
-  //  make_texture(pic);
-  /*----------------------------------------*/
+  /* MAKE TEXTURE
+   textures can only be created by the main thread so we dont` actually create them here
+   we just signal image loading ( disk i/o etc ) is complete and wait for main thread to
+   load them onto OpenGL
+   If uncommented will hung-> make_texture(pic);
+   ----------------------------------------*/
 
  return 1;
 }
@@ -162,6 +167,7 @@ struct Picture * CreatePicture(char * filename)
     new_picture->rgb_data=0;
     new_picture->rgb_data_size=0;
 
+    new_picture->failed_to_load=0;
     new_picture->ready_for_texture=0;
     new_picture->gl_rgb_texture=0;
 
