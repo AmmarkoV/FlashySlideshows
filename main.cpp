@@ -397,7 +397,7 @@ int main(int argc, char *argv[])
 
 
     /* DEMO , DEVELOPMENT SETTINGS < WILL BE REMOVED > */
-    loading=CreatePicture((char * )"app_clipart/philosoraptor.jpg");
+    loading=CreatePicture((char * )"app_clipart/loading.jpg");
     make_texture(loading,1);
     failed=CreatePicture((char * )"app_clipart/failed.jpg");
     make_texture(failed,1);
