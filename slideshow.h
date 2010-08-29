@@ -58,6 +58,11 @@ struct SlideShowData
   unsigned int dragging_screen;
   struct MouseState mouse;
 
+  /*
+     SLIDESHOW EFFECTS
+  */
+  unsigned int fog_on;
+
   struct FilePicture * pictures_in_folder;
 };
 

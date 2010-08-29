@@ -173,6 +173,8 @@ struct Picture * CreatePicture(char * filename)
   new_picture->time_viewed=0;
   new_picture->times_viewed=0;
 
+  new_picture->transparency=1.0;
+
   new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
 
   LoadPicture(filename,new_picture);

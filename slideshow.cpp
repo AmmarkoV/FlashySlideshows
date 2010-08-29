@@ -50,6 +50,9 @@ void InitSlideShow()
    frame.active_image_place=4;
 
 
+   /* EFFECTS */
+   frame.fog_on=0;
+
    /*MOUSE SPECIFIC*/
    frame.dragging_screen=0;
    frame.mouse.mouse_x=0;

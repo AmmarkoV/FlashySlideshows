@@ -17,6 +17,7 @@ struct Picture
   unsigned int height;
   unsigned int width;
   unsigned int depth;
+  float transparency; /* 0.0 -> 1.0 */
 
   unsigned int ready_for_texture;
   GLuint gl_rgb_texture;

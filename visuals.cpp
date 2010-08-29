@@ -50,9 +50,13 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
    ymin=-4.5;
    ymax=4.5;
 
+   if ( pic->transparency != 1.0 )
+    {  glEnable(GL_BLEND);
+       glBlendFunc(GL_SRC_ALPHA, GL_ONE); }
+
 
    glBegin(GL_QUADS);
-    glColor4f(1.0,1.0,1.0,1.0);
+    glColor4f(1.0,1.0,1.0,pic->transparency);
 
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-5);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-5);	// Bottom Right Of The Texture and Quad
@@ -61,6 +65,8 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
    glEnd();
 
+   if ( pic->transparency != 1.0 )
+    {  glDisable(GL_BLEND);  }
 
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);

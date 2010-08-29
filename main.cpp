@@ -57,6 +57,14 @@ const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
 const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat high_shininess[] = { 100.0f };
 
+
+GLuint filter;						// Which Filter To Use
+GLuint fogMode[]= { GL_EXP, GL_EXP2, GL_LINEAR };	// Storage For Three Types Of Fog
+GLuint fogfilter= 0;					// Which Fog To Use
+GLfloat fogColor[4]= {0.5f, 0.5f, 0.5f, 1.0f};		// Fog Color
+
+
+
 unsigned int ALBUM_SIZE=100;
 struct Picture *album[100]={0};
 
@@ -134,6 +142,10 @@ static void resize(int width, int height)
 
 static void display(void)
 {
+    if (  frame.fog_on==1 ) { glEnable(GL_FOG);	} else
+                            { glDisable(GL_FOG);	}
+
+
 	framecount+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
 	frame.tick_count=timenow; // <- Slideshow triggering
@@ -182,7 +194,8 @@ static void display(void)
        glPopMatrix();
 
 
-
+    if (  frame.fog_on==1 ) { glDisable(GL_FOG);	} else
+                            { glEnable(GL_FOG);	}
 
 
    /* DRAW APPLICATION HUD */
@@ -355,6 +368,15 @@ int main(int argc, char *argv[])
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+
+  //  glClearColor(0.5f,0.5f,0.5f,1.0f);			// We'll Clear To The Color Of The Fog ( Modified )
+
+    glFogi(GL_FOG_MODE, fogMode[fogfilter]);		// Fog Mode
+    glFogfv(GL_FOG_COLOR, fogColor);			// Set Fog Color
+    glFogf(GL_FOG_DENSITY, 0.35f);				// How Dense Will The Fog Be
+    glHint(GL_FOG_HINT, GL_DONT_CARE);			// Fog Hint Value
+    glFogf(GL_FOG_START, 1.0f);				// Fog Start Depth
+    glFogf(GL_FOG_END, 5.0f);				// Fog End Depth
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
@@ -382,7 +404,7 @@ int main(int argc, char *argv[])
     GetDirectoryList((char * )"album/",GetTotalViewableFilesInDirectory()); /* Load Directory List */
 
     frame.total_images=GetTotalViewableFilesInDirectory();
-    int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }
+    unsigned int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }
 
 
 
