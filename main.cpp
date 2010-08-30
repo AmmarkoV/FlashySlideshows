@@ -118,7 +118,6 @@ int ManageCreatingTextures(int count_only)
      if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
    }
 
-
   return count;
 }
 
@@ -147,6 +146,8 @@ static void display(void)
                             { glDisable(GL_FOG);	}
 
 
+    /* FRAME RATE COUNTING
+       >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	framecount+=1;
 	timenow=glutGet(GLUT_ELAPSED_TIME);
 	frame.tick_count=timenow; // <- Slideshow triggering
@@ -157,6 +158,8 @@ static void display(void)
 	 	timebase = timenow;
 		framecount = 0;
 	}
+    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
 
    AutomaticSlideShowControl_if_needed();
 
@@ -225,7 +228,10 @@ static void display(void)
 // Method to handle the mouse motion
 void Motion(int x, int y)
 {
-   Controls_Handle_MouseMotion(0,0,x,y);
+   if ( Controls_Handle_MouseMotion(666,666,x,y) == 1 )
+    {
+      glutPostRedisplay();
+    }
 }
 
 
@@ -233,13 +239,14 @@ void Motion(int x, int y)
 // Method to handle the mouse buttons
 void Mouse( int button,int state, int x, int y)
 {
+  int res=0;
+  if (state== GLUT_UP)   { res=Controls_Handle_MouseButtons(button,2,x,y); } else
+  if (state== GLUT_DOWN) { res=Controls_Handle_MouseButtons(button,1,x,y); } else
+                         { res=Controls_Handle_MouseButtons(button,0,x,y); }
 
-  if (state== GLUT_UP)   { Controls_Handle_MouseButtons(button,2,x,y); } else
-  if (state== GLUT_DOWN) { Controls_Handle_MouseButtons(button,1,x,y); } else
-                         { Controls_Handle_MouseButtons(button,0,x,y); }
-
+  glutPostRedisplay();
   //  MouseLook(x,y);
-   // glutPostRedisplay();
+   //
 }
 
 

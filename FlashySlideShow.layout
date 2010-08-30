@@ -8,7 +8,7 @@
 		<Cursor position="317" topLine="8" />
 	</File>
 	<File name="camera_control.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="719" topLine="29" />
+		<Cursor position="5707" topLine="117" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="13">
 		<Cursor position="200" topLine="0" />
@@ -32,33 +32,33 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3447" topLine="48" />
+		<Cursor position="4588" topLine="7" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="5">
-		<Cursor position="293" topLine="6" />
+		<Cursor position="696" topLine="12" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="113" topLine="0" />
+		<Cursor position="846" topLine="54" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="3">
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1787" topLine="30" />
+		<Cursor position="4910" topLine="141" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="938" topLine="23" />
+		<Cursor position="1147" topLine="8" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="7">
-		<Cursor position="1197" topLine="30" />
+		<Cursor position="1505" topLine="34" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="540" topLine="0" />
+		<Cursor position="753" topLine="0" />
 	</File>
 	<File name="sound.h" open="1" top="0" tabpos="16">
 		<Cursor position="273" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="373" topLine="0" />
+		<Cursor position="3812" topLine="128" />
 	</File>
 </CodeBlocks_layout_file>
