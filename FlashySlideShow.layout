@@ -8,16 +8,16 @@
 		<Cursor position="317" topLine="8" />
 	</File>
 	<File name="camera_control.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="5707" topLine="117" />
+		<Cursor position="5707" topLine="12" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="13">
 		<Cursor position="200" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="1933" topLine="0" />
+		<Cursor position="3106" topLine="61" />
 	</File>
 	<File name="controls.h" open="1" top="0" tabpos="11">
-		<Cursor position="340" topLine="0" />
+		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="5161" topLine="35" />
@@ -44,13 +44,13 @@
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="4910" topLine="141" />
+		<Cursor position="6714" topLine="223" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1147" topLine="8" />
+		<Cursor position="1340" topLine="44" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="7">
-		<Cursor position="1505" topLine="34" />
+		<Cursor position="312" topLine="0" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="753" topLine="0" />

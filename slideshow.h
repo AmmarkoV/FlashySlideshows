@@ -1,6 +1,18 @@
 #ifndef SLIDESHOW_H_INCLUDED
 #define SLIDESHOW_H_INCLUDED
 
+
+#define FRAME_UP_LEFT 1
+#define FRAME_UP_RIGHT 2
+#define FRAME_DOWN_LEFT 3
+#define FRAME_DOWN_RIGHT 4
+
+
+struct Point3D
+{
+  float x,y,z;
+};
+
 struct MouseState
 {
   unsigned int block_mouse_calls_until;
@@ -54,6 +66,11 @@ struct SlideShowData
 
   float vx,vy,vz;
 
+  unsigned int effect_move_activated;
+  float effect_start_x,effect_start_y,effect_start_z;
+  float effect_end_x,effect_end_y,effect_end_z;
+
+
   unsigned int total_files;
 
   unsigned int dragging_screen;
@@ -68,6 +85,11 @@ struct SlideShowData
 };
 
 extern struct SlideShowData frame;
+
+extern struct Point3D up_left;
+extern struct Point3D up_right;
+extern struct Point3D down_left;
+extern struct Point3D down_right;
 
 void InitSlideShow();
 

@@ -51,6 +51,82 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
   frame.desired_z=-1.0;
 }
 
+void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigned int position_start,unsigned int position_end)
+{
+   SetDestinationOverPicture(x,y);
+
+   switch (position_start)
+   {
+        case FRAME_UP_LEFT :
+        frame.effect_start_x=up_left.x;
+        frame.effect_start_y=up_left.y;
+        frame.effect_start_z=up_left.z;
+        break;
+
+        case FRAME_UP_RIGHT :
+        frame.effect_start_x=up_right.x;
+        frame.effect_start_y=up_right.y;
+        frame.effect_start_z=up_right.z;
+        break;
+
+        case FRAME_DOWN_LEFT :
+        frame.effect_start_x=down_left.x;
+        frame.effect_start_y=down_left.y;
+        frame.effect_start_z=down_left.z;
+        break;
+
+        case FRAME_DOWN_RIGHT :
+        frame.effect_start_x=down_right.x;
+        frame.effect_start_y=down_right.y;
+        frame.effect_start_z=down_right.z;
+        break;
+
+        default :
+        fprintf(stderr,"Incorrect position :S \n");
+        frame.effect_start_x=frame.vx;
+        frame.effect_start_y=frame.vy;
+        frame.effect_start_z=frame.vz;
+        break;
+   };
+
+
+      switch (position_end)
+   {
+        case FRAME_UP_LEFT :
+        frame.effect_end_x=up_left.x;
+        frame.effect_end_y=up_left.y;
+        frame.effect_end_z=up_left.z;
+        break;
+
+        case FRAME_UP_RIGHT :
+        frame.effect_end_x=up_right.x;
+        frame.effect_end_y=up_right.y;
+        frame.effect_end_z=up_right.z;
+        break;
+
+        case FRAME_DOWN_LEFT :
+        frame.effect_end_x=down_left.x;
+        frame.effect_end_y=down_left.y;
+        frame.effect_end_z=down_left.z;
+        break;
+
+        case FRAME_DOWN_RIGHT :
+        frame.effect_end_x=down_right.x;
+        frame.effect_end_y=down_right.y;
+        frame.effect_end_z=down_right.z;
+        break;
+
+        default :
+        fprintf(stderr,"Incorrect position :S \n");
+        frame.effect_end_x=frame.vx;
+        frame.effect_end_y=frame.vy;
+        frame.effect_end_z=frame.vz;
+        break;
+   };
+
+}
+
+
 void SetDestinationOverNextPicture()
 {
    unsigned int new_active_x=frame.active_image_x;

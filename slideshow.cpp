@@ -4,6 +4,13 @@
 struct SlideShowData frame;
 
 
+
+struct Point3D up_left={3.6,-2.8,-3.4};
+struct Point3D up_right={-3.6,-2.8,-3.4};
+struct Point3D down_left={3.6,2.8,-3.4};
+struct Point3D down_right={-3.6,2.8,-3.4};
+
+
 void InitSlideShow()
 {
    frame.distance_block_upper=20;
@@ -40,6 +47,17 @@ void InitSlideShow()
    frame.vx=00.0;
    frame.vy=00.0;
    frame.vz=00.0;
+
+
+   frame.effect_move_activated=0;
+
+   frame.effect_start_x=00.0;
+   frame.effect_start_y=00.0;
+   frame.effect_start_z=00.0;
+
+   frame.effect_end_x=00.0;
+   frame.effect_end_y=00.0;
+   frame.effect_end_z=00.0;
 
    frame.total_images=0;
    frame.fullscreen=0;
