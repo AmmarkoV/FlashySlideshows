@@ -192,7 +192,8 @@ void PerformCameraStep()
       -------------------------------------
     */
     unsigned int reached_target=0;
-    float speed_multiplier=frame.fps/2; // 250;
+    float factor = 3/2; /* 1/5 */
+    float speed_multiplier=frame.fps * factor;
     if ( speed_multiplier == 0 ) speed_multiplier=250;
 
 
@@ -278,14 +279,14 @@ void PerformCameraStep()
      CAMERA ROUNDING ERROR CORRECTION
      -------------------------------------
   */
-  if ( ( frame.desired_x > frame.vx ) && ( frame.desired_x < frame.vx+0.0005 ) ) { frame.vx = frame.desired_x; } else
-  if ( ( frame.desired_x < frame.vx ) && ( frame.desired_x > frame.vx-0.0005 ) ) { frame.vx = frame.desired_x; }
+  if ( ( frame.desired_x > frame.vx ) && ( frame.desired_x < frame.vx+0.005 ) ) { frame.vx = frame.desired_x; } else
+  if ( ( frame.desired_x < frame.vx ) && ( frame.desired_x > frame.vx-0.005 ) ) { frame.vx = frame.desired_x; }
 
-  if ( ( frame.desired_y > frame.vy ) && ( frame.desired_y < frame.vy+0.0005 ) ) { frame.vy = frame.desired_y; } else
-  if ( ( frame.desired_y < frame.vy ) && ( frame.desired_y > frame.vy-0.0005 ) ) { frame.vy = frame.desired_y; }
+  if ( ( frame.desired_y > frame.vy ) && ( frame.desired_y < frame.vy+0.005 ) ) { frame.vy = frame.desired_y; } else
+  if ( ( frame.desired_y < frame.vy ) && ( frame.desired_y > frame.vy-0.005 ) ) { frame.vy = frame.desired_y; }
 
-  if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+0.0005 ) ) { frame.vz = frame.desired_z; } else
-  if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz-0.0005 ) ) { frame.vz = frame.desired_z; }
+  if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+0.005 ) ) { frame.vz = frame.desired_z; } else
+  if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz-0.005 ) ) { frame.vz = frame.desired_z; }
 }
 
 
