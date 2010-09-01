@@ -192,8 +192,17 @@ void PerformCameraStep()
       -------------------------------------
     */
     unsigned int reached_target=0;
-    float factor = 3/2; /* 1/5 */
-    float speed_multiplier=frame.fps * factor;
+    float speed_factor = 3/2; /* 1/5 */
+
+    if ( frame.effect_move_activated >= 2 ) { /* Frame is beeing hovered for an effect move , so we prefer slow speed */
+                                              speed_factor = 3/2;
+                                            } else
+                                            {
+                                              /* Frame is beeing plainly hovered , so we prefer fast speed */
+                                              speed_factor = 1/5;
+                                            }
+
+    float speed_multiplier=frame.fps * speed_factor;
     if ( speed_multiplier == 0 ) speed_multiplier=250;
 
 
@@ -235,35 +244,43 @@ void PerformCameraStep()
                            } else { reached_target+=5; } /* + One coordinate has reached target */
 
 
- if ( frame.effect_move_activated == 1 )
+ switch ( frame.effect_move_activated )
   {
-    /*  frame.effect_start is activated step 1  */
-    frame.desired_x=frame.effect_start_x;
-    frame.desired_y=frame.effect_start_y;
-    frame.desired_z=frame.effect_start_z;
-    frame.effect_move_activated = 2;
-    fprintf(stderr,"Reached the start of the hover effect ( des %f , %f , %f )\n",frame.desired_x,frame.desired_y,frame.desired_z);
-  } else
-  if ( frame.effect_move_activated == 2 )
-  {
-     if ( reached_target >= 9 )
-     {   /*  frame.effect_start is activated step 2  */
-       frame.desired_x=frame.effect_end_x;
-       frame.desired_y=frame.effect_end_y;
-       frame.desired_z=frame.effect_end_z;
-       frame.effect_move_activated = 0;
-       fprintf(stderr,"Reached the end of the hover effect ( des %f , %f , %f )\n",frame.desired_x,frame.desired_y,frame.desired_z);
-     } else
-     {
-       //fprintf(stderr,"%u of 3 coords reached ( des %f , %f , %f ) \n",reached_target,frame.desired_x,frame.desired_y,frame.desired_z);
-       //fprintf(stderr,"we are at ( des %f , %f , %f ) \n",frame.vx,frame.vy,frame.vz);
-    }
-  } else
-  {
-    frame.effect_move_activated = 0;
-  }
+     case 0 :
+      /* DEAD STATE :) */
+     break;
 
+     /* Start movement to start */
+     case 1 :
+      frame.desired_x=frame.effect_start_x;
+      frame.desired_y=frame.effect_start_y;
+      frame.desired_z=frame.effect_start_z;
+      frame.effect_move_activated=2;
+     break;
 
+     /* Reach start place*/
+     case 2 :
+      if ( reached_target >= 9 ) { frame.effect_move_activated=3; }
+     break;
+
+     /* Start movement to end */
+     case 3 :
+      frame.desired_x=frame.effect_end_x;
+      frame.desired_y=frame.effect_end_y;
+      frame.desired_z=frame.effect_end_z;
+      frame.effect_move_activated=4;
+     break;
+
+     /* Reach end place*/
+     case 4 :
+      if ( reached_target >= 9 ) { frame.effect_move_activated = 0; }
+     break;
+
+     default :
+      fprintf(stderr,"Erroneous state :P \n");
+      frame.effect_move_activated = 0;
+     break;
+  };
 
 
 
