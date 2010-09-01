@@ -192,7 +192,7 @@ void PerformCameraStep()
       -------------------------------------
     */
     unsigned int reached_target=0;
-    float speed_multiplier=frame.fps/5; // 250;
+    float speed_multiplier=frame.fps/2; // 250;
     if ( speed_multiplier == 0 ) speed_multiplier=250;
 
 
@@ -218,7 +218,7 @@ void PerformCameraStep()
                                    /* CLOSING IN OPERATION */   frame.vy = frame.vy+ ( frame.desired_y - frame.vy ) / speed_multiplier;
                                    if ( frame.desired_y < frame.vy ) { frame.desired_y = frame.vy; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
-                           } else { reached_target+=1; } /* + One coordinate has reached target */
+                           } else { reached_target+=3; } /* + One coordinate has reached target */
 
 
     if ( frame.desired_z != frame.vz ) { if ( frame.desired_z < frame.vz )
@@ -231,7 +231,7 @@ void PerformCameraStep()
                                    /* CLOSING IN OPERATION */   frame.vz = frame.vz+ ( frame.desired_z - frame.vz ) / speed_multiplier;
                                    if ( frame.desired_z < frame.vz ) { frame.desired_z = frame.vz; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
-                           } else { reached_target+=1; } /* + One coordinate has reached target */
+                           } else { reached_target+=5; } /* + One coordinate has reached target */
 
 
  if ( frame.effect_move_activated == 1 )
@@ -241,16 +241,22 @@ void PerformCameraStep()
     frame.desired_y=frame.effect_start_y;
     frame.desired_z=frame.effect_start_z;
     frame.effect_move_activated = 2;
+    fprintf(stderr,"Reached the start of the hover effect ( des %f , %f , %f )\n",frame.desired_x,frame.desired_y,frame.desired_z);
   } else
   if ( frame.effect_move_activated == 2 )
   {
-     if ( reached_target == 3 )
+     if ( reached_target >= 9 )
      {   /*  frame.effect_start is activated step 2  */
        frame.desired_x=frame.effect_end_x;
        frame.desired_y=frame.effect_end_y;
        frame.desired_z=frame.effect_end_z;
        frame.effect_move_activated = 0;
-     }
+       fprintf(stderr,"Reached the end of the hover effect ( des %f , %f , %f )\n",frame.desired_x,frame.desired_y,frame.desired_z);
+     } else
+     {
+       //fprintf(stderr,"%u of 3 coords reached ( des %f , %f , %f ) \n",reached_target,frame.desired_x,frame.desired_y,frame.desired_z);
+       //fprintf(stderr,"we are at ( des %f , %f , %f ) \n",frame.vx,frame.vy,frame.vz);
+    }
   } else
   {
     frame.effect_move_activated = 0;
@@ -268,4 +274,30 @@ void PerformCameraStep()
    if ( frame.vz<=frame.distance_block_lower) { frame.vz=frame.distance_block_lower; frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
    if ( frame.vz>=frame.distance_block_upper) { frame.vz=frame.distance_block_upper; frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
 
+  /* -------------------------------------
+     CAMERA ROUNDING ERROR CORRECTION
+     -------------------------------------
+  */
+  if ( ( frame.desired_x > frame.vx ) && ( frame.desired_x < frame.vx+0.0005 ) ) { frame.vx = frame.desired_x; } else
+  if ( ( frame.desired_x < frame.vx ) && ( frame.desired_x > frame.vx-0.0005 ) ) { frame.vx = frame.desired_x; }
+
+  if ( ( frame.desired_y > frame.vy ) && ( frame.desired_y < frame.vy+0.0005 ) ) { frame.vy = frame.desired_y; } else
+  if ( ( frame.desired_y < frame.vy ) && ( frame.desired_y > frame.vy-0.0005 ) ) { frame.vy = frame.desired_y; }
+
+  if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+0.0005 ) ) { frame.vz = frame.desired_z; } else
+  if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz-0.0005 ) ) { frame.vz = frame.desired_z; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
