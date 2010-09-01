@@ -279,9 +279,16 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'y': frame.angle_z-=0.5; break;
         case 'h': frame.angle_z+=0.5; break;
 
+        case 'b': SetDestinationOverPicture_HoverEffect(frame.active_image_x,frame.active_image_y,1,4); break;
+
        default : nokey=1;
             break;
     }
 
   return nokey;
 }
+
+
+
+
+

@@ -124,6 +124,15 @@ void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigne
         break;
    };
 
+        frame.effect_move_activated=1; /* ACTIVATE START Coords */
+
+        frame.effect_start_x=frame.desired_x+frame.effect_start_x;
+        frame.effect_start_y=frame.desired_y+frame.effect_start_y;
+        frame.effect_start_z=frame.desired_z+frame.effect_start_z;
+
+        frame.effect_end_x=frame.desired_x+frame.effect_end_x;
+        frame.effect_end_y=frame.desired_y+frame.effect_end_y;
+        frame.effect_end_z=frame.desired_z+frame.effect_end_z;
 }
 
 
@@ -175,11 +184,14 @@ void PerformCameraStep()
     */
 
 
+
+
     /*
       -------------------------------------
       CAMERA SMOOTH ZOOM/PAN ETC
       -------------------------------------
     */
+    unsigned int reached_target=0;
     float speed_multiplier=frame.fps/5; // 250;
     if ( speed_multiplier == 0 ) speed_multiplier=250;
 
@@ -194,7 +206,7 @@ void PerformCameraStep()
                                    /* CLOSING IN OPERATION */   frame.vx = frame.vx+ ( frame.desired_x - frame.vx ) / speed_multiplier;
                                    if ( frame.desired_x < frame.vx ) { frame.desired_x = frame.vx; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
-                           }
+                           } else { reached_target+=1; } /* + One coordinate has reached target */
 
     if ( frame.desired_y != frame.vy ) { if ( frame.desired_y < frame.vy )
                                  {
@@ -206,7 +218,7 @@ void PerformCameraStep()
                                    /* CLOSING IN OPERATION */   frame.vy = frame.vy+ ( frame.desired_y - frame.vy ) / speed_multiplier;
                                    if ( frame.desired_y < frame.vy ) { frame.desired_y = frame.vy; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
-                           }
+                           } else { reached_target+=1; } /* + One coordinate has reached target */
 
 
     if ( frame.desired_z != frame.vz ) { if ( frame.desired_z < frame.vz )
@@ -219,7 +231,36 @@ void PerformCameraStep()
                                    /* CLOSING IN OPERATION */   frame.vz = frame.vz+ ( frame.desired_z - frame.vz ) / speed_multiplier;
                                    if ( frame.desired_z < frame.vz ) { frame.desired_z = frame.vz; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
-                           }
+                           } else { reached_target+=1; } /* + One coordinate has reached target */
+
+
+ if ( frame.effect_move_activated == 1 )
+  {
+    /*  frame.effect_start is activated step 1  */
+    frame.desired_x=frame.effect_start_x;
+    frame.desired_y=frame.effect_start_y;
+    frame.desired_z=frame.effect_start_z;
+    frame.effect_move_activated = 2;
+  } else
+  if ( frame.effect_move_activated == 2 )
+  {
+     if ( reached_target == 3 )
+     {   /*  frame.effect_start is activated step 2  */
+       frame.desired_x=frame.effect_end_x;
+       frame.desired_y=frame.effect_end_y;
+       frame.desired_z=frame.effect_end_z;
+       frame.effect_move_activated = 0;
+     }
+  } else
+  {
+    frame.effect_move_activated = 0;
+  }
+
+
+
+
+
+
   /* -------------------------------------
      CAMERA SAFE GUARD!
      -------------------------------------
