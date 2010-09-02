@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -168,6 +169,14 @@ void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigne
         frame.effect_end_x=frame.desired_x+frame.effect_end_x;
         frame.effect_end_y=frame.desired_y+frame.effect_end_y;
         frame.effect_end_z=frame.desired_z+frame.effect_end_z;
+}
+
+void PickHoverEffect(unsigned int x,unsigned int y)
+{
+  unsigned int start,end;
+  start=rand()%4;
+  end=rand()%4;
+  SetDestinationOverPicture_HoverEffect(x,y,start,end);
 }
 
 

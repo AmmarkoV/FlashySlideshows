@@ -7,20 +7,20 @@
 	<File name="InputParser_C.h" open="1" top="0" tabpos="20">
 		<Cursor position="317" topLine="8" />
 	</File>
-	<File name="camera_control.cpp" open="1" top="1" tabpos="12">
-		<Cursor position="10217" topLine="240" />
+	<File name="camera_control.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="4917" topLine="109" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="13">
-		<Cursor position="168" topLine="0" />
+		<Cursor position="454" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="9214" topLine="257" />
+		<Cursor position="9484" topLine="257" />
 	</File>
 	<File name="controls.h" open="1" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="5161" topLine="35" />
+		<Cursor position="839" topLine="15" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="15">
 		<Cursor position="350" topLine="0" />
@@ -43,11 +43,11 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="3">
 		<Cursor position="89" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6617" topLine="166" />
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="4325" topLine="151" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="205" topLine="0" />
+		<Cursor position="205" topLine="32" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="7">
 		<Cursor position="1895" topLine="0" />
@@ -59,6 +59,6 @@
 		<Cursor position="273" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="3812" topLine="128" />
+		<Cursor position="2164" topLine="31" />
 	</File>
 </CodeBlocks_layout_file>

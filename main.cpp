@@ -144,6 +144,26 @@ static void resize(int width, int height)
     glLoadIdentity() ;
 }
 
+void timerCB(int millisec)
+{
+glutTimerFunc(millisec, timerCB, millisec);
+glutPostRedisplay();
+}
+
+
+void framerate_limiter()
+{
+  return; /*Disabled */
+
+   // glutTimerFunc(20, timerCB, 20); // draw every 50 ms
+  if ( frame.fps > 95 )
+   {
+     unsigned int frames_to_cut = frame.fps - 90;
+     unsigned int time_to_cut = 1000000/frames_to_cut;
+     usleep (time_to_cut);
+   }
+}
+
 
 static void display(void)
 {
@@ -164,7 +184,7 @@ static void display(void)
 		framecount = 0;
 	}
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
+    framerate_limiter();
 
    AutomaticSlideShowControl_if_needed();
 
