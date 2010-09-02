@@ -23,6 +23,41 @@ float RefreshDesiredStep_AccordingToPosition()
     return frame.desired_step;
 }
 
+void MoveDestinationCenter(unsigned int axis,unsigned int direction)
+{
+    /*
+       According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
+       RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
+    */
+    RefreshDesiredStep_AccordingToPosition();
+    /*---------------------------------------------------------------------------------------------------------------*/
+
+
+    /* axis ( 0 x , 1 y , 2 z ) */
+    /* direction ( 0 + , 1 - ) */
+
+    frame.effect_move_activated=0; /*Overriding hover*/
+
+    switch ( axis )
+    {
+       case 0 :
+        if ( direction == 0 )  frame.desired_x+=frame.desired_step; else
+        if ( direction == 1 )  frame.desired_x-=frame.desired_step;
+       break;
+
+       case 1 :
+        if ( direction == 0 )  frame.desired_y+=frame.desired_step; else
+        if ( direction == 1 )  frame.desired_y-=frame.desired_step;
+       break;
+
+       case 2 :
+        if ( direction == 0 )  frame.desired_z+=frame.desired_step; else
+        if ( direction == 1 )  frame.desired_z-=frame.desired_step;
+      break;
+    };
+
+
+}
 
 
 void SetDestinationCenter()

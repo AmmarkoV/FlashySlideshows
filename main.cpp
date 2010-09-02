@@ -83,8 +83,11 @@ void ToggleFullscreen();
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
   unsigned int album_traveler=0;
+  unsigned int loaded_pictures=0;
   while (!STOP_APPLICATION)
   {
+    loaded_pictures=0;
+
     if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); } else
     if ( album[album_traveler]==loading )
       {
@@ -92,6 +95,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
             {
                fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
+               ++loaded_pictures;
             } else
             {
                fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images);
@@ -102,8 +106,9 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     ++album_traveler;
     if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
     if ( album_traveler >= frame.total_images )  { album_traveler = 0; }
-    //GetTotalViewableFilesInDirectory()
-    usleep(100);
+
+    if ( loaded_pictures == 0 ) { usleep(10000);  } else
+                                { usleep(10000);  }
   }
   return 0;
 }

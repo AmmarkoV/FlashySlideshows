@@ -70,8 +70,7 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
    glEnd();
 
-   if ( pic->transparency != 1.0 )
-    {  glDisable(GL_BLEND);  }
+   if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }
 
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);

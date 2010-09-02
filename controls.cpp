@@ -249,7 +249,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
        According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
        RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
     */
-    RefreshDesiredStep_AccordingToPosition();
+   // RefreshDesiredStep_AccordingToPosition();
     /*---------------------------------------------------------------------------------------------------------------*/
 
     int nokey=0;
@@ -266,12 +266,12 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'o': SetDestinationCenter();
                   break;
 
-        case 'r': frame.desired_z+=frame.desired_step; break;
-        case 'f': frame.desired_z-=frame.desired_step; break;
-        case 'a': frame.desired_x+=frame.desired_step; break;
-        case 'd': frame.desired_x-=frame.desired_step; break;
-        case 's': frame.desired_y+=frame.desired_step; break;
-        case 'w': frame.desired_y-=frame.desired_step; break;
+        case 'r': MoveDestinationCenter(2,0); /*frame.desired_z+=frame.desired_step;*/ break;
+        case 'f': MoveDestinationCenter(2,1); /*frame.desired_z-=frame.desired_step;*/ break;
+        case 'a': MoveDestinationCenter(0,0); /*frame.desired_x+=frame.desired_step;*/ break;
+        case 'd': MoveDestinationCenter(0,1); /*frame.desired_x-=frame.desired_step;*/ break;
+        case 's': MoveDestinationCenter(1,0); /*frame.desired_y+=frame.desired_step;*/ break;
+        case 'w': MoveDestinationCenter(1,1); /*frame.desired_y-=frame.desired_step;*/ break;
         case 'z': frame.angle_x-=0.5; break;
         case 'c': frame.angle_x+=0.5; break;
         case 't': frame.angle_y-=0.5; break;
