@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1283546292 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1283547811 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<unistd.h>
+	"slideshow.h"
 	"load_textures.h"
 	"image_sensing.h"
 
@@ -30,16 +31,16 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1283546420 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1283549269 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 
-1283546436 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1283549384 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1282912266 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1283549251 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"slideshow.h"
@@ -96,7 +97,7 @@
 
 1283546343 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1283546582 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1283549279 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"

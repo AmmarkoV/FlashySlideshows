@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "slideshow.h"
 #include "load_textures.h"
 #include "image_sensing.h"
 
@@ -185,7 +186,7 @@ struct Picture * CreatePicture(char * filename)
   new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
 
   LoadPicture(filename,new_picture);
-
+  frame.total_images_loaded++;
   return new_picture;
 }
 
@@ -198,6 +199,8 @@ int UnLoadPicture(struct Picture * pic)
   if ( pic->rgb_data != 0 ) free(pic->rgb_data);
 
   glDeleteTextures(1,&pic->gl_rgb_texture);
+
+  frame.total_images_loaded--;
 
   if ( pic != 0 ) free(pic);
  return 1;

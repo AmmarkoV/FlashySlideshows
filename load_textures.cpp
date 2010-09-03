@@ -71,7 +71,8 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
    }
 
-
+    fprintf(stderr,"PLease note that when using mipmaps there is a lot more memory consumption :P \n");
+    frame.gpu.usedRAM+=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
 
     picturedata->ready_for_texture=0;
 

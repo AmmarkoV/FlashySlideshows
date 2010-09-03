@@ -13,6 +13,17 @@ struct Point3D
   float x,y,z;
 };
 
+struct GPU_Data
+{
+  unsigned long usedRAM;
+};
+
+struct Effects_Data
+{
+  unsigned int fog_on;
+};
+
+
 struct MouseState
 {
   unsigned int block_mouse_calls_until;
@@ -38,7 +49,7 @@ struct SlideShowData
   unsigned int fps;
   unsigned int lookahead;
   unsigned int force_mipmap_generation;
-  unsigned int max_memory_commited;
+
 
   unsigned int fullscreen;
   unsigned int automatic_slideshow_on;
@@ -57,6 +68,7 @@ struct SlideShowData
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
 
+  unsigned int total_images_loaded;
   unsigned int total_images;
   unsigned int images_per_line;
   unsigned int active_image_x,active_image_y,active_image_place;
@@ -76,10 +88,13 @@ struct SlideShowData
   unsigned int dragging_screen;
   struct MouseState mouse;
 
+  struct GPU_Data gpu;
+
+
   /*
      SLIDESHOW EFFECTS
   */
-  unsigned int fog_on;
+  struct Effects_Data effects;
 
   struct FilePicture * pictures_in_folder;
 };

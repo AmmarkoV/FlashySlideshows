@@ -162,8 +162,8 @@ void framerate_limiter()
 
 static void display(void)
 {
-    if (  frame.fog_on==1 ) { glEnable(GL_FOG);	} else
-                            { glDisable(GL_FOG);	}
+    if (  frame.effects.fog_on==1 ) { glEnable(GL_FOG);	} else
+                                    { glDisable(GL_FOG);	}
 
 
     /* FRAME RATE COUNTING
@@ -207,8 +207,8 @@ static void display(void)
        glPopMatrix();
 
 
-    if (  frame.fog_on==1 ) { glDisable(GL_FOG);	} else
-                            { glEnable(GL_FOG);	}
+    if (  frame.effects.fog_on==1 ) { glDisable(GL_FOG);	} else
+                                    { glEnable(GL_FOG);	}
 
 
    /* DRAW APPLICATION HUD */

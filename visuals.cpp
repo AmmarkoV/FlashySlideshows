@@ -150,10 +150,11 @@ void DisplayHUD()
          glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE MIPMAPS");
         }
 
-      char fps_string[256]={0};
-      sprintf(fps_string,"Rendering Speed : %u fps - %u pics loaded ",frame.fps,frame.total_images);
+      char fps_string[512]={0};
+      unsigned int total_ram_used_by_gpu=(unsigned int) (frame.gpu.usedRAM/ (1024*1024));
+      sprintf(fps_string,"Rendering Speed : %u fps - %u/%u pics loaded - %u MB",frame.fps,frame.total_images_loaded,frame.total_images,total_ram_used_by_gpu);
       glColor3f(1.0,1.0,0.0);
-      glRasterPos2f(600,10);
+      glRasterPos2f(450,10);
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
 

@@ -14,6 +14,8 @@ struct Point3D down_right={-3.6,2.8,-3.4};
 
 void InitSlideShow()
 {
+   frame.gpu.usedRAM=0;
+
    frame.distance_block_upper=20;
    frame.distance_block_lower=-4.0;
 
@@ -60,6 +62,7 @@ void InitSlideShow()
    frame.effect_end_y=00.0;
    frame.effect_end_z=00.0;
 
+   frame.total_images_loaded=0;
    frame.total_images=0;
    frame.fullscreen=0;
    frame.force_mipmap_generation = 0;
@@ -70,7 +73,7 @@ void InitSlideShow()
 
 
    /* EFFECTS */
-   frame.fog_on=0;
+   frame.effects.fog_on=0;
 
    /*MOUSE SPECIFIC*/
    frame.dragging_screen=0;
