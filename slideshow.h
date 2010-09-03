@@ -85,6 +85,8 @@ struct SlideShowData
 };
 
 extern struct SlideShowData frame;
+extern unsigned int ALBUM_SIZE;
+extern struct Picture *album[100];
 
 extern struct Point3D up_left;
 extern struct Point3D up_right;

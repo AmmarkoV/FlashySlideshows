@@ -66,15 +66,10 @@ GLfloat fogColor[4]= {0.5f, 0.5f, 0.5f, 1.0f};		// Fog Color
 
 
 
-unsigned int ALBUM_SIZE=100;
-struct Picture *album[100]={0};
-
 
 char pictures_filename_shared_stack[1024]={0};
 
-
 unsigned int framecount=0,timenow=0,timebase=0,fps=0;
-
 void ToggleFullscreen();
 
 
@@ -206,18 +201,7 @@ static void display(void)
           glTranslatef(-frame.vx, -frame.vy, -frame.vz);
 
 
-          float y=-6;
-          unsigned int album_traveler=0;
-
-          for ( album_traveler=0; album_traveler<frame.total_images; album_traveler++ )
-           {
-               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],-7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
-               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler], 0,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
-               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } else { y+=6; } } else
-                                          { fprintf(stderr,"Wtf"); }
-           }
-
-
+          MainDisplayFunction();
 
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();

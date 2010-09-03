@@ -50,16 +50,16 @@ int Controls_Handle_MouseButtons(int button,int state, int x, int y)
      if (state == GLUT_UP )
       {
         frame.desired_z-=frame.desired_step;
-        is_not_mouse_wheel_event=0;
       }
+     is_not_mouse_wheel_event=0;
    } else
    if ( button==GLUT_WHEEL_DOWN )
    {
      if (state == GLUT_UP )
       {
         frame.desired_z+=frame.desired_step;
-        is_not_mouse_wheel_event=0;
       }
+     is_not_mouse_wheel_event=0;
    }
    /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
    else
@@ -115,39 +115,10 @@ if (button==GLUT_RIGHT_BUTTON)
 
 
 
-    if ( is_not_mouse_wheel_event == 1 )
-    {
-/*
+  if ( is_not_mouse_wheel_event == 1 )
+   {
 
-       if (state == GLUT_DOWN )
-	   {
-           fprintf(stderr,"\n\n\n\\nClick Released at %u %u , button %u \n",x,y,button);
-	       frame.mouse.button_pressed=1;
-	       frame.mouse.is_currently_pressed=1;
-	   } else
-	    if (state == GLUT_UP )
-	   {
-	     fprintf(stderr,"Click Pressed at %u %u , button %u \n",x,y,button);
-         if ( frame.tick_count - frame.mouse.last_click_time < 1200 )
-	     {
-            is_a_doubleclick_event=1;
-            frame.dragging_screen=0;
-            frame.mouse.block_mouse_calls_until=frame.tick_count+1000;
-         }
-
-       else
-	      {
-	        frame.mouse.is_currently_pressed=0;
-            frame.dragging_screen=0;
-	      }
-
-
-
-
-
-	   }*/
-    }
-   if  ( frame.mouse.left_pressed == 1 ) {
+    if  ( frame.mouse.left_pressed == 1 ) {
                                          frame.dragging_screen=1;
                                          fprintf(stderr,"START DRAGGING \n");
                                        } else
@@ -176,6 +147,8 @@ if (button==GLUT_RIGHT_BUTTON)
 	  SetDestinationCenter();
 	  return 1;
     }
+
+  }
 
     return 0;
 

@@ -21,11 +21,10 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 
 int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
 {
-  if ( pic == 0 ) { fprintf(stderr,"DisplayPicture called for non existing picture outputed ( %f %f %f ) \n",x,y,z); return 0; }
+  if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
 
 
-  if ( pic -> failed_to_load == 1 ) { pic=failed; } else
-
+  if ( pic -> failed_to_load == 1 ) { pic=failed; }
 
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
@@ -55,9 +54,10 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
    ymin=-4.5;
    ymax=4.5;
 
+/*
    if ( pic->transparency != 1.0 )
     {  glEnable(GL_BLEND);
-       glBlendFunc(GL_SRC_ALPHA, GL_ONE); }
+       glBlendFunc(GL_SRC_ALPHA, GL_ONE); }*/
 
 
    glBegin(GL_QUADS);
@@ -70,7 +70,7 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
    glEnd();
 
-   if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }
+ /*  if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }*/
 
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);
@@ -150,15 +150,35 @@ void DisplayHUD()
          glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE MIPMAPS");
         }
 
-      char fps_string[40]={0};
-      sprintf(fps_string,"Rendering Speed : %u fps",frame.fps);
+      char fps_string[256]={0};
+      sprintf(fps_string,"Rendering Speed : %u fps - %u pics loaded ",frame.fps,frame.total_images);
       glColor3f(1.0,1.0,0.0);
-      glRasterPos2f(700,10);
+      glRasterPos2f(600,10);
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
 
  glColor4f(1.0,1.0,1.0,1.0);
  resetPerspectiveProjection();
+}
+
+
+void MainDisplayFunction()
+{
+  float y=-6;
+  unsigned int album_traveler=0;
+
+          for ( album_traveler=0; album_traveler<frame.total_images; album_traveler++ )
+           {
+               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],-7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
+               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler], 0,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
+               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } else { y+=6; } } else
+                                          { fprintf(stderr,"Wtf"); }
+           }
+
+
+
+
+
 }
 
 

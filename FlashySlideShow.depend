@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1283117545 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1283546292 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
@@ -11,7 +11,7 @@
 1283116804 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1283388385 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1283546408 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -30,11 +30,11 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1283287010 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1283546420 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 
-1283287042 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1283546436 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -68,7 +68,7 @@
 
 1282874332 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1283389927 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1283434485 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -94,9 +94,9 @@
 
 1283389801 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
-1282950253 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
+1283546343 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1283385742 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1283546582 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"
@@ -108,10 +108,10 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1268490329 source:/home/ammar/Documents/Programming/FlashySlideShow/InputParser_C.c
+1282907617 source:/home/ammar/Documents/Programming/FlashySlideShow/InputParser_C.c
 	"InputParser_C.h"
 
-1265843756 /home/ammar/Documents/Programming/FlashySlideShow/InputParser_C.h
+1282907255 /home/ammar/Documents/Programming/FlashySlideShow/InputParser_C.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>

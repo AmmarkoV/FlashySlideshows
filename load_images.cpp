@@ -173,13 +173,14 @@ struct Picture * CreatePicture(char * filename)
 
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
 
-    /* new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=0.0; */
-    /* new_picture->position.heading=0.0; new_picture->position.yaw=0.0; new_picture->position.pitch=0.0;*/
+    new_picture->transparency=1.0;
+
+    new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=0.0;
+    new_picture->position.heading=0.0; new_picture->position.yaw=0.0; new_picture->position.pitch=0.0;
 
   new_picture->time_viewed=0;
   new_picture->times_viewed=0;
 
-  new_picture->transparency=1.0;
 
   new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
 
