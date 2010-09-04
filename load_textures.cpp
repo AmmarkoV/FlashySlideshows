@@ -48,6 +48,13 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     picturedata->gl_rgb_texture=new_tex_id;
     complain_about_errors();
 
+    frame.gpu.lastTexture=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
+
+  if ( frame.gpu.maxRAM < frame.gpu.lastTexture + frame.gpu.usedRAM )
+    {
+       fprintf(stderr,"It looks like there is no free memory on GPU :P \n");
+       return 0;
+    }
 
   if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
    {
@@ -72,15 +79,22 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
    }
 
     fprintf(stderr,"PLease note that when using mipmaps there is a lot more memory consumption :P \n");
-    frame.gpu.usedRAM+=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
+
+
+    frame.gpu.usedRAM+=frame.gpu.lastTexture;
 
     picturedata->ready_for_texture=0;
 
     complain_about_errors();
 
     /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN RAM MEMORY */
-      if ( picturedata->rgb_data != 0 ) free(picturedata->rgb_data);
-      picturedata->rgb_data_size=0;
+      if ( picturedata->rgb_data != 0 )
+        {
+          frame.system.usedRAM-=picturedata->rgb_data_size;
+          free(picturedata->rgb_data);
+          picturedata->rgb_data_size=0;
+        }
+
 
     fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
 

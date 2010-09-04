@@ -31,9 +31,9 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
   glEnable(GL_NORMALIZE);
 
   glTranslated(x,y,z);
-  if ( roll!=0 ) { glRotated(roll,0.0,0.0,1.0); }
+  if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
-  if ( pitch!=0 ) { glRotated(pitch,1.0,0.0,0.0); }
+  if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
 
 
   glDisable(GL_CULL_FACE);
@@ -54,10 +54,7 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
    ymin=-4.5;
    ymax=4.5;
 
-/*
-   if ( pic->transparency != 1.0 )
-    {  glEnable(GL_BLEND);
-       glBlendFunc(GL_SRC_ALPHA, GL_ONE); }*/
+  /* if ( pic->transparency != 1.0 ) {  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }*/
 
 
    glBegin(GL_QUADS);
@@ -79,7 +76,7 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
 
   glTranslated(-x,-y,-z);
-//  glDisable(GL_NORMALIZE);
+  glDisable(GL_NORMALIZE);
   glPopMatrix();
   return 1;
 }
@@ -151,10 +148,11 @@ void DisplayHUD()
         }
 
       char fps_string[512]={0};
+      unsigned int max_ram_used_by_gpu=(unsigned int) (frame.gpu.maxRAM/ (1024*1024));
       unsigned int total_ram_used_by_gpu=(unsigned int) (frame.gpu.usedRAM/ (1024*1024));
-      sprintf(fps_string,"Rendering Speed : %u fps - %u/%u pics loaded - %u MB",frame.fps,frame.total_images_loaded,frame.total_images,total_ram_used_by_gpu);
+      sprintf(fps_string,"Rendering Speed : %u fps - %u/%u pics loaded - %u/%u MB",frame.fps,frame.total_images_loaded,frame.total_images,total_ram_used_by_gpu,max_ram_used_by_gpu);
       glColor3f(1.0,1.0,0.0);
-      glRasterPos2f(450,10);
+      glRasterPos2f(400,10);
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
 

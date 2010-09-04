@@ -21,6 +21,8 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      {
          /* CLEAR MEMORY TO ALLOCATE IT LATER*/
          fprintf(stderr,"Picture Structure is dirty\n");
+         frame.system.usedRAM-=pic->rgb_data_size;
+
          free (pic->rgb_data);
          pic->rgb_data_size=0;
      }
@@ -32,6 +34,10 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      {
          /* ALLOCATE ENOUGH MEMORY FOR THE RAW IMAGE */
          pic->overflow_guard=OVERFLOW_GUARD_BYTES;
+         if (frame.system.maxRAM < frame.system.usedRAM + width*height*depth ) { fprintf(stderr,"System memory bounds reached"); return 0; }
+
+         frame.system.usedRAM+=width*height*depth;
+
          pic->rgb_data=(char *) malloc( ( width*height*depth ) + depth );
 
          if  ( pic->rgb_data <=0 )
@@ -45,6 +51,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      pic->height=height;
      pic->depth=depth;
      pic->rgb_data_size=width*height*depth;
+     frame.system.lastTexture=pic->rgb_data_size;
      fprintf(stderr,"PreparePictureForImage completed\n");
 
     return 1;
@@ -76,7 +83,12 @@ int ReadPPM(char * filename,struct Picture * pic)
         r = fscanf(pf, "%u\n", &d);
         if ( (r < 1) || ( d != 255 ) ) { fclose(pf); fprintf(stderr,"ReadPPM error 4\n"); return 0; }
 
-       PreparePictureForImage(pic,w,h,3);
+
+       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          PREPARE MEMORY TO HOLD DATA
+          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+       if ( PreparePictureForImage(pic,w,h,3) == 0 ) { fclose(pf); fprintf(stderr,"ReadPPM could not prepare memory! \n"); return 0; }
+       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
         if ( (w!=pic->width) || (h!=pic->height) )
            {
@@ -119,8 +131,7 @@ int LoadPicture(char * filename,struct Picture * pic)
   char command[1024]={0};
 
   /* COMMAND LINE CONVERSION OF FILE TO PPM */
-   //
-  sprintf(command,"convert %s -resize 50%% %s",loc_filename,pic->ppm_filename);
+  sprintf(command,"convert %s -resize 40%% %s",loc_filename,pic->ppm_filename);
   fprintf(stderr,"Converting picture using command `%s` \n",command);
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);
@@ -194,13 +205,15 @@ struct Picture * CreatePicture(char * filename)
 int UnLoadPicture(struct Picture * pic)
 {
   fprintf(stderr,"Unloading Picture\n");
+  frame.system.usedRAM-=pic->rgb_data_size;
+  frame.gpu.usedRAM-=pic->width*pic->height*4;
+  frame.total_images_loaded--;
 
   pic->rgb_data_size=0;
   if ( pic->rgb_data != 0 ) free(pic->rgb_data);
 
   glDeleteTextures(1,&pic->gl_rgb_texture);
 
-  frame.total_images_loaded--;
 
   if ( pic != 0 ) free(pic);
  return 1;

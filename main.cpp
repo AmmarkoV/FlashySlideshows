@@ -40,7 +40,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[50]="FlashySlideShow ver 0.3 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[50]="FlashySlideShow ver 0.31 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr);
@@ -113,6 +113,10 @@ int ManageCreatingTextures(int count_only)
 {
   unsigned int count=0,i=0;
 
+  /* TODO : add memory handling here
+    if ( frame.gpu.usedRAM >= frame.gpu.maxRAM ) { return 0; }
+  */
+
   for ( i=0; i<frame.total_images; i++)
    {
      if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
@@ -123,29 +127,14 @@ int ManageCreatingTextures(int count_only)
 
 
 
-
-
-/* GLUT callback Handlers */
-static void resize(int width, int height)
-{
-    const float ar = (float) width / (float) height;
-
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();           /*NEAR*/
-    glFrustum(-ar, ar, -1.0, 1.0, 1.0, 800.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity() ;
-}
-
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            FRAME RATE LIMITER
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 void timerCB(int millisec)
 {
 glutTimerFunc(millisec, timerCB, millisec);
 glutPostRedisplay();
 }
-
-
 void framerate_limiter()
 {
   return; /*Disabled */
@@ -158,9 +147,25 @@ void framerate_limiter()
      usleep (time_to_cut);
    }
 }
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
-static void display(void)
+
+static void ResizeCallback(int width, int height)
+{
+    const float ar = (float) width / (float) height;
+
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();           /*NEAR*/
+    glFrustum(-ar, ar, -1.0, 1.0, 1.0, 800.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity() ;
+}
+
+static void DisplayCallback(void)
 {
     if (  frame.effects.fog_on==1 ) { glEnable(GL_FOG);	} else
                                     { glDisable(GL_FOG);	}
@@ -235,7 +240,7 @@ static void display(void)
 
 
 // Method to handle the mouse motion
-void Motion(int x, int y)
+void MotionCallback(int x, int y)
 {
    if ( Controls_Handle_MouseMotion(666,666,x,y) == 1 )
     {
@@ -246,7 +251,7 @@ void Motion(int x, int y)
 
 
 // Method to handle the mouse buttons
-void Mouse( int button,int state, int x, int y)
+void MouseCallback( int button,int state, int x, int y)
 {
   int res=0;
   if (state== GLUT_UP)   { res=Controls_Handle_MouseButtons(button,2,x,y); } else
@@ -254,12 +259,10 @@ void Mouse( int button,int state, int x, int y)
                          { res=Controls_Handle_MouseButtons(button,0,x,y); }
 
   glutPostRedisplay();
-  //  MouseLook(x,y);
-   //
 }
 
 
-static void key(unsigned char key, int x, int y)
+static void KeyCallback(unsigned char key, int x, int y)
 {
   if (key=='q') exit(0);
   else if (key=='j') ToggleFullscreen();
@@ -278,7 +281,7 @@ static void key(unsigned char key, int x, int y)
 
 
 // Method to handle the keyboard's special buttons
-void SpecialFunction (int key, int x, int y)
+void SpecialFunctionCallback (int key, int x, int y)
 {
     int nokey=0;
 	switch (key)
@@ -297,7 +300,7 @@ void SpecialFunction (int key, int x, int y)
 }
 
 
-static void idle(void)
+static void IdleCallback(void)
 {
     glutPostRedisplay();
 }
@@ -305,13 +308,13 @@ static void idle(void)
 
 void InitGlut()
 {
-    glutReshapeFunc(resize);
-    glutMouseFunc ( Mouse );
-    glutPassiveMotionFunc( Motion );
-    glutDisplayFunc(display);
-    glutKeyboardFunc(key);
-    glutSpecialFunc( SpecialFunction);
-    glutIdleFunc(idle);
+    glutReshapeFunc(ResizeCallback);
+    glutMouseFunc (MouseCallback);
+    glutPassiveMotionFunc(MotionCallback);
+    glutDisplayFunc(DisplayCallback);
+    glutKeyboardFunc(KeyCallback);
+    glutSpecialFunc(SpecialFunctionCallback);
+    glutIdleFunc(IdleCallback);
 
 }
 
@@ -361,8 +364,7 @@ int main(int argc, char *argv[])
 
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
     glClearColor(1,1,1,1);
-    /*
-     glEnable(GL_CULL_FACE);
+   /*glEnable(GL_CULL_FACE);
      glCullFace(GL_BACK);
      glEnable(GL_COLOR_MATERIAL);*/
 
@@ -412,7 +414,7 @@ int main(int argc, char *argv[])
 
 
 
-    /* DEMO , DEVELOPMENT SETTINGS < WILL BE REMOVED > */
+    /* Loading Stock textures >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     loading=CreatePicture((char * )"app_clipart/loading.jpg");
     make_texture(loading,1);
     failed=CreatePicture((char * )"app_clipart/failed.jpg");
@@ -433,8 +435,6 @@ int main(int argc, char *argv[])
     loadpicturesthread_id=0;
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
-  //  sleep(1);
-  //  return 0;
     glutMainLoop();
 
     return EXIT_SUCCESS;

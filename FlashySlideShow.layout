@@ -1,64 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="InputParser_C.c" open="1" top="0" tabpos="17">
+	<File name="InputParser_C.c" open="0" top="0" tabpos="17">
 		<Cursor position="12781" topLine="429" />
 	</File>
-	<File name="InputParser_C.h" open="1" top="0" tabpos="20">
+	<File name="InputParser_C.h" open="0" top="0" tabpos="20">
 		<Cursor position="317" topLine="8" />
 	</File>
-	<File name="camera_control.cpp" open="1" top="0" tabpos="12">
+	<File name="camera_control.cpp" open="0" top="0" tabpos="12">
 		<Cursor position="4917" topLine="109" />
 	</File>
-	<File name="camera_control.h" open="1" top="0" tabpos="13">
+	<File name="camera_control.h" open="0" top="0" tabpos="13">
 		<Cursor position="454" topLine="0" />
 	</File>
-	<File name="controls.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="9484" topLine="257" />
+	<File name="controls.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="8869" topLine="0" />
 	</File>
-	<File name="controls.h" open="1" top="0" tabpos="11">
+	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="0" tabpos="9">
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="839" topLine="15" />
 	</File>
-	<File name="directory_listing.h" open="1" top="0" tabpos="15">
-		<Cursor position="350" topLine="0" />
+	<File name="directory_listing.h" open="1" top="0" tabpos="7">
+		<Cursor position="393" topLine="0" />
 	</File>
-	<File name="image_sensing.cpp" open="1" top="0" tabpos="18">
+	<File name="image_sensing.cpp" open="0" top="0" tabpos="18">
 		<Cursor position="401" topLine="0" />
 	</File>
-	<File name="image_sensing.h" open="1" top="0" tabpos="19">
+	<File name="image_sensing.h" open="0" top="0" tabpos="19">
 		<Cursor position="74" topLine="0" />
 	</File>
-	<File name="load_images.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="4588" topLine="7" />
+	<File name="load_images.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="124" topLine="141" />
 	</File>
-	<File name="load_images.h" open="1" top="0" tabpos="5">
-		<Cursor position="696" topLine="12" />
+	<File name="load_images.h" open="1" top="0" tabpos="3">
+		<Cursor position="627" topLine="12" />
 	</File>
-	<File name="load_textures.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="846" topLine="54" />
+	<File name="load_textures.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="2782" topLine="55" />
 	</File>
-	<File name="load_textures.h" open="1" top="0" tabpos="3">
+	<File name="load_textures.h" open="0" top="0" tabpos="3">
 		<Cursor position="89" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="4325" topLine="151" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="5772" topLine="191" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="205" topLine="32" />
+	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1645" topLine="63" />
 	</File>
-	<File name="slideshow.h" open="1" top="0" tabpos="7">
-		<Cursor position="1895" topLine="0" />
+	<File name="slideshow.h" open="1" top="1" tabpos="5">
+		<Cursor position="1871" topLine="22" />
 	</File>
-	<File name="sound.cpp" open="1" top="0" tabpos="8">
+	<File name="sound.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="753" topLine="0" />
 	</File>
-	<File name="sound.h" open="1" top="0" tabpos="16">
+	<File name="sound.h" open="0" top="0" tabpos="16">
 		<Cursor position="273" topLine="0" />
 	</File>
-	<File name="visuals.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="2164" topLine="31" />
+	<File name="visuals.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="4529" topLine="145" />
+	</File>
+	<File name="visuals.h" open="1" top="0" tabpos="9">
+		<Cursor position="186" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

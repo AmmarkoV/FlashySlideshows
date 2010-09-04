@@ -71,6 +71,14 @@ void InitSlideShow()
    frame.active_image_y=1;
    frame.active_image_place=4;
 
+   /* GPU DATA */
+   frame.gpu.usedRAM=0;
+   frame.gpu.maxRAM=512 * 1024 * 1024;
+   frame.gpu.maxTexture=1024; /* MAX TEXTURE DIMENSION , will be updated*/
+
+   /* SYSTEM DATA */
+   frame.system.usedRAM=0;
+   frame.system.maxRAM=128 * 1024 * 1024;
 
    /* EFFECTS */
    frame.effects.fog_on=0;
@@ -128,12 +136,14 @@ void AutomaticSlideShowControl_if_needed()
 
 int SlideshowFirstPictureToLoad()
 {
-
+  return 0;
 }
 
 
 int SlideshowLastPictureToLoad()
 {
-
+  return 0;
 }
+
+
 

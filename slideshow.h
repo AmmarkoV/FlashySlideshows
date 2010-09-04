@@ -15,6 +15,16 @@ struct Point3D
 
 struct GPU_Data
 {
+  unsigned long maxRAM;
+  unsigned long maxTexture;
+  unsigned long lastTexture;
+  unsigned long usedRAM;
+};
+
+struct System_Data
+{
+  unsigned long maxRAM;
+  unsigned long lastTexture;
   unsigned long usedRAM;
 };
 
@@ -86,10 +96,19 @@ struct SlideShowData
   unsigned int total_files;
 
   unsigned int dragging_screen;
+
+
+
+  /*
+     MOUSE DATA
+  */
   struct MouseState mouse;
 
+  /*
+     System / GPU DATA
+  */
   struct GPU_Data gpu;
-
+  struct System_Data system;
 
   /*
      SLIDESHOW EFFECTS
