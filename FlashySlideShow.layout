@@ -20,7 +20,7 @@
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="839" topLine="15" />
+		<Cursor position="839" topLine="53" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="393" topLine="0" />
@@ -32,36 +32,36 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="124" topLine="141" />
+		<Cursor position="5113" topLine="138" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="627" topLine="12" />
 	</File>
-	<File name="load_textures.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="2782" topLine="55" />
+	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="3427" topLine="42" />
 	</File>
 	<File name="load_textures.h" open="0" top="0" tabpos="3">
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="5772" topLine="191" />
+		<Cursor position="6770" topLine="29" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1645" topLine="63" />
+		<Cursor position="1841" topLine="61" />
 	</File>
-	<File name="slideshow.h" open="1" top="1" tabpos="5">
-		<Cursor position="1871" topLine="22" />
+	<File name="slideshow.h" open="1" top="0" tabpos="5">
+		<Cursor position="2186" topLine="0" />
 	</File>
 	<File name="sound.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="753" topLine="0" />
+		<Cursor position="753" topLine="12" />
 	</File>
 	<File name="sound.h" open="0" top="0" tabpos="16">
 		<Cursor position="273" topLine="0" />
 	</File>
-	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="4529" topLine="145" />
+	<File name="visuals.cpp" open="1" top="1" tabpos="8">
+		<Cursor position="3884" topLine="0" />
 	</File>
-	<File name="visuals.h" open="1" top="0" tabpos="9">
+	<File name="visuals.h" open="0" top="0" tabpos="9">
 		<Cursor position="186" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

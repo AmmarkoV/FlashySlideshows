@@ -12,6 +12,7 @@
 
 struct Picture *loading=0;
 struct Picture *failed=0;
+struct Picture *background=0;
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
@@ -131,7 +132,7 @@ int LoadPicture(char * filename,struct Picture * pic)
   char command[1024]={0};
 
   /* COMMAND LINE CONVERSION OF FILE TO PPM */
-  sprintf(command,"convert %s -resize 40%% %s",loc_filename,pic->ppm_filename);
+  sprintf(command,"convert %s -resize 60%% %s",loc_filename,pic->ppm_filename);
   fprintf(stderr,"Converting picture using command `%s` \n",command);
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);

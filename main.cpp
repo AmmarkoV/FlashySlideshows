@@ -205,6 +205,7 @@ static void DisplayCallback(void)
 
           glTranslatef(-frame.vx, -frame.vy, -frame.vz);
 
+          DrawBackground();
 
           MainDisplayFunction();
 
@@ -419,6 +420,8 @@ int main(int argc, char *argv[])
     make_texture(loading,1);
     failed=CreatePicture((char * )"app_clipart/failed.jpg");
     make_texture(failed,1);
+    background=CreatePicture((char * )"app_clipart/background.jpg");
+    make_texture(background,1);
 
 
     GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */

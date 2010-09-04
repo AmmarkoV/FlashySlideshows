@@ -4,5 +4,7 @@
 int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll);
 void DisplayHUD();
 void MainDisplayFunction();
+void DrawBackground();
+
 
 #endif // VISUALS_H_INCLUDED

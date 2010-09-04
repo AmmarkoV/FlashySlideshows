@@ -141,10 +141,9 @@ void DisplayHUD()
        {
          SoundLibrary_PlaySound(0);
         //   SoundLibrary_PlaySoundPos(0,0,0,0);
-
          glRasterPos2f(0,20);
          glColor3f(1.0,0.0,0.0);
-         glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE MIPMAPS");
+         glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE");
         }
 
       char fps_string[512]={0};
@@ -178,6 +177,31 @@ void MainDisplayFunction()
 
 
 
+}
+
+void DrawBackground()
+{
+  glEnable ( GL_TEXTURE_2D );
+  glBindTexture(GL_TEXTURE_2D, background->gl_rgb_texture );
+
+
+   glBegin(GL_QUADS);
+    glColor4f(1.0,1.0,1.0,1.0);
+
+    float x=0,y=0,z=0;
+    float xmin=(-1)*100,xmax=100,ymin=(-1)*100,ymax=100;
+
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-15);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-15);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z-15);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z-15);
+
+   glEnd();
+
+    glDisable ( GL_TEXTURE_2D );
+  glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_CULL_FACE);
+  glDisable(GL_BLEND);
 }
 
 
