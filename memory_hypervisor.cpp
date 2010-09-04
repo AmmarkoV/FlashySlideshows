@@ -1,7 +1,9 @@
 #include "memory_hypervisor.h"
 
 
-/* Pictures are malloced structures that carry RGB data on them */
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      Pictures are malloced structures that carry RGB data on them
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 int LoadPicturesIfNeeded()
 {
   return 0;
@@ -20,7 +22,45 @@ int ManagePicturesMemory()
 }
 
 
-/* Textures are GPU allocated structures that carry RGB data on them */
+
+
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+                         SYSTEM DATA /\
+
+
+
+
+                          GPU DATA   \/
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+
+
+
+
+
+
+
+
+
+
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   Textures are GPU allocated structures that carry RGB data on them
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 int LoadTexturesIfNeeded()
 {
   return 0;

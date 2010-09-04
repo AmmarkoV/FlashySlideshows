@@ -3,8 +3,8 @@
 
 struct SlideShowData frame;
 
-unsigned int ALBUM_SIZE=100;
-struct Picture *album[100]={0};
+unsigned int ALBUM_SIZE=4096;
+struct Picture *album[4096]={0};
 
 struct Point3D up_left={3.6,-2.8,-3.4};
 struct Point3D up_right={-3.6,-2.8,-3.4};

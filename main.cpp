@@ -29,6 +29,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_images.h"
 #include "load_textures.h"
 #include "sound.h"
+#include "memory_hypervisor.h"
+
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -40,7 +42,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[50]="FlashySlideShow ver 0.31 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[70]="FlashySlideShow ver 0.31 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr);
