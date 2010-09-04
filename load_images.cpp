@@ -13,6 +13,7 @@
 struct Picture *loading=0;
 struct Picture *failed=0;
 struct Picture *background=0;
+struct Picture *picture_frame=0;
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {

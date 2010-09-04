@@ -40,6 +40,8 @@ struct Picture
 extern struct Picture *loading;
 extern struct Picture *failed;
 extern struct Picture *background;
+extern struct Picture *picture_frame;
+
 extern int OpenGL_is_rendering;
 extern int OpenGL_is_making_textures;
 

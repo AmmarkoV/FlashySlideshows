@@ -39,11 +39,6 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
   glDisable(GL_CULL_FACE);
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
 
-  glEnable ( GL_TEXTURE_2D );
-  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
-
-
-
    float size_x=12,size_y=9,ratio=0.0;
    if ( pic->height != 0 ) { ratio=pic->width/pic->height; } else
                            { fprintf(stderr,"Zero Height on this image %s !\n",pic->filename); return 0; }
@@ -51,15 +46,30 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
    size_y=size_x/ratio;
    float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
+   float frame_size=0.9;
    ymin=-4.5;
    ymax=4.5;
 
   /* if ( pic->transparency != 1.0 ) {  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }*/
 
+  glEnable ( GL_TEXTURE_2D );
 
+ /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+ glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+  glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
    glBegin(GL_QUADS);
     glColor4f(1.0,1.0,1.0,pic->transparency);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin-frame_size,y+ymin-frame_size,z-5.1);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax+frame_size,y+ymin-frame_size,z-5.1);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax+frame_size,y+ymax+frame_size,z-5.1);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin-frame_size,y+ymax+frame_size,z-5.1);
+   glEnd();
+  glDisable(GL_BLEND);
 
+ /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+ glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
+   glBegin(GL_QUADS);
+    glColor4f(1.0,1.0,1.0,pic->transparency);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-5);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-5);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z-5);	// Top Right Of The Texture and Quad
@@ -188,7 +198,7 @@ void DrawBackground()
    glBegin(GL_QUADS);
     glColor4f(1.0,1.0,1.0,1.0);
 
-    float x=0,y=0,z=0;
+    float x=frame.vx,y=frame.vy,z=0;
     float xmin=(-1)*100,xmax=100,ymin=(-1)*100,ymax=100;
 
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-15);	// Bottom Left Of The Texture and Quad

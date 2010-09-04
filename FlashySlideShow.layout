@@ -32,10 +32,10 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="5113" topLine="138" />
+		<Cursor position="263" topLine="0" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="627" topLine="12" />
+		<Cursor position="704" topLine="12" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="3427" topLine="42" />
@@ -44,7 +44,7 @@
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6770" topLine="29" />
+		<Cursor position="11276" topLine="378" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="1841" topLine="61" />
@@ -59,9 +59,9 @@
 		<Cursor position="273" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="1" tabpos="8">
-		<Cursor position="3884" topLine="0" />
+		<Cursor position="5720" topLine="169" />
 	</File>
-	<File name="visuals.h" open="0" top="0" tabpos="9">
-		<Cursor position="186" topLine="0" />
+	<File name="visuals.h" open="1" top="0" tabpos="10">
+		<Cursor position="233" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

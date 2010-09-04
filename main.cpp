@@ -422,6 +422,8 @@ int main(int argc, char *argv[])
     make_texture(failed,1);
     background=CreatePicture((char * )"app_clipart/background.jpg");
     make_texture(background,1);
+    picture_frame=CreatePicture((char * )"app_clipart/frame.jpg");
+    make_texture(picture_frame,1);
 
 
     GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */
