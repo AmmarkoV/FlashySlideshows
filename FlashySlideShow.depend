@@ -12,7 +12,7 @@
 1283588558 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1283642862 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1283643047 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -25,6 +25,7 @@
 	"load_images.h"
 	"load_textures.h"
 	"sound.h"
+	"memory_hypervisor.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>

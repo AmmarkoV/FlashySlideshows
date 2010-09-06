@@ -61,6 +61,8 @@
 		<Unit filename="load_textures.cpp" />
 		<Unit filename="load_textures.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="memory_hypervisor.cpp" />
+		<Unit filename="memory_hypervisor.h" />
 		<Unit filename="slideshow.cpp" />
 		<Unit filename="slideshow.h" />
 		<Unit filename="sound.cpp" />

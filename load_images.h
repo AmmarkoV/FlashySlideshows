@@ -19,12 +19,22 @@ struct Picture
   unsigned int depth;
   float transparency; /* 0.0 -> 1.0 */
 
-  unsigned int failed_to_load;
-  unsigned int ready_for_texture;
-  GLuint gl_rgb_texture;
-
   unsigned int time_viewed;
   unsigned int times_viewed;
+
+  unsigned int failed_to_load;
+  unsigned char thumbnail_texture_loaded;
+  unsigned char texture_loaded;
+
+  unsigned int ready_for_texture; /* Will be replaced with marked_for_texture_loading*/
+
+  unsigned char marked_for_texture_loading;
+  unsigned char marked_for_texture_removal;
+  unsigned char marked_for_rgbdata_loading;
+  unsigned char marked_for_rgbdata_removal;
+
+  GLuint gl_rgb_texture;
+  GLuint gl_rgb_thumbnail_texture;
 
   struct Position3D position;
 
