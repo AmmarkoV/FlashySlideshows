@@ -418,6 +418,10 @@ int main(int argc, char *argv[])
 
 
     /* Loading Stock textures >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+    star=CreatePicture((char * )"app_clipart/star.png");
+    make_texture(star,1);
+    heart=CreatePicture((char * )"app_clipart/heart.png");
+    make_texture(heart,1);
     loading=CreatePicture((char * )"app_clipart/loading.jpg");
     make_texture(loading,1);
     failed=CreatePicture((char * )"app_clipart/failed.jpg");

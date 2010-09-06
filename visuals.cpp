@@ -189,11 +189,46 @@ void MainDisplayFunction()
 
 }
 
+void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_type)
+{
+  glPushMatrix();
+  glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+  glEnable(GL_NORMALIZE);
+
+  glTranslated(x,y,z);
+  if ( rotation!=0 )    { glRotated(rotation,0.0,0.0,1.0); }
+
+  glDisable(GL_CULL_FACE);
+  glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
+  glEnable ( GL_TEXTURE_2D );
+ /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+ glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+  if ( decal_type == 0 )  glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); else
+  if ( decal_type == 1 )  glBindTexture(GL_TEXTURE_2D, star->gl_rgb_texture ); else
+                          glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); /* DEFAULT */
+   glBegin(GL_QUADS);
+    glColor3f(1.0,1.0,1.0);
+     float size_x=9,size_y=9;
+     float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-4.1);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-4.1);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z-4.1);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z-4.1);
+   glEnd();
+  glDisable ( GL_TEXTURE_2D );
+  glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_CULL_FACE);
+  glDisable(GL_BLEND);
+
+  glTranslated(-x,-y,-z);
+  glDisable(GL_NORMALIZE);
+  glPopMatrix();
+}
+
 void DrawBackground()
 {
   glEnable ( GL_TEXTURE_2D );
   glBindTexture(GL_TEXTURE_2D, background->gl_rgb_texture );
-
 
    glBegin(GL_QUADS);
     glColor4f(1.0,1.0,1.0,1.0);
@@ -212,6 +247,10 @@ void DrawBackground()
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
+
+  DrawDecal(14,0,0,0,0);
+  DrawDecal(14,14,0,0,1);
+
 }
 
 
