@@ -13,6 +13,7 @@
 #include <GL/glu.h>
 #endif
 
+unsigned int times_drawn_background=0;
 
 void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 {
@@ -220,6 +221,7 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
   glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
 
+    if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
   glTranslated(-x,-y,-z);
   glDisable(GL_NORMALIZE);
   glPopMatrix();
@@ -227,6 +229,8 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
 
 void DrawBackground()
 {
+  ++times_drawn_background;
+
   glEnable ( GL_TEXTURE_2D );
   glBindTexture(GL_TEXTURE_2D, background->gl_rgb_texture );
 
@@ -248,9 +252,12 @@ void DrawBackground()
   glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
 
-  DrawDecal(14,0,0,0,0);
-  DrawDecal(14,14,0,0,1);
+}
 
+int DrawEffects()
+{
+  DrawDecal(14,0,0,times_drawn_background/1000,0);
+  DrawDecal(14,14,0,times_drawn_background/1000,1);
 }
 
 

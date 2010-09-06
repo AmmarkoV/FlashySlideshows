@@ -5,6 +5,6 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 void DisplayHUD();
 void MainDisplayFunction();
 void DrawBackground();
-
+int DrawEffects();
 
 #endif // VISUALS_H_INCLUDED

@@ -211,6 +211,8 @@ static void DisplayCallback(void)
 
           MainDisplayFunction();
 
+          DrawEffects();
+
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();
 
