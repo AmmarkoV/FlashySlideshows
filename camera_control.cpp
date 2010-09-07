@@ -216,7 +216,7 @@ void SetDestinationOverNextPicture()
                                                     }
 }
 
-void PerformCameraStep()
+void PerformCameraMovement()
 {
    /*
        THE IDEA IS THE FOLLOWING

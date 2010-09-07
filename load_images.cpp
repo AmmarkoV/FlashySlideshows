@@ -17,6 +17,24 @@ struct Picture *failed=0;
 struct Picture *background=0;
 struct Picture *picture_frame=0;
 
+
+int PictureCreationPending(struct Picture * picturedata)
+{
+  if ( picturedata == 0 ) return 1;
+  if ( picturedata == loading ) return 1;
+  return 0;
+}
+
+
+int PictureLoadingPending(struct Picture * picturedata)
+{
+  if ( picturedata == 0 ) return 1;
+  if ( picturedata == loading ) return 1;
+  return picturedata->marked_for_rgbdata_loading;
+}
+
+
+
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
     fprintf(stderr,"PreparePictureForImage Called for an image %u x %u : %u \n",width,height,depth);
@@ -157,7 +175,7 @@ int LoadPicture(char * filename,struct Picture * pic)
   if ( pic->overflow_guard != OVERFLOW_GUARD_BYTES ) { fprintf(stderr,"Memory Overflow at Picture structure \n "); }
 
   if ( loading != 0 ) { pic->gl_rgb_texture=loading->gl_rgb_texture;
-                        pic->ready_for_texture=1;
+                        pic->marked_for_texture_loading=1;
                         /* Signal picture ready for texture creating*/
                       }
 
@@ -184,7 +202,10 @@ struct Picture * CreatePicture(char * filename)
     new_picture->rgb_data_size=0;
 
     new_picture->failed_to_load=0;
-    new_picture->ready_for_texture=0;
+    new_picture->marked_for_texture_loading=0;
+    new_picture->marked_for_texture_removal=0;
+    new_picture->marked_for_rgbdata_loading=0;
+    new_picture->marked_for_rgbdata_removal=0;
     new_picture->gl_rgb_texture=0;
 
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;

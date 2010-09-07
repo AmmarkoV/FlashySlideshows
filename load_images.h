@@ -26,7 +26,7 @@ struct Picture
   unsigned char thumbnail_texture_loaded;
   unsigned char texture_loaded;
 
-  unsigned int ready_for_texture; /* Will be replaced with marked_for_texture_loading*/
+ // unsigned int ready_for_texture; /* Will be replaced with marked_for_texture_loading*/
 
   unsigned char marked_for_texture_loading;
   unsigned char marked_for_texture_removal;
@@ -56,6 +56,9 @@ extern struct Picture *picture_frame;
 
 extern int OpenGL_is_rendering;
 extern int OpenGL_is_making_textures;
+
+int PictureCreationPending(struct Picture * picturedata);
+int PictureLoadingPending(struct Picture * picturedata);
 
 struct Picture * CreatePicture(char * filename);
 int LoadPicture(char * filename,struct Picture * pic);

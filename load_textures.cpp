@@ -22,7 +22,7 @@ int wait_before_making_textures()
 int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) return 0;
-  return picturedata->ready_for_texture;
+  return picturedata->marked_for_texture_loading;
 }
 
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
@@ -83,7 +83,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
     frame.gpu.usedRAM+=frame.gpu.lastTexture;
 
-    picturedata->ready_for_texture=0;
+    picturedata->marked_for_texture_loading=0;
 
     complain_about_errors();
 

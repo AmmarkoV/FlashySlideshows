@@ -31,10 +31,11 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_NORMALIZE);
 
-  glTranslated(x,y,z);
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
+
+  glTranslated(x,y,z);
 
 
   glDisable(GL_CULL_FACE);
@@ -258,6 +259,7 @@ int DrawEffects()
 {
   DrawDecal(14,0,0,times_drawn_background/1000,0);
   DrawDecal(14,14,0,times_drawn_background/1000,1);
+  return 1;
 }
 
 

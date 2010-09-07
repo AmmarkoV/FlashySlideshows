@@ -42,8 +42,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow ver 0.31 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[70]="FlashySlideShow ver 0.32 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
+
+
+
+char pictures_filename_shared_stack[1024]={0};
+unsigned int framecount=0,timenow=0,timebase=0,fps=0;
+
+void ToggleFullscreen();
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr);
 pthread_t loadpicturesthread_id;
@@ -69,30 +76,33 @@ GLfloat fogColor[4]= {0.5f, 0.5f, 0.5f, 1.0f};		// Fog Color
 
 
 
-char pictures_filename_shared_stack[1024]={0};
-
-unsigned int framecount=0,timenow=0,timebase=0,fps=0;
-void ToggleFullscreen();
-
-
 
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
   unsigned int album_traveler=0;
-  unsigned int loaded_pictures=0;
+  unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
   {
-    loaded_pictures=0;
+    loaded_pictures_this_loop=0;
 
-    if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); } else
-    if ( album[album_traveler]==loading )
+    if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); }
+       else
+    if ( 0 /*  PictureCreationPending(album[album_traveler]) */ )
       {
+        /* THIS SHOULD CREATE THE PICTURE */
+        fprintf(stderr,"stub called ! :P\n");
+      } else
+    if ( PictureLoadingPending(album[album_traveler]) ) /* ( album[album_traveler]==loading ) */
+      {
+        /* THIS SHOULD LOAD THE PICTURE */
+
           if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
             {
                fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
+
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
-               ++loaded_pictures;
+               ++loaded_pictures_this_loop;
             } else
             {
                fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images);
@@ -104,8 +114,8 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
     if ( album_traveler >= frame.total_images )  { album_traveler = 0; }
 
-    if ( loaded_pictures == 0 ) { usleep(10000);  } else
-                                { usleep(10000);  }
+    if ( loaded_pictures_this_loop == 0 ) { usleep(10000);  } else
+                                          { usleep(10000);  }
   }
   return 0;
 }
@@ -114,10 +124,6 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 int ManageCreatingTextures(int count_only)
 {
   unsigned int count=0,i=0;
-
-  /* TODO : add memory handling here
-    if ( frame.gpu.usedRAM >= frame.gpu.maxRAM ) { return 0; }
-  */
 
   for ( i=0; i<frame.total_images; i++)
    {
@@ -186,16 +192,24 @@ static void DisplayCallback(void)
 		framecount = 0;
 	}
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    framerate_limiter();
 
-   AutomaticSlideShowControl_if_needed();
 
+    /* Changes on display behaviour  >>>>>>>>>>>>>>>>>>>>>>*/
+    framerate_limiter(); /* helps smoothing out framerate */
+
+    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+
+   /* Texture binding via OpenGL , it can only be done in this thread , before actually rendering  >>>>>>>>>>>>>>>>>>>>>>*/
+   /* This code only counts textures to be created , they are actually loaded on the end of this function >>>>>>>>>>>>>>>*/
    if (ManageCreatingTextures(1)>0)  { frame.currently_loading=1; } else
                                      { frame.currently_loading=0; }
+   /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
+
+    /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	  glPushMatrix();
        glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -203,22 +217,19 @@ static void DisplayCallback(void)
           glRotatef(frame.angle_x,-1.0,0,0); // Peristrofi gyrw apo ton x
           glRotatef(frame.angle_y,0,-1.0,0); // Peristrofi gyrw apo ton y
           glRotatef(frame.angle_z,0,0,-1.0);
-
-
           glTranslatef(-frame.vx, -frame.vy, -frame.vz);
 
-          DrawBackground();
+             DrawBackground();
 
-          MainDisplayFunction();
+             MainDisplayFunction();
 
-          DrawEffects();
+             DrawEffects();
 
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();
+     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-    if (  frame.effects.fog_on==1 ) { glDisable(GL_FOG);	} else
-                                    { glEnable(GL_FOG);	}
 
 
    /* DRAW APPLICATION HUD */
@@ -230,16 +241,24 @@ static void DisplayCallback(void)
    /* -  -  -  -  -  -  -  */
 
 
+
+
     glutSwapBuffers();
    glFlush();
 
 
-    /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER INPUT*/
-      PerformCameraStep();
+   AutomaticSlideShowControl_if_needed(); /* if automatic slide show is enabled it will relay commands */
+
+   /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER/COMPUTER INPUT*/
+   PerformCameraMovement();
 
 
+   /* Texture binding via OpenGL , it can only be done in this thread , while not rendering  >>>>>>>>>>>>>>>>>>>>>>*/
    ManageCreatingTextures(0);
-   usleep(10);
+   /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+
+   usleep(10); /*Some dead time */
 
 }
 
@@ -247,6 +266,7 @@ static void DisplayCallback(void)
 // Method to handle the mouse motion
 void MotionCallback(int x, int y)
 {
+    /* The command is handled in controls.cpp / controls.h */
    if ( Controls_Handle_MouseMotion(666,666,x,y) == 1 )
     {
       glutPostRedisplay();
@@ -259,6 +279,7 @@ void MotionCallback(int x, int y)
 void MouseCallback( int button,int state, int x, int y)
 {
   int res=0;
+    /* The command is handled in controls.cpp / controls.h */
   if (state== GLUT_UP)   { res=Controls_Handle_MouseButtons(button,2,x,y); } else
   if (state== GLUT_DOWN) { res=Controls_Handle_MouseButtons(button,1,x,y); } else
                          { res=Controls_Handle_MouseButtons(button,0,x,y); }
@@ -269,15 +290,15 @@ void MouseCallback( int button,int state, int x, int y)
 
 static void KeyCallback(unsigned char key, int x, int y)
 {
-  if (key=='q') exit(0);
-  else if (key=='j') ToggleFullscreen();
+  if (key=='q') exit(0); /* Closes Application */
+  else if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
 
-
+  /* The rest commands are handled in controls.cpp / controls.h */
   unsigned int nokey = Controls_Handle_Keyboard(key,x,y);
   if ( nokey == 0 )
   {
-     fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
      key=0;
+     fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
      glutPostRedisplay();
   }
 }
@@ -325,7 +346,7 @@ void InitGlut()
 
 void ToggleFullscreen()
 {
-   fprintf(stderr,"Fullscreen toggling not fully implemented , skipping command for safety \n");
+   fprintf(stderr,"Fullscreen toggling not implemented , skipping command for safety \n");
    return;
    if ( frame.fullscreen == 0 )
     {
@@ -432,6 +453,8 @@ int main(int argc, char *argv[])
     make_texture(background,1);
     picture_frame=CreatePicture((char * )"app_clipart/frame.jpg");
     make_texture(picture_frame,1);
+    /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
 
 
     GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */
@@ -443,11 +466,12 @@ int main(int argc, char *argv[])
 
 
 
-    /* Initialize Picture Loading Thread , start rendering  */
-
+    /* Initialize Picture Loading Thread */
     loadpicturesthread_id=0;
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
+
+    /* Start Rendering */
     glutMainLoop();
 
     return EXIT_SUCCESS;
