@@ -29,8 +29,14 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
    float size_x=12,size_y=9,ratio=0.0;
    if ( pic->height != 0 ) { ratio=pic->width/pic->height; } else
-                           { fprintf(stderr,"Zero Height on this image %s !\n",pic->filename); return 0; }
-   if ( ratio == 0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename); return 0; }
+                           { fprintf(stderr,"Zero Height on this image %s !\n",pic->filename);
+                             DisplayPicture(loading_texture,x,y,z,heading,pitch,roll);
+                             return 0;
+                           }
+   if ( ratio == 0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename);
+                        DisplayPicture(loading_texture,x,y,z,heading,pitch,roll);
+                        return 0;
+                      }
 
    size_y=size_x/ratio;
    float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;

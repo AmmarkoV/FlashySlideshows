@@ -13,6 +13,7 @@
 struct Picture *star=0;
 struct Picture *heart=0;
 struct Picture *loading=0;
+struct Picture *loading_texture=0;
 struct Picture *failed=0;
 struct Picture *background=0;
 struct Picture *picture_frame=0;

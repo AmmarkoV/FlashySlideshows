@@ -50,6 +50,7 @@ struct Picture
 extern struct Picture *star;
 extern struct Picture *heart;
 extern struct Picture *loading;
+extern struct Picture *loading_texture;
 extern struct Picture *failed;
 extern struct Picture *background;
 extern struct Picture *picture_frame;

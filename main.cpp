@@ -448,6 +448,8 @@ int main(int argc, char *argv[])
     make_texture(star,1);
     heart=CreatePicture((char * )"app_clipart/heart.png",1);
     make_texture(heart,1);
+    loading_texture=CreatePicture((char * )"app_clipart/loading_texture.jpg",1);
+    make_texture(loading_texture,1);
     loading=CreatePicture((char * )"app_clipart/loading.jpg",1);
     make_texture(loading,1);
     failed=CreatePicture((char * )"app_clipart/failed.jpg",1);
