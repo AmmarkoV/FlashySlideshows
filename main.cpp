@@ -83,32 +83,35 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   unsigned int album_traveler=0;
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
-  {
+  { fprintf(stderr,"Loading Picture Thread needs fix \n");
     loaded_pictures_this_loop=0;
 
     if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); }
-       else
-    if ( 0 /*  PictureCreationPending(album[album_traveler]) */ )
+     else
+   {
+    if (PictureCreationPending(album[album_traveler]))
       {
-        /* THIS SHOULD CREATE THE PICTURE */
-        fprintf(stderr,"stub called ! :P\n");
-      } else
-    if ( PictureLoadingPending(album[album_traveler]) ) /* ( album[album_traveler]==loading ) */
-      {
-        /* THIS SHOULD LOAD THE PICTURE */
-
-          if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
+         /* THIS SHOULD CREATE THE PICTURE */
+         if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
             {
-               fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
-
-               album[album_traveler]=CreatePicture(pictures_filename_shared_stack);
+               album[album_traveler]=CreatePicture(pictures_filename_shared_stack,0);
                ++loaded_pictures_this_loop;
             } else
-            {
-               fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images);
-            }
+            { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
 
+    if ( PictureLoadingPending(album[album_traveler]) ) /* ( album[album_traveler]==loading ) */
+      {
+          /* THIS SHOULD LOAD THE PICTURE */
+          if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
+            {
+              /* fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);*/
+               LoadPicture(pictures_filename_shared_stack,album[album_traveler]);
+               ++loaded_pictures_this_loop;
+            } else
+            { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
+      }
+   } /* oVERfloW Protection */
 
     ++album_traveler;
     if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
@@ -441,17 +444,17 @@ int main(int argc, char *argv[])
 
 
     /* Loading Stock textures >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    star=CreatePicture((char * )"app_clipart/star.png");
+    star=CreatePicture((char * )"app_clipart/star.png",1);
     make_texture(star,1);
-    heart=CreatePicture((char * )"app_clipart/heart.png");
+    heart=CreatePicture((char * )"app_clipart/heart.png",1);
     make_texture(heart,1);
-    loading=CreatePicture((char * )"app_clipart/loading.jpg");
+    loading=CreatePicture((char * )"app_clipart/loading.jpg",1);
     make_texture(loading,1);
-    failed=CreatePicture((char * )"app_clipart/failed.jpg");
+    failed=CreatePicture((char * )"app_clipart/failed.jpg",1);
     make_texture(failed,1);
-    background=CreatePicture((char * )"app_clipart/background.jpg");
+    background=CreatePicture((char * )"app_clipart/background.jpg",1);
     make_texture(background,1);
-    picture_frame=CreatePicture((char * )"app_clipart/frame.jpg");
+    picture_frame=CreatePicture((char * )"app_clipart/frame.jpg",1);
     make_texture(picture_frame,1);
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 

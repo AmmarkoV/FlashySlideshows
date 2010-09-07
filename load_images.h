@@ -60,8 +60,9 @@ extern int OpenGL_is_making_textures;
 int PictureCreationPending(struct Picture * picturedata);
 int PictureLoadingPending(struct Picture * picturedata);
 
-struct Picture * CreatePicture(char * filename);
+struct Picture * CreatePicture(char * filename,unsigned int force_load);
 int LoadPicture(char * filename,struct Picture * pic);
 int UnLoadPicture(struct Picture * pic);
+int DestroyPicture(struct Picture * pic);
 
 #endif // LOAD_IMAGES_H_INCLUDED

@@ -28,8 +28,9 @@ int PictureCreationPending(struct Picture * picturedata)
 
 int PictureLoadingPending(struct Picture * picturedata)
 {
-  if ( picturedata == 0 ) return 1;
-  if ( picturedata == loading ) return 1;
+  /*In case picture creation is pending , picture loading is not pending ( not the next thing to do )*/
+  if ( picturedata == 0 ) return 0;
+  if ( picturedata == loading ) return 0;
   return picturedata->marked_for_rgbdata_loading;
 }
 
@@ -179,19 +180,14 @@ int LoadPicture(char * filename,struct Picture * pic)
                         /* Signal picture ready for texture creating*/
                       }
 
-  /* MAKE TEXTURE
-   textures can only be created by the main thread so we dont` actually create them here
-   we just signal image loading ( disk i/o etc ) is complete and wait for main thread to
-   load them onto OpenGL
-   If uncommented will hung-> make_texture(pic);
-   ----------------------------------------*/
+  frame.total_images_loaded++; /* ADDED HERE */
 
  return 1;
 }
 
 
 
-struct Picture * CreatePicture(char * filename)
+struct Picture * CreatePicture(char * filename,unsigned int force_load)
 {
   struct Picture * new_picture=0;
 
@@ -204,7 +200,7 @@ struct Picture * CreatePicture(char * filename)
     new_picture->failed_to_load=0;
     new_picture->marked_for_texture_loading=0;
     new_picture->marked_for_texture_removal=0;
-    new_picture->marked_for_rgbdata_loading=0;
+    new_picture->marked_for_rgbdata_loading=1;
     new_picture->marked_for_rgbdata_removal=0;
     new_picture->gl_rgb_texture=0;
 
@@ -221,8 +217,11 @@ struct Picture * CreatePicture(char * filename)
 
   new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
 
-  LoadPicture(filename,new_picture);
-  frame.total_images_loaded++;
+  if (force_load==1)
+   {
+    LoadPicture(filename,new_picture);
+    frame.total_images_loaded++;
+   }
   return new_picture;
 }
 
@@ -240,6 +239,12 @@ int UnLoadPicture(struct Picture * pic)
   glDeleteTextures(1,&pic->gl_rgb_texture);
 
 
-  if ( pic != 0 ) free(pic);
  return 1;
+}
+
+int DestroyPicture(struct Picture * pic)
+{
+  UnLoadPicture(pic);
+  if ( pic != 0 ) free(pic);
+  return 1;
 }
