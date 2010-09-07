@@ -183,10 +183,14 @@ void DisplayHUD()
 
 void MainDisplayFunction()
 {
+  if ( frame.images_per_line == 0 ) { fprintf(stderr,"Wtf , 0 images per line ? :P \n "); return; }
+
+  unsigned int line_at=(unsigned int ) MinPictureThatIsVisible()/frame.images_per_line;
   float y=-6;
+  y+=6 * line_at;
   unsigned int album_traveler=0;
 
-          for ( album_traveler=0; album_traveler<frame.total_images; album_traveler++ )
+          for ( album_traveler=MinPictureThatIsVisible(); album_traveler<MaxPictureThatIsVisible(); album_traveler++ )
            {
                if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
                if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler], 0,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else

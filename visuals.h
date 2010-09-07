@@ -7,4 +7,8 @@ void MainDisplayFunction();
 void DrawBackground();
 int DrawEffects();
 
+
+int MinPictureThatIsVisible();
+int MaxPictureThatIsVisible();
+
 #endif // VISUALS_H_INCLUDED

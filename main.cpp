@@ -96,8 +96,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
             {
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack,0);
                ++loaded_pictures_this_loop;
-            } else
-            { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
+            } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
 
     if ( PictureLoadingPending(album[album_traveler]) ) /* ( album[album_traveler]==loading ) */
@@ -108,8 +107,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
               /* fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);*/
                LoadPicture(pictures_filename_shared_stack,album[album_traveler]);
                ++loaded_pictures_this_loop;
-            } else
-            { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
+            } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
    } /* oVERfloW Protection */
 

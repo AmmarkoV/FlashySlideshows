@@ -1,26 +1,6 @@
 #include "memory_hypervisor.h"
 #include "slideshow.h"
 
-int MinPictureThatIsVisible()
-{
-  unsigned int min_picture=0;
-  if ( frame.active_image_place  < frame.images_per_line * 3 ) {} else
-                                                               { min_picture=frame.active_image_place-frame.images_per_line * 3;  }
-  return min_picture;
-}
-
-int MaxPictureThatIsVisible()
-{
-  unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
-  if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
-  return max_picture;
-}
-
-int PicturesNeededToBeLoaded()
-{
-  return 0;
-}
-
 
 /*
 
