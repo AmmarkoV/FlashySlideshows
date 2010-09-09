@@ -32,7 +32,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1283883255 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1283884383 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 
@@ -83,7 +83,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1283825331 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1283934165 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	<stdlib.h>
@@ -98,7 +98,7 @@
 
 1283883269 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1283883409 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1283939252 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"

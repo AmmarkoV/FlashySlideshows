@@ -194,7 +194,8 @@ void MainDisplayFunction()
            {
                if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
                if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler], 0,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
-               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], -7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } else { y+=6; } } else
+               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], -7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); }
+                                                                                                              y+=6;  } else
                                           { fprintf(stderr,"Wtf"); }
            }
 

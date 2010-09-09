@@ -13,6 +13,32 @@
 #include <GL/glu.h>
 #endif
 
+void CalculateActiveImage_AccordingToPosition()
+{
+   unsigned int total_y=frame.total_images/frame.images_per_line;
+   unsigned int calculated_active_picture=0,calculated_active_x=0,calculated_active_y=0;
+
+   if ( frame.vy<-3 ) { calculated_active_y=0; }  else /* OUT OF BOUNDS UP */
+   if ( frame.vy>(12*(total_y-1))-3 ) { calculated_active_y=total_y-1; }  else /* OUT OF BOUNDS DOWN */
+    {
+       calculated_active_y=(unsigned int ) ( (frame.vy+4.5)/9 );
+       calculated_active_y=calculated_active_y+1;
+       //if ( calculated_active_y > 0 ) { calculated_active_y-=1; }
+    }
+
+
+   if ( frame.vx<-14 ) { calculated_active_x=2; }  else /* OUT OF BOUNDS LEFT  */
+   if ( frame.vx>14 ) { calculated_active_x=0; }  else /* OUT OF BOUNDS RIGHT*/
+    {
+       calculated_active_x=1;
+    }
+
+    calculated_active_picture = calculated_active_x+calculated_active_y*frame.images_per_line;
+
+    fprintf(stderr,"CalculateActiveImage_AccordingToPosition vx = %f , vy = %f \n",frame.vx,frame.vy);
+    fprintf(stderr,"CalculateActiveImage_AccordingToPosition new x = %u , new y = %u \n",calculated_active_x,calculated_active_y);
+}
+
 
 float RefreshDesiredStep_AccordingToPosition()
 {
@@ -57,7 +83,6 @@ void MoveDestinationCenter(unsigned int axis,unsigned int direction)
       break;
     };
 
-
 }
 
 
@@ -70,7 +95,6 @@ void SetDestinationCenter()
     frame.angle_x=0;
     frame.angle_y=0;
     frame.angle_z=180;
-
 }
 
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
@@ -348,6 +372,13 @@ void PerformCameraMovement()
 
   if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+0.005 ) ) { frame.vz = frame.desired_z; } else
   if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz-0.005 ) ) { frame.vz = frame.desired_z; }
+
+  /*
+     UPDATE ACTIVE IMAGE
+  */
+
+  CalculateActiveImage_AccordingToPosition();
+
 }
 
 

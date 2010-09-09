@@ -8,7 +8,7 @@
 		<Cursor position="317" topLine="8" />
 	</File>
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="4917" topLine="247" />
+		<Cursor position="619" topLine="6" />
 	</File>
 	<File name="camera_control.h" open="0" top="0" tabpos="13">
 		<Cursor position="454" topLine="0" />
@@ -32,10 +32,10 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="7821" topLine="153" />
+		<Cursor position="83" topLine="15" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="1572" topLine="12" />
+		<Cursor position="1107" topLine="30" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="434" topLine="9" />
@@ -44,19 +44,19 @@
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="2410" topLine="187" />
+		<Cursor position="2969" topLine="193" />
 	</File>
 	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="920" topLine="0" />
+		<Cursor position="54" topLine="0" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="292" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="111" topLine="72" />
+		<Cursor position="3501" topLine="134" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="1504" topLine="48" />
+		<Cursor position="1599" topLine="51" />
 	</File>
 	<File name="sound.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="753" topLine="12" />
@@ -65,9 +65,9 @@
 		<Cursor position="273" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="1" tabpos="8">
-		<Cursor position="1568" topLine="131" />
+		<Cursor position="6849" topLine="168" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
-		<Cursor position="250" topLine="0" />
+		<Cursor position="291" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
