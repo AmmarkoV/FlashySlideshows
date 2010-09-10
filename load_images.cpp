@@ -10,6 +10,7 @@
 
 #define PPMREADBUFLEN 256
 
+
 struct Picture *star=0;
 struct Picture *heart=0;
 struct Picture *loading=0;

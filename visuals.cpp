@@ -78,6 +78,7 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
   glDisable(GL_BLEND);
 
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
    glBegin(GL_QUADS);
     glColor4f(1.0,1.0,1.0,pic->transparency);
@@ -85,8 +86,9 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-5);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z-5);	// Top Right Of The Texture and Quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z-5);
-
    glEnd();
+
+ //  fprintf(stderr,"From %f %f to %f %f ",x+xmin,y+ymin,x+xmax,y+ymax);
 
  /*  if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }*/
 

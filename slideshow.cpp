@@ -11,6 +11,7 @@ struct Point3D up_right={-3.6,-2.8,-3.4};
 struct Point3D down_left={3.6,2.8,-3.4};
 struct Point3D down_right={-3.6,2.8,-3.4};
 
+unsigned int DISPLAY_ALL_PICTURES=1; /*DEBUG SWITCH*/
 
 void InitSlideShow()
 {
@@ -149,7 +150,7 @@ int SlideshowLastPictureToLoad()
 
 int MinPictureThatIsVisible()
 {
-  return 0; /* OVERRIDE UNTIL EVERYTHING IS READY */
+  if ( DISPLAY_ALL_PICTURES == 1 ) { return 0; }/* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int min_picture=0;
   if ( frame.active_image_place  < frame.images_per_line * 3 ) {} else
@@ -159,7 +160,7 @@ int MinPictureThatIsVisible()
 
 int MaxPictureThatIsVisible()
 {
-  return frame.total_images; /* OVERRIDE UNTIL EVERYTHING IS READY */
+  if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
   if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }

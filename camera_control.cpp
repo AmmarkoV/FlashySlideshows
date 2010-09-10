@@ -18,10 +18,13 @@ void CalculateActiveImage_AccordingToPosition()
    unsigned int total_y=frame.total_images/frame.images_per_line;
    unsigned int calculated_active_picture=0,calculated_active_x=0,calculated_active_y=0;
 
-   if ( frame.vy<-3 ) { calculated_active_y=0; }  else /* OUT OF BOUNDS UP */
-   if ( frame.vy>(12*(total_y-1))-3 ) { calculated_active_y=total_y-1; }  else /* OUT OF BOUNDS DOWN */
-    {
-       calculated_active_y=(unsigned int ) ( (frame.vy+4.5)/9 );
+   /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
+
+
+   if ( frame.vy<-4.5 ) { calculated_active_y=0; }  else /* OUT OF BOUNDS UP */
+   if ( frame.vy>(9*(total_y-1)) ) { calculated_active_y=total_y-1; }  else /* OUT OF BOUNDS DOWN */
+    {//+4.5
+       calculated_active_y=(unsigned int ) ( (frame.vy)/9 );
        calculated_active_y=calculated_active_y+1;
        //if ( calculated_active_y > 0 ) { calculated_active_y-=1; }
     }
@@ -35,8 +38,8 @@ void CalculateActiveImage_AccordingToPosition()
 
     calculated_active_picture = calculated_active_x+calculated_active_y*frame.images_per_line;
 
-    fprintf(stderr,"CalculateActiveImage_AccordingToPosition vx = %f , vy = %f \n",frame.vx,frame.vy);
-    fprintf(stderr,"CalculateActiveImage_AccordingToPosition new x = %u , new y = %u \n",calculated_active_x,calculated_active_y);
+  //  fprintf(stderr,"CalculateActiveImage_AccordingToPosition vx = %f , vy = %f \n",frame.vx,frame.vy);
+  //  fprintf(stderr,"CalculateActiveImage_AccordingToPosition new x = %u , new y = %u \n",calculated_active_x,calculated_active_y);
 }
 
 
