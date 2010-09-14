@@ -17,50 +17,61 @@
 void CalculateActiveImage_AccordingToPosition()
 {
    unsigned int total_y=frame.total_images/frame.images_per_line;
-   unsigned int calculated_active_picture=0,calculated_active_x=0,calculated_active_y=0;
 
    /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
 
+   float placement_y_pos=-6 , placement_y_increment = 6;
+   float placement_x_pos=7 , placement_x_increment = -7;
+   float sizex_half=12/2 , sizey_half=4.5/2;
+
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
-   float triangle_v0[3]={0.0,0.0,-5},triangle_v1[3]={0.0,0.0,-5},triangle_v2[3]={0.0,0.0,-5};
+  // float triangle_v0[3]={0.0,0.0,-5},triangle_v1[3]={0.0,0.0,-5},triangle_v2[3]={0.0,0.0,-5};
 
-   triangle_v0[0]=-6.0; triangle_v0[1]=-4.5;
-   triangle_v1[0]=6.0;  triangle_v1[1]=-4.5;
-   triangle_v2[0]=6.0;  triangle_v2[1]=4.5;
-   if (  rayIntersectsTriangle(camera_point,camera_direction,triangle_v0,triangle_v1,triangle_v2) )
+
+   unsigned int x,y;
+   float top_left[3]={0.0,0.0,-5} , top_right[3]={0.0,0.0,-5} , bot_left[3]={0.0,0.0,-5} , bot_right[3]={0.0,0.0,-5} ;
+
+   for (y=0; y<total_y; y++)
     {
-      fprintf(stderr,"OVER PIC UP TRIANGLE\n"); return;
+     placement_x_pos=7;
+     for (x=0; x<frame.images_per_line; x++)
+     {
+       top_left[0]=placement_x_pos-sizex_half;
+       top_right[0]=placement_x_pos+sizex_half;
+       top_left[1]=placement_y_pos-sizey_half;
+       bot_left[1]=placement_y_pos+sizey_half;
+
+       bot_left[0]=top_left[0];
+       bot_right[0]=top_right[0];
+       top_right[1]=top_left[1];
+       bot_right[1]=bot_left[1];
+
+            if (  rayIntersectsTriangle(camera_point,camera_direction,top_left,top_right,bot_right) )
+                {
+                   fprintf(stderr,"OVER PIC UP TRIANGLE %u/%u \n",x,y);
+                    frame.active_image_y=y;
+                    frame.active_image_x=x;
+                    frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
+                   return;
+                } else
+            if (  rayIntersectsTriangle(camera_point,camera_direction,bot_right,bot_left,top_left) )
+                {
+                   fprintf(stderr,"OVER PIC down TRIANGLE %u/%u \n",x,y);
+                    frame.active_image_y=y;
+                    frame.active_image_x=x;
+                    frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
+                } else
+                {
+                  /*NOT OVER PICTURE*/
+                }
+
+       placement_x_pos+=placement_x_increment;
+     }
+
+      placement_y_pos+=placement_y_increment;
     }
 
-   triangle_v0[0]=6.0; triangle_v0[1]=4.5;
-   triangle_v1[0]=-6.0;  triangle_v1[1]=4.5;
-   triangle_v2[0]=-6.0;  triangle_v2[1]=-4.5;
-   if (  rayIntersectsTriangle(camera_point,camera_direction,triangle_v0,triangle_v1,triangle_v2) )
-    {
-      fprintf(stderr,"OVER PIC DOWN TRIANGLE\n"); return;
-    }
-
-
-   if ( frame.vy<-4.5 ) { calculated_active_y=0; }  else /* OUT OF BOUNDS UP */
-   if ( frame.vy>(9*(total_y-1)) ) { calculated_active_y=total_y-1; }  else /* OUT OF BOUNDS DOWN */
-    {//+4.5
-       calculated_active_y=(unsigned int ) ( (frame.vy)/9 );
-       calculated_active_y=calculated_active_y+1;
-       //if ( calculated_active_y > 0 ) { calculated_active_y-=1; }
-    }
-
-
-   if ( frame.vx<-14 ) { calculated_active_x=2; }  else /* OUT OF BOUNDS LEFT  */
-   if ( frame.vx>14 ) { calculated_active_x=0; }  else /* OUT OF BOUNDS RIGHT*/
-    {
-       calculated_active_x=1;
-    }
-
-    calculated_active_picture = calculated_active_x+calculated_active_y*frame.images_per_line;
-
-  //  fprintf(stderr,"CalculateActiveImage_AccordingToPosition vx = %f , vy = %f \n",frame.vx,frame.vy);
-  //  fprintf(stderr,"CalculateActiveImage_AccordingToPosition new x = %u , new y = %u \n",calculated_active_x,calculated_active_y);
 }
 
 
