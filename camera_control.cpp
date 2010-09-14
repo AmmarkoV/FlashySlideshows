@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include "math_3d.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -19,6 +20,26 @@ void CalculateActiveImage_AccordingToPosition()
    unsigned int calculated_active_picture=0,calculated_active_x=0,calculated_active_y=0;
 
    /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
+
+   float camera_point[3]={frame.vx,frame.vy,frame.vz};
+   float camera_direction[3]={0.0,0.0,-1.0};
+   float triangle_v0[3]={0.0,0.0,-5},triangle_v1[3]={0.0,0.0,-5},triangle_v2[3]={0.0,0.0,-5};
+
+   triangle_v0[0]=-6.0; triangle_v0[1]=-4.5;
+   triangle_v1[0]=6.0;  triangle_v1[1]=-4.5;
+   triangle_v2[0]=6.0;  triangle_v2[1]=4.5;
+   if (  rayIntersectsTriangle(camera_point,camera_direction,triangle_v0,triangle_v1,triangle_v2) )
+    {
+      fprintf(stderr,"OVER PIC UP TRIANGLE\n"); return;
+    }
+
+   triangle_v0[0]=6.0; triangle_v0[1]=4.5;
+   triangle_v1[0]=-6.0;  triangle_v1[1]=4.5;
+   triangle_v2[0]=-6.0;  triangle_v2[1]=-4.5;
+   if (  rayIntersectsTriangle(camera_point,camera_direction,triangle_v0,triangle_v1,triangle_v2) )
+    {
+      fprintf(stderr,"OVER PIC DOWN TRIANGLE\n"); return;
+    }
 
 
    if ( frame.vy<-4.5 ) { calculated_active_y=0; }  else /* OUT OF BOUNDS UP */

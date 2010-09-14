@@ -32,7 +32,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1283884383 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1284081293 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 
@@ -83,12 +83,13 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1284081168 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1284487226 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	<stdlib.h>
 	<stdio.h>
 	<math.h>
+	"math_3d.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
@@ -131,4 +132,9 @@
 	"slideshow.h"
 
 1283641971 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
+
+1284483367 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
+
+1284483359 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
+	"math_3d.h"
 
