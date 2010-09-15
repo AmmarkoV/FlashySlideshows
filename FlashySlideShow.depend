@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1284081235 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1284594844 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
@@ -9,10 +9,10 @@
 	"load_textures.h"
 	"image_sensing.h"
 
-1283882062 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1284590180 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 
-1283882517 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1284592723 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -85,7 +85,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1284506881 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1284587905 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	<stdlib.h>
@@ -101,7 +101,7 @@
 
 1283883269 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1284511670 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1284594057 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"

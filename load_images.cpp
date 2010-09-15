@@ -196,6 +196,7 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
   new_picture = (struct Picture *) malloc( sizeof( struct Picture ) );
   if (  new_picture == 0 ) { fprintf(stderr,"Could not allocate memory for picture %s \n",filename); return 0; }
 
+
     new_picture->rgb_data=0;
     new_picture->rgb_data_size=0;
 
@@ -210,6 +211,8 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
 
     new_picture->transparency=1.0;
 
+    new_picture->position.ok=0;
+    new_picture->position.size_x=6;  new_picture->position.size_y=4.5;
     new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=0.0;
     new_picture->position.heading=0.0; new_picture->position.yaw=0.0; new_picture->position.pitch=0.0;
 
@@ -243,6 +246,38 @@ int UnLoadPicture(struct Picture * pic)
 
  return 1;
 }
+
+int PositionPicture(struct Picture * pic,unsigned int place)
+{
+  if (pic==0) {return 0;}
+
+  unsigned int x,y;
+  if ( frame.images_per_line == 0 ) { return 0; }
+  y = (unsigned int ) ( place / frame.images_per_line);
+  x = (unsigned int ) ( place % frame.images_per_line);
+
+
+  pic->position.ok=1;
+
+  pic->position.x=(x*14);
+  pic->position.x=pic->position.x-14;
+  pic->position.x=(1)*pic->position.x;
+
+  pic->position.y=(y*12);
+  pic->position.y=pic->position.y-12;
+
+  pic->position.z=-5;
+
+  pic->position.heading=0;
+  pic->position.yaw=0;
+  pic->position.pitch=0;
+
+  pic->position.size_x=6;
+  pic->position.size_y=4.5;
+
+  return 1;
+}
+
 
 int DestroyPicture(struct Picture * pic)
 {

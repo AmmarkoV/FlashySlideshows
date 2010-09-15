@@ -8,12 +8,16 @@
 
 struct Position3D
 {
+  char ok;
   float x,y,z;
   float heading,yaw,pitch;
+  float size_x,size_y;
 };
 
 struct Picture
 {
+
+
   unsigned int height;
   unsigned int width;
   unsigned int depth;
@@ -66,4 +70,5 @@ int LoadPicture(char * filename,struct Picture * pic);
 int UnLoadPicture(struct Picture * pic);
 int DestroyPicture(struct Picture * pic);
 
+int PositionPicture(struct Picture * pic,unsigned int place);
 #endif // LOAD_IMAGES_H_INCLUDED

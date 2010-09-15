@@ -106,6 +106,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
             {
               /* fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);*/
                LoadPicture(pictures_filename_shared_stack,album[album_traveler]);
+               PositionPicture(album[album_traveler],album_traveler);
                ++loaded_pictures_this_loop;
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
@@ -446,14 +447,22 @@ int main(int argc, char *argv[])
     make_texture(star,1);
     heart=CreatePicture((char * )"app_clipart/heart.png",1);
     make_texture(heart,1);
+
     loading_texture=CreatePicture((char * )"app_clipart/loading_texture.jpg",1);
+   // loading_texture->position.ok=1;
     make_texture(loading_texture,1);
+
     loading=CreatePicture((char * )"app_clipart/loading.jpg",1);
+   // loading->position.ok=1;
     make_texture(loading,1);
+
     failed=CreatePicture((char * )"app_clipart/failed.jpg",1);
+    //failed->position.ok=1;
     make_texture(failed,1);
+
     background=CreatePicture((char * )"app_clipart/background.jpg",1);
     make_texture(background,1);
+
     picture_frame=CreatePicture((char * )"app_clipart/frame.jpg",1);
     make_texture(picture_frame,1);
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
