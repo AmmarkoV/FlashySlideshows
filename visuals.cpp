@@ -29,11 +29,11 @@ int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,fl
 
    float size_x=12,size_y=9,ratio=0.0;
    if ( pic->height != 0 ) { ratio=pic->width/pic->height; } else
-                           { fprintf(stderr,"Zero Height on this image %s !\n",pic->filename);
+                           { //fprintf(stderr,"Zero Height on this image %s !\n",pic->filename);
                              DisplayPicture(loading_texture,x,y,z,heading,pitch,roll);
                              return 0;
                            }
-   if ( ratio == 0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename);
+   if ( ratio == 0 )  { //fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename);
                         DisplayPicture(loading_texture,x,y,z,heading,pitch,roll);
                         return 0;
                       }
@@ -191,12 +191,13 @@ void MainDisplayFunction()
   float y=-6;
   y+=6 * line_at;
   unsigned int album_traveler=0;
+  unsigned int minpicture=MinPictureThatIsVisible(),maxpicture=MaxPictureThatIsVisible();
 
-          for ( album_traveler=MinPictureThatIsVisible(); album_traveler<MaxPictureThatIsVisible(); album_traveler++ )
+          for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
            {
-               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler], 7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
-               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler], 0,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); } } else
-               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], -7,y,0,0,0,0)!= 1 ) { fprintf(stderr,"Error Drawing pic %u \n",album_traveler); }
+               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],  7,y,0,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 1 Drawing pic %u \n",album_traveler);*/ } } else
+               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler],  0,y,0,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 2 Drawing pic %u \n",album_traveler);*/ } } else
+               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler], -7,y,0,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 3 Drawing pic %u \n",album_traveler);*/ }
                                                                                                               y+=6;  } else
                                           { fprintf(stderr,"Wtf"); }
            }

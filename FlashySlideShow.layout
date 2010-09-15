@@ -7,8 +7,8 @@
 	<File name="InputParser_C.h" open="0" top="0" tabpos="20">
 		<Cursor position="317" topLine="8" />
 	</File>
-	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="532" topLine="12" />
+	<File name="camera_control.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="2420" topLine="30" />
 	</File>
 	<File name="camera_control.h" open="0" top="0" tabpos="13">
 		<Cursor position="454" topLine="0" />
@@ -32,7 +32,7 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="209" topLine="0" />
+		<Cursor position="209" topLine="153" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="1107" topLine="30" />
@@ -44,7 +44,10 @@
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="2969" topLine="193" />
+		<Cursor position="750" topLine="0" />
+	</File>
+	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
+		<Cursor position="549" topLine="15" />
 	</File>
 	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
 		<Cursor position="54" topLine="0" />
@@ -52,8 +55,8 @@
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="292" topLine="0" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="150" topLine="0" />
+	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="3747" topLine="143" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="1599" topLine="51" />
@@ -65,7 +68,7 @@
 		<Cursor position="273" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="3312" topLine="0" />
+		<Cursor position="6445" topLine="176" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="291" topLine="0" />

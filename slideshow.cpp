@@ -1,5 +1,7 @@
 #include "slideshow.h"
 #include "camera_control.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 struct SlideShowData frame;
 
@@ -154,7 +156,10 @@ int MinPictureThatIsVisible()
 
   unsigned int min_picture=0;
   if ( frame.active_image_place  < frame.images_per_line * 3 ) {} else
-                                                               { min_picture=frame.active_image_place-frame.images_per_line * 3;  }
+                                                               { min_picture=frame.active_image_place-frame.images_per_line * 3;
+                                                                 if ( min_picture -1 > 0 ) { min_picture-=1; }
+                                                               }
+  fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
   return min_picture;
 }
 
@@ -164,6 +169,7 @@ int MaxPictureThatIsVisible()
 
   unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
   if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
+  fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);
   return max_picture;
 }
 
