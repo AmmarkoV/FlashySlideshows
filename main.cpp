@@ -89,7 +89,9 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
     if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); }
      else
    {
-    if (PictureCreationPending(album[album_traveler]))
+   /* ------------------ RAM --------------------- */
+   if (RAM_Memory_can_accomodate(frame.system.lastTexture) ) /*No point trying to load if it doesnt't fit */
+    { if (PictureCreationPending(album[album_traveler]))
       {
          /* THIS SHOULD CREATE THE PICTURE */
          if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
@@ -98,8 +100,11 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
                ++loaded_pictures_this_loop;
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
+    }
 
-    if ( PictureLoadingPending(album[album_traveler]) ) /* ( album[album_traveler]==loading ) */
+    /* ------------------ GPU --------------------- */
+    if (GPU_Memory_can_accomodate(frame.gpu.lastTexture) ) /*No point trying to load if it doesnt't fit */
+    { if ( PictureLoadingPending(album[album_traveler]) )
       {
           /* THIS SHOULD LOAD THE PICTURE */
           if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
@@ -110,13 +115,15 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
                ++loaded_pictures_this_loop;
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
+    }
+
    } /* oVERfloW Protection */
 
     ++album_traveler;
     if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
     if ( album_traveler >= frame.total_images )  { album_traveler = 0; }
 
-    if ( loaded_pictures_this_loop == 0 ) { usleep(10000);  } else
+    if ( loaded_pictures_this_loop == 0 ) { usleep(1000000);  } else
                                           { usleep(10000);  }
   }
   return 0;

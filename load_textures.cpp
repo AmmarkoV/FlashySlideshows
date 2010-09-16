@@ -1,6 +1,7 @@
 #include "load_textures.h"
 #include "load_images.h"
 #include "slideshow.h"
+#include "memory_hypervisor.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,7 +10,7 @@
 void complain_about_errors()
 {
   int err=glGetError();
-  if  ( glGetError()!=0 ) fprintf(stderr,"OpenGL Error %u ",(unsigned int )err);
+  if  ( err!=0 ) fprintf(stderr,"OpenGL Error %u ",(unsigned int )err);
   return;
 }
 
@@ -30,6 +31,9 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
 	                          return 0; }
 
+    frame.gpu.lastTexture=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
+    if ( GPU_Memory_can_accomodate(frame.gpu.lastTexture)==0 ) { return 0; }
+
     glEnable(GL_TEXTURE_2D);
     GLint texSize=0;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
@@ -48,13 +52,6 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     picturedata->gl_rgb_texture=new_tex_id;
     complain_about_errors();
 
-    frame.gpu.lastTexture=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
-
-  if ( frame.gpu.maxRAM < frame.gpu.lastTexture + frame.gpu.usedRAM )
-    {
-       fprintf(stderr,"It looks like there is no free memory on GPU :P \n");
-       return 0;
-    }
 
   if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
    {
@@ -66,6 +63,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE, (const GLvoid *) picturedata->rgb_data);
+      if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
    } else
    {
       /* LOADING TEXTURE --WITHOUT-- MIPMAPING - IT IS LOADED RAW*/
@@ -76,6 +74,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
+      if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
    }
 
     fprintf(stderr,"PLease note that when using mipmaps there is a lot more memory consumption :P \n");

@@ -7,7 +7,7 @@
 	<File name="InputParser_C.h" open="0" top="0" tabpos="20">
 		<Cursor position="317" topLine="8" />
 	</File>
-	<File name="camera_control.cpp" open="1" top="1" tabpos="11">
+	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
 		<Cursor position="1052" topLine="324" />
 	</File>
 	<File name="camera_control.h" open="0" top="0" tabpos="13">
@@ -55,8 +55,8 @@
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="292" topLine="0" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3408" topLine="136" />
+	<File name="slideshow.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="4150" topLine="145" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="1599" topLine="51" />

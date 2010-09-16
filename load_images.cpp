@@ -1,4 +1,5 @@
 #include "load_images.h"
+#include "memory_hypervisor.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -59,10 +60,12 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      {
          /* ALLOCATE ENOUGH MEMORY FOR THE RAW IMAGE */
          pic->overflow_guard=OVERFLOW_GUARD_BYTES;
-         if (frame.system.maxRAM < frame.system.usedRAM + width*height*depth ) { fprintf(stderr,"System memory bounds reached"); return 0; }
+         //if (frame.system.maxRAM < frame.system.usedRAM + width*height*depth ) { fprintf(stderr,"System memory bounds reached"); return 0; }
 
-         frame.system.usedRAM+=width*height*depth;
+         frame.system.lastTexture=width*height*depth;
+         if ( !RAM_Memory_can_accomodate(frame.system.lastTexture) ) { return 0; }
 
+         frame.system.usedRAM+=frame.system.lastTexture;
          pic->rgb_data=(char *) malloc( ( width*height*depth ) + depth );
 
          if  ( pic->rgb_data <=0 )
@@ -142,6 +145,10 @@ int ReadPPM(char * filename,struct Picture * pic)
   return 0;
 }
 
+unsigned int PickPictureRescaleRatio()
+{
+  return 40;
+}
 
 int LoadPicture(char * filename,struct Picture * pic)
 {
@@ -156,7 +163,7 @@ int LoadPicture(char * filename,struct Picture * pic)
   char command[1024]={0};
 
   /* COMMAND LINE CONVERSION OF FILE TO PPM */
-  sprintf(command,"convert %s -resize 60%% %s",loc_filename,pic->ppm_filename);
+  sprintf(command,"convert %s -resize %u%% %s",loc_filename,PickPictureRescaleRatio(),pic->ppm_filename);
   fprintf(stderr,"Converting picture using command `%s` \n",command);
   int i=system((const char *)command);
   if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);

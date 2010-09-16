@@ -76,12 +76,12 @@ void InitSlideShow()
 
    /* GPU DATA */
    frame.gpu.usedRAM=0;
-   frame.gpu.maxRAM=512 * 1024 * 1024;
+   frame.gpu.maxRAM=128 * 1024 * 1024;
    frame.gpu.maxTexture=1024; /* MAX TEXTURE DIMENSION , will be updated*/
 
    /* SYSTEM DATA */
    frame.system.usedRAM=0;
-   frame.system.maxRAM=128 * 1024 * 1024;
+   frame.system.maxRAM=64 * 1024 * 1024;
 
    /* EFFECTS */
    frame.effects.fog_on=0;
@@ -159,7 +159,7 @@ int MinPictureThatIsVisible()
                                                                { min_picture=frame.active_image_place-frame.images_per_line * 3;
                                                                  if ( min_picture-1 >= 0 ) { min_picture-=1; }
                                                                }
-  fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
+  //fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
   return min_picture;
 }
 
@@ -169,7 +169,7 @@ int MaxPictureThatIsVisible()
 
   unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
   if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
-  fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);
+  //fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);
   return max_picture;
 }
 
