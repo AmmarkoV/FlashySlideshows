@@ -155,9 +155,9 @@ int MinPictureThatIsVisible()
   if ( DISPLAY_ALL_PICTURES == 1 ) { return 0; }/* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int min_picture=0;
-  if ( frame.active_image_place  < frame.images_per_line * 3 ) {} else
+  if ( frame.active_image_place  <= frame.images_per_line * 3 ) {} else
                                                                { min_picture=frame.active_image_place-frame.images_per_line * 3;
-                                                                 if ( min_picture -1 > 0 ) { min_picture-=1; }
+                                                                 if ( min_picture-1 >= 0 ) { min_picture-=1; }
                                                                }
   fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
   return min_picture;

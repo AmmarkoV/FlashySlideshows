@@ -44,21 +44,21 @@ void CalculateActiveImage_AccordingToPosition()
        bot_right[0]=top_right[0];
 
             if (  rayIntersectsTriangle(camera_point,camera_direction,top_left,top_right,bot_right) )
-                {/*
-                   fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-                   fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                   fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2]);
-                 */ frame.active_image_y=y;
-                    frame.active_image_x=x;
-                    frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
+                {
+                   //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+                   //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                   //fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2]);
+                   frame.active_image_y=y;
+                   frame.active_image_x=x;
+                   frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
                    return;
                 } else
             if (  rayIntersectsTriangle(camera_point,camera_direction,bot_right,bot_left,top_left) )
                 {
-                 /*  fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-                   fprintf(stderr,"OVER (%f,%f,%f) PIC DOWN TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                   fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",bot_right[0],bot_right[1],bot_right[2]   ,bot_left[0],bot_left[1],bot_left[2]   ,top_left[0],top_left[1],top_left[2]);
-                 */ frame.active_image_y=y;
+                   //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+                   //fprintf(stderr,"OVER (%f,%f,%f) PIC DOWN TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                   //fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",bot_right[0],bot_right[1],bot_right[2]   ,bot_left[0],bot_left[1],bot_left[2]   ,top_left[0],top_left[1],top_left[2]);
+                    frame.active_image_y=y;
                     frame.active_image_x=x;
                     frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
                    return;

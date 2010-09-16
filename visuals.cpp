@@ -20,90 +20,6 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
   glColor3f((float) R/255,(float) G/255,(float) B/255);
 }
 
-int DisplayPictureOLD(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll)
-{
-  if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
-
-
-  if ( pic -> failed_to_load == 1 ) { pic=failed; }
-
-   float size_x=12,size_y=9,ratio=0.0;
-   if ( pic->height != 0 ) { ratio=pic->width/pic->height; } else
-                           { //fprintf(stderr,"Zero Height on this image %s !\n",pic->filename);
-                             DisplayPictureOLD(loading_texture,x,y,z,heading,pitch,roll);
-                             return 0;
-                           }
-   if ( ratio == 0 )  { //fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename);
-                        DisplayPictureOLD(loading_texture,x,y,z,heading,pitch,roll);
-                        return 0;
-                      }
-
-   size_y=size_x/ratio;
-   float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
-   float frame_size=0.9;
-   ymin=-4.5;
-   ymax=4.5;
-
-
-  glPushMatrix();
-  glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-  glEnable(GL_NORMALIZE);
-
-  if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
-  if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
-  if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
-
-  glTranslated(x,y,z);
-
-
-  glDisable(GL_CULL_FACE);
-  glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
-
-
-
-  /* if ( pic->transparency != 1.0 ) {  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }*/
-
-  glEnable ( GL_TEXTURE_2D );
-
- /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
- glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-  glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
-   glBegin(GL_QUADS);
-    glColor4f(1.0,1.0,1.0,pic->transparency);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin-frame_size,y+ymin-frame_size,z-5.1);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax+frame_size,y+ymin-frame_size,z-5.1);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax+frame_size,y+ymax+frame_size,z-5.1);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin-frame_size,y+ymax+frame_size,z-5.1);
-   glEnd();
-  glDisable(GL_BLEND);
-
- /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
- glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
-   glBegin(GL_QUADS);
-    glColor4f(1.0,1.0,1.0,pic->transparency);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-5);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-5);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z-5);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z-5);
-   glEnd();
-
- //  fprintf(stderr,"From %f %f to %f %f ",x+xmin,y+ymin,x+xmax,y+ymax);
-
- /*  if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }*/
-
-  glDisable ( GL_TEXTURE_2D );
-  glEnable(GL_COLOR_MATERIAL);
-  glEnable(GL_CULL_FACE);
-  glDisable(GL_BLEND);
-
-
-  glTranslated(-x,-y,-z);
-  glDisable(GL_NORMALIZE);
-  glPopMatrix();
-  return 1;
-}
-
 
 
 
@@ -128,10 +44,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
                       }
 
    size_y=size_x/ratio;
-   float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
    float frame_size=0.9;
-   ymin=-4.5;
-   ymax=4.5;
+
 
   x=0; y=0; z=0;
   if ( (pic!=loading_texture) && ( pic!=failed ) && ( pic!=loading ) ) { /* NORMAL PHOTO*/  } else
@@ -179,8 +93,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);	// Top Right Of The Texture and Quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);
    glEnd();
-
- //  fprintf(stderr,"From %f %f to %f %f ",x+xmin,y+ymin,x+xmax,y+ymax);
 
  /*  if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }*/
 
