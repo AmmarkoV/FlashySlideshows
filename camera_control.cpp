@@ -1,5 +1,6 @@
 #include "slideshow.h"
 #include "camera_control.h"
+#include "load_images.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,49 +21,44 @@ void CalculateActiveImage_AccordingToPosition()
 
    /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
 
-   float placement_y_pos=-6 , placement_y_increment = 6;
-   float placement_x_pos=7 , placement_x_increment = -7;
-   float sizex_half=12/2 , sizey_half=9/2;
-
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
 
 
-   unsigned int x,y;
+   unsigned int x,y,album_traveler=0;
    float top_left[3]={0.0,0.0,-5} , top_right[3]={0.0,0.0,-5} , bot_left[3]={0.0,0.0,-5} , bot_right[3]={0.0,0.0,-5} ;
 
    for (y=0; y<total_y; y++)
     {
-       top_left[1]=placement_y_pos-sizey_half;
-       bot_left[1]=placement_y_pos+sizey_half;
+       top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+       bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
        top_right[1]=top_left[1];
        bot_right[1]=bot_left[1];
 
 
-     placement_x_pos=7;
      for (x=0; x<frame.images_per_line; x++)
      {
-       top_left[0]= placement_x_pos-sizex_half;
-       top_right[0]=placement_x_pos+sizex_half;
+       top_left[0]= album[album_traveler]->position.x-album[album_traveler]->position.size_x;
+       top_right[0]=album[album_traveler]->position.x+album[album_traveler]->position.size_x;
        bot_left[0]=top_left[0];
        bot_right[0]=top_right[0];
 
             if (  rayIntersectsTriangle(camera_point,camera_direction,top_left,top_right,bot_right) )
-                {
+                {/*
                    fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
                    fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
                    fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2]);
-                    frame.active_image_y=y;
+                 */ frame.active_image_y=y;
                     frame.active_image_x=x;
                     frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
                    return;
                 } else
             if (  rayIntersectsTriangle(camera_point,camera_direction,bot_right,bot_left,top_left) )
                 {
-                   fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+                 /*  fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
                    fprintf(stderr,"OVER (%f,%f,%f) PIC DOWN TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
                    fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",bot_right[0],bot_right[1],bot_right[2]   ,bot_left[0],bot_left[1],bot_left[2]   ,top_left[0],top_left[1],top_left[2]);
-                    frame.active_image_y=y;
+                 */ frame.active_image_y=y;
                     frame.active_image_x=x;
                     frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
                    return;
@@ -71,10 +67,8 @@ void CalculateActiveImage_AccordingToPosition()
                   /*NOT OVER PICTURE*/
                 }
 
-       placement_x_pos+=placement_x_increment;
+       ++album_traveler;
      }
-
-      placement_y_pos+=placement_y_increment;
     }
 
 }

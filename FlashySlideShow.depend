@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1284594844 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1284595754 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
@@ -85,9 +85,10 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1284587905 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1284596236 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
+	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
 	<math.h>

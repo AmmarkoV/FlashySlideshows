@@ -261,7 +261,7 @@ int PositionPicture(struct Picture * pic,unsigned int place)
 
   pic->position.x=(x*14);
   pic->position.x=pic->position.x-14;
-  pic->position.x=(1)*pic->position.x;
+//  pic->position.x=(1)*pic->position.x;
 
   pic->position.y=(y*12);
   pic->position.y=pic->position.y-12;
