@@ -135,4 +135,7 @@ void AutomaticSlideShowControl_if_needed();
 
 void TriggerEndOfSlideShow();
 
+int MaxPictureThatIsVisible();
+int MinPictureThatIsVisible();
+
 #endif // SLIDESHOW_H_INCLUDED

@@ -80,48 +80,19 @@ GLfloat fogColor[4]= {0.5f, 0.5f, 0.5f, 1.0f};		// Fog Color
 
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
-  unsigned int album_traveler=0;
+  /* THIS THREAD LOADS/UNLOADS IMAGES AROUND
+     BUT !!!!!NOT!!!!! PASS THEM TO GPU AS TEXTURES
+  */
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
   { fprintf(stderr,"Loading Picture Thread needs fix \n");
     loaded_pictures_this_loop=0;
 
-    if ( album_traveler>=ALBUM_SIZE ) { fprintf(stderr,"Help Overflowing album structure (%u/%u/%u) !",album_traveler,frame.total_images,ALBUM_SIZE); }
-     else
-   {
-   /* ------------------ RAM --------------------- */
-   if (RAM_Memory_can_accomodate(frame.system.lastTexture) ) /*No point trying to load if it doesnt't fit */
-    { if (PictureCreationPending(album[album_traveler]))
-      {
-         /* THIS SHOULD CREATE THE PICTURE */
-         if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
-            {
-               album[album_traveler]=CreatePicture(pictures_filename_shared_stack,0);
-               ++loaded_pictures_this_loop;
-            } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
-      }
-    }
+    UnLoadPicturesIfNeeded();
+    loaded_pictures_this_loop+=LoadPicturesIfNeeded();
 
-    /* ------------------ GPU --------------------- */
-    if (GPU_Memory_can_accomodate(frame.gpu.lastTexture) ) /*No point trying to load if it doesnt't fit */
-    { if ( PictureLoadingPending(album[album_traveler]) )
-      {
-          /* THIS SHOULD LOAD THE PICTURE */
-          if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack) == 1 )
-            {
-              /* fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);*/
-               LoadPicture(pictures_filename_shared_stack,album[album_traveler]);
-               PositionPicture(album[album_traveler],album_traveler);
-               ++loaded_pictures_this_loop;
-            } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
-      }
-    }
-
-   } /* oVERfloW Protection */
-
-    ++album_traveler;
-    if ( album_traveler >= ALBUM_SIZE )  { album_traveler = 0; } else
-    if ( album_traveler >= frame.total_images )  { album_traveler = 0; }
+    UnLoadTexturesIfNeeded();
+    loaded_pictures_this_loop+=LoadTexturesIfNeeded();
 
     if ( loaded_pictures_this_loop == 0 ) { usleep(1000000);  } else
                                           { usleep(10000);  }
@@ -132,6 +103,9 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 
 int ManageCreatingTextures(int count_only)
 {
+  /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
+     FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread
+  */
   unsigned int count=0,i=0;
 
   for ( i=0; i<frame.total_images; i++)
