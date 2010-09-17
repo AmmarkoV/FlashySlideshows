@@ -85,14 +85,9 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   */
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
-  { fprintf(stderr,"Loading Picture Thread needs fix \n");
-    loaded_pictures_this_loop=0;
-
-    UnLoadPicturesIfNeeded();
-    loaded_pictures_this_loop+=LoadPicturesIfNeeded();
-
-    UnLoadTexturesIfNeeded();
-    loaded_pictures_this_loop+=LoadTexturesIfNeeded();
+  {
+    loaded_pictures_this_loop=ManagePicturesMemory(); // If no pictures loaded returns 0
+    loaded_pictures_this_loop+=ManageTexturesMemory();// If no pictures adds 0
 
     if ( loaded_pictures_this_loop == 0 ) { usleep(1000000);  } else
                                           { usleep(10000);  }

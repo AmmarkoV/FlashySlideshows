@@ -67,9 +67,8 @@ int UnLoadPicturesIfNeeded()
 
 int ManagePicturesMemory()
 {
-   if ( UnLoadPicturesIfNeeded() == 0 ) { return 0; }
-   if ( LoadPicturesIfNeeded() == 0 ) { return 0; }
-   return 1;
+   UnLoadPicturesIfNeeded();
+   return LoadPicturesIfNeeded();
 }
 
 
@@ -160,8 +159,7 @@ int UnLoadTexturesIfNeeded()
 
 int ManageTexturesMemory()
 {
-   if ( UnLoadTexturesIfNeeded() == 0 ) { return 0; }
-   if ( LoadTexturesIfNeeded() == 0 ) { return 0; }
-   return 1;
+   UnLoadTexturesIfNeeded();
+   return LoadTexturesIfNeeded();
 }
 

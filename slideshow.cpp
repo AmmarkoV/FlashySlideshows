@@ -13,7 +13,7 @@ struct Point3D up_right={-3.6,-2.8,-3.4};
 struct Point3D down_left={3.6,2.8,-3.4};
 struct Point3D down_right={-3.6,2.8,-3.4};
 
-unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
+unsigned int DISPLAY_ALL_PICTURES=1; /*DEBUG SWITCH*/
 
 void InitSlideShow()
 {
