@@ -1,12 +1,3 @@
-/***************************************************************
- * Name:      ClinicDBApp.cpp
- * Purpose:   Code for Application Class
- * Author:    Ammar Qammaz (ammarkov@gmail.com)
- * Created:   2009-11-10
- * Copyright: Ammar Qammaz (http://62.103.22.50)
- * License:
- **************************************************************/
-
 #include <wx/msgdlg.h>
 #include <wx/utils.h>
 

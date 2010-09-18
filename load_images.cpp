@@ -39,20 +39,6 @@ int PictureLoadingPending(struct Picture * picturedata)
 }
 
 
-int WxLoadJPEG()
-{
-
- wxImage jpeg_img;
- jpeg_img.LoadFile(wxT("thisfile.jpg"), wxBITMAP_TYPE_JPEG);
- /*
- wxBitmap bm(jpeg_img);
-
- wxBitmap current_bitmap;
- current_bitmap.LoadFile(wxT("thisfile.jpg"), wxBITMAP_TYPE_JPEG);*/
-
- return 1;
-}
-
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
@@ -104,101 +90,58 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
     return 1;
 }
 
-
-int ReadPPM(char * filename,struct Picture * pic)
+inline wxString _U(const char String[] = "")
 {
-    FILE *pf=0;
-    pf = fopen(filename,"rb");
-
-    if (pf!=0 )
-    {
-        char buf[PPMREADBUFLEN], *t;
-        unsigned int w=0, h=0, d=0;
-        int r=0;
-
-        t = fgets(buf, PPMREADBUFLEN, pf);
-        if ( (t == 0) || ( strncmp(buf, "P6\n", 3) != 0 ) ) { fclose(pf); fprintf(stderr,"ReadPPM error 1\n"); return 0; }
-        do
-        { /* Px formats can have # comments after first line */
-           t = fgets(buf, PPMREADBUFLEN, pf);
-           if ( t == 0 ) { fclose(pf); fprintf(stderr,"ReadPPM error 2\n"); return 0; }
-        } while ( strncmp(buf, "#", 1) == 0 );
-        r = sscanf(buf, "%u %u", &w, &h);
-        if ( r < 2 ) { fclose(pf); fprintf(stderr,"ReadPPM error 3\n"); return 0; }
-        // The program fails if the first byte of the image is equal to 32. because
-        // the fscanf eats the space and the image is read with some bit less
-        r = fscanf(pf, "%u\n", &d);
-        if ( (r < 1) || ( d != 255 ) ) { fclose(pf); fprintf(stderr,"ReadPPM error 4\n"); return 0; }
-
-
-       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>
-          PREPARE MEMORY TO HOLD DATA
-          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-       if ( PreparePictureForImage(pic,w,h,3) == 0 ) { fclose(pf); fprintf(stderr,"ReadPPM could not prepare memory! \n"); return 0; }
-       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
-        if ( (w!=pic->width) || (h!=pic->height) )
-           {
-             fprintf(stderr,"Incorrect file size ( %s ) :P\n",filename);
-             if ( w * h > pic->width * pic->height )
-               {
-                 fprintf(stderr,"File %s will lead to overflow stopping read..\n",filename);
-                 fclose(pf);
-                 return 0;
-               }
-           }
-
-        if ( pic->rgb_data != 0 )
-        {
-            size_t rd = fread(pic->rgb_data,3, w*h, pf);
-            fclose(pf);
-            if ( rd < w*h )
-            {
-               fprintf(stderr,"ReadPPM error 5\n");
-               return 0;
-            }
-            return 1;
-        }
-        fclose(pf);
-    }
-  return 0;
+  return wxString(String, wxConvUTF8);
 }
+
 
 unsigned int PickPictureRescaleRatio()
 {
   return 40;
 }
 
+int WxLoadJPEG(char * filename,struct Picture * pic)
+{
+
+ wxImage new_img; //wxT("album/DSC05741.JPG")
+ new_img.LoadFile(_U(filename)); //wxBITMAP_TYPE_JPEG
+
+ unsigned int width = new_img.GetWidth();
+ unsigned int height = new_img.GetHeight();
+
+ width = width * PickPictureRescaleRatio() / 100;
+ height = height * PickPictureRescaleRatio() / 100;
+ new_img.Rescale(width,height);
+
+ unsigned char * data = new_img.GetData();
+
+       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          PREPARE MEMORY TO HOLD DATA
+          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+       if ( PreparePictureForImage(pic,width,height,3) == 0 ) { fprintf(stderr,"PreparePictureForImage could not prepare memory! \n"); return 0; }
+       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+ memcpy(pic->rgb_data,data,width*height*3);
+
+
+ return 1;
+}
+
+
 int LoadPicture(char * filename,struct Picture * pic)
 {
   fprintf(stderr,"Loading picture\n");
   if ( pic == 0 ) { fprintf(stderr,"Error loading picture (%s) , accomodation structure is not allocated\n",filename); return 0; }
 
-  char loc_filename[512]={0};
-  strcpy(loc_filename,filename);
 
-  sprintf(pic->ppm_filename,"%s.ppm",loc_filename);
 
-  char command[1024]={0};
+    if ( WxLoadJPEG(filename,pic) )       {/* PICTURE IS LOADED ALL IS DONE :) */ } /* MUCH MORE ELEGANT WAY TO LOAD PICTURES :P */
+                                     else { pic->failed_to_load=1; fprintf(stderr,"Failed to open and load picture \n"); return 0; }
 
-  /* COMMAND LINE CONVERSION OF FILE TO PPM */
-  sprintf(command,"convert %s -resize %u%% %s",loc_filename,PickPictureRescaleRatio(),pic->ppm_filename);
-  fprintf(stderr,"Converting picture using command `%s` \n",command);
-  int i=system((const char *)command);
-  if ( i != 0 ) fprintf(stderr,"Error (%d) converting image\n",i);
-  fprintf(stderr,"Converted picture\n");
-  if ( ReadPPM(pic->ppm_filename,pic) )  {} else
-                                         { pic->failed_to_load=1;
-                                           fprintf(stderr,"Failed to open and load picture \n"); return 0; }
-  /*----------------------------------------*/
+
 
   GetInterestingAreasList(pic);
-
-  /* REMOVE TEMPORARY PPM FILE */
-  sprintf(command,"rm %s",pic->ppm_filename);
-  i=system((const char *)command);
-  if ( i != 0 ) fprintf(stderr,"Error (%d) removing used image\n",i);
-  /*----------------------------------------*/
 
 
   if ( pic->overflow_guard != OVERFLOW_GUARD_BYTES ) { fprintf(stderr,"Memory Overflow at Picture structure \n "); }
