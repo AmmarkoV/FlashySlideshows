@@ -112,19 +112,15 @@ unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start
 int WxLoadJPEG(char * filename,struct Picture * pic)
 {
 
- wxImage new_img; //wxT("album/DSC05741.JPG")
- new_img.LoadFile(_U(filename)); //wxBITMAP_TYPE_JPEG
+ wxImage new_img;
+ new_img.LoadFile(_U(filename));
 
  unsigned int width = new_img.GetWidth();
  unsigned int height = new_img.GetHeight();
+ unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
 
- unsigned int new_width = width * PickPictureRescaleRatio(width,height) / 100;
- unsigned int new_height = height * PickPictureRescaleRatio(width,height) / 100;
-
- /*Rescale sizes are decided!*/
- width=new_width;
- height=new_height;
- /*--------------------------*/
+ width  = (unsigned int) (width  * rescale_ratio / 100);
+ height = (unsigned int) (height * rescale_ratio / 100);
 
  new_img.Rescale(width,height);
 
