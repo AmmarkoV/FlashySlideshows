@@ -88,7 +88,10 @@ struct SlideShowData
 
   float vx,vy,vz;
 
+  unsigned int seek_move_activated;
   unsigned int effect_move_activated;
+
+
   float effect_start_x,effect_start_y,effect_start_z;
   float effect_end_x,effect_end_y,effect_end_z;
 

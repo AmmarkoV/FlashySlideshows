@@ -145,7 +145,7 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 
 
-    if ( WxLoadJPEG(filename,pic) )       {/* PICTURE IS LOADED ALL IS DONE :) */ } /* MUCH MORE ELEGANT WAY TO LOAD PICTURES :P */
+    if ( WxLoadJPEG(filename,pic) )       { pic->marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
                                      else { pic->failed_to_load=1; fprintf(stderr,"Failed to open and load picture \n"); return 0; }
 
 
@@ -159,7 +159,6 @@ int LoadPicture(char * filename,struct Picture * pic)
                         pic->marked_for_texture_loading=1;
                         /* Signal picture ready for texture creating*/
                       }
-
   frame.total_images_loaded++; /* ADDED HERE */
 
  return 1;

@@ -75,12 +75,18 @@ void CalculateActiveImage_AccordingToPosition()
 
 float RefreshDesiredStep_AccordingToPosition()
 {
-    /* Stored int desired_step */
+    /* Stored int frame.desired_step */
     if (frame.vz<frame.distance_barrier_after_considered_zoom)  frame.desired_step=frame.desired_step_zoom; else
     if (frame.vz<frame.distance_barrier_after_considered_close)  frame.desired_step=frame.desired_step_close; else
     if (frame.vz<frame.distance_barrier_after_considered_far)  frame.desired_step=frame.desired_step_far;
 
     return frame.desired_step;
+}
+
+void CameraReachedDestination()
+{
+  frame.effect_move_activated = 0;
+  frame.seek_move_activated=0;
 }
 
 void MoveDestinationCenter(unsigned int axis,unsigned int direction)
@@ -97,6 +103,7 @@ void MoveDestinationCenter(unsigned int axis,unsigned int direction)
     /* direction ( 0 + , 1 - ) */
 
     frame.effect_move_activated=0; /*Overriding hover*/
+    frame.seek_move_activated=1;
 
     switch ( axis )
     {
@@ -410,7 +417,11 @@ void PerformCameraMovement()
      UPDATE ACTIVE IMAGE
   */
 
-  CalculateActiveImage_AccordingToPosition();
+  if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
+
+  if ( !frame.seek_move_activated ) { CalculateActiveImage_AccordingToPosition(); }
+  /* If we are performing a seek move ( i.e. keyboard arrows ) we dont want to calculate active_image again , we
+     know where we are headed*/
 
 }
 
