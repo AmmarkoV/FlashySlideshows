@@ -168,7 +168,8 @@ int MaxPictureThatIsVisible()
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
-  if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; fprintf(stderr,"MaxPicture Overflow avoided with cap\n"); }
+
+  if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
   //fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);
   return max_picture;
 }

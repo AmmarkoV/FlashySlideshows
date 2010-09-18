@@ -30,7 +30,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_textures.h"
 #include "sound.h"
 #include "memory_hypervisor.h"
-
+#include "wxwidgets_stuff.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -417,6 +417,8 @@ int main(int argc, char *argv[])
     InitSlideShow();
 
 
+    WxWidgetsContext wxlibstuff;
+    wxlibstuff.OnInit();
 
     /* Loading Stock textures >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     star=CreatePicture((char * )"app_clipart/star.png",1);
@@ -462,5 +464,6 @@ int main(int argc, char *argv[])
     /* Start Rendering */
     glutMainLoop();
 
+    wxlibstuff.OnClose();
     return EXIT_SUCCESS;
 }

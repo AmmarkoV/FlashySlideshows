@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <wx/image.h>
 
 #include "slideshow.h"
 #include "load_textures.h"
@@ -37,6 +38,20 @@ int PictureLoadingPending(struct Picture * picturedata)
   return picturedata->marked_for_rgbdata_loading;
 }
 
+
+int WxLoadJPEG()
+{
+
+ wxImage jpeg_img;
+ jpeg_img.LoadFile(wxT("thisfile.jpg"), wxBITMAP_TYPE_JPEG);
+ /*
+ wxBitmap bm(jpeg_img);
+
+ wxBitmap current_bitmap;
+ current_bitmap.LoadFile(wxT("thisfile.jpg"), wxBITMAP_TYPE_JPEG);*/
+
+ return 1;
+}
 
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
