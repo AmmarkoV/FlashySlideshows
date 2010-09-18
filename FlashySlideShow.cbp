@@ -34,7 +34,6 @@
 			<Add option="-Wall" />
 			<Add option="`wx-config --cflags`" />
 			<Add directory="usr/include" />
-			<Add directory="/usr/include/wx-2.8" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
