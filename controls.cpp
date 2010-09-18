@@ -210,6 +210,8 @@ int MoveToPicture(unsigned int direction)
       fprintf(stderr,"Changing destination\n");
       frame.active_image_place=current_active_picture;
       SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
+      frame.seek_move_activated=1; /*THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0
+                                     so it is important to set this right here!*/
       return 1;
     }
    return 0;

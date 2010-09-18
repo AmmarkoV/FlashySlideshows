@@ -16,8 +16,7 @@
 #endif
 
 void CalculateActiveImage_AccordingToPosition()
-{
-   unsigned int total_y=MaxPictureThatIsVisible()/*frame.total_images REDUCE COMPLEXITY*/ /frame.images_per_line;
+{   unsigned int total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  /frame.images_per_line;
 
    /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
 
@@ -85,7 +84,7 @@ float RefreshDesiredStep_AccordingToPosition()
 
 void CameraReachedDestination()
 {
-  frame.effect_move_activated = 0;
+  frame.effect_move_activated=0;
   frame.seek_move_activated=0;
 }
 
@@ -103,7 +102,6 @@ void MoveDestinationCenter(unsigned int axis,unsigned int direction)
     /* direction ( 0 + , 1 - ) */
 
     frame.effect_move_activated=0; /*Overriding hover*/
-    frame.seek_move_activated=1;
 
     switch ( axis )
     {
@@ -128,6 +126,9 @@ void MoveDestinationCenter(unsigned int axis,unsigned int direction)
 
 void SetDestinationCenter()
 {
+    frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+    frame.effect_move_activated=0;
+
     frame.desired_x=0;
     frame.desired_y=0;
     frame.desired_z=0;
@@ -139,6 +140,8 @@ void SetDestinationCenter()
 
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
 {
+  frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+
   float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
   if ( x==1 ) { vx= 0.0; } else

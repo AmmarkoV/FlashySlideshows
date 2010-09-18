@@ -54,7 +54,7 @@ void InitSlideShow()
    frame.vy=00.0;
    frame.vz=00.0;
 
-
+   frame.seek_move_activated=0;
    frame.effect_move_activated=0;
 
    frame.effect_start_x=00.0;
