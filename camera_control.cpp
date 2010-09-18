@@ -16,18 +16,21 @@
 #endif
 
 void CalculateActiveImage_AccordingToPosition()
-{   unsigned int total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  /frame.images_per_line;
-
-   /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
-
+{
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
-
 
    unsigned int x,y,album_traveler=0;
    float top_left[3]={0.0,0.0,-5} , top_right[3]={0.0,0.0,-5} , bot_left[3]={0.0,0.0,-5} , bot_right[3]={0.0,0.0,-5} ;
 
-   for (y=0; y<total_y; y++)
+
+
+
+  // if ()  SetDisplayAllPictures(1);
+
+   unsigned int start_y=MinPictureThatIsVisible() /* REDUCE COMPLEXITY 0 */  / frame.images_per_line;
+   unsigned int total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  / frame.images_per_line;
+   for (y=start_y; y<total_y; y++)
     {
        top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
        bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
@@ -42,6 +45,17 @@ void CalculateActiveImage_AccordingToPosition()
        bot_left[0]=top_left[0];
        bot_right[0]=top_right[0];
 
+            if ( rayIntersectsRectangle(camera_point,camera_direction,top_left,top_right,bot_right,bot_left) )
+            {
+                //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+                   //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                   //fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2]);
+                   frame.active_image_y=y;
+                   frame.active_image_x=x;
+                   frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
+                  return;
+            }
+/*
             if (  rayIntersectsTriangle(camera_point,camera_direction,top_left,top_right,bot_right) )
                 {
                    //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
@@ -61,7 +75,9 @@ void CalculateActiveImage_AccordingToPosition()
                     frame.active_image_x=x;
                     frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
                    return;
-                } else
+                }
+                */
+                 else
                 {
                   /*NOT OVER PICTURE*/
                 }
@@ -69,6 +85,11 @@ void CalculateActiveImage_AccordingToPosition()
        ++album_traveler;
      }
     }
+
+
+    /*
+        TODO : ADD CATCHER FOR OFF THE SCREEN IMAGES ( i.e all images under visible)
+    */
 }
 
 

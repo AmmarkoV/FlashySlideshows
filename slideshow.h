@@ -132,6 +132,8 @@ extern struct Point3D down_right;
 
 void InitSlideShow();
 
+void SetDisplayAllPictures(unsigned int newstate);
+
 void ToggleAutomaticSlideshow();
 
 void AutomaticSlideShowControl_if_needed();

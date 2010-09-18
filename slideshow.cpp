@@ -15,6 +15,11 @@ struct Point3D down_right={-3.6,2.8,-3.4};
 
 unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
 
+void SetDisplayAllPictures(unsigned int newstate)
+{
+  DISPLAY_ALL_PICTURES=newstate;
+}
+
 void InitSlideShow()
 {
    frame.gpu.usedRAM=0;

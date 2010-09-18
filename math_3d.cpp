@@ -60,3 +60,20 @@ int rayIntersectsTriangle(float *p, float *d,float *v0, float *v1, float *v2)
 		 // but not a ray intersection
 		 return (false);
 }
+
+
+int rayIntersectsRectangle(float *p, float *d,float *v0, float *v1, float *v2, float *v3)
+{
+   if (  rayIntersectsTriangle(p,d,v0,v1,v2) )
+     {
+       return 1;
+     }
+
+   if (  rayIntersectsTriangle(p,d,v1,v2,v3) )
+     {
+       return 1;
+     }
+
+   return 0;
+}
+
