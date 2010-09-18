@@ -96,9 +96,17 @@ inline wxString _U(const char String[] = "")
 }
 
 
-unsigned int PickPictureRescaleRatio()
+unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
 {
-  return 40;
+  float ratio_width=start_width/1024;
+  float ratio_height=start_height/768;
+
+  unsigned int scale_percentage=40;
+
+  if (( ratio_width==0 ) | ( ratio_height==0 )) {  } else
+  if ( ratio_width < ratio_height ) { scale_percentage=(unsigned int) 100/ratio_width; } else
+                                    { scale_percentage=(unsigned int) 100/ratio_height; }
+  return scale_percentage;
 }
 
 int WxLoadJPEG(char * filename,struct Picture * pic)
@@ -110,8 +118,14 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
  unsigned int width = new_img.GetWidth();
  unsigned int height = new_img.GetHeight();
 
- width = width * PickPictureRescaleRatio() / 100;
- height = height * PickPictureRescaleRatio() / 100;
+ unsigned int new_width = width * PickPictureRescaleRatio(width,height) / 100;
+ unsigned int new_height = height * PickPictureRescaleRatio(width,height) / 100;
+
+ /*Rescale sizes are decided!*/
+ width=new_width;
+ height=new_height;
+ /*--------------------------*/
+
  new_img.Rescale(width,height);
 
  unsigned char * data = new_img.GetData();
@@ -123,7 +137,6 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
        /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
  memcpy(pic->rgb_data,data,width*height*3);
-
 
  return 1;
 }
