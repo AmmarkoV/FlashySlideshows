@@ -13,7 +13,7 @@ struct Point3D up_right={-3.6,-2.8,-3.4};
 struct Point3D down_left={3.6,2.8,-3.4};
 struct Point3D down_right={-3.6,2.8,-3.4};
 
-unsigned int DISPLAY_ALL_PICTURES=1; /*DEBUG SWITCH*/
+unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
 
 void InitSlideShow()
 {
@@ -168,7 +168,7 @@ int MaxPictureThatIsVisible()
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
-  if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
+  if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; fprintf(stderr,"MaxPicture Overflow avoided with cap\n"); }
   //fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);
   return max_picture;
 }

@@ -17,7 +17,7 @@
 
 void CalculateActiveImage_AccordingToPosition()
 {
-   unsigned int total_y=frame.total_images/frame.images_per_line;
+   unsigned int total_y=MaxPictureThatIsVisible()/*frame.total_images REDUCE COMPLEXITY*/ /frame.images_per_line;
 
    /* WILL HAVE TO ADD Z CALCULATIONS ( 3d dimension ) to find the picture out where the camera is over*/
 
@@ -51,7 +51,7 @@ void CalculateActiveImage_AccordingToPosition()
                    frame.active_image_y=y;
                    frame.active_image_x=x;
                    frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
-                   return;
+                  return;
                 } else
             if (  rayIntersectsTriangle(camera_point,camera_direction,bot_right,bot_left,top_left) )
                 {
@@ -70,7 +70,6 @@ void CalculateActiveImage_AccordingToPosition()
        ++album_traveler;
      }
     }
-
 }
 
 

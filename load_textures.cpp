@@ -91,6 +91,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
         {
           frame.system.usedRAM-=picturedata->rgb_data_size;
           free(picturedata->rgb_data);
+          picturedata->rgb_data=0;
           picturedata->rgb_data_size=0;
         }
 

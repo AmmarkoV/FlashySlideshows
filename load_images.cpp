@@ -49,7 +49,9 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          fprintf(stderr,"Picture Structure is dirty\n");
          frame.system.usedRAM-=pic->rgb_data_size;
 
-         free (pic->rgb_data);
+         if ( pic->rgb_data!=0 ) { free (pic->rgb_data);
+                                   pic->rgb_data=0;
+                                 }
          pic->rgb_data_size=0;
      }
 
@@ -71,6 +73,8 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          if  ( pic->rgb_data <=0 )
           {
             fprintf(stderr,"Error allocating memory for raw image \n");
+            pic->rgb_data=0;
+            pic->rgb_data_size=0;
             return 0;
           }
      }
@@ -246,7 +250,7 @@ int UnLoadPicture(struct Picture * pic)
   frame.total_images_loaded--;
 
   pic->rgb_data_size=0;
-  if ( pic->rgb_data != 0 ) free(pic->rgb_data);
+  if ( pic->rgb_data != 0 ) { free(pic->rgb_data); pic->rgb_data=0; }
 
   glDeleteTextures(1,&pic->gl_rgb_texture);
 

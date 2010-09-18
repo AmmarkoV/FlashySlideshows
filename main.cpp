@@ -86,7 +86,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
   {
-    loaded_pictures_this_loop=ManagePicturesMemory(); // If no pictures loaded returns 0
+    loaded_pictures_this_loop= ManagePicturesMemory();// If no pictures loaded returns 0
     loaded_pictures_this_loop+=ManageTexturesMemory();// If no pictures adds 0
 
     if ( loaded_pictures_this_loop == 0 ) { usleep(1000000);  } else
