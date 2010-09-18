@@ -8,7 +8,7 @@
 		<Cursor position="317" topLine="8" />
 	</File>
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="1052" topLine="324" />
+		<Cursor position="325" topLine="0" />
 	</File>
 	<File name="camera_control.h" open="0" top="0" tabpos="13">
 		<Cursor position="454" topLine="0" />
@@ -31,20 +31,20 @@
 	<File name="image_sensing.h" open="0" top="0" tabpos="19">
 		<Cursor position="74" topLine="0" />
 	</File>
-	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="8853" topLine="0" />
+	<File name="load_images.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="3893" topLine="99" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="874" topLine="0" />
+		<Cursor position="957" topLine="0" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="455" topLine="0" />
+		<Cursor position="3501" topLine="69" />
 	</File>
 	<File name="load_textures.h" open="0" top="0" tabpos="3">
 		<Cursor position="89" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1007" topLine="6" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="8592" topLine="280" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="549" topLine="0" />
@@ -56,7 +56,7 @@
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="386" topLine="0" />
+		<Cursor position="4198" topLine="0" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="2666" topLine="103" />
@@ -72,5 +72,8 @@
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="291" topLine="0" />
+	</File>
+	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
+		<Cursor position="494" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
