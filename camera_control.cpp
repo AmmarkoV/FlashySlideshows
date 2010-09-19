@@ -20,16 +20,32 @@ void CalculateActiveImage_AccordingToPosition()
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
 
-   unsigned int x,y,album_traveler=0;
+   unsigned int x,y,album_traveler;
    float top_left[3]={0.0,0.0,-5} , top_right[3]={0.0,0.0,-5} , bot_left[3]={0.0,0.0,-5} , bot_right[3]={0.0,0.0,-5} ;
 
 
 
 
-  // if ()  SetDisplayAllPictures(1);
-
    unsigned int start_y=MinPictureThatIsVisible() /* REDUCE COMPLEXITY 0 */  / frame.images_per_line;
    unsigned int total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  / frame.images_per_line;
+   album_traveler=start_y * frame.images_per_line;
+
+/*
+   float inf_left[3]={0.0,0.0,-5} , inf_right[3]={0.0,0.0,-5};
+   if ( !PictureOutOfBounds (total_y*frame.images_per_line) )
+     {
+       inf_left[0]=album[album_traveler]->position.x-100;  inf_right[0]=album[album_traveler]->position.x+100;
+       inf_left[1]=album[album_traveler]->position.y-100;  inf_right[1]=album[album_traveler]->position.y+100;
+
+       bot_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
+       bot_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+
+       bot_right[0]=album[album_traveler]->position.x + album[album_traveler]->position.size_x;
+       bot_right[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+
+     }
+*/
+
    for (y=start_y; y<total_y; y++)
     {
        top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
@@ -49,34 +65,12 @@ void CalculateActiveImage_AccordingToPosition()
             {
                 //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
                    //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                   //fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2]);
+                   //fprintf(stderr,"RECTANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f,%f)\n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2],bot_left[0],bot_left[1],bot_left[2]);
                    frame.active_image_y=y;
                    frame.active_image_x=x;
                    frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
                   return;
             }
-/*
-            if (  rayIntersectsTriangle(camera_point,camera_direction,top_left,top_right,bot_right) )
-                {
-                   //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-                   //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                   //fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2]);
-                   frame.active_image_y=y;
-                   frame.active_image_x=x;
-                   frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
-                  return;
-                } else
-            if (  rayIntersectsTriangle(camera_point,camera_direction,bot_right,bot_left,top_left) )
-                {
-                   //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-                   //fprintf(stderr,"OVER (%f,%f,%f) PIC DOWN TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                   //fprintf(stderr,"TRIANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) \n",bot_right[0],bot_right[1],bot_right[2]   ,bot_left[0],bot_left[1],bot_left[2]   ,top_left[0],top_left[1],top_left[2]);
-                    frame.active_image_y=y;
-                    frame.active_image_x=x;
-                    frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
-                   return;
-                }
-                */
                  else
                 {
                   /*NOT OVER PICTURE*/
@@ -86,10 +80,6 @@ void CalculateActiveImage_AccordingToPosition()
      }
     }
 
-
-    /*
-        TODO : ADD CATCHER FOR OFF THE SCREEN IMAGES ( i.e all images under visible)
-    */
 }
 
 

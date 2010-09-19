@@ -132,6 +132,8 @@ extern struct Point3D down_right;
 
 void InitSlideShow();
 
+int PictureOutOfBounds(unsigned int pic_place);
+
 void SetDisplayAllPictures(unsigned int newstate);
 
 void ToggleAutomaticSlideshow();

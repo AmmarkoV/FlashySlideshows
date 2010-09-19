@@ -41,7 +41,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1284850347 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1284859689 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -145,7 +145,7 @@
 
 1284853490 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
 
-1284483359 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
+1284853747 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
 	"math_3d.h"
 
 1282051480 /usr/include/wx-2.8/wx/image.h

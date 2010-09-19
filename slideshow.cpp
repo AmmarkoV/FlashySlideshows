@@ -168,6 +168,12 @@ int MinPictureThatIsVisible()
   return min_picture;
 }
 
+int PictureOutOfBounds(unsigned int pic_place)
+{
+   if ( pic_place > frame.total_images ) { return 1; }
+   return 0;
+}
+
 int MaxPictureThatIsVisible()
 {
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
