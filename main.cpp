@@ -353,6 +353,7 @@ void ToggleFullscreen()
 
 int main(int argc, char *argv[])
 {
+    strcpy((char * ) frame.album_directory,"album");
     if ( argc <1 )
      {
        fprintf(stderr,"Something weird is happening , argument zero should be executable path :S \n");
@@ -370,7 +371,11 @@ int main(int argc, char *argv[])
              fprintf(stderr,"Arg %u - %s\n",i,argv[i]);
          }
        strncpy((char * ) frame.program_data_directory,argv[0],MAX_PATH);
+       strncpy((char * ) frame.album_directory,argv[1],MAX_PATH);
      }
+    strcat((char * ) frame.album_directory,"/");
+    fprintf(stderr,"Active directory is %s \n", frame.album_directory);
+
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
@@ -466,9 +471,9 @@ int main(int argc, char *argv[])
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-    CountPicturesInDirectory((char * )"album/");
+    CountPicturesInDirectory((char*)frame.album_directory);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
-    GetDirectoryList((char * )"album/",GetTotalViewableFilesInDirectory()); /* Load Directory List */
+    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory()); /* Load Directory List */
 
     frame.total_images=GetTotalViewableFilesInDirectory();
     unsigned int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }

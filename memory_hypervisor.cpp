@@ -47,7 +47,7 @@ int LoadPicturesIfNeeded()
     { if (PictureCreationPending(album[album_traveler]))
       {
          // THIS SHOULD CREATE THE PICTURE
-         if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack_mem_hyper) == 1 )
+         if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
             {
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack_mem_hyper,0);
                ++loaded_pictures_this_loop;
@@ -138,7 +138,7 @@ int LoadTexturesIfNeeded()
     { if ( PictureLoadingPending(album[album_traveler]) )
       {
           // THIS SHOULD LOAD THE PICTURE
-          if ( GetViewableFilenameforFile(album_traveler,(char *) "album/",pictures_filename_shared_stack_mem_hyper) == 1 )
+          if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
             {
               // fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
                LoadPicture(pictures_filename_shared_stack_mem_hyper,album[album_traveler]);

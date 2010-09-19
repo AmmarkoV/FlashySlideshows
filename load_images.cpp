@@ -137,7 +137,7 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
 
 int LoadPicture(char * filename,struct Picture * pic)
 {
-  fprintf(stderr,"Loading picture\n");
+  fprintf(stderr,"Loading picture %s \n",filename);
   if ( pic == 0 ) { fprintf(stderr,"Error loading picture (%s) , accomodation structure is not allocated\n",filename); return 0; }
 
 
