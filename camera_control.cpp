@@ -34,17 +34,37 @@ void CalculateActiveImage_AccordingToPosition()
    float inf_left[3]={0.0,0.0,-5} , inf_right[3]={0.0,0.0,-5};
    if ( !PictureOutOfBounds (total_y*frame.images_per_line) )
      {
-       inf_left[0]=album[album_traveler]->position.x-100;  inf_right[0]=album[album_traveler]->position.x+100;
-       inf_left[1]=album[album_traveler]->position.y-100;  inf_right[1]=album[album_traveler]->position.y+100;
-
        bot_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
-       bot_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+       bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
 
        bot_right[0]=album[album_traveler]->position.x + album[album_traveler]->position.size_x;
-       bot_right[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+       bot_right[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
 
-     }
+       inf_left[0]=bot_left[0]-100;  inf_right[0]=bot_right[0]+100;
+       inf_left[1]=bot_left[1]+100;  inf_right[1]=bot_right[1]+100;
+       if ( rayIntersectsRectangle(camera_point,camera_direction,bot_left,bot_right,inf_left,inf_right) )
+            {
+                // CAMERA OUT OF LOADED IMAGES! DOWN
+                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN \n");
+            }
+      }
+
+       album_traveler = start_y*frame.images_per_line;
+       top_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
+       top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+
+       top_right[0]=album[album_traveler]->position.x + album[album_traveler]->position.size_x;
+       top_right[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+
+       inf_left[0]=bot_left[0]-100;  inf_right[0]=bot_right[0]+100;
+       inf_left[1]=bot_left[1]-100;  inf_right[1]=bot_right[1]-100;
+       if ( rayIntersectsRectangle(camera_point,camera_direction,inf_left,inf_right,top_left,top_right) )
+            {
+                // CAMERA OUT OF LOADED IMAGES! UP
+                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP \n");
+            }
 */
+
 
    for (y=start_y; y<total_y; y++)
     {
