@@ -1,6 +1,7 @@
 #ifndef SLIDESHOW_H_INCLUDED
 #define SLIDESHOW_H_INCLUDED
 
+#define MAX_PATH 1024
 
 #define FRAME_UP_LEFT 1
 #define FRAME_UP_RIGHT 2
@@ -60,7 +61,6 @@ struct SlideShowData
   unsigned int lookahead;
   unsigned int force_mipmap_generation;
 
-
   unsigned int fullscreen;
   unsigned int automatic_slideshow_on;
   unsigned int currently_loading;
@@ -117,6 +117,8 @@ struct SlideShowData
      SLIDESHOW EFFECTS
   */
   struct Effects_Data effects;
+
+  unsigned char program_data_directory[MAX_PATH];
 
   struct FilePicture * pictures_in_folder;
 };

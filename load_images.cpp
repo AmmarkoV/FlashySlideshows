@@ -6,11 +6,8 @@
 #include <unistd.h>
 #include <wx/image.h>
 
-#include "slideshow.h"
 #include "load_textures.h"
 #include "image_sensing.h"
-
-#define PPMREADBUFLEN 256
 
 
 struct Picture *star=0;

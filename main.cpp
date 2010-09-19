@@ -352,6 +352,25 @@ void ToggleFullscreen()
 
 int main(int argc, char *argv[])
 {
+    if ( argc <1 )
+     {
+       fprintf(stderr,"Something weird is happening , argument zero should be executable path :S \n");
+       return 1;
+     } else
+    if ( argc == 1 )
+     {
+       fprintf(stderr,"Usage flashyslideshow \"path\\to\\directory\\of\\album\"\n\n");
+       strncpy((char * ) frame.program_data_directory,argv[0],MAX_PATH);
+     } else
+     {
+        int i=0;
+        for (i=0; i<argc; i++)
+         {
+             fprintf(stderr,"Arg %u - %s\n",i,argv[i]);
+         }
+       strncpy((char * ) frame.program_data_directory,argv[1],MAX_PATH);
+     }
+
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
     glutInitWindowSize(1024,768);

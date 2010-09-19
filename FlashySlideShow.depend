@@ -11,10 +11,11 @@
 	"load_textures.h"
 	"image_sensing.h"
 
-1284590180 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1284861912 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
+	"slideshow.h"
 
-1284775129 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1284861872 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -41,7 +42,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1284859689 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1284861863 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1282735019 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -89,7 +90,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1284853734 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1284861123 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"

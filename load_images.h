@@ -2,7 +2,7 @@
 #define LOAD_IMAGES_H_INCLUDED
 
 #include <GL/glu.h>
-
+#include "slideshow.h"
 
 #define OVERFLOW_GUARD_BYTES 10101001
 
@@ -42,8 +42,7 @@ struct Picture
 
   struct Position3D position;
 
-  char filename[512];
-  char ppm_filename[512];
+  char filename[MAX_PATH];
 
   unsigned long rgb_data_size;
   char * rgb_data;
