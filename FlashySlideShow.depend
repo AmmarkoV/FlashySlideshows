@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1284922538 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1284925190 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -67,12 +67,13 @@
 
 1282769921 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1282911683 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1284925167 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
-	"InputParser_C.h"
+	"wx/dir.h"
+	"wx/filename.h"
 
 1284922462 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
@@ -788,4 +789,14 @@
 1282051481 /usr/include/wx-2.8/wx/gtk/msgdlg.h
 	"wx/defs.h"
 	"wx/dialog.h"
+
+1282051479 /usr/include/wx-2.8/wx/dir.h
+	"wx/longlong.h"
+	"wx/string.h"
+
+1282051479 /usr/include/wx-2.8/wx/filename.h
+	"wx/arrstr.h"
+	"wx/filefn.h"
+	"wx/datetime.h"
+	"wx/intl.h"
 

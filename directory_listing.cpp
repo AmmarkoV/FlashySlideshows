@@ -47,53 +47,16 @@ inline wxString _U2(const char String[] = "")
 }
 
 
-unsigned int CountPicturesInDirectory(char * thedirectory)
-{
-  unsigned int this_list_total_count=0;
-  unsigned int this_list_total_pictures_count=0;
-
-  wxDir dir(_U2(thedirectory)); /*wxGetCwd()*/
-  if ( !dir.IsOpened() )  { return 0; }
-
-  wxString filename,extension;
-  wxString filespec = wxT("*.*");
-  int flags=wxDIR_FILES;
-
-
-  int cont = dir.GetFirst(&filename,filespec,flags);
-  while ( cont )
-   {
-      wxFileName fname(filename);
-      fname.Normalize(wxPATH_NORM_LONG|wxPATH_NORM_DOTS|wxPATH_NORM_TILDE|wxPATH_NORM_ABSOLUTE);
-      fname.MakeRelativeTo(_U2(thedirectory));
-
-      extension=fname.GetExt();
-
-      unsigned int is_a_picture=0;
-      if ( extension.CmpNoCase(wxT("JPG")) ) {is_a_picture=1;} else
-      if ( extension.CmpNoCase(wxT("JPEG")) ) {is_a_picture=1;} else
-      if ( extension.CmpNoCase(wxT("PNG")) ) {is_a_picture=1;} else
-      if ( extension.CmpNoCase(wxT("BMP")) ) {is_a_picture=1;}
-
-      if ( is_a_picture )
-        {
-            ++this_list_total_pictures_count;
-        }
-       ++this_list_total_count;
-
-      /* WE CONTINUE THE LOOP UNTIL THE END!*/
-      cont = dir.GetNext(&filename);
-   }
-
-  last_list_total_count=this_list_total_count;
-  last_list_total_pictures_count=this_list_total_pictures_count;
-
-  return this_list_total_pictures_count;
-}
 
 unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space)
 {
+  unsigned int COUNT_FILES_ONLY=0;
+  unsigned int this_list_total_count=0;
   unsigned int this_list_total_pictures_count=0;
+
+
+  if (store_results_in_space == 0 ) { COUNT_FILES_ONLY = 1; }
+
   wxDir dir(_U2(thedirectory)); /*wxGetCwd()*/
   if ( !dir.IsOpened() )  { return 0; }
 
@@ -101,7 +64,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
   wxString filespec = wxT("*.*");
   int flags=wxDIR_FILES;
 
-  AllocateDirectoryList(store_results_in_space);
+  if (!COUNT_FILES_ONLY) { AllocateDirectoryList(store_results_in_space); }
 
   int cont = dir.GetFirst(&filename,filespec,flags);
   while ( cont )
@@ -121,19 +84,34 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
 
       if ( is_a_picture )
         {
-
-          strncpy(list[this_list_total_pictures_count].filename,(const char*) fullname.mb_str(wxConvUTF8),512);
+          if (!COUNT_FILES_ONLY)
+          {
+            strncpy(list[this_list_total_pictures_count].filename,(const char*) fullname.mb_str(wxConvUTF8),512);
+            if ( this_list_total_pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
+          }
           ++this_list_total_pictures_count;
-
-          if ( this_list_total_pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
         }
-
+      ++this_list_total_count;
       /* WE CONTINUE THE LOOP UNTIL THE END!*/
       cont = dir.GetNext(&filename);
    }
+
+
+  if (COUNT_FILES_ONLY)
+    {
+        last_list_total_count=this_list_total_count;
+        last_list_total_pictures_count=this_list_total_pictures_count;
+        return this_list_total_pictures_count;
+    }
+
   return 1;
 }
 
+
+unsigned int CountPicturesInDirectory(char * thedirectory)
+{
+  return GetDirectoryList(thedirectory,0); /*Calling GetDirectoryList with 0 size only counts files!*/
+}
 
 unsigned int GetTotalFilesInDirectory()
 {
