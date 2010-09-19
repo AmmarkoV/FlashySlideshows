@@ -42,7 +42,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow ver 0.32 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[70]="FlashySlideShow ver 0.37 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
 
@@ -368,7 +368,7 @@ int main(int argc, char *argv[])
          {
              fprintf(stderr,"Arg %u - %s\n",i,argv[i]);
          }
-       strncpy((char * ) frame.program_data_directory,argv[1],MAX_PATH);
+       strncpy((char * ) frame.program_data_directory,argv[0],MAX_PATH);
      }
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
@@ -465,8 +465,7 @@ int main(int argc, char *argv[])
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-
-    GetDirectoryList((char * )"album/",0); /* First Call using zero as a second parameter to only count directory size */
+    CountPicturesInDirectory((char * )"album/");
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
     GetDirectoryList((char * )"album/",GetTotalViewableFilesInDirectory()); /* Load Directory List */
 

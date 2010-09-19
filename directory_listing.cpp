@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "InputParser_C.h"
+#include "wx/dir.h"
+#include "wx/filename.h"
 
 struct FilenameHolder
 {
@@ -40,119 +41,97 @@ void FreeDirectoryList()
   list=0;
 }
 
+inline wxString _U2(const char String[] = "")
+{
+  return wxString(String, wxConvUTF8);
+}
+
+
+unsigned int CountPicturesInDirectory(char * thedirectory)
+{
+  unsigned int this_list_total_count=0;
+  unsigned int this_list_total_pictures_count=0;
+
+  wxDir dir(_U2(thedirectory)); /*wxGetCwd()*/
+  if ( !dir.IsOpened() )  { return 0; }
+
+  wxString filename,extension;
+  wxString filespec = wxT("*.*");
+  int flags=wxDIR_FILES;
+
+
+  int cont = dir.GetFirst(&filename,filespec,flags);
+  while ( cont )
+   {
+      wxFileName fname(filename);
+      fname.Normalize(wxPATH_NORM_LONG|wxPATH_NORM_DOTS|wxPATH_NORM_TILDE|wxPATH_NORM_ABSOLUTE);
+      fname.MakeRelativeTo(_U2(thedirectory));
+
+      extension=fname.GetExt();
+
+      unsigned int is_a_picture=0;
+      if ( extension.CmpNoCase(wxT("JPG")) ) {is_a_picture=1;} else
+      if ( extension.CmpNoCase(wxT("JPEG")) ) {is_a_picture=1;} else
+      if ( extension.CmpNoCase(wxT("PNG")) ) {is_a_picture=1;} else
+      if ( extension.CmpNoCase(wxT("BMP")) ) {is_a_picture=1;}
+
+      if ( is_a_picture )
+        {
+            ++this_list_total_pictures_count;
+        }
+       ++this_list_total_count;
+
+      /* WE CONTINUE THE LOOP UNTIL THE END!*/
+      cont = dir.GetNext(&filename);
+   }
+
+  last_list_total_count=this_list_total_count;
+  last_list_total_pictures_count=this_list_total_pictures_count;
+
+  return this_list_total_pictures_count;
+}
 
 unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space)
 {
-  fprintf(stderr,"This code section is a little sloppy , may segfault \n");
+  unsigned int this_list_total_pictures_count=0;
+  wxDir dir(_U2(thedirectory)); /*wxGetCwd()*/
+  if ( !dir.IsOpened() )  { return 0; }
 
-  int linux_system=0;
+  wxString filename,extension,fullname;
+  wxString filespec = wxT("*.*");
+  int flags=wxDIR_FILES;
 
-  #ifdef __WIN32__
-        linux_system=0;
-  #else
-        linux_system=1;
-  #endif
- if (linux_system==0)
-  {
-    /* WINDOWS MAC ETC. */ fprintf(stderr,"GetDirectoryList not implemented for platform :( \n");
-  }
-    else
- if (linux_system==1)
-  {
-  char command[512]={0};
+  AllocateDirectoryList(store_results_in_space);
 
-  /* crazy r.e by c00kiemon5ter <-> http://github.com/c00kiemon5ter \/*/
-  sprintf(command,"for file in $(find \"%s\" -maxdepth 1 -type f ! -name \".*\" -exec file {} + | grep \": \\s*\\w* image data\" | sed \"s/\\(.*\\):.*/\\1/\"  ); do basename $file; done > filelist.dat",thedirectory);
+  int cont = dir.GetFirst(&filename,filespec,flags);
+  while ( cont )
+   {
+      wxFileName fname(filename);
+     // fname.Normalize(wxPATH_NORM_LONG|wxPATH_NORM_DOTS|wxPATH_NORM_TILDE|wxPATH_NORM_ABSOLUTE);
+     // fname.MakeRelativeTo(_U2(thedirectory));
 
-  int i=system((const char *)command);
-  if ( i != 0 ) fprintf(stderr,"Error (%d) listing directory using system command \n",i);
-  /*----------------------------------------*/
+      extension=fname.GetExt();
+      fullname=fname.GetFullName();
 
-  /* the file filelist.dat should contain the list of all the files in folder*/
+      unsigned int is_a_picture=0;
+      if ( extension.CmpNoCase(wxT("JPG")) ) {is_a_picture=1;} else
+      if ( extension.CmpNoCase(wxT("JPEG")) ) {is_a_picture=1;} else
+      if ( extension.CmpNoCase(wxT("PNG")) ) {is_a_picture=1;} else
+      if ( extension.CmpNoCase(wxT("BMP")) ) {is_a_picture=1;}
 
-    /*Tokenizing it using InputParser_C :) --------------------- */
-    struct InputParserC * ipc=0;
-    ipc = InputParser_Create(2048,5);
-    InputParser_SetDelimeter(ipc,1,' ');
-    InputParser_SetDelimeter(ipc,2,10);
-    InputParser_SetDelimeter(ipc,3,13);
-    InputParser_SetDelimeter(ipc,4,0);
+      if ( is_a_picture )
+        {
 
-    struct InputParserC * ipc2=0;
-    ipc2 = InputParser_Create(1024,3);
-    InputParser_SetDelimeter(ipc2,1,'.');
-    /*---------------------------------------------------------- */
+          strncpy(list[this_list_total_pictures_count].filename,(const char*) fullname.mb_str(wxConvUTF8),512);
+          ++this_list_total_pictures_count;
 
-    FILE * fp;
-    fp = fopen("filelist.dat","r");
-    if (fp == 0) { return 0; }
+          if ( this_list_total_pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
+        }
 
-    if ( fp != 0 )
-       {
-          char line[2048]={0};
-          char filename[2048]={0};
-          char extension[512]={0};
-          unsigned int linelen=2048;
-
-          unsigned int this_list_total_count=0;
-          unsigned int this_list_total_pictures_count=0;
-
-          if ( store_results_in_space > 0 )
-            {
-               /* We will create space to store up to "store_results_in_space" results*/
-               AllocateDirectoryList(store_results_in_space);
-            }
-
-          while (!feof(fp) )
-           {
-            if (fgets(line,linelen,fp)!=0)
-             {
-                 /* START of Read loop that fills in line variable */
-                 int res = InputParser_SeperateWords(ipc,line,linelen);
-                 InputParser_GetWord(ipc,0,filename,2048);
-                 printf("%u arguments <--> %s / %s  \n ",res,line,filename);
-
-                 res = InputParser_SeperateWords(ipc2,filename,linelen);
-                 if ( res > 1 )
-                 {
-                  ++this_list_total_count;
-                  InputParser_GetWord(ipc2,1,extension,512);
-                  printf( (char*) "EXTENSION : %s \n",extension);
-
-                  if ( InputParser_WordCompareNoCase(ipc2,1,(char *)"JPG",3)==1 )
-                      {
-                       if ( store_results_in_space > 0 )
-                       {
-                         if ( list_size <= this_list_total_pictures_count )
-                          {
-                              fprintf(stderr,"Our initial size (%u) was mistaken (%u) , while accessing %u stoping procedure \n",store_results_in_space,list_size,this_list_total_pictures_count);
-                              break;
-                          } else
-                          {
-                             strncpy(list[this_list_total_pictures_count].filename,filename,512);
-                             printf("Filename Coming from memory %s ",list[this_list_total_pictures_count].filename);
-                          }
-                       }
-                        ++this_list_total_pictures_count;
-                      }
-
-                 }
-                 /* END of Read loop that fills in line variable */
-             }
-           }
-           fclose (fp);
-
-           last_list_total_count=this_list_total_count;
-           last_list_total_pictures_count=this_list_total_pictures_count;
-
-           fprintf(stderr," %u of total %u files are pictures \n",last_list_total_pictures_count,last_list_total_count);
-       }
-
-     InputParser_Destroy(ipc);
-
-    return 1;
-  }
-  return 0;
+      /* WE CONTINUE THE LOOP UNTIL THE END!*/
+      cont = dir.GetNext(&filename);
+   }
+  return 1;
 }
 
 
@@ -173,7 +152,7 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
     if ( list_size <= file_id ) return 0;
     if ( list == 0 ) return 0;
     if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
-    if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
+    if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 3 parameter ? \n"); return 0; }
 
     fprintf(stderr,"Copying `%s` \n",list[file_id].filename);
     strcpy(filename,directory);

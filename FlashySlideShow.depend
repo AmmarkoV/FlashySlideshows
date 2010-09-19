@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1284812281 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1284861914 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"memory_hypervisor.h"
 	<stdlib.h>
@@ -7,7 +7,6 @@
 	<string.h>
 	<unistd.h>
 	<wx/image.h>
-	"slideshow.h"
 	"load_textures.h"
 	"image_sensing.h"
 
@@ -15,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1284861872 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1284922538 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -75,7 +74,7 @@
 	<string.h>
 	"InputParser_C.h"
 
-1282874332 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1284922462 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1284813853 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>

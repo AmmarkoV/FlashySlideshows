@@ -20,7 +20,7 @@ TODO LIST - THOUGHT DUMP :P
 
 * Fix Directory issues , find out where to install program in order for it to load default textures correctly 
 
-* Make a real implementation of directory listing.cpp :P
+* Add text lists to directory listing.cpp!
 
 * Add Calling GUI for application ( wxWidgets )
 
