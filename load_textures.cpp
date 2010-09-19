@@ -103,4 +103,46 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     return 1;
 }
 
+unsigned int clear_texture(struct Picture * picturedata)
+{
+  	if ( picturedata == 0 ) { fprintf(stderr,"Error clearing texture from picture , accomodation structure is not allocated\n");
+	                          return 0; }
 
+
+    if ( ( picturedata->gl_rgb_texture != loading->gl_rgb_texture ) && ( picturedata->gl_rgb_texture != 0) )
+       {
+           fprintf(stderr,"Trying to delete texture ");
+           glDeleteTextures(1,&picturedata->gl_rgb_texture);
+           fprintf(stderr,"ok\n");
+
+           picturedata->gl_rgb_texture=loading->gl_rgb_texture;
+           frame.gpu.usedRAM-=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
+       } else
+       {
+           fprintf(stderr,"clear_texture called for already clear texture\n");
+        }
+
+/*
+    if ( picturedata->gl_rgb_thumbnail_texture != loading->gl_rgb_texture )
+       {
+           glDeleteTextures(1,&picturedata->gl_rgb_thumbnail_texture);
+           picturedata->gl_rgb_thumbnail_texture=loading->gl_rgb_texture;
+           fprintf(stderr,"Todo NEED SIZE FOR THUMBNAIL :P\n");
+           //frame.gpu.usedRAM-=picturedata->width*picturedata->height*4 ;
+       }*/
+     glFlush();
+
+
+
+    picturedata->marked_for_texture_removal=0;
+    picturedata->texture_loaded=0;
+    picturedata->thumbnail_texture_loaded=0;
+    return 1;
+}
+
+unsigned int refresh_texture(struct Picture * picturedata)
+{
+  clear_texture(picturedata);
+  make_texture(picturedata,0);
+  return 1;
+}

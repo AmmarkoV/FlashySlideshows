@@ -1,6 +1,7 @@
 #include "memory_hypervisor.h"
 #include "slideshow.h"
 #include "load_images.h"
+#include "load_textures.h"
 #include "directory_listing.h"
 #include <stdio.h>
 
@@ -154,12 +155,43 @@ int LoadTexturesIfNeeded()
 
 int UnLoadTexturesIfNeeded()
 {
+  if ( frame.total_images == 0 ) { return 0; }
+  unsigned int MAX_album_traveler=MinPictureThatIsVisible();
+  unsigned int album_traveler=0;
+  unsigned int unloaded_textures_this_loop=0;
+
+  /*SCAN THE PICTURES FROM 0 to MinVisible in order to free up some space*/
+  while (album_traveler<MAX_album_traveler)
+   {
+    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) ) //No point trying to load if it doesnt't fit
+    {
+         clear_texture(album[album_traveler]);
+         ++unloaded_textures_this_loop;
+    }
+    ++album_traveler;
+   }
+
+  /*SCAN THE PICTURES FROM MaxVisible to END in order to free up some space*/
+  album_traveler=frame.total_images-1;
+  MAX_album_traveler=MaxPictureThatIsVisible();
+  while ((album_traveler>MAX_album_traveler) && (album_traveler>0) )
+   {
+    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*3) ) //No point trying to load if it doesnt't fit
+    {
+         clear_texture(album[album_traveler]);
+         ++unloaded_textures_this_loop;
+    }
+    if ( album_traveler != 0 ) { --album_traveler; } else
+                               { break; }
+   }
+
+
   return 0;
 }
 
 int ManageTexturesMemory()
 {
-   UnLoadTexturesIfNeeded();
+  // UnLoadTexturesIfNeeded(); THIS ONLY SHOULD BE CALLED FROM THE MAIN THREAD
    return LoadTexturesIfNeeded();
 }
 

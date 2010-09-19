@@ -46,10 +46,6 @@
 			<Add library="alut" />
 			<Add directory="usr/lib" />
 		</Linker>
-		<Unit filename="InputParser_C.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="InputParser_C.h" />
 		<Unit filename="camera_control.cpp" />
 		<Unit filename="camera_control.h" />
 		<Unit filename="controls.cpp" />

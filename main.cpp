@@ -103,6 +103,7 @@ int ManageCreatingTextures(int count_only)
   */
   unsigned int count=0,i=0;
 
+  UnLoadTexturesIfNeeded();
   for ( i=0; i<frame.total_images; i++)
    {
      if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }

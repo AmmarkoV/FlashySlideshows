@@ -126,7 +126,6 @@ unsigned int GetTotalViewableFilesInDirectory()
 
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename)
 {
-  //  fprintf(stderr,"This code section is a little sloppy , may segfault \n");
     if ( list_size <= file_id ) return 0;
     if ( list == 0 ) return 0;
     if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }

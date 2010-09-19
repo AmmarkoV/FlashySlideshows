@@ -5,6 +5,9 @@
 
 
 int PictureLoadedOpenGLTexturePending(struct Picture * picturedata);
+
 int make_texture(struct Picture * picturedata,int enable_mipmaping);
+unsigned int clear_texture(struct Picture * picturedata);
+unsigned int refresh_texture(struct Picture * picturedata);
 
 #endif // LOAD_TEXTURES_H_INCLUDED
