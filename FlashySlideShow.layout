@@ -13,7 +13,7 @@
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="3982" topLine="125" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
@@ -26,7 +26,7 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="4568" topLine="162" />
+		<Cursor position="4568" topLine="0" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="1012" topLine="36" />
@@ -53,10 +53,10 @@
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3962" topLine="114" />
+		<Cursor position="151" topLine="0" />
 	</File>
-	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="2328" topLine="114" />
+	<File name="slideshow.h" open="1" top="1" tabpos="5">
+		<Cursor position="2387" topLine="0" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="753" topLine="138" />

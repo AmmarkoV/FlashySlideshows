@@ -41,7 +41,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1284939074 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1284942061 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1284935685 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -67,13 +67,16 @@
 
 1282769921 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1284939991 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1284941585 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
+	"slideshow.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
+	"wxwidgets_stuff.h"
 	"wx/dir.h"
 	"wx/filename.h"
+	"wx/dirdlg.h"
 
 1284940665 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
@@ -800,4 +803,22 @@
 	"wx/filefn.h"
 	"wx/datetime.h"
 	"wx/intl.h"
+
+1282051480 /usr/include/wx-2.8/wx/dirdlg.h
+	"wx/dialog.h"
+	"wx/generic/dirdlgg.h"
+	"wx/generic/dirdlgg.h"
+	"wx/generic/dirdlgg.h"
+	"wx/msw/dirdlg.h"
+	"wx/gtk/dirdlg.h"
+	"wx/generic/dirdlgg.h"
+	"wx/mac/dirdlg.h"
+	"wx/cocoa/dirdlg.h"
+	"wx/generic/dirdlgg.h"
+
+1282051481 /usr/include/wx-2.8/wx/generic/dirdlgg.h
+	"wx/dialog.h"
+
+1282051481 /usr/include/wx-2.8/wx/gtk/dirdlg.h
+	"wx/generic/dirdlgg.h"
 

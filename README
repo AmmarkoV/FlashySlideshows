@@ -20,6 +20,10 @@ TODO LIST - THOUGHT DUMP :P
 
 * Fix Directory issues , find out where to install program in order for it to load default textures correctly 
 
+* Add directory picking GUI 
+
+* Add file sorting via Filename or Date ( wxDir ) 
+
 * Add text lists to directory listing.cpp!
 
 * Add Calling GUI for application ( wxWidgets )
