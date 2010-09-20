@@ -95,6 +95,7 @@ inline wxString _U(const char String[] = "")
 
 unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
 {
+  if ( ( start_width < 1024 ) && (start_height < 768) ) { return 100; }
   float ratio_width=start_width/1024;
   float ratio_height=start_height/768;
 

@@ -172,6 +172,7 @@ int UnLoadTexturesIfNeeded()
    }
 
   /*SCAN THE PICTURES FROM MaxVisible to END in order to free up some space*/
+  /*
   album_traveler=frame.total_images-1;
   MAX_album_traveler=MaxPictureThatIsVisible();
   while ((album_traveler>MAX_album_traveler) && (album_traveler>0) )
@@ -184,7 +185,7 @@ int UnLoadTexturesIfNeeded()
     if ( album_traveler != 0 ) { --album_traveler; } else
                                { break; }
    }
-
+*/
 
   return 0;
 }

@@ -253,6 +253,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'g': frame.angle_y+=0.5; break;
         case 'y': frame.angle_z-=0.5; break;
         case 'h': frame.angle_z+=0.5; break;
+        case 'm': ToggleTransitionMode(); break;
 
         case 'b': PickHoverEffect(frame.active_image_x,frame.active_image_y); break;
 

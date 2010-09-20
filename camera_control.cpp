@@ -15,6 +15,14 @@
 #include <GL/glu.h>
 #endif
 
+unsigned int transition_mode=0; /* 0 = 3d seek , 1 = immediate */
+
+void ToggleTransitionMode()
+{
+    ++transition_mode;
+    if ( transition_mode > 1 ) transition_mode = 0;
+}
+
 void CalculateActiveImage_AccordingToPosition()
 {
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
@@ -169,7 +177,8 @@ void SetDestinationCenter()
     frame.angle_z=180;
 }
 
-void SetDestinationOverPicture(unsigned int x,unsigned int y)
+
+void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 {
   frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
 
@@ -183,6 +192,34 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
   frame.desired_x=vx;
   frame.desired_y=vy;
   frame.desired_z=-1.0;
+}
+
+void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
+{
+  frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+
+  float vx=0.0,vy=0.0,y_inc=12.0;
+  if ( x==0 ) { vx= 14.0; } else
+  if ( x==1 ) { vx= 0.0; } else
+  if ( x==2 ) { vx=-14.0; }
+
+  vy=-12.0 + y_inc * y; frame.desired_z=-1.0;
+  frame.desired_x=vx;
+  frame.desired_y=vy;
+  frame.desired_z=-1.0;
+  frame.vx=frame.desired_x;
+  frame.vy=frame.desired_y;
+  frame.vz=frame.desired_z;
+}
+
+void SetDestinationOverPicture(unsigned int x,unsigned int y)
+{
+   switch ( transition_mode)
+   {
+     case 0 : SetDestinationOverPicture3dSeek(x,y); break;
+     case 1 : SetDestinationOverPictureImmediate(x,y); break;
+     default :  SetDestinationOverPicture3dSeek(x,y);  break;
+   };
 }
 
 void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigned int position_start,unsigned int position_end)
