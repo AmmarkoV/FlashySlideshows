@@ -55,6 +55,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_NORMALIZE);
+  glEnable(GL_LINE_SMOOTH);
 
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
@@ -103,6 +104,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
 
  // glTranslated(-x,-y,-z);
+  glDisable(GL_LINE_SMOOTH);
   glDisable(GL_NORMALIZE);
   glPopMatrix();
   return 1;
@@ -220,6 +222,7 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_NORMALIZE);
+  glEnable(GL_LINE_SMOOTH);
 
   glTranslated(x,y,z);
   if ( rotation!=0 )    { glRotated(rotation,0.0,0.0,1.0); }
@@ -248,6 +251,7 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
 
     if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
   glTranslated(-x,-y,-z);
+  glDisable(GL_LINE_SMOOTH);
   glDisable(GL_NORMALIZE);
   glPopMatrix();
 }
