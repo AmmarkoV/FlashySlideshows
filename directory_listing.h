@@ -6,5 +6,6 @@ unsigned int GetTotalFilesInDirectory();
 unsigned int GetTotalViewableFilesInDirectory();
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename);
 unsigned int CountPicturesInDirectory(char * thedirectory);
+unsigned int LaunchGUI_PickDir();
 
 #endif // DIRECTORY_LISTING_H_INCLUDED

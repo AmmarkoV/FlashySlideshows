@@ -14,31 +14,31 @@
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="187" topLine="0" />
+		<Cursor position="3982" topLine="125" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
-		<Cursor position="351" topLine="0" />
+		<Cursor position="487" topLine="0" />
 	</File>
-	<File name="image_sensing.cpp" open="0" top="0" tabpos="18">
+	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
 		<Cursor position="401" topLine="0" />
 	</File>
 	<File name="image_sensing.h" open="0" top="0" tabpos="19">
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="2745" topLine="84" />
+		<Cursor position="4568" topLine="162" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="538" topLine="0" />
+		<Cursor position="1012" topLine="36" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="3501" topLine="69" />
+		<Cursor position="3984" topLine="79" />
 	</File>
-	<File name="load_textures.h" open="0" top="0" tabpos="3">
-		<Cursor position="89" topLine="0" />
+	<File name="load_textures.h" open="1" top="0" tabpos="19">
+		<Cursor position="162" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="13454" topLine="450" />
+		<Cursor position="10489" topLine="357" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="1510" topLine="0" />
@@ -47,16 +47,16 @@
 		<Cursor position="164" topLine="0" />
 	</File>
 	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="2719" topLine="29" />
+		<Cursor position="4543" topLine="155" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3962" topLine="0" />
+		<Cursor position="3962" topLine="114" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="2294" topLine="98" />
+		<Cursor position="2328" topLine="114" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="753" topLine="138" />
@@ -71,6 +71,9 @@
 		<Cursor position="291" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
-		<Cursor position="494" topLine="0" />
+		<Cursor position="206" topLine="0" />
+	</File>
+	<File name="wxwidgets_stuff.h" open="1" top="0" tabpos="21">
+		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

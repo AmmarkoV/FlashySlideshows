@@ -372,6 +372,12 @@ int main(int argc, char *argv[])
          }
        strncpy((char * ) frame.program_data_directory,argv[0],MAX_PATH);
        strncpy((char * ) frame.album_directory,argv[1],MAX_PATH);
+
+       if ( strncmp((char*)frame.album_directory,"pick",4)==0 )
+         {
+           /* PICK ALBUM DIR VIA GUI */
+           if ( LaunchGUI_PickDir() == 0 )  { fprintf(stderr,"No dir selected! \n"); return 0; }
+         }
      }
     strcat((char * ) frame.album_directory,"/");
     fprintf(stderr,"Active directory is %s \n", frame.album_directory);

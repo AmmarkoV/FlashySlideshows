@@ -1,9 +1,12 @@
 #include "directory_listing.h"
+#include "slideshow.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "wxwidgets_stuff.h"
 #include "wx/dir.h"
 #include "wx/filename.h"
+#include "wx/dirdlg.h"
 
 struct FilenameHolder
 {
@@ -136,4 +139,25 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
     strcat(filename,list[file_id].filename);
 
     return 1;
+}
+
+unsigned int LaunchGUI_PickDir()
+{
+  return 0;
+  WxWidgetsContext* Frame = new WxWidgetsContext();
+
+  //Frame->Show();
+  //SetTopWindow(Frame);
+
+ wxString defaultPath=wxT("/");
+ wxDirDialog dialog((wxWindow *) Frame,wxT("Please select a directory to view files"),defaultPath,wxDD_NEW_DIR_BUTTON);
+ if (dialog.ShowModal() == wxID_OK )
+  {
+    wxString path = dialog.GetPath();
+    strncpy((char*)frame.album_directory,(const char*) path.mb_str(wxConvUTF8),MAX_PATH);
+  }
+
+  delete Frame;
+
+ return 0;
 }
