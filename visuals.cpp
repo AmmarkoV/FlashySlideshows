@@ -3,6 +3,7 @@
 #include "visuals.h"
 #include "slideshow.h"
 #include "load_images.h"
+#include "scene_objects.h"
 #include "sound.h"
 
 #ifdef __APPLE__
