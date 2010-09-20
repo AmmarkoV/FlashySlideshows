@@ -41,7 +41,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1284942061 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1285018676 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1284935685 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -110,12 +110,13 @@
 
 1283883269 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1284994973 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1285015575 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"
 	"slideshow.h"
 	"load_images.h"
+	"scene_objects.h"
 	"sound.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
@@ -821,4 +822,10 @@
 
 1282051481 /usr/include/wx-2.8/wx/gtk/dirdlg.h
 	"wx/generic/dirdlgg.h"
+
+1285020194 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
+	"slideshow.h"
+
+1285019907 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
+	"scene_objects.h"
 

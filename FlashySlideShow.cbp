@@ -63,6 +63,8 @@
 		<Unit filename="math_3d.h" />
 		<Unit filename="memory_hypervisor.cpp" />
 		<Unit filename="memory_hypervisor.h" />
+		<Unit filename="scene_objects.cpp" />
+		<Unit filename="scene_objects.h" />
 		<Unit filename="slideshow.cpp" />
 		<Unit filename="slideshow.h" />
 		<Unit filename="sound.cpp" />

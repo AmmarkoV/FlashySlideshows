@@ -9,6 +9,11 @@
 #define FRAME_DOWN_RIGHT 4
 
 
+ struct Color
+ {
+    float r,g,b;
+ };
+
 struct Point3D
 {
   float x,y,z;
