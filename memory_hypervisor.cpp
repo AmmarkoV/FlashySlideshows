@@ -184,27 +184,33 @@ int UnLoadTexturesIfNeeded()
    {
     if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) ) //No point trying to load if it doesnt't fit
     {
+       if ( PictureTextureLoaded(album[album_traveler]) )
+       {
          clear_texture(album[album_traveler]);
          ++unloaded_textures_this_loop;
+       }
     }
     ++album_traveler;
    }
 
   /*SCAN THE PICTURES FROM MaxVisible to END in order to free up some space*/
-  /*
+
   album_traveler=frame.total_images-1;
-  MAX_album_traveler=MaxPictureThatIsVisible();
-  while ((album_traveler>MAX_album_traveler) && (album_traveler>0) )
+  unsigned int MIN_album_traveler=MaxPictureThatIsVisible();
+  while ((album_traveler>MIN_album_traveler) && (album_traveler>0) )
    {
-    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*3) ) //No point trying to load if it doesnt't fit
+    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) ) //No point trying to load if it doesnt't fit
     {
+       if ( PictureTextureLoaded(album[album_traveler]) )
+       {
          clear_texture(album[album_traveler]);
          ++unloaded_textures_this_loop;
+       }
     }
     if ( album_traveler != 0 ) { --album_traveler; } else
                                { break; }
    }
-*/
+
 
   return 0;
 }

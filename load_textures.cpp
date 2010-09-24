@@ -45,6 +45,15 @@ int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
   return picturedata->marked_for_texture_loading;
 }
 
+int PictureTextureLoaded(struct Picture * picturedata)
+{
+  if ( picturedata == 0 ) {return 0;}
+  if ( picturedata->texture_loaded == 0 ) {return 1;}
+  if ( picturedata->thumbnail_texture_loaded == 0 ) {return 1;}
+  return (!picturedata->marked_for_texture_loading);
+}
+
+
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");

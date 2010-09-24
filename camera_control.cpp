@@ -72,11 +72,11 @@ void CalculateActiveImage_AccordingToPosition()
        if ( rayIntersectsRectangle(camera_point,camera_direction,bot_left,bot_right,inf_left,inf_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
-                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
+                //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
                 frame.active_image_y=(unsigned int) MaxPictureThatIsVisible()/frame.images_per_line;
                 frame.active_image_x=(unsigned int) MaxPictureThatIsVisible()%frame.images_per_line;
                 frame.active_image_place = MaxPictureThatIsVisible();
-                fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
+                //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
       }
@@ -96,11 +96,11 @@ void CalculateActiveImage_AccordingToPosition()
        if ( rayIntersectsRectangle(camera_point,camera_direction,inf_left,inf_right,top_left,top_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
-                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
+                //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
                 frame.active_image_y=(unsigned int) MinPictureThatIsVisible()/frame.images_per_line;
                 frame.active_image_x=(unsigned int) MinPictureThatIsVisible()%frame.images_per_line;
                 frame.active_image_place = MinPictureThatIsVisible();
-                fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
+                //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
 
