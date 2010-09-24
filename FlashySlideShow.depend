@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1285006724 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1285285047 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"memory_hypervisor.h"
 	<stdlib.h>
@@ -10,7 +10,7 @@
 	"load_textures.h"
 	"image_sensing.h"
 
-1284861912 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1285285052 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 	"slideshow.h"
 
@@ -35,18 +35,18 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1284942050 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1285285060 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	<stdlib.h>
 	<stdio.h>
 
-1285018676 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1285285064 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1284935685 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1284937516 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1285285761 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"slideshow.h"
@@ -56,7 +56,7 @@
 	<string.h>
 	<unistd.h>
 
-1283117695 source:/home/ammar/Documents/Programming/FlashySlideShow/sound.cpp
+1285285143 source:/home/ammar/Documents/Programming/FlashySlideShow/sound.cpp
 	"sound.h"
 	<stdlib.h>
 	<stdio.h>
@@ -67,7 +67,7 @@
 
 1282769921 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1284941585 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1285285069 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -80,7 +80,7 @@
 
 1284940665 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1285014953 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1285285151 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -93,7 +93,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1285015162 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1285285097 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -110,7 +110,7 @@
 
 1283883269 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1285015575 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1285285086 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"
@@ -139,7 +139,7 @@
 
 1282870470 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1285007098 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1285285102 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"
@@ -597,7 +597,7 @@
 
 1282051481 /usr/include/wx-2.8/wx/gtk/app.h
 
-1284775553 source:/home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.cpp
+1285285167 source:/home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.cpp
 	<wx/msgdlg.h>
 	<wx/utils.h>
 	"wxwidgets_stuff.h"
@@ -826,6 +826,6 @@
 1285020194 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
 	"slideshow.h"
 
-1285019907 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
+1285020791 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
 	"scene_objects.h"
 

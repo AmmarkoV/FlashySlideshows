@@ -1,3 +1,22 @@
+/* FancySlideShow..
+A fancy , OpenGL slideshow application !
+URLs: http://ammarkov.ath.cx
+Written by Ammar Qammaz a.k.a. AmmarkoV 2010
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "slideshow.h"
 #include "camera_control.h"
 #include "load_images.h"
@@ -36,16 +55,16 @@ void CalculateActiveImage_AccordingToPosition()
 
    unsigned int start_y=MinPictureThatIsVisible() /* REDUCE COMPLEXITY 0 */  / frame.images_per_line;
    unsigned int total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  / frame.images_per_line;
-   album_traveler=start_y * frame.images_per_line;
+   album_traveler=total_y * frame.images_per_line;
 
-/*
+
    float inf_left[3]={0.0,0.0,-5} , inf_right[3]={0.0,0.0,-5};
    if ( !PictureOutOfBounds (total_y*frame.images_per_line) )
      {
-       bot_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
+       bot_left[0]=album[album_traveler]->position.x - 100;
        bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
 
-       bot_right[0]=album[album_traveler]->position.x + album[album_traveler]->position.size_x;
+       bot_right[0]=album[album_traveler]->position.x + 100;
        bot_right[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
 
        inf_left[0]=bot_left[0]-100;  inf_right[0]=bot_right[0]+100;
@@ -53,10 +72,18 @@ void CalculateActiveImage_AccordingToPosition()
        if ( rayIntersectsRectangle(camera_point,camera_direction,bot_left,bot_right,inf_left,inf_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
-                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN \n");
+                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
+                frame.active_image_y=(unsigned int) MaxPictureThatIsVisible()/frame.images_per_line;
+                frame.active_image_x=(unsigned int) MaxPictureThatIsVisible()%frame.images_per_line;
+                frame.active_image_place = MaxPictureThatIsVisible();
+                fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
+                return;
             }
       }
 
+
+       start_y=MinPictureThatIsVisible() /* REDUCE COMPLEXITY 0 */  / frame.images_per_line;
+       total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  / frame.images_per_line;
        album_traveler = start_y*frame.images_per_line;
        top_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
        top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
@@ -69,9 +96,14 @@ void CalculateActiveImage_AccordingToPosition()
        if ( rayIntersectsRectangle(camera_point,camera_direction,inf_left,inf_right,top_left,top_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
-                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP \n");
+                fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
+                frame.active_image_y=(unsigned int) MinPictureThatIsVisible()/frame.images_per_line;
+                frame.active_image_x=(unsigned int) MinPictureThatIsVisible()%frame.images_per_line;
+                frame.active_image_place = MinPictureThatIsVisible();
+                fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
+                return;
             }
-*/
+
 
 
    for (y=start_y; y<total_y; y++)
