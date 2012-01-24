@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1284940693 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1327374968 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -29,6 +29,7 @@
 	"sound.h"
 	"memory_hypervisor.h"
 	"wxwidgets_stuff.h"
+	"joystick.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
@@ -80,7 +81,7 @@
 
 1284940665 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1285285151 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1327374614 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -93,7 +94,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1285287712 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1327374706 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -106,7 +107,7 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1285014950 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
+1327374453 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
 1283883269 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
@@ -139,7 +140,7 @@
 
 1282870470 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1285285102 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1285289171 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"
@@ -154,7 +155,7 @@
 1284853747 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
 	"math_3d.h"
 
-1282051480 /usr/include/wx-2.8/wx/image.h
+1314284222 /usr/include/wx-2.8/wx/image.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/string.h"
@@ -173,7 +174,7 @@
 	"wx/imagxpm.h"
 	"wx/imagiff.h"
 
-1282051479 /usr/include/wx-2.8/wx/defs.h
+1314284221 /usr/include/wx-2.8/wx/defs.h
 	"wx/platform.h"
 	"wx/features.h"
 	"wx/version.h"
@@ -184,7 +185,7 @@
 	<unistd.h>
 	"wx/msw/winundef.h"
 
-1282051479 /usr/include/wx-2.8/wx/platform.h
+1314284221 /usr/include/wx-2.8/wx/platform.h
 	<stddef.h>
 	<AvailabilityMacros.h>
 	<unistd.h>
@@ -196,9 +197,9 @@
 	"wx/msw/gccpriv.h"
 	<AvailabilityMacros.h>
 
-1282051479 /usr/lib/wx/include/gtk2-unicode-release-2.8/wx/setup.h
+1314284221 /usr/lib/wx/include/gtk2-unicode-release-2.8/wx/setup.h
 
-1282051479 /usr/include/wx-2.8/wx/chkconf.h
+1314284221 /usr/include/wx-2.8/wx/chkconf.h
 	"wx/palmos/chkconf.h"
 	"wx/msw/wince/chkconf.h"
 	"wx/msw/chkconf.h"
@@ -210,21 +211,21 @@
 	"wx/x11/chkconf.h"
 	"wx/univ/chkconf.h"
 
-1282051479 /usr/include/wx-2.8/wx/features.h
+1314284221 /usr/include/wx-2.8/wx/features.h
 
-1282051479 /usr/include/wx-2.8/wx/version.h
+1314284221 /usr/include/wx-2.8/wx/version.h
 	"wx/cpp.h"
 
-1282051479 /usr/include/wx-2.8/wx/cpp.h
+1314284221 /usr/include/wx-2.8/wx/cpp.h
 
-1282051479 /usr/include/wx-2.8/wx/dlimpexp.h
+1314284221 /usr/include/wx-2.8/wx/dlimpexp.h
 
-1282051479 /usr/include/wx-2.8/wx/debug.h
+1314284221 /usr/include/wx-2.8/wx/debug.h
 	<assert.h>
 	<limits.h>
 	"wx/wxchar.h"
 
-1282051479 /usr/include/wx-2.8/wx/wxchar.h
+1314284221 /usr/include/wx-2.8/wx/wxchar.h
 	"wx/platform.h"
 	"wx/dlimpexp.h"
 	<stdio.h>
@@ -254,18 +255,18 @@
 	<time.h>
 	<string.h>
 
-1282051479 /usr/include/wx-2.8/wx/object.h
+1314284221 /usr/include/wx-2.8/wx/object.h
 	"wx/memory.h"
 	"wx/xti.h"
 	"wx/msw/msvcrt.h"
 
-1282051479 /usr/include/wx-2.8/wx/memory.h
+1314284221 /usr/include/wx-2.8/wx/memory.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/msgout.h"
 	<stddef.h>
 
-1282051479 /usr/include/wx-2.8/wx/string.h
+1314284221 /usr/include/wx-2.8/wx/string.h
 	"wx/defs.h"
 	<ctype.h>
 	<stdio.h>
@@ -288,11 +289,11 @@
 	"wx/arrstr.h"
 	"wx/iosfwrap.h"
 
-1282051479 /usr/include/wx-2.8/wx/buffer.h
+1314284221 /usr/include/wx-2.8/wx/buffer.h
 	"wx/wxchar.h"
 	<stdlib.h>
 
-1282051479 /usr/include/wx-2.8/wx/strconv.h
+1314284221 /usr/include/wx-2.8/wx/strconv.h
 	"wx/defs.h"
 	"wx/wxchar.h"
 	"wx/buffer.h"
@@ -300,35 +301,35 @@
 	<stdlib.h>
 	"wx/fontenc.h"
 
-1282051479 /usr/include/wx-2.8/wx/fontenc.h
+1314284221 /usr/include/wx-2.8/wx/fontenc.h
 
-1282051479 /usr/include/wx-2.8/wx/beforestd.h
+1314284221 /usr/include/wx-2.8/wx/beforestd.h
 
-1282051479 /usr/include/wx-2.8/wx/afterstd.h
+1314284221 /usr/include/wx-2.8/wx/afterstd.h
 	"wx/msw/winundef.h"
 
-1282051479 /usr/include/wx-2.8/wx/arrstr.h
+1314284221 /usr/include/wx-2.8/wx/arrstr.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/dynarray.h"
 
-1282051479 /usr/include/wx-2.8/wx/dynarray.h
+1314284221 /usr/include/wx-2.8/wx/dynarray.h
 	"wx/defs.h"
 	"wx/beforestd.h"
 	<vector>
 	<algorithm>
 	"wx/afterstd.h"
 
-1282051479 /usr/include/wx-2.8/wx/iosfwrap.h
+1314284221 /usr/include/wx-2.8/wx/iosfwrap.h
 	<iostream.h>
 	<iosfwd>
 	"wx/msw/winundef.h"
 
-1282051479 /usr/include/wx-2.8/wx/msgout.h
+1314284221 /usr/include/wx-2.8/wx/msgout.h
 	"wx/defs.h"
 	"wx/wxchar.h"
 
-1282051479 /usr/include/wx-2.8/wx/xti.h
+1314284221 /usr/include/wx-2.8/wx/xti.h
 	"wx/defs.h"
 	"wx/memory.h"
 	"wx/flags.h"
@@ -340,7 +341,7 @@
 	<typeinfo>
 	"wx/dynarray.h"
 
-1282051479 /usr/include/wx-2.8/wx/hashmap.h
+1314284221 /usr/include/wx-2.8/wx/hashmap.h
 	"wx/string.h"
 	<unordered_map>
 	<tr1/unordered_map>
@@ -348,7 +349,7 @@
 	<hash_map>
 	<stddef.h>
 
-1282051479 /usr/include/wx-2.8/wx/log.h
+1314284221 /usr/include/wx-2.8/wx/log.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/arrstr.h"
@@ -358,14 +359,14 @@
 	"wx/generic/logg.h"
 	"wx/cocoa/log.h"
 
-1282051480 /usr/include/wx-2.8/wx/generic/logg.h
+1314284222 /usr/include/wx-2.8/wx/generic/logg.h
 
-1282051479 /usr/include/wx-2.8/wx/intl.h
+1314284221 /usr/include/wx-2.8/wx/intl.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/fontenc.h"
 
-1282051480 /usr/include/wx-2.8/wx/gdicmn.h
+1314284222 /usr/include/wx-2.8/wx/gdicmn.h
 	"wx/defs.h"
 	"wx/list.h"
 	"wx/string.h"
@@ -373,7 +374,7 @@
 	"wx/hashmap.h"
 	"wx/math.h"
 
-1282051479 /usr/include/wx-2.8/wx/list.h
+1314284221 /usr/include/wx-2.8/wx/list.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/string.h"
@@ -383,19 +384,19 @@
 	<list>
 	"wx/afterstd.h"
 
-1282051479 /usr/include/wx-2.8/wx/math.h
+1314284221 /usr/include/wx-2.8/wx/math.h
 	"wx/defs.h"
 	<math.h>
 	<float.h>
 
-1282051479 /usr/include/wx-2.8/wx/stream.h
+1314284221 /usr/include/wx-2.8/wx/stream.h
 	"wx/defs.h"
 	<stdio.h>
 	"wx/object.h"
 	"wx/string.h"
 	"wx/filefn.h"
 
-1282051479 /usr/include/wx-2.8/wx/filefn.h
+1314284221 /usr/include/wx-2.8/wx/filefn.h
 	"wx/list.h"
 	"wx/arrstr.h"
 	"wx/msw/wince/time.h"
@@ -431,7 +432,7 @@
 	<fcntl.h>
 	<sys/types.h>
 
-1282051479 /usr/include/wx-2.8/wx/variant.h
+1314284221 /usr/include/wx-2.8/wx/variant.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/string.h"
@@ -442,7 +443,7 @@
 	"wx/db.h"
 	"wx/iosfwrap.h"
 
-1282051479 /usr/include/wx-2.8/wx/datetime.h
+1314284221 /usr/include/wx-2.8/wx/datetime.h
 	"wx/defs.h"
 	<time.h>
 	"wx/msw/wince/time.h"
@@ -450,13 +451,13 @@
 	"wx/longlong.h"
 	"wx/dynarray.h"
 
-1282051479 /usr/include/wx-2.8/wx/longlong.h
+1314284221 /usr/include/wx-2.8/wx/longlong.h
 	"wx/defs.h"
 	"wx/string.h"
 	<limits.h>
 	"wx/iosfwrap.h"
 
-1282051480 /usr/include/wx-2.8/wx/db.h
+1314284221 /usr/include/wx-2.8/wx/db.h
 	"wx/defs.h"
 	"wx/string.h"
 	<afxwin.h>
@@ -473,49 +474,49 @@
 	<sqlext.h>
 	"wx/object.h"
 
-1282051479 /usr/include/wx-2.8/wx/isql.h
+1314284221 /usr/include/wx-2.8/wx/isql.h
 
-1282051479 /usr/include/wx-2.8/wx/isqlext.h
+1314284221 /usr/include/wx-2.8/wx/isqlext.h
 	"wx/isql.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagbmp.h
+1314284222 /usr/include/wx-2.8/wx/imagbmp.h
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagpng.h
+1314284222 /usr/include/wx-2.8/wx/imagpng.h
 	"wx/defs.h"
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imaggif.h
+1314284222 /usr/include/wx-2.8/wx/imaggif.h
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagpcx.h
+1314284222 /usr/include/wx-2.8/wx/imagpcx.h
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagjpeg.h
+1314284222 /usr/include/wx-2.8/wx/imagjpeg.h
 	"wx/defs.h"
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagtga.h
+1314284222 /usr/include/wx-2.8/wx/imagtga.h
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagtiff.h
+1314284222 /usr/include/wx-2.8/wx/imagtiff.h
 	"wx/defs.h"
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagpnm.h
+1314284222 /usr/include/wx-2.8/wx/imagpnm.h
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagxpm.h
+1314284222 /usr/include/wx-2.8/wx/imagxpm.h
 	"wx/image.h"
 
-1282051480 /usr/include/wx-2.8/wx/imagiff.h
+1314284222 /usr/include/wx-2.8/wx/imagiff.h
 	"wx/image.h"
 
 1284774731 /home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.h
 	<windows.h>
 	<wx/app.h>
 
-1282051479 /usr/include/wx-2.8/wx/app.h
+1314284221 /usr/include/wx-2.8/wx/app.h
 	"wx/event.h"
 	"wx/build.h"
 	"wx/init.h"
@@ -533,7 +534,7 @@
 	"wx/os2/app.h"
 	"wx/univ/theme.h"
 
-1282051479 /usr/include/wx-2.8/wx/event.h
+1314284221 /usr/include/wx-2.8/wx/event.h
 	"wx/defs.h"
 	"wx/cpp.h"
 	"wx/object.h"
@@ -543,16 +544,16 @@
 	"wx/thread.h"
 	"wx/dynarray.h"
 
-1282051479 /usr/include/wx-2.8/wx/clntdata.h
+1314284221 /usr/include/wx-2.8/wx/clntdata.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/hashmap.h"
 	"wx/vector.h"
 
-1282051479 /usr/include/wx-2.8/wx/vector.h
+1314284221 /usr/include/wx-2.8/wx/vector.h
 	"wx/defs.h"
 
-1282051480 /usr/include/wx-2.8/wx/cursor.h
+1314284222 /usr/include/wx-2.8/wx/cursor.h
 	"wx/defs.h"
 	"wx/palmos/cursor.h"
 	"wx/msw/cursor.h"
@@ -567,10 +568,10 @@
 	"wx/os2/cursor.h"
 	"wx/utils.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/cursor.h
+1314284222 /usr/include/wx-2.8/wx/gtk/cursor.h
 	"wx/object.h"
 
-1282051479 /usr/include/wx-2.8/wx/utils.h
+1314284221 /usr/include/wx-2.8/wx/utils.h
 	"wx/object.h"
 	"wx/list.h"
 	"wx/filefn.h"
@@ -582,20 +583,20 @@
 	<unistd.h>
 	<stdio.h>
 
-1282051479 /usr/include/wx-2.8/wx/platinfo.h
+1314284221 /usr/include/wx-2.8/wx/platinfo.h
 	"wx/string.h"
 
-1282051479 /usr/include/wx-2.8/wx/thread.h
+1314284221 /usr/include/wx-2.8/wx/thread.h
 	"wx/defs.h"
 
-1282051479 /usr/include/wx-2.8/wx/build.h
+1314284221 /usr/include/wx-2.8/wx/build.h
 	"wx/version.h"
 
-1282051479 /usr/include/wx-2.8/wx/init.h
+1314284221 /usr/include/wx-2.8/wx/init.h
 	"wx/defs.h"
 	"wx/wxchar.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/app.h
+1314284222 /usr/include/wx-2.8/wx/gtk/app.h
 
 1285285167 source:/home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.cpp
 	<wx/msgdlg.h>
@@ -603,7 +604,7 @@
 	"wxwidgets_stuff.h"
 	<wx/image.h>
 
-1282051480 /usr/include/wx-2.8/wx/msgdlg.h
+1314284222 /usr/include/wx-2.8/wx/msgdlg.h
 	"wx/defs.h"
 	"wx/generic/msgdlgg.h"
 	"wx/generic/msgdlgg.h"
@@ -617,11 +618,11 @@
 	"wx/cocoa/msgdlg.h"
 	"wx/os2/msgdlg.h"
 
-1282051480 /usr/include/wx-2.8/wx/generic/msgdlgg.h
+1314284222 /usr/include/wx-2.8/wx/generic/msgdlgg.h
 	"wx/defs.h"
 	"wx/dialog.h"
 
-1282051480 /usr/include/wx-2.8/wx/dialog.h
+1314284222 /usr/include/wx-2.8/wx/dialog.h
 	"wx/defs.h"
 	"wx/containr.h"
 	"wx/toplevel.h"
@@ -635,9 +636,9 @@
 	"wx/cocoa/dialog.h"
 	"wx/os2/dialog.h"
 
-1282051479 /usr/include/wx-2.8/wx/containr.h
+1314284221 /usr/include/wx-2.8/wx/containr.h
 
-1282051481 /usr/include/wx-2.8/wx/toplevel.h
+1314284222 /usr/include/wx-2.8/wx/toplevel.h
 	"wx/window.h"
 	"wx/iconbndl.h"
 	"wx/palmos/toplevel.h"
@@ -653,7 +654,7 @@
 	"wx/motif/toplevel.h"
 	"wx/univ/toplevel.h"
 
-1282051480 /usr/include/wx-2.8/wx/window.h
+1314284222 /usr/include/wx-2.8/wx/window.h
 	"wx/event.h"
 	"wx/list.h"
 	"wx/cursor.h"
@@ -679,7 +680,7 @@
 	"wx/os2/window.h"
 	"wx/univ/window.h"
 
-1282051480 /usr/include/wx-2.8/wx/font.h
+1314284222 /usr/include/wx-2.8/wx/font.h
 	"wx/defs.h"
 	"wx/fontenc.h"
 	"wx/gdiobj.h"
@@ -695,12 +696,12 @@
 	"wx/cocoa/font.h"
 	"wx/os2/font.h"
 
-1282051480 /usr/include/wx-2.8/wx/gdiobj.h
+1314284222 /usr/include/wx-2.8/wx/gdiobj.h
 	"wx/object.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/font.h
+1314284222 /usr/include/wx-2.8/wx/gtk/font.h
 
-1282051480 /usr/include/wx-2.8/wx/colour.h
+1314284222 /usr/include/wx-2.8/wx/colour.h
 	"wx/defs.h"
 	"wx/gdiobj.h"
 	"wx/variant.h"
@@ -716,9 +717,9 @@
 	"wx/cocoa/colour.h"
 	"wx/os2/colour.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/colour.h
+1314284222 /usr/include/wx-2.8/wx/gtk/colour.h
 
-1282051481 /usr/include/wx-2.8/wx/region.h
+1314284222 /usr/include/wx-2.8/wx/region.h
 	"wx/gdiobj.h"
 	"wx/gdicmn.h"
 	"wx/palmos/region.h"
@@ -732,13 +733,13 @@
 	"wx/cocoa/region.h"
 	"wx/os2/region.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/region.h
+1314284222 /usr/include/wx-2.8/wx/gtk/region.h
 
-1282051480 /usr/include/wx-2.8/wx/validate.h
+1314284222 /usr/include/wx-2.8/wx/validate.h
 	"wx/defs.h"
 	"wx/event.h"
 
-1282051480 /usr/include/wx-2.8/wx/palette.h
+1314284222 /usr/include/wx-2.8/wx/palette.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/gdiobj.h"
@@ -751,13 +752,13 @@
 	"wx/mac/palette.h"
 	"wx/os2/palette.h"
 
-1282051481 /usr/include/wx-2.8/wx/generic/paletteg.h
+1314284222 /usr/include/wx-2.8/wx/generic/paletteg.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/gdiobj.h"
 	"wx/gdicmn.h"
 
-1282051480 /usr/include/wx-2.8/wx/accel.h
+1314284222 /usr/include/wx-2.8/wx/accel.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/generic/accel.h"
@@ -769,43 +770,43 @@
 	"wx/generic/accel.h"
 	"wx/os2/accel.h"
 
-1282051480 /usr/include/wx-2.8/wx/generic/accel.h
+1314284222 /usr/include/wx-2.8/wx/generic/accel.h
 
-1282051481 /usr/include/wx-2.8/wx/gtk/accel.h
+1314284222 /usr/include/wx-2.8/wx/gtk/accel.h
 	"wx/generic/accel.h"
 
-1282051480 /usr/include/wx-2.8/wx/access.h
+1314284222 /usr/include/wx-2.8/wx/access.h
 	"wx/defs.h"
 	"wx/variant.h"
 	"wx/msw/ole/access.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/window.h
+1314284222 /usr/include/wx-2.8/wx/gtk/window.h
 	"wx/dynarray.h"
 
-1282051480 /usr/include/wx-2.8/wx/iconbndl.h
+1314284222 /usr/include/wx-2.8/wx/iconbndl.h
 	"wx/dynarray.h"
 	"wx/gdicmn.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/toplevel.h
+1314284222 /usr/include/wx-2.8/wx/gtk/toplevel.h
 
-1282051481 /usr/include/wx-2.8/wx/gtk/dialog.h
+1314284222 /usr/include/wx-2.8/wx/gtk/dialog.h
 	"wx/defs.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/msgdlg.h
+1314284222 /usr/include/wx-2.8/wx/gtk/msgdlg.h
 	"wx/defs.h"
 	"wx/dialog.h"
 
-1282051479 /usr/include/wx-2.8/wx/dir.h
+1314284221 /usr/include/wx-2.8/wx/dir.h
 	"wx/longlong.h"
 	"wx/string.h"
 
-1282051479 /usr/include/wx-2.8/wx/filename.h
+1314284221 /usr/include/wx-2.8/wx/filename.h
 	"wx/arrstr.h"
 	"wx/filefn.h"
 	"wx/datetime.h"
 	"wx/intl.h"
 
-1282051480 /usr/include/wx-2.8/wx/dirdlg.h
+1314284222 /usr/include/wx-2.8/wx/dirdlg.h
 	"wx/dialog.h"
 	"wx/generic/dirdlgg.h"
 	"wx/generic/dirdlgg.h"
@@ -817,10 +818,10 @@
 	"wx/cocoa/dirdlg.h"
 	"wx/generic/dirdlgg.h"
 
-1282051481 /usr/include/wx-2.8/wx/generic/dirdlgg.h
+1314284222 /usr/include/wx-2.8/wx/generic/dirdlgg.h
 	"wx/dialog.h"
 
-1282051481 /usr/include/wx-2.8/wx/gtk/dirdlg.h
+1314284222 /usr/include/wx-2.8/wx/gtk/dirdlg.h
 	"wx/generic/dirdlgg.h"
 
 1285020194 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
@@ -828,4 +829,29 @@
 
 1285020791 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
 	"scene_objects.h"
+
+1327373979 source:/home/ammar/Documents/Programming/FlashySlideShow/joystick.c
+	<stdio.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<stdlib.h>
+	<string.h>
+	<pthread.h>
+	"joystick.h"
+
+1324782500 /home/ammar/Documents/Programming/FlashySlideShow/joystick.h
+	<stdio.h>
+
+1327373979 source:/home/ammar/Documents/Programming/FlashySlideShow/joystick.cpp
+	<stdio.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<stdlib.h>
+	<string.h>
+	<pthread.h>
+	"joystick.h"
 

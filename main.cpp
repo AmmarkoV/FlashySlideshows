@@ -31,6 +31,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "sound.h"
 #include "memory_hypervisor.h"
 #include "wxwidgets_stuff.h"
+#include "joystick.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -383,6 +384,9 @@ int main(int argc, char *argv[])
     fprintf(stderr,"Active directory is %s \n", frame.album_directory);
 
 
+
+    StartJoystickControl();
+
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
     glutInitWindowSize(1024,768);
@@ -393,7 +397,6 @@ int main(int argc, char *argv[])
 
     InitGlut();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
 
 
 
@@ -494,6 +497,7 @@ int main(int argc, char *argv[])
     /* Start Rendering */
     glutMainLoop();
 
+    StopJoystickControl();
     wxlibstuff.OnClose();
     return EXIT_SUCCESS;
 }

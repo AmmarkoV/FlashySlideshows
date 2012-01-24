@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="7104" topLine="176" />
+		<Cursor position="6669" topLine="144" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
-		<Cursor position="99" topLine="0" />
+		<Cursor position="284" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="8943" topLine="233" />
+		<Cursor position="8521" topLine="236" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1768" topLine="57" />
+		<Cursor position="749" topLine="0" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="487" topLine="0" />
@@ -22,23 +22,29 @@
 	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
 		<Cursor position="401" topLine="0" />
 	</File>
-	<File name="image_sensing.h" open="0" top="0" tabpos="19">
+	<File name="image_sensing.h" open="1" top="0" tabpos="26">
 		<Cursor position="74" topLine="0" />
 	</File>
+	<File name="joystick.cpp" open="1" top="1" tabpos="27">
+		<Cursor position="6083" topLine="163" />
+	</File>
+	<File name="joystick.h" open="1" top="0" tabpos="25">
+		<Cursor position="0" topLine="21" />
+	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="2994" topLine="213" />
+		<Cursor position="1613" topLine="132" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="1012" topLine="36" />
+		<Cursor position="749" topLine="0" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="3984" topLine="79" />
+		<Cursor position="1363" topLine="111" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
-		<Cursor position="162" topLine="0" />
+		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="11219" topLine="432" />
+		<Cursor position="10669" topLine="352" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="1510" topLine="0" />
@@ -47,7 +53,7 @@
 		<Cursor position="164" topLine="0" />
 	</File>
 	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="4964" topLine="160" />
+		<Cursor position="3873" topLine="90" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="274" topLine="0" />
@@ -56,28 +62,28 @@
 		<Cursor position="63" topLine="0" />
 	</File>
 	<File name="scene_objects.h" open="1" top="0" tabpos="24">
-		<Cursor position="92" topLine="3" />
+		<Cursor position="92" topLine="0" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="889" topLine="24" />
+	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="749" topLine="24" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="226" topLine="119" />
+		<Cursor position="749" topLine="45" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
-		<Cursor position="753" topLine="138" />
+		<Cursor position="749" topLine="0" />
 	</File>
 	<File name="sound.h" open="0" top="0" tabpos="16">
 		<Cursor position="273" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="10425" topLine="0" />
+		<Cursor position="749" topLine="0" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="291" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
-		<Cursor position="206" topLine="0" />
+		<Cursor position="867" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.h" open="1" top="0" tabpos="21">
 		<Cursor position="0" topLine="0" />

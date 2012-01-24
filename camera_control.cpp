@@ -159,8 +159,23 @@ void CameraReachedDestination()
   frame.seek_move_activated=0;
 }
 
-void MoveDestinationCenter(unsigned int axis,unsigned int direction)
+void MoveDestinationCenter(unsigned int movement_direction)
 {
+    unsigned int axis=0;
+    unsigned int direction=0;
+
+    switch(movement_direction)
+    {
+       case D_LEFT  : axis=0; direction=0; break;
+       case D_RIGHT : axis=0; direction=1; break;
+       case D_DOWN  : axis=1; direction=0; break;
+       case D_UP    : axis=1; direction=1; break;
+       case D_IN    : axis=2; direction=0; break;
+       case D_OUT   : axis=2; direction=1; break;
+    };
+
+
+
     /*
        According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
        RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
@@ -413,8 +428,8 @@ void PerformCameraMovement()
                                               speed_factor = 1/5;
                                             }
 
-    float speed_multiplier=frame.fps * speed_factor;
-    if ( speed_multiplier == 0 ) speed_multiplier=250;
+    float speed_multiplier=250;//frame.fps * speed_factor;
+    if ( speed_multiplier == 0 ) { speed_multiplier=250; }
 
 
     if ( frame.desired_x != frame.vx ) { if ( frame.desired_x < frame.vx )

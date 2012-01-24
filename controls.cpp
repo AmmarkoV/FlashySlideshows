@@ -260,12 +260,12 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'o': SetDestinationCenter();
                   break;
 
-        case 'r': MoveDestinationCenter(2,0); /*frame.desired_z+=frame.desired_step;*/ break;
-        case 'f': MoveDestinationCenter(2,1); /*frame.desired_z-=frame.desired_step;*/ break;
-        case 'a': MoveDestinationCenter(0,0); /*frame.desired_x+=frame.desired_step;*/ break;
-        case 'd': MoveDestinationCenter(0,1); /*frame.desired_x-=frame.desired_step;*/ break;
-        case 's': MoveDestinationCenter(1,0); /*frame.desired_y+=frame.desired_step;*/ break;
-        case 'w': MoveDestinationCenter(1,1); /*frame.desired_y-=frame.desired_step;*/ break;
+        case 'r': MoveDestinationCenter(D_OUT); /*frame.desired_z+=frame.desired_step;*/ break;
+        case 'f': MoveDestinationCenter(D_IN); /*frame.desired_z-=frame.desired_step;*/ break;
+        case 'a': MoveDestinationCenter(D_LEFT); /*frame.desired_x+=frame.desired_step;*/ break;
+        case 'd': MoveDestinationCenter(D_RIGHT); /*frame.desired_x-=frame.desired_step;*/ break;
+        case 's': MoveDestinationCenter(D_UP); /*frame.desired_y+=frame.desired_step;*/ break;
+        case 'w': MoveDestinationCenter(D_DOWN); /*frame.desired_y-=frame.desired_step;*/ break;
         case 'z': frame.angle_x-=0.5; break;
         case 'c': frame.angle_x+=0.5; break;
         case 't': frame.angle_y-=0.5; break;
