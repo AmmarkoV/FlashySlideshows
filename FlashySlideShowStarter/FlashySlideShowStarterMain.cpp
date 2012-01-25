@@ -135,9 +135,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
 
     PathTreeCtrl=PictureFolder->GetTreeCtrl();
 
-                        //wxEVT_COMMAND_TREE_KEY_DOWN
-    PathTreeCtrl->Connect(wxEVT_COMMAND_TREE_SEL_CHANGED, (wxObjectEventFunction)&FlashySlideShowStarterFrame::OnRefreshDir);//, NULL, this);
-    //Connect(ID_GENERICDIRCTRL1,EVT_TREE_SEL_CHANGED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnButtonStartClick);
+    Connect(PathTreeCtrl->GetId(),wxEVT_COMMAND_TREE_SEL_CHANGED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnRefreshDir);
 }
 
 FlashySlideShowStarterFrame::~FlashySlideShowStarterFrame()
@@ -158,14 +156,13 @@ void FlashySlideShowStarterFrame::OnAbout(wxCommandEvent& event)
 }
 
 
-void FlashySlideShowStarterFrame::OnRefreshDir(wxTreeEvent& event)
+void FlashySlideShowStarterFrame::OnRefreshDir(wxCommandEvent& event)
 {
     PathTextCtrl->SetValue(PictureFolder->GetPath());
 }
 
 void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 {
-
     PathTextCtrl->SetValue(PictureFolder->GetPath());
 
     wxString what_to_call;

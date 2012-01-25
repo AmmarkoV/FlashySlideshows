@@ -41,7 +41,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnButtonQuitClick(wxCommandEvent& event);
         void OnPathTextCtrlText(wxCommandEvent& event);
         //*)
-        void OnRefreshDir(wxTreeEvent& event);
+        void OnRefreshDir(wxCommandEvent& event);
 
         //(*Identifiers(FlashySlideShowStarterFrame)
         static const long ID_STATICBOX2;
