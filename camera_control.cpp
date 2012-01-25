@@ -168,8 +168,8 @@ void MoveDestinationCenter(unsigned int movement_direction)
     {
        case D_LEFT  : axis=0; direction=0; break;
        case D_RIGHT : axis=0; direction=1; break;
-       case D_UP    : axis=1; direction=1; break;
-       case D_DOWN  : axis=1; direction=0; break;
+       case D_UP    : axis=1; direction=0; break;
+       case D_DOWN  : axis=1; direction=1; break;
        case D_IN    : axis=2; direction=0; break;
        case D_OUT   : axis=2; direction=1; break;
     };

@@ -40,6 +40,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnButtonBrowseFolderClick(wxCommandEvent& event);
         void OnButtonQuitClick(wxCommandEvent& event);
         void OnPathTextCtrlText(wxCommandEvent& event);
+        void OnButtonControlsClick(wxCommandEvent& event);
         //*)
         void OnRefreshDir(wxCommandEvent& event);
 
@@ -60,27 +61,37 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_STATICTEXT3;
         static const long ID_STATICTEXT4;
         static const long ID_CHECKBOX4;
+        static const long ID_STATICTEXT5;
+        static const long ID_COMBOBOX2;
+        static const long ID_CHECKBOX5;
+        static const long ID_STATICTEXT6;
+        static const long ID_BUTTON3;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
         //*)
 
         //(*Declarations(FlashySlideShowStarterFrame)
+        wxCheckBox* CheckBoxMipmap;
+        wxCheckBox* CheckBoxVisuals;
         wxTextCtrl* PathTextCtrl;
         wxStatusBar* StatusBar1;
         wxGenericDirCtrl* PictureFolder;
         wxCheckBox* CheckBoxSound;
-        wxCheckBox* CheckBox1;
+        wxButton* ButtonControls;
         wxSpinCtrl* DelaySpinCtrl;
         wxStaticText* StaticText1;
         wxStaticBox* StaticBox2;
         wxStaticText* StaticText3;
-        wxCheckBox* CheckBox2;
+        wxCheckBox* CheckBoxIncludeSubfolders;
         wxStaticBox* StaticBox1;
         wxComboBox* ComboBoxTransitions;
         wxCheckBox* CheckBoxFaceDetection;
         wxStaticText* StaticText4;
+        wxComboBox* ComboBoxQuality;
+        wxStaticText* StaticText5;
         wxStaticText* StaticText2;
+        wxStaticText* StaticText6;
         wxButton* ButtonStart;
         wxButton* ButtonQuit;
         //*)

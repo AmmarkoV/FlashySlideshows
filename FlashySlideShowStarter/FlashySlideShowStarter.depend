@@ -346,7 +346,7 @@
 
 1314284222 /usr/include/wx-2.8/wx/gtk/app.h
 
-1327460141 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.h
+1327532019 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.h
 	<wx/spinctrl.h>
 	<wx/combobox.h>
 	<wx/checkbox.h>
@@ -991,7 +991,7 @@
 
 1314284222 /usr/include/wx-2.8/wx/gtk/spinctrl.h
 
-1327459068 source:/home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
+1327495638 source:/home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
 	"FlashySlideShowStarterMain.h"
 	<wx/msgdlg.h>
 	<wx/string.h>

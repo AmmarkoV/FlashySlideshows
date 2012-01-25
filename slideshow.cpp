@@ -100,7 +100,7 @@ void InitSlideShow()
 
    /* GPU DATA */
    frame.gpu.usedRAM=0;
-   frame.gpu.maxRAM=128 * 1024 * 1024;
+   frame.gpu.maxRAM=256 * 1024 * 1024;
    frame.gpu.maxTexture=1024; /* MAX TEXTURE DIMENSION , will be updated*/
 
    /* SYSTEM DATA */

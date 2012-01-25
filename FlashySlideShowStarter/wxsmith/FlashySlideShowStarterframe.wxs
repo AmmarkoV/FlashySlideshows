@@ -29,7 +29,8 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON2" variable="ButtonQuit" member="yes">
 			<label>Quit</label>
-			<pos>560,368</pos>
+			<pos>584,368</pos>
+			<size>61,29</size>
 			<handler function="OnButtonQuitClick" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
@@ -44,11 +45,11 @@
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX1" variable="CheckBoxSound" member="yes">
 			<label>Sound Effects</label>
-			<pos>480,216</pos>
+			<pos>456,240</pos>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX2" variable="CheckBoxFaceDetection" member="yes">
 			<label>Face Detection</label>
-			<pos>480,168</pos>
+			<pos>456,208</pos>
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX1" variable="ComboBoxTransitions" member="yes">
 			<content>
@@ -56,12 +57,12 @@
 				<item>Movement</item>
 			</content>
 			<selection>0</selection>
-			<pos>456,64</pos>
+			<pos>456,112</pos>
 			<size>176,29</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
 			<label>Transitions</label>
-			<pos>456,40</pos>
+			<pos>456,96</pos>
 		</object>
 		<object class="wxGenericDirCtrl" name="ID_GENERICDIRCTRL1" variable="PictureFolder" member="yes">
 			<defaultfolder>~/Pictures</defaultfolder>
@@ -69,28 +70,58 @@
 			<pos>40,48</pos>
 			<size>384,256</size>
 		</object>
-		<object class="wxCheckBox" name="ID_CHECKBOX3" variable="CheckBox1" member="yes">
+		<object class="wxCheckBox" name="ID_CHECKBOX3" variable="CheckBoxVisuals" member="yes">
 			<label>Visual Effects</label>
-			<pos>480,192</pos>
+			<pos>456,224</pos>
 		</object>
 		<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="DelaySpinCtrl" member="yes">
 			<value>1</value>
 			<min>100</min>
 			<max>10000</max>
-			<pos>512,98</pos>
+			<pos>496,152</pos>
 			<size>88,27</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
 			<label>Delay</label>
-			<pos>464,104</pos>
+			<pos>456,160</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
 			<label>ms</label>
-			<pos>608,104</pos>
+			<pos>592,160</pos>
 		</object>
-		<object class="wxCheckBox" name="ID_CHECKBOX4" variable="CheckBox2" member="yes">
+		<object class="wxCheckBox" name="ID_CHECKBOX4" variable="CheckBoxIncludeSubfolders" member="yes">
 			<label>Include Subfolders</label>
-			<pos>480,144</pos>
+			<pos>456,256</pos>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
+			<label>Picture Quality</label>
+			<pos>456,40</pos>
+		</object>
+		<object class="wxComboBox" name="ID_COMBOBOX2" variable="ComboBoxQuality" member="yes">
+			<content>
+				<item>Very High</item>
+				<item>High</item>
+				<item>Medium</item>
+				<item>Low</item>
+				<item>Very Low</item>
+			</content>
+			<selection>1</selection>
+			<pos>456,56</pos>
+			<size>176,29</size>
+		</object>
+		<object class="wxCheckBox" name="ID_CHECKBOX5" variable="CheckBoxMipmap" member="yes">
+			<label>Use Mipmaping</label>
+			<pos>456,192</pos>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
+			<label>Date of Creation : 00-00-0000 , Pictures Inside : 0000</label>
+			<pos>32,368</pos>
+		</object>
+		<object class="wxButton" name="ID_BUTTON3" variable="ButtonControls" member="yes">
+			<label>Controls</label>
+			<pos>448,368</pos>
+			<size>128,29</size>
+			<handler function="OnButtonControlsClick" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

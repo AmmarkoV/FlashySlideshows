@@ -94,7 +94,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1327374706 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1327460427 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -844,7 +844,7 @@
 1324782500 /home/ammar/Documents/Programming/FlashySlideShow/joystick.h
 	<stdio.h>
 
-1327375311 source:/home/ammar/Documents/Programming/FlashySlideShow/joystick.cpp
+1327457203 source:/home/ammar/Documents/Programming/FlashySlideShow/joystick.cpp
 	<stdio.h>
 	<sys/types.h>
 	<sys/stat.h>
