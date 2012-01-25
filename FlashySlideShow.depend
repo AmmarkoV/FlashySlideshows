@@ -844,7 +844,7 @@
 1324782500 /home/ammar/Documents/Programming/FlashySlideShow/joystick.h
 	<stdio.h>
 
-1327373979 source:/home/ammar/Documents/Programming/FlashySlideShow/joystick.cpp
+1327375311 source:/home/ammar/Documents/Programming/FlashySlideShow/joystick.cpp
 	<stdio.h>
 	<sys/types.h>
 	<sys/stat.h>
@@ -853,5 +853,6 @@
 	<stdlib.h>
 	<string.h>
 	<pthread.h>
+	"camera_control.h"
 	"joystick.h"
 

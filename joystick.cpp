@@ -143,6 +143,7 @@ int HandleJoystickEvent(struct js_event *jse)
             fprintf(stderr , (char *) "JOYSTICK INPUT(%u,%u)",Calibrated_Stick1_AxisX,Calibrated_Stick1_AxisY);
             if (Calibrated_Stick1_AxisX<0) { MoveDestinationCenter(D_LEFT); } else
                                            { MoveDestinationCenter(D_RIGHT); }
+
             if (Calibrated_Stick1_AxisY<0) { MoveDestinationCenter(D_UP); } else
                                            { MoveDestinationCenter(D_DOWN); }
          //   IssueCommand(inptstr,0,0,(char *)"GUI");

@@ -346,13 +346,18 @@
 
 1314284222 /usr/include/wx-2.8/wx/gtk/app.h
 
-1327375896 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.h
+1327459035 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.h
+	<wx/spinctrl.h>
+	<wx/combobox.h>
+	<wx/checkbox.h>
 	<wx/button.h>
 	<wx/menu.h>
 	<wx/statusbr.h>
 	<wx/statbox.h>
 	<wx/frame.h>
+	<wx/dirctrl.h>
 	<wx/stattext.h>
+	<wx/textctrl.h>
 
 1314284222 /usr/include/wx-2.8/wx/button.h
 	"wx/defs.h"
@@ -764,4 +769,255 @@
 	"wx/os2/statbox.h"
 
 1314284222 /usr/include/wx-2.8/wx/gtk/statbox.h
+
+1314284222 /usr/include/wx-2.8/wx/combobox.h
+	"wx/defs.h"
+	"wx/textctrl.h"
+	"wx/ctrlsub.h"
+	"wx/univ/combobox.h"
+	"wx/msw/combobox.h"
+	"wx/motif/combobox.h"
+	"wx/gtk/combobox.h"
+	"wx/gtk1/combobox.h"
+	"wx/mac/combobox.h"
+	"wx/cocoa/combobox.h"
+	"wx/os2/combobox.h"
+
+1314284222 /usr/include/wx-2.8/wx/textctrl.h
+	"wx/defs.h"
+	"wx/control.h"
+	"wx/dynarray.h"
+	"wx/gdicmn.h"
+	"wx/ioswrap.h"
+	"wx/x11/textctrl.h"
+	"wx/univ/textctrl.h"
+	"wx/msw/wince/textctrlce.h"
+	"wx/msw/textctrl.h"
+	"wx/motif/textctrl.h"
+	"wx/gtk/textctrl.h"
+	"wx/gtk1/textctrl.h"
+	"wx/mac/textctrl.h"
+	"wx/cocoa/textctrl.h"
+	"wx/os2/textctrl.h"
+
+1314284221 /usr/include/wx-2.8/wx/ioswrap.h
+	<iostream.h>
+	<iostream>
+	"wx/msw/winundef.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/textctrl.h
+
+1314284222 /usr/include/wx-2.8/wx/ctrlsub.h
+	"wx/defs.h"
+	"wx/control.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/combobox.h
+
+1314284222 /usr/include/wx-2.8/wx/checkbox.h
+	"wx/defs.h"
+	"wx/control.h"
+	"wx/univ/checkbox.h"
+	"wx/msw/checkbox.h"
+	"wx/motif/checkbox.h"
+	"wx/gtk/checkbox.h"
+	"wx/gtk1/checkbox.h"
+	"wx/mac/checkbox.h"
+	"wx/cocoa/checkbox.h"
+	"wx/os2/checkbox.h"
+	"wx/palmos/checkbox.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/checkbox.h
+
+1314284222 /usr/include/wx-2.8/wx/dirctrl.h
+	"wx/generic/dirctrlg.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/dirctrlg.h
+	"wx/imaglist.h"
+	"wx/treectrl.h"
+	"wx/dialog.h"
+	"wx/dirdlg.h"
+	"wx/choice.h"
+
+1314284222 /usr/include/wx-2.8/wx/imaglist.h
+	"wx/generic/imaglist.h"
+	"wx/msw/imaglist.h"
+	"wx/mac/imaglist.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/imaglist.h
+	"wx/defs.h"
+	"wx/list.h"
+	"wx/icon.h"
+
+1314284222 /usr/include/wx-2.8/wx/icon.h
+	"wx/iconloc.h"
+	"wx/generic/icon.h"
+	"wx/msw/icon.h"
+	"wx/motif/icon.h"
+	"wx/generic/icon.h"
+	"wx/generic/icon.h"
+	"wx/generic/icon.h"
+	"wx/generic/icon.h"
+	"wx/generic/icon.h"
+	"wx/mac/icon.h"
+	"wx/cocoa/icon.h"
+	"wx/os2/icon.h"
+	"wx/variant.h"
+
+1314284221 /usr/include/wx-2.8/wx/iconloc.h
+	"wx/string.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/icon.h
+	"wx/bitmap.h"
+
+1314284222 /usr/include/wx-2.8/wx/treectrl.h
+	"wx/defs.h"
+	"wx/control.h"
+	"wx/treebase.h"
+	"wx/textctrl.h"
+	"wx/generic/treectlg.h"
+	"wx/palmos/treectrl.h"
+	"wx/msw/treectrl.h"
+	"wx/generic/treectlg.h"
+	"wx/generic/treectlg.h"
+	"wx/generic/treectlg.h"
+	"wx/generic/treectlg.h"
+	"wx/generic/treectlg.h"
+
+1314284222 /usr/include/wx-2.8/wx/treebase.h
+	"wx/defs.h"
+	"wx/window.h"
+	"wx/event.h"
+	"wx/dynarray.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/treectlg.h
+	"wx/scrolwin.h"
+	"wx/pen.h"
+
+1314284222 /usr/include/wx-2.8/wx/scrolwin.h
+	"wx/panel.h"
+	"wx/gtk/scrolwin.h"
+	"wx/gtk1/scrolwin.h"
+
+1314284222 /usr/include/wx-2.8/wx/panel.h
+	"wx/generic/panelg.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/panelg.h
+	"wx/window.h"
+	"wx/containr.h"
+
+1314284221 /usr/include/wx-2.8/wx/containr.h
+
+1314284222 /usr/include/wx-2.8/wx/gtk/scrolwin.h
+
+1314284222 /usr/include/wx-2.8/wx/dialog.h
+	"wx/defs.h"
+	"wx/containr.h"
+	"wx/toplevel.h"
+	"wx/univ/dialog.h"
+	"wx/palmos/dialog.h"
+	"wx/msw/dialog.h"
+	"wx/motif/dialog.h"
+	"wx/gtk/dialog.h"
+	"wx/gtk1/dialog.h"
+	"wx/mac/dialog.h"
+	"wx/cocoa/dialog.h"
+	"wx/os2/dialog.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/dialog.h
+	"wx/defs.h"
+
+1314284222 /usr/include/wx-2.8/wx/dirdlg.h
+	"wx/dialog.h"
+	"wx/generic/dirdlgg.h"
+	"wx/generic/dirdlgg.h"
+	"wx/generic/dirdlgg.h"
+	"wx/msw/dirdlg.h"
+	"wx/gtk/dirdlg.h"
+	"wx/generic/dirdlgg.h"
+	"wx/mac/dirdlg.h"
+	"wx/cocoa/dirdlg.h"
+	"wx/generic/dirdlgg.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/dirdlgg.h
+	"wx/dialog.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/dirdlg.h
+	"wx/generic/dirdlgg.h"
+
+1314284222 /usr/include/wx-2.8/wx/choice.h
+	"wx/defs.h"
+	"wx/ctrlsub.h"
+	"wx/univ/choice.h"
+	"wx/msw/wince/choicece.h"
+	"wx/msw/choice.h"
+	"wx/motif/choice.h"
+	"wx/gtk/choice.h"
+	"wx/gtk1/choice.h"
+	"wx/mac/choice.h"
+	"wx/cocoa/choice.h"
+	"wx/os2/choice.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/choice.h
+
+1314284222 /usr/include/wx-2.8/wx/spinctrl.h
+	"wx/defs.h"
+	"wx/spinbutt.h"
+	"wx/generic/spinctlg.h"
+	"wx/msw/spinctrl.h"
+	"wx/os2/spinctrl.h"
+	"wx/gtk/spinctrl.h"
+	"wx/gtk1/spinctrl.h"
+	"wx/generic/spinctlg.h"
+	"wx/mac/spinctrl.h"
+	"wx/generic/spinctlg.h"
+
+1314284222 /usr/include/wx-2.8/wx/spinbutt.h
+	"wx/defs.h"
+	"wx/control.h"
+	"wx/event.h"
+	"wx/univ/spinbutt.h"
+	"wx/msw/spinbutt.h"
+	"wx/motif/spinbutt.h"
+	"wx/gtk/spinbutt.h"
+	"wx/gtk1/spinbutt.h"
+	"wx/mac/spinbutt.h"
+	"wx/cocoa/spinbutt.h"
+	"wx/os2/spinbutt.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/spinbutt.h
+
+1314284222 /usr/include/wx-2.8/wx/generic/spinctlg.h
+	"wx/textctrl.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/spinctrl.h
+
+1327459068 source:/home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
+	"FlashySlideShowStarterMain.h"
+	<wx/msgdlg.h>
+	<wx/string.h>
+	<wx/intl.h>
+	<wx/font.h>
+	<wx/treectrl.h>
+
+1314284222 /usr/include/wx-2.8/wx/msgdlg.h
+	"wx/defs.h"
+	"wx/generic/msgdlgg.h"
+	"wx/generic/msgdlgg.h"
+	"wx/palmos/msgdlg.h"
+	"wx/msw/msgdlg.h"
+	"wx/motif/msgdlg.h"
+	"wx/gtk/msgdlg.h"
+	"wx/generic/msgdlgg.h"
+	"wx/generic/msgdlgg.h"
+	"wx/mac/msgdlg.h"
+	"wx/cocoa/msgdlg.h"
+	"wx/os2/msgdlg.h"
+
+1314284222 /usr/include/wx-2.8/wx/generic/msgdlgg.h
+	"wx/defs.h"
+	"wx/dialog.h"
+
+1314284222 /usr/include/wx-2.8/wx/gtk/msgdlg.h
+	"wx/defs.h"
+	"wx/dialog.h"
 
