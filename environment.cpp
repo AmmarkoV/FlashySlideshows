@@ -33,6 +33,10 @@ int LoadStockTextures()
       {
         strcpy(base_directory,"/usr/share/flashyslideshows/app_clipart");
       } else
+      {
+        fprintf(stderr,"Unable to locate /usr/share/flashyslideshows/app_clipart/ or app_clipart/\n ");
+        return 0;
+      }
 
 
 
@@ -70,5 +74,5 @@ int LoadStockTextures()
     make_texture(picture_frame,1);
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
-
+  return 1;
 }

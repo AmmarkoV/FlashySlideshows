@@ -23,7 +23,15 @@ enum wxbuildinfoformat {
 
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
-    wxString wxbuild(wxVERSION_STRING);
+    wxString wxbuild;
+
+    wxbuild.clear();
+
+
+    wxbuild << _T("Another quality \"product\" by Ammar Qammaz a.k.a. AmmarkoV --- http://ammar.gr\n\n");
+
+    wxbuild << _T("GUI Compiled using wxWidgets\n");
+    wxbuild << wxVERSION_STRING;
 
     if (format == long_f )
     {
@@ -39,6 +47,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
         wxbuild << _T("-ANSI build");
 #endif // wxUSE_UNICODE
     }
+
 
     return wxbuild;
 }
@@ -169,7 +178,7 @@ void FlashySlideShowStarterFrame::OnQuit(wxCommandEvent& event)
 void FlashySlideShowStarterFrame::OnAbout(wxCommandEvent& event)
 {
     wxString msg = wxbuildinfo(long_f);
-    wxMessageBox(msg, _("Welcome to..."));
+    wxMessageBox(msg, _("FlashySlideshows!!"));
 }
 
 

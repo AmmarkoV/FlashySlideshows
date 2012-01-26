@@ -1,6 +1,31 @@
 Flashy Slide Show
 -----------------
 
+to compile the project issue
+./make
+This will produce the executables ( FlashySlideShowStarterApp and bin/Release/FlashySlideShow )
+you can issue 
+./FlashySlideShowStarterApp to start the application
+
+
+
+if you want to install the app , run 
+./install.sh
+your password is required.. 
+This will add a shortcut on the applications list and the binaries FlashySlideShowStarterApp and FlashySlideShow ..
+
+
+
+
+
+if you want to uninstall the app , run 
+./uninstall.sh
+your password is required..  
+
+ 
+
+
+
 TODO LIST - THOUGHT DUMP :P
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -18,26 +43,19 @@ TODO LIST - THOUGHT DUMP :P
 
 * Add effects ( shiny floor , transparency , particles ) to images
 
-* Fix Directory issues , find out where to install program in order for it to load default textures correctly 
-
-* Add directory picking GUI 
+* Fix Directory issues , find out where to install program in order for it to load default textures correctly  
 
 * Add file sorting via Filename or Date ( wxDir ) 
 
 * Add text lists to directory listing.cpp!
 
-* Add Calling GUI for application ( wxWidgets )
-
 * Make paper ( bending ) effects with 3D fonts
-
-* Make thing cross platform
 
 * Implement image_sensing.cpp
 
 * Improve sound.cpp
 
-* Add joystick support
-
+* Make thing cross platform ( the last thing to do :P )
 
 DONE
 >>>>>>>>>>>>

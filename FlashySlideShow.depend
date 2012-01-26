@@ -859,3 +859,11 @@
 
 1327540426 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 
+1327544283 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+	"environment.h"
+	"load_images.h"
+	"load_textures.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
