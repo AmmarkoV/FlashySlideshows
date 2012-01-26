@@ -1,4 +1,10 @@
 #!/bin/sh
+
+
+
+echo "Installation needs super user privileges.."
+sudo echo "..." 
+
 if [ -d "/usr/share/flashyslideshows" ]; then
   echo "FlashySlideshows Installation detected , patching it up :)" 
 else
@@ -31,7 +37,10 @@ fi
   sudo mkdir /usr/share/flashyslideshows/sounds
   sudo cp app_clipart/* /usr/share/flashyslideshows/app_clipart
   sudo cp sounds/* /usr/share/flashyslideshows/sounds
-  echo `date` >> /usr/share/flashyslideshows/install_time
+  sudo cp app_clipart/flashyicon.png /usr/share/icons/flashyicon.png
+  sudo cp FlashySlideshows.desktop /usr/share/applications/FlashySlideshows.desktop
+
+  sudo echo `date` > /usr/share/flashyslideshows/install_time
 
 
 

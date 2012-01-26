@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=FlashySlideshows
+GenericName=FlashySlideshows 
+Icon=flashyicon.png
+Exec=FlashySlideShowStarterApp
+Terminal=false
+StartupNotify=false
+Categories=Application;Graphics;3DGraphics;2DGraphics;

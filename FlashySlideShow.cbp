@@ -51,6 +51,8 @@
 		<Unit filename="controls.h" />
 		<Unit filename="directory_listing.cpp" />
 		<Unit filename="directory_listing.h" />
+		<Unit filename="environment.cpp" />
+		<Unit filename="environment.h" />
 		<Unit filename="image_sensing.cpp" />
 		<Unit filename="image_sensing.h" />
 		<Unit filename="joystick.cpp" />

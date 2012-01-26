@@ -178,6 +178,18 @@ void FlashySlideShowStarterFrame::OnRefreshDir(wxCommandEvent& event)
     PathTextCtrl->SetValue(PictureFolder->GetPath());
 }
 
+
+int FileExists(const char *fname)
+{
+    FILE *file;
+    if (file = fopen(fname, "r"))
+    {
+        fclose(file);
+        return 1;
+    }
+    return 0;
+}
+
 void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 {
     PathTextCtrl->SetValue(PictureFolder->GetPath());
@@ -185,10 +197,23 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     wxString what_to_call;
     what_to_call.clear();
 
-    what_to_call<< wxT("bin/Release/FlashySlideShow \"");
+    if ( FileExists("bin/Release/FlashySlideShow"))
+     {
+       what_to_call<< wxT("bin/Release/FlashySlideShow \"");
+     } else
+   /*if ( FileExists("../bin/Release/FlashySlideShow"))
+     {
+       what_to_call<< wxT("../bin/Release/FlashySlideShow \"");
+       needs change dir :P
+     }else*/
+    if ( FileExists("/usr/bin/FlashySlideShow"))
+     {
+       what_to_call<< wxT("/usr/bin/FlashySlideShow \"");
+     }
+
     what_to_call<< PathTextCtrl->GetValue();
     what_to_call<< wxT("\"");
-    wxMessageBox(what_to_call,wxT("What will be executed"));
+   // wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
     wxExecute(what_to_call);
 }
 

@@ -32,6 +32,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "memory_hypervisor.h"
 #include "wxwidgets_stuff.h"
 #include "joystick.h"
+#include "environment.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -350,6 +351,8 @@ void ToggleFullscreen()
 }
 
 
+
+
 /* Program entry point */
 
 int main(int argc, char *argv[])
@@ -385,7 +388,6 @@ int main(int argc, char *argv[])
 
 
 
-    StartJoystickControl();
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
@@ -451,34 +453,12 @@ int main(int argc, char *argv[])
     InitSlideShow();
 
 
+    /* Initialize WxWidgets */
     WxWidgetsContext wxlibstuff;
     wxlibstuff.OnInit();
 
-    /* Loading Stock textures >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    star=CreatePicture((char * )"app_clipart/star.png",1);
-    make_texture(star,1);
-    heart=CreatePicture((char * )"app_clipart/heart.png",1);
-    make_texture(heart,1);
 
-    loading_texture=CreatePicture((char * )"app_clipart/loading_texture.jpg",1);
-   // loading_texture->position.ok=1;
-    make_texture(loading_texture,1);
-
-    loading=CreatePicture((char * )"app_clipart/loading.jpg",1);
-   // loading->position.ok=1;
-    make_texture(loading,1);
-
-    failed=CreatePicture((char * )"app_clipart/failed.jpg",1);
-    //failed->position.ok=1;
-    make_texture(failed,1);
-
-    background=CreatePicture((char * )"app_clipart/background.jpg",1);
-    make_texture(background,1);
-
-    picture_frame=CreatePicture((char * )"app_clipart/frame.jpg",1);
-    make_texture(picture_frame,1);
-    /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
+    LoadStockTextures();
 
     CountPicturesInDirectory((char*)frame.album_directory);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
@@ -488,6 +468,9 @@ int main(int argc, char *argv[])
     unsigned int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }
 
 
+
+    /* Initialize Joystick Thread (if a joystick is connected and detected )*/
+    StartJoystickControl();
 
     /* Initialize Picture Loading Thread */
     loadpicturesthread_id=0;

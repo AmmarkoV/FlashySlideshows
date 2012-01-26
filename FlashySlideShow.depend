@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1327374968 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1327540542 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -30,13 +30,14 @@
 	"memory_hypervisor.h"
 	"wxwidgets_stuff.h"
 	"joystick.h"
+	"environment.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
 	<GL/glu.h>
 	<stdlib.h>
 
-1285285060 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1327532210 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	<stdlib.h>
@@ -855,4 +856,6 @@
 	<pthread.h>
 	"camera_control.h"
 	"joystick.h"
+
+1327540426 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 
