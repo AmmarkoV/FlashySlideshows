@@ -133,9 +133,9 @@ int framerate_limiter()
 {
  //return 0; /*Disabled */
 
-  if ( frame.fps > 95 )
+  if ( frame.fps > 105 )
    {
-     unsigned int frames_to_cut = frame.fps - 90;
+     unsigned int frames_to_cut = frame.fps - 100;
      unsigned int time_to_cut = (unsigned int) 1000000/frames_to_cut;
      usleep (time_to_cut);
    }

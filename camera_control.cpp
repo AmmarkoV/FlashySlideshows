@@ -420,7 +420,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
     unsigned int reached_target=0;
 
 
-    float speed=20;
+    float speed=2; // 2 is a good value , 1 is an also good value ( faster :P )
     float speed_factor = 3/2; /* 1/5 */
 
     if ( frame.effect_move_activated >= 2 ) { /* Frame is beeing hovered for an effect move , so we prefer slow speed */
