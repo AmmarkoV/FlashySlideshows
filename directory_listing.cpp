@@ -68,7 +68,7 @@ inline wxString _U2(const char String[] = "")
   return wxString(String, wxConvUTF8);
 }
 
-
+//ls -lrt sorted directory list
 
 unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space)
 {
@@ -99,10 +99,10 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
       fullname=fname.GetFullName();
 
       unsigned int is_a_picture=0;
-      if ( extension.CmpNoCase(wxT("JPG")) ) {is_a_picture=1;} else
-      if ( extension.CmpNoCase(wxT("JPEG")) ) {is_a_picture=1;} else
-      if ( extension.CmpNoCase(wxT("PNG")) ) {is_a_picture=1;} else
-      if ( extension.CmpNoCase(wxT("BMP")) ) {is_a_picture=1;}
+      if ( extension.CmpNoCase(wxT("JPG")) ) {is_a_picture=1;}
+      else if ( extension.CmpNoCase(wxT("JPEG")) ) {is_a_picture=1;}
+      else if ( extension.CmpNoCase(wxT("PNG")) ) {is_a_picture=1;}
+//      else if ( extension.CmpNoCase(wxT("BMP")) ) {is_a_picture=1;}
 
       if ( is_a_picture )
         {

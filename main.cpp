@@ -124,9 +124,11 @@ void timerCB(int millisec)
 glutTimerFunc(millisec, timerCB, millisec);
 glutPostRedisplay();
 }
-void framerate_limiter()
+
+
+int framerate_limiter()
 {
-  return; /*Disabled */
+ return 0; /*Disabled */
 
    // glutTimerFunc(20, timerCB, 20); // draw every 50 ms
   if ( frame.fps > 95 )
@@ -135,6 +137,8 @@ void framerate_limiter()
      unsigned int time_to_cut = 1000000/frames_to_cut;
      usleep (time_to_cut);
    }
+
+  return 1;
 }
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -175,8 +179,6 @@ static void DisplayCallback(void)
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
-    /* Changes on display behaviour  >>>>>>>>>>>>>>>>>>>>>>*/
-    framerate_limiter(); /* helps smoothing out framerate */
 
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -239,7 +241,11 @@ static void DisplayCallback(void)
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-   usleep(10); /*Some dead time */
+  /* Changes on display behaviour  >>>>>>>>>>>>>>>>>>>>>>*/
+  if ( !framerate_limiter() ) /* helps smoothing out framerate */
+    {
+      usleep(10); /*Some dead time */
+    }
 
 }
 
@@ -404,9 +410,9 @@ int main(int argc, char *argv[])
 
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
     glClearColor(1,1,1,1);
-   /*glEnable(GL_CULL_FACE);
+   glEnable(GL_CULL_FACE);
      glCullFace(GL_BACK);
-     glEnable(GL_COLOR_MATERIAL);*/
+     glEnable(GL_COLOR_MATERIAL);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
