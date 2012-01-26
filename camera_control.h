@@ -22,6 +22,6 @@ void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigne
 void SetDestinationOverNextPicture();
 
 void PickHoverEffect(unsigned int x,unsigned int y);
-void PerformCameraMovement();
+void PerformCameraMovement(unsigned int microseconds_of_movement);
 
 #endif // CAMERA_CONTROL_H_INCLUDED

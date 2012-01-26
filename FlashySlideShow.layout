@@ -8,13 +8,13 @@
 		<Cursor position="284" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="8521" topLine="237" />
+		<Cursor position="108" topLine="0" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="3775" topLine="96" />
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="3775" topLine="78" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="487" topLine="0" />
@@ -50,7 +50,7 @@
 		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="12912" topLine="429" />
+		<Cursor position="1328" topLine="387" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="1510" topLine="32" />
@@ -82,8 +82,8 @@
 	<File name="sound.h" open="0" top="0" tabpos="16">
 		<Cursor position="273" topLine="0" />
 	</File>
-	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="749" topLine="237" />
+	<File name="visuals.cpp" open="1" top="1" tabpos="8">
+		<Cursor position="6568" topLine="0" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="291" topLine="0" />

@@ -24,6 +24,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 struct SlideShowData frame;
 
+unsigned int time_passed_microseconds=0;
+
 unsigned int ALBUM_SIZE=10000;
 struct Picture *album[10000]={0};
 

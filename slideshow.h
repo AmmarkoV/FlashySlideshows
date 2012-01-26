@@ -148,6 +148,8 @@ struct SlideShowData
   struct FilePicture * pictures_in_folder;
 };
 
+extern unsigned int time_passed_microseconds;
+
 extern struct SlideShowData frame;
 extern unsigned int ALBUM_SIZE;
 extern struct Picture *album[10000];

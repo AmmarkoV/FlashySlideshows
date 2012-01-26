@@ -34,6 +34,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "joystick.h"
 #include "environment.h"
 
+
+#include <sys/time.h>
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -44,10 +47,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow ver 0.37 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[70]="FlashySlideShow ver 0.39 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
-
+ struct timeval last_frame,this_frame,difference;
 
 char pictures_filename_shared_stack[1024]={0};
 unsigned int framecount=0,timenow=0,timebase=0,fps=0;
@@ -121,20 +124,19 @@ int ManageCreatingTextures(int count_only)
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 void timerCB(int millisec)
 {
-glutTimerFunc(millisec, timerCB, millisec);
-glutPostRedisplay();
+ glutPostRedisplay();
+ glutTimerFunc(millisec, timerCB, millisec);
 }
 
 
 int framerate_limiter()
 {
- return 0; /*Disabled */
+ //return 0; /*Disabled */
 
-   // glutTimerFunc(20, timerCB, 20); // draw every 50 ms
   if ( frame.fps > 95 )
    {
      unsigned int frames_to_cut = frame.fps - 90;
-     unsigned int time_to_cut = 1000000/frames_to_cut;
+     unsigned int time_to_cut = (unsigned int) 1000000/frames_to_cut;
      usleep (time_to_cut);
    }
 
@@ -160,8 +162,12 @@ static void ResizeCallback(int width, int height)
 
 static void DisplayCallback(void)
 {
-    if (  frame.effects.fog_on==1 ) { glEnable(GL_FOG);	} else
-                                    { glDisable(GL_FOG);	}
+    /*KEEP TRACK OF TIME -----------------*/
+    gettimeofday(&this_frame,0x0);
+    time_passed_microseconds = timeval_diff(&difference,&this_frame,&last_frame);
+    last_frame = this_frame;
+    /*---------------------------------------*/
+
 
 
     /* FRAME RATE COUNTING
@@ -171,14 +177,19 @@ static void DisplayCallback(void)
 	frame.tick_count=timenow; // <- Slideshow triggering
 	if (timenow - timebase>1000)
 	{
-	    fps = (unsigned int) framecount * 1000.0 / (timenow-timebase) ;
+	    float real_fps = (framecount * 1000.0) / (timenow-timebase);
+	    fps = (unsigned int) real_fps ;
 	    frame.fps=fps; // <- Store in slideshow
 	 	timebase = timenow;
 		framecount = 0;
 	}
+	//if ( fps < 25 ) { fprintf(stderr,"Low Framerate %u fps \n",fps); }
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
+
+    if (  frame.effects.fog_on==1 ) { glEnable(GL_FOG);	} else
+                                    { glDisable(GL_FOG);	}
 
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -233,7 +244,7 @@ static void DisplayCallback(void)
    AutomaticSlideShowControl_if_needed(); /* if automatic slide show is enabled it will relay commands */
 
    /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER/COMPUTER INPUT*/
-   PerformCameraMovement();
+   PerformCameraMovement(time_passed_microseconds);
 
 
    /* Texture binding via OpenGL , it can only be done in this thread , while not rendering  >>>>>>>>>>>>>>>>>>>>>>*/
@@ -276,9 +287,10 @@ void MouseCallback( int button,int state, int x, int y)
 
 
 static void KeyCallback(unsigned char key, int x, int y)
-{
-  if (key=='q') exit(0); /* Closes Application */
-  else if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
+{ //'q'
+  if (key==27) exit(0); /* Closes Application on Escape Key*/
+        else
+  if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
 
   /* The rest commands are handled in controls.cpp / controls.h */
   unsigned int nokey = Controls_Handle_Keyboard(key,x,y);
@@ -321,6 +333,8 @@ static void IdleCallback(void)
 
 void InitGlut()
 {
+
+    //glutTimerFunc(20, timerCB, 20); // draw every 50 ms
     glutReshapeFunc(ResizeCallback);
     glutMouseFunc (MouseCallback);
     glutPassiveMotionFunc(MotionCallback);
@@ -338,9 +352,13 @@ void ToggleFullscreen()
    if ( frame.fullscreen == 0 )
     {
       if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  glutEnterGameMode(); else
-                                                     fprintf(stderr,"Cannot enter fullscreen\n");
+                                                     {
+                                                      fprintf(stderr,"Cannot enter fullscreen\n");
+                                                      return;
+                                                     }
 
-      glutGameModeString("1024x768:32");
+      glutGameModeString("1920x1080:32");
+      //glutGameModeString("1024x768:32");
       InitGlut();
       frame.fullscreen=1;
 
@@ -483,6 +501,7 @@ int main(int argc, char *argv[])
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
 
+    gettimeofday(&last_frame,0x0);
     /* Start Rendering */
     glutMainLoop();
 

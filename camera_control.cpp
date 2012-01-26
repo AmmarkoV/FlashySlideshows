@@ -398,7 +398,7 @@ void SetDestinationOverNextPicture()
                                                     }
 }
 
-void PerformCameraMovement()
+void PerformCameraMovement(unsigned int microseconds_of_movement)
 {
    /*
        THE IDEA IS THE FOLLOWING
@@ -418,53 +418,67 @@ void PerformCameraMovement()
       -------------------------------------
     */
     unsigned int reached_target=0;
+
+
+    float speed=20;
     float speed_factor = 3/2; /* 1/5 */
 
     if ( frame.effect_move_activated >= 2 ) { /* Frame is beeing hovered for an effect move , so we prefer slow speed */
-                                              speed_factor = 3/2;
+                                              speed_factor = (float) 3/2;
                                             } else
                                             {
                                               /* Frame is beeing plainly hovered , so we prefer fast speed */
-                                              speed_factor = 1/5;
+                                              speed_factor = (float) 1/5;
                                             }
 
-    float speed_multiplier=250;//frame.fps * speed_factor;
-    if ( speed_multiplier == 0 ) { speed_multiplier=250; }
+
+    float speed_multiplier = 1.0;
+    if ( microseconds_of_movement != 0 ) { speed_multiplier=(1000*1000/microseconds_of_movement); }
 
 
-    if ( frame.desired_x != frame.vx ) { if ( frame.desired_x < frame.vx )
+    float speed_rate = 1/(speed * speed_factor * speed_multiplier);
+
+    //fprintf(stderr,"Microsecs : %u , SpeedRate %0.4f SpeedMultiplier %0.2f\n",microseconds_of_movement,speed_rate,speed_multiplier);
+
+    if ( frame.desired_x != frame.vx )
+                           {
+                             if ( frame.desired_x < frame.vx )
                                  {
-                                   /* CLOSING IN OPERATION */   frame.vx = frame.vx- ( frame.vx - frame.desired_x ) / speed_multiplier;
+                                   /* CLOSING IN OPERATION */   frame.vx -= ( frame.vx - frame.desired_x ) * speed_rate;
                                    if ( frame.desired_x > frame.vx ) { frame.desired_x = frame.vx; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  } else
                              if ( frame.desired_x > frame.vx )
                                  {
-                                   /* CLOSING IN OPERATION */   frame.vx = frame.vx+ ( frame.desired_x - frame.vx ) / speed_multiplier;
+                                   /* CLOSING IN OPERATION */   frame.vx += ( frame.desired_x - frame.vx ) * speed_rate;
                                    if ( frame.desired_x < frame.vx ) { frame.desired_x = frame.vx; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
                            } else { reached_target+=1; } /* + One coordinate has reached target */
 
-    if ( frame.desired_y != frame.vy ) { if ( frame.desired_y < frame.vy )
+    if ( frame.desired_y != frame.vy )
+                          {
+                             if ( frame.desired_y < frame.vy )
                                  {
-                                   /* CLOSING IN OPERATION */   frame.vy = frame.vy- ( frame.vy - frame.desired_y ) / speed_multiplier;
+                                   /* CLOSING IN OPERATION */   frame.vy -= ( frame.vy - frame.desired_y ) * speed_rate;
                                    if ( frame.desired_y > frame.vy ) { frame.desired_y = frame.vy; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  } else
                              if ( frame.desired_y > frame.vy )
                                  {
-                                   /* CLOSING IN OPERATION */   frame.vy = frame.vy+ ( frame.desired_y - frame.vy ) / speed_multiplier;
+                                   /* CLOSING IN OPERATION */   frame.vy += ( frame.desired_y - frame.vy ) * speed_rate;
                                    if ( frame.desired_y < frame.vy ) { frame.desired_y = frame.vy; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
                            } else { reached_target+=3; } /* + One coordinate has reached target */
 
 
-    if ( frame.desired_z != frame.vz ) { if ( frame.desired_z < frame.vz )
+    if ( frame.desired_z != frame.vz )
+                          {
+                              if ( frame.desired_z < frame.vz )
                                  {
-                                   /* CLOSING IN OPERATION */   frame.vz = frame.vz- ( frame.vz - frame.desired_z ) / speed_multiplier;
+                                   /* CLOSING IN OPERATION */   frame.vz -= ( frame.vz - frame.desired_z ) * speed_rate;
                                    if ( frame.desired_z > frame.vz ) { frame.desired_z = frame.vz; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  } else
                              if ( frame.desired_z > frame.vz )
                                  {
-                                   /* CLOSING IN OPERATION */   frame.vz = frame.vz+ ( frame.desired_z - frame.vz ) / speed_multiplier;
+                                   /* CLOSING IN OPERATION */   frame.vz += ( frame.desired_z - frame.vz ) * speed_rate;
                                    if ( frame.desired_z < frame.vz ) { frame.desired_z = frame.vz; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
                            } else { reached_target+=5; } /* + One coordinate has reached target */
