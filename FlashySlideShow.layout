@@ -19,14 +19,14 @@
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="487" topLine="0" />
 	</File>
-	<File name="environment.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="2494" topLine="69" />
+	<File name="environment.cpp" open="1" top="1" tabpos="28">
+		<Cursor position="806" topLine="13" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
 		<Cursor position="229" topLine="0" />
 	</File>
 	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
-		<Cursor position="2034" topLine="35" />
+		<Cursor position="1281" topLine="17" />
 	</File>
 	<File name="image_sensing.h" open="1" top="0" tabpos="26">
 		<Cursor position="165" topLine="0" />
@@ -58,14 +58,14 @@
 	<File name="math_3d.h" open="1" top="0" tabpos="18">
 		<Cursor position="164" topLine="0" />
 	</File>
-	<File name="memory_hypervisor.cpp" open="1" top="1" tabpos="12">
-		<Cursor position="5785" topLine="182" />
+	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="5851" topLine="182" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="scene_objects.cpp" open="1" top="0" tabpos="23">
-		<Cursor position="63" topLine="0" />
+		<Cursor position="28" topLine="0" />
 	</File>
 	<File name="scene_objects.h" open="1" top="0" tabpos="24">
 		<Cursor position="92" topLine="0" />

@@ -75,7 +75,7 @@ int LoadPicturesIfNeeded()
       }
     }
 
-    usleep(10);
+   // usleep(10);
 
     ++album_traveler;
    }
@@ -214,7 +214,7 @@ int UnLoadTexturesIfNeeded()
                                { break; }
 
 
-     usleep(10);
+   //  usleep(10);
    }
 
 
