@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct timeval *start_time )
 {
@@ -89,7 +90,10 @@ int LoadStockTexturesAndSounds()
     //failed->position.ok=1;
     make_texture(failed,1);
 
-    sprintf(filename,"%s/background.jpg",base_directory);
+    srand( time(NULL) );
+    unsigned int background_pic_to_load = rand()%5;
+    if ( background_pic_to_load >= 6 ) { background_pic_to_load=0; }
+    sprintf(filename,"%s/background%u.jpg",base_directory,background_pic_to_load);
     background=CreatePicture((char * )filename,1);
     make_texture(background,1);
 
@@ -138,14 +142,15 @@ int LoadStockTexturesAndSounds()
     if ( FileExists("app_clipart/haarcascade_frontalface_alt.xml") )
       {
         //if we are running without an installation it is better to use this dir..!
-        InitFaceRecognition("app_clipart/haarcascade_frontalface_alt.xml");
+        InitFaceRecognition((char*) "app_clipart/haarcascade_frontalface_alt.xml");
       } else
     if ( FileExists("/usr/share/flashyslideshows/app_clipart/haarcascade_frontalface_alt.xml") )
       {
-        InitFaceRecognition("/usr/share/flashyslideshows/app_clipart/haarcascade_frontalface_alt.xml");
+        InitFaceRecognition((char*) "/usr/share/flashyslideshows/app_clipart/haarcascade_frontalface_alt.xml");
       } else
       {
-        fprintf(stderr,"Unable to locate /usr/share/flashyslideshows/app_clipart/ or app_clipart/\n ");
+        fprintf(stderr,"Unable to locate /usr/share/flashyslideshows/app_clipart/haarcascade_frontalface_alt.xml \n ");
+        fprintf(stderr,"or  app_clipart/haarcascade_frontalface_alt.xml \n ");
         return 0;
       }
 
@@ -156,4 +161,6 @@ int LoadStockTexturesAndSounds()
 
 int UnLoadStockTexturesAndSounds()
 {
+    CloseFaceRecognition();
+    return 1;
 }
