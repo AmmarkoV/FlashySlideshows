@@ -500,6 +500,7 @@ int main(int argc, char *argv[])
     glutMainLoop();
 
     StopJoystickControl();
+    UnLoadStockTexturesAndSounds();
     wxlibstuff.OnClose();
     return EXIT_SUCCESS;
 }

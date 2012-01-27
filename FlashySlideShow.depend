@@ -38,9 +38,10 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1327611527 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1327625337 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
+	"sound.h"
 	<stdlib.h>
 	<stdio.h>
 
@@ -141,7 +142,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1282870470 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
+1327634892 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
 1285289171 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
@@ -859,13 +860,14 @@
 	"camera_control.h"
 	"joystick.h"
 
-1327625081 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
+1327634996 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1327625251 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1327635058 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
 	"load_images.h"
 	"load_textures.h"
+	"image_sensing.h"
 	"sound.h"
 	<stdlib.h>
 	<stdio.h>

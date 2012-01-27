@@ -1,6 +1,7 @@
 #include "environment.h"
 #include "load_images.h"
 #include "load_textures.h"
+#include "image_sensing.h"
 #include "sound.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -131,5 +132,28 @@ int LoadStockTexturesAndSounds()
 
     LoadSoundBuffers();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+
+
+    if ( FileExists("app_clipart/haarcascade_frontalface_alt.xml") )
+      {
+        //if we are running without an installation it is better to use this dir..!
+        InitFaceRecognition("app_clipart/haarcascade_frontalface_alt.xml");
+      } else
+    if ( FileExists("/usr/share/flashyslideshows/app_clipart/haarcascade_frontalface_alt.xml") )
+      {
+        InitFaceRecognition("/usr/share/flashyslideshows/app_clipart/haarcascade_frontalface_alt.xml");
+      } else
+      {
+        fprintf(stderr,"Unable to locate /usr/share/flashyslideshows/app_clipart/ or app_clipart/\n ");
+        return 0;
+      }
+
+
   return 1;
+}
+
+
+int UnLoadStockTexturesAndSounds()
+{
 }

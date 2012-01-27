@@ -20,16 +20,16 @@
 		<Cursor position="487" topLine="0" />
 	</File>
 	<File name="environment.cpp" open="1" top="1" tabpos="28">
-		<Cursor position="3444" topLine="88" />
+		<Cursor position="3799" topLine="112" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
-		<Cursor position="221" topLine="0" />
+		<Cursor position="229" topLine="0" />
 	</File>
 	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
-		<Cursor position="401" topLine="0" />
+		<Cursor position="2143" topLine="35" />
 	</File>
 	<File name="image_sensing.h" open="1" top="0" tabpos="26">
-		<Cursor position="74" topLine="0" />
+		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="joystick.cpp" open="1" top="0" tabpos="27">
 		<Cursor position="1709" topLine="0" />
@@ -38,10 +38,10 @@
 		<Cursor position="0" topLine="21" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="1613" topLine="222" />
+		<Cursor position="5672" topLine="138" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="749" topLine="45" />
+		<Cursor position="1039" topLine="18" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="1363" topLine="0" />
@@ -50,10 +50,10 @@
 		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="13272" topLine="450" />
+		<Cursor position="14108" topLine="458" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="1510" topLine="32" />
+		<Cursor position="1510" topLine="0" />
 	</File>
 	<File name="math_3d.h" open="1" top="0" tabpos="18">
 		<Cursor position="164" topLine="0" />
@@ -74,7 +74,7 @@
 		<Cursor position="3776" topLine="128" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="3197" topLine="127" />
+		<Cursor position="3197" topLine="126" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="1010" topLine="147" />
