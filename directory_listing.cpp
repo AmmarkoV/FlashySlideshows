@@ -49,6 +49,107 @@ unsigned int list_size=0;
 unsigned int last_list_total_count=0;
 unsigned int last_list_total_pictures_count=0;
 
+
+
+unsigned int FirstItemSmallerOrEqualToSecond(unsigned int item_a,unsigned int item_b,unsigned int comp_func)
+{
+
+    if (comp_func == 0)
+     { // Compare by date
+       if (list[item_a].year < list[item_b].year) { return 1; }
+       if (list[item_a].year > list[item_b].year) { return 0; }
+
+       if (list[item_a].month < list[item_b].month) { return 1; }
+       if (list[item_a].month > list[item_b].month) { return 0; }
+
+       if (list[item_a].day < list[item_b].day) { return 1; }
+       if (list[item_a].day > list[item_b].day) { return 0; }
+
+       if (list[item_a].hour < list[item_b].hour) { return 1; }
+       if (list[item_a].hour > list[item_b].hour) { return 0; }
+
+       if (list[item_a].minute < list[item_b].minute) { return 1; }
+       if (list[item_a].minute > list[item_b].minute) { return 0; }
+
+       if (list[item_a].second < list[item_b].second) { return 1; }
+       if (list[item_a].second > list[item_b].second) { return 0; }
+     } else
+     if (comp_func == 1)
+     {
+       unsigned int size_of_item_a_filename = strlen(list[item_a].filename);
+       unsigned int size_of_item_b_filename = strlen(list[item_b].filename);
+       unsigned int length=size_of_item_b_filename;
+       if (size_of_item_a_filename<size_of_item_b_filename) { length=size_of_item_a_filename; }
+
+       unsigned int i=0;
+       for (i=0; i<length; i++)
+       {
+          if ( list[item_a].filename[i]<list[item_b].filename[i] ) { return 1;  }
+          if ( list[item_a].filename[i]>list[item_b].filename[i] ) { return 0;  }
+       }
+
+       if (size_of_item_a_filename<size_of_item_b_filename) { return 1; }
+     }
+
+    return 0;
+}
+
+void SwapListItems(unsigned int item_a,unsigned int item_b)
+{
+  struct FilenameHolder temp;
+  temp=list[item_a];
+  list[item_a]=list[item_b];
+  list[item_b]=temp;
+}
+
+
+void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func)
+{
+  if (end > beg + 1)
+  {
+    unsigned int piv=beg, l = beg + 1, r = end;
+    while (l < r)
+    {
+      if ( FirstItemSmallerOrEqualToSecond(l,piv,comp_func) )
+        {
+          l++;
+        }
+      else
+        {
+          SwapListItems(l,--r);
+        }
+    }
+    SwapListItems(--l,beg);
+
+    SortDirectoryList(beg,l,comp_func);
+    SortDirectoryList(r,end,comp_func);
+  }
+}
+
+
+
+void PrintDirectoryList()
+{
+  unsigned int i=0;
+  for (i=0; i<last_list_total_count; i++)
+   {
+     fprintf(stderr,"%u - %s\n",i,list[i].filename);
+   }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 void AllocateDirectoryList(unsigned int requested_size)
 {
  if ( list != 0 ) { fprintf(stderr,"List already contained data , freeing memory \n"); free(list); }
@@ -152,6 +253,13 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
         last_list_total_count=this_list_total_count;
         last_list_total_pictures_count=this_list_total_pictures_count;
         return this_list_total_pictures_count;
+    } else
+    {
+        fprintf(stderr,"Sorting directory modification time.. ");
+        SortDirectoryList(0,this_list_total_count,1);
+        fprintf(stderr,"done\n");
+        PrintDirectoryList();
+
     }
 
   return 1;
