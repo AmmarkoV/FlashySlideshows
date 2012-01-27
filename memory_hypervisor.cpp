@@ -23,6 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_textures.h"
 #include "directory_listing.h"
 #include <stdio.h>
+#include <unistd.h>
 
 /*
 
@@ -73,6 +74,8 @@ int LoadPicturesIfNeeded()
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
     }
+
+    usleep(10);
 
     ++album_traveler;
    }
@@ -209,6 +212,9 @@ int UnLoadTexturesIfNeeded()
     }
     if ( album_traveler != 0 ) { --album_traveler; } else
                                { break; }
+
+
+     usleep(10);
    }
 
 

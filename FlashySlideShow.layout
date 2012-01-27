@@ -13,8 +13,8 @@
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="4120" topLine="100" />
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="3797" topLine="145" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="487" topLine="0" />
@@ -44,7 +44,7 @@
 		<Cursor position="1039" topLine="18" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="1363" topLine="0" />
+		<Cursor position="1363" topLine="73" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="165" topLine="0" />
@@ -58,8 +58,8 @@
 	<File name="math_3d.h" open="1" top="0" tabpos="18">
 		<Cursor position="164" topLine="0" />
 	</File>
-	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="3352" topLine="0" />
+	<File name="memory_hypervisor.cpp" open="1" top="1" tabpos="12">
+		<Cursor position="5785" topLine="182" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="274" topLine="0" />
