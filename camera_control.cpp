@@ -25,6 +25,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <math.h>
 #include "math_3d.h"
+#include "sound.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -159,6 +160,18 @@ void CameraReachedDestination()
   frame.seek_move_activated=0;
 }
 
+
+void CheckForTargetInBounds()
+{
+   unsigned int camera_safe_guard_activated=0;
+   if ( frame.desired_z<frame.distance_block_lower) { frame.desired_z=frame.distance_block_lower; camera_safe_guard_activated=1; } /* DO NOT ALLOW ANY CLOSER */
+   if ( frame.desired_z>frame.distance_block_upper) { frame.desired_z=frame.distance_block_upper; camera_safe_guard_activated=1; } /* DO NOT ALLOW ANY CLOSER */
+
+   if ( camera_safe_guard_activated ) { SoundLibrary_PlaySound(UNABLE_TO_MOVE); }
+}
+
+
+
 void MoveDestinationCenter(unsigned int movement_direction)
 {
     unsigned int axis=0;
@@ -207,6 +220,8 @@ void MoveDestinationCenter(unsigned int movement_direction)
       break;
     };
 
+   // If target is out of bounds fix it
+   CheckForTargetInBounds();
 }
 
 
@@ -398,8 +413,13 @@ void SetDestinationOverNextPicture()
                                                     }
 }
 
+
+
+
 void PerformCameraMovement(unsigned int microseconds_of_movement)
 {
+
+
    /*
        THE IDEA IS THE FOLLOWING
        We have to 3d states the desired coordinates ( desired_x , desired_y , desired_z )
@@ -408,8 +428,6 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
        We need to make a smooth transition to the desired coordinates from the current coordinates
 
     */
-
-
 
 
     /*
@@ -531,7 +549,6 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
   */
    if ( frame.vz<=frame.distance_block_lower) { frame.vz=frame.distance_block_lower; frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
    if ( frame.vz>=frame.distance_block_upper) { frame.vz=frame.distance_block_upper; frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
-
   /* -------------------------------------
      CAMERA ROUNDING ERROR CORRECTION
      -------------------------------------

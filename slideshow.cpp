@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "slideshow.h"
 #include "camera_control.h"
+#include "sound.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -142,11 +143,13 @@ void ToggleAutomaticSlideshow()
 {
      if ( frame.automatic_slideshow_on==0 )
       {
+          SoundLibrary_PlaySound(SLIDESHOW_START);
           SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
           frame.time_ms_before_last_slide_change=frame.tick_count;
           frame.automatic_slideshow_on=1;
       } else
       {
+          SoundLibrary_PlaySound(SLIDESHOW_STOP);
           frame.automatic_slideshow_on=0;
       }
 }

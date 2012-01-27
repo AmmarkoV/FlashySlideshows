@@ -464,15 +464,6 @@ int main(int argc, char *argv[])
 
 
 
-    /* OpenAL Initialization >>>>>>>>>>>>>>>>> */
-    StartSoundLibrary();
-    AddSoundBufferForLoad((char *)"sounds/pop.wav");
-    LoadSoundBuffers();
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
-
-
-
     /* Initialize Slideshow variables */
     InitSlideShow();
 
@@ -482,7 +473,10 @@ int main(int argc, char *argv[])
     wxlibstuff.OnInit();
 
 
-    LoadStockTextures();
+    LoadStockTexturesAndSounds();
+
+
+
 
     CountPicturesInDirectory((char*)frame.album_directory);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());

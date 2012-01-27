@@ -1,6 +1,7 @@
 #include "environment.h"
 #include "load_images.h"
 #include "load_textures.h"
+#include "sound.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -40,7 +41,7 @@ int FileExists(const char *fname)
 }
 
 
-int LoadStockTextures()
+int LoadStockTexturesAndSounds()
 {
 
     char base_directory[128]={0};
@@ -96,5 +97,39 @@ int LoadStockTextures()
     make_texture(picture_frame,1);
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
+
+
+   if ( FileExists("sounds/pop.wav") )
+      {
+        //if we are running without an installation it is better to use this dir..!
+        strcpy(base_directory,"sounds");
+      } else
+    if ( FileExists("/usr/share/flashyslideshows/sounds/pop.wav") )
+      {
+        strcpy(base_directory,"/usr/share/flashyslideshows/sounds");
+      } else
+      {
+        fprintf(stderr,"Unable to locate /usr/share/flashyslideshows/sounds/ or sounds/\n ");
+        return 0;
+      }
+
+
+    /* OpenAL Initialization >>>>>>>>>>>>>>>>> */
+    StartSoundLibrary();
+
+    sprintf(filename,"%s/pop.wav",base_directory);
+    AddSoundBufferForLoad((char *)filename); //LOADED_PICTURE
+
+    sprintf(filename,"%s/cling.wav",base_directory);
+    AddSoundBufferForLoad((char *)filename); //LOADED_PICTURE
+
+    sprintf(filename,"%s/slideshow_start.wav",base_directory);
+    AddSoundBufferForLoad((char *)filename); //SLIDESHOW_START
+
+    sprintf(filename,"%s/slideshow_stop.wav",base_directory);
+    AddSoundBufferForLoad((char *)filename); //SLIDESHOW_STOP
+
+    LoadSoundBuffers();
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
   return 1;
 }
