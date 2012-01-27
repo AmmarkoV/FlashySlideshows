@@ -108,10 +108,24 @@ int ManageCreatingTextures(int count_only)
   */
   unsigned int count=0,i=0;
 
+   struct timeval start_creating_textures,now,difference;
+
+  gettimeofday(&start_creating_textures,0x0);
   UnLoadTexturesIfNeeded();
   for ( i=0; i<frame.total_images; i++)
    {
      if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
+
+     if (!count_only)
+      {
+            gettimeofday(&now,0x0);
+            unsigned int elapsed_time = timeval_diff(&difference,&now,&start_creating_textures);
+            if (elapsed_time>1000)
+             {
+                 fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
+                 return count;
+             }
+      }
    }
 
   return count;
