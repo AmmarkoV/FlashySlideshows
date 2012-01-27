@@ -9,6 +9,7 @@
 
 #include "FlashySlideShowStarterMain.h"
 #include <wx/msgdlg.h>
+#include <wx/filename.h>
 
 //(*InternalHeaders(FlashySlideShowStarterFrame)
 #include <wx/string.h>
@@ -201,7 +202,14 @@ int FileExists(const char *fname)
 
 void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 {
-    PathTextCtrl->SetValue(PictureFolder->GetPath());
+    wxString raw_path=PictureFolder->GetPath();
+    PathTextCtrl->SetValue(raw_path);
+
+    wxFileName path_converter(raw_path);
+
+    wxString path=path_converter.GetPath();
+
+
 
     wxString what_to_call;
     what_to_call.clear();
@@ -220,7 +228,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
        what_to_call<< wxT("/usr/bin/FlashySlideShow \"");
      }
 
-    what_to_call<< PathTextCtrl->GetValue();
+    what_to_call<< path;
     what_to_call<< wxT("\"");
    // wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
     wxExecute(what_to_call);

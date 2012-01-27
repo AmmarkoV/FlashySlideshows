@@ -26,9 +26,20 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "wx/dir.h"
 #include "wx/filename.h"
 #include "wx/dirdlg.h"
+#include <wx/filefn.h>
+
+
 
 struct FilenameHolder
 {
+     unsigned int year;
+     unsigned int month;
+     unsigned int day;
+     unsigned int day_of_year;
+     unsigned int hour;
+     unsigned int minute;
+     unsigned int second;
+
      char filename[512];
 };
 
@@ -88,6 +99,8 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
 
   if (!COUNT_FILES_ONLY) { AllocateDirectoryList(store_results_in_space); }
 
+
+  wxDateTime mod_time;
   int cont = dir.GetFirst(&filename,filespec,flags);
   while ( cont )
    {
@@ -109,6 +122,21 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
           if (!COUNT_FILES_ONLY)
           {
             strncpy(list[this_list_total_pictures_count].filename,(const char*) fullname.mb_str(wxConvUTF8),512);
+
+
+            wxFileName new_file(fullname);
+            mod_time=new_file.GetModificationTime();
+            list[this_list_total_pictures_count].year=mod_time.GetYear();
+            list[this_list_total_pictures_count].month=mod_time.GetMonth();
+            list[this_list_total_pictures_count].day=mod_time.GetDay();
+            list[this_list_total_pictures_count].day_of_year=mod_time.GetDayOfYear();
+            list[this_list_total_pictures_count].hour=mod_time.GetHour();
+            list[this_list_total_pictures_count].minute=mod_time.GetMinute();
+            list[this_list_total_pictures_count].second=mod_time.GetSecond();
+
+
+
+
             if ( this_list_total_pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
           }
           ++this_list_total_pictures_count;

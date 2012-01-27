@@ -71,7 +71,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1327548534 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1327683278 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -81,6 +81,7 @@
 	"wx/dir.h"
 	"wx/filename.h"
 	"wx/dirdlg.h"
+	<wx/filefn.h>
 
 1284940665 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
@@ -866,7 +867,7 @@
 1327634996 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1327635058 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1327635971 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
 	"load_images.h"
 	"load_textures.h"
@@ -875,6 +876,7 @@
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
+	<time.h>
 
 1315851265 /usr/local/include/opencv/cv.h
 	"opencv2/core/core_c.h"
