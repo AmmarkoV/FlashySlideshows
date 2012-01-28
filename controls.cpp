@@ -23,6 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "slideshow.h"
 #include "camera_control.h"
 #include "controls.h"
+#include "visuals.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -216,10 +217,32 @@ int MoveToPicture(unsigned int direction)
 
   fprintf(stderr,"Picture X/Y was %u / %u \n",frame.active_image_x,frame.active_image_y);
 
-    if ( direction == 1 ) {  /* UP */    if ( frame.active_image_y > 0 ) {  frame.active_image_y-=1; } } else
-    if ( direction == 2 ) {  /* DOWN */  if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; } } else
-    if ( direction == 3 ) {  /* LEFT */  if ( frame.active_image_x > 0 ) {  frame.active_image_x-=1; } } else
-    if ( direction == 4 ) {  /* RIGHT */ if ( frame.active_image_x < frame.images_per_line-1 ) {  frame.active_image_x+=1; } }
+    if ( direction == D_UP )
+                               {  /* UP */
+                                    if ( frame.active_image_y > 0 ) {  frame.active_image_y-=1; }
+                               } else
+    if ( direction == D_DOWN )
+                               {  /* DOWN */
+                                    if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; }
+                               } else
+    if ( direction == D_LEFT ) {  /* LEFT */
+                                    if ( frame.active_image_x > 0 ) {  frame.active_image_x-=1; } else
+                                    { //Go to the next row functionality :P
+                                       if ( frame.active_image_y >0 )
+                                       {
+                                           frame.active_image_x=frame.images_per_line-1;
+                                         --frame.active_image_y;
+                                       }
+                                    }
+                               } else
+    if ( direction == D_RIGHT ) {  /* RIGHT */
+                                    if ( frame.active_image_x < frame.images_per_line-1 ) {  frame.active_image_x+=1; } else
+                                    if ( frame.active_image_y < last_line-1 )
+                                       {//Go to the previous row functionality :P
+                                           frame.active_image_x=0;
+                                         ++frame.active_image_y;
+                                       }
+                                }
 
    fprintf(stderr,"Picture X/Y now is %u / %u \n",frame.active_image_x,frame.active_image_y);
    unsigned int current_active_picture=frame.active_image_x+frame.active_image_y*frame.images_per_line;
@@ -249,10 +272,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
     int nokey=0;
     switch (key)
     {
-        case 1 : /* UP */ MoveToPicture(1); break;
-        case 2 : /* DOWN */ MoveToPicture(2); break;
-        case 3 : /* LEFT */ MoveToPicture(3); break;
-        case 4 : /* RIGHT */ MoveToPicture(4); break;
+        case 1 : /* UP */    MoveToPicture(D_UP); break;
+        case 2 : /* DOWN */  MoveToPicture(D_DOWN); break;
+        case 3 : /* LEFT */  MoveToPicture(D_LEFT); break;
+        case 4 : /* RIGHT */ MoveToPicture(D_RIGHT); break;
 
 
         case 13 : /* ENTER */ ToggleAutomaticSlideshow(); break;
@@ -272,6 +295,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'g': frame.angle_y+=0.5; break;
         case 'y': frame.angle_z-=0.5; break;
         case 'h': frame.angle_z+=0.5; break;
+        case 'n': if (ENABLE_WIGGLING) {ENABLE_WIGGLING=0;} else {ENABLE_WIGGLING=1;} break;
         case 'm': ToggleTransitionMode(); break;
 
         case 'b': PickHoverEffect(frame.active_image_x,frame.active_image_y); break;

@@ -11,4 +11,7 @@ int DrawEffects();
 int MinPictureThatIsVisible();
 int MaxPictureThatIsVisible();
 
+void InitEffects();
+
+extern unsigned int ENABLE_WIGGLING;
 #endif // VISUALS_H_INCLUDED
