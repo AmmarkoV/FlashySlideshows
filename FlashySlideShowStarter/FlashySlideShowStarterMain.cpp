@@ -207,29 +207,42 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 
     wxFileName path_converter(raw_path);
 
-    wxString path=path_converter.GetPath();
+
+
+    wxString path;
+
+
+     if ( path_converter.DirExists(raw_path) )
+       {
+         path=raw_path;
+       } else
+       {
+         path=path_converter.GetPath();
+       }
 
 
 
     wxString what_to_call;
     what_to_call.clear();
 
-    if ( FileExists("bin/Release/FlashySlideShow"))
-     {
-       what_to_call<< wxT("bin/Release/FlashySlideShow \"");
-     } else
-   /*if ( FileExists("../bin/Release/FlashySlideShow"))
-     {
-       what_to_call<< wxT("../bin/Release/FlashySlideShow \"");
-       needs change dir :P
-     }else*/
-    if ( FileExists("/usr/bin/FlashySlideShow"))
-     {
-       what_to_call<< wxT("/usr/bin/FlashySlideShow \"");
-     }
+    if ( FileExists("bin/Release/FlashySlideShow")) { /*Dev Build*/ what_to_call<< wxT("bin/Release/FlashySlideShow "); } else
+    if ( FileExists("/usr/bin/FlashySlideShow"))    { /*Normal Deployment */what_to_call<< wxT("/usr/bin/FlashySlideShow "); }
 
+    if ( CheckBoxIncludeSubfolders->IsChecked() ) { what_to_call<< wxT(" -r"); }
+    if ( CheckBoxSound->IsChecked() ) { what_to_call<< wxT(" -s"); }
+    if ( CheckBoxFaceDetection->IsChecked() ) { what_to_call<< wxT(" -fd"); }
+    if ( CheckBoxVisuals->IsChecked() ) { what_to_call<< wxT(" -v"); }
+    if ( CheckBoxMipmap->IsChecked() ) { what_to_call<< wxT(" -m"); }
+
+    if ( ComboBoxQuality->GetCurrentSelection()!=1 ) { what_to_call<< wxT(" -q "); what_to_call<<ComboBoxQuality->GetCurrentSelection(); }
+    if ( ComboBoxTransitions->GetCurrentSelection()!=0 ) { what_to_call<< wxT(" -t ");  what_to_call<<ComboBoxTransitions->GetCurrentSelection();  }
+    if ( DelaySpinCtrl->GetValue()!=100 ) { what_to_call<< wxT(" -d ");  what_to_call<<DelaySpinCtrl->GetValue(); }
+
+
+    what_to_call<< wxT(" \"");
     what_to_call<< path;
     what_to_call<< wxT("\"");
+
    // wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
     wxExecute(what_to_call);
 }

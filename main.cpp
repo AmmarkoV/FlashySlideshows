@@ -47,7 +47,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow ver 0.40 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[70]="FlashySlideShow ver 0.41 / UNDER CONSTRUCTION!";
 int STOP_APPLICATION=0;
 
  struct timeval last_frame,this_frame,difference;
@@ -410,10 +410,66 @@ int main(int argc, char *argv[])
         int i=0;
         for (i=0; i<argc; i++)
          {
-             fprintf(stderr,"Arg %u - %s\n",i,argv[i]);
+             if (strcmp(argv[i],"-r")==0)
+                   { //Recursive Directory command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-s")==0)
+                   { //Sound Effects command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Sound Effects Enabled %s\n",i,argv[i]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-fd")==0)
+                   { //Face Detection command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Face Detection Enabled %s\n",i,argv[i]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-v")==0)
+                   { //Visuals Enabled command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Visuals Enabled %s\n",i,argv[i]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-m")==0)
+                   { //Mipmaping Enabled command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Mipmaping Enabled %s\n",i,argv[i]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-q")==0)
+                   { //Quality command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Image Quality %s = %s\n",i,argv[i],argv[i+1]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-d")==0)
+                   { //Transition delay command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Transition Delay %s = %s\n",i,argv[i],argv[i+1]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-t")==0)
+                   { //Transition Type command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Transition Type %s=%s\n",i,argv[i],argv[i+1]);
+                      }
+                   }
+
          }
        strncpy((char * ) frame.program_data_directory,argv[0],MAX_PATH);
-       strncpy((char * ) frame.album_directory,argv[1],MAX_PATH);
+       strncpy((char * ) frame.album_directory,argv[argc-1],MAX_PATH);
 
        if ( strncmp((char*)frame.album_directory,"pick",4)==0 )
          {
@@ -422,9 +478,9 @@ int main(int argc, char *argv[])
          }
      }
     strcat((char * ) frame.album_directory,"/");
-    fprintf(stderr,"Active directory is %s \n", frame.album_directory);
+    fprintf(stderr,"Slideshow directory is = %s \n", frame.album_directory);
 
-
+ // exit(0);
 
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
@@ -494,7 +550,7 @@ int main(int argc, char *argv[])
 
     CountPicturesInDirectory((char*)frame.album_directory);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
-    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory()); /* Load Directory List */
+    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),0); /* Load Directory List */
 
     frame.total_images=GetTotalViewableFilesInDirectory();
     unsigned int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }

@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "visuals.h"
 #include "slideshow.h"
 #include "load_images.h"
+#include "directory_listing.h"
 #include "scene_objects.h"
 #include "sound.h"
 #include <math.h>
@@ -249,6 +250,12 @@ void DisplayHUD()
     glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
     glVertex2f(1024,0);	// Top Right Of The Texture and Quad
     glVertex2f(0,0);
+
+    glVertex2f(0,768);	// Bottom Left Of The Texture and Quad
+    glVertex2f(1024,768);	// Bottom Right Of The Texture and Quad
+    glVertex2f(1024,718);	// Top Right Of The Texture and Quad
+    glVertex2f(0,718);
+
    glEnd();
  glDisable(GL_BLEND);
 
@@ -274,6 +281,18 @@ void DisplayHUD()
       glRasterPos2f(400,10);
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
+      glColor3f(0.0,0.0,0.0);
+      sprintf(fps_string,"%u/%u over %s created %u/%u/%u %u:%u:%u",
+                          frame.active_image_place,
+                          GetTotalViewableFilesInDirectory(),
+
+                          GetFilename(frame.active_image_place),
+
+                          GetItemDate(frame.active_image_place,0),GetItemDate(frame.active_image_place,1),GetItemDate(frame.active_image_place,2),
+                          GetItemDate(frame.active_image_place,3),GetItemDate(frame.active_image_place,4),GetItemDate(frame.active_image_place,5)
+              );
+      glRasterPos2f(00,740);
+      glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
  glColor4f(1.0,1.0,1.0,1.0);
  resetPerspectiveProjection();

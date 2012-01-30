@@ -2,22 +2,22 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="6715" topLine="162" />
+		<Cursor position="6715" topLine="243" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="650" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="9048" topLine="242" />
+		<Cursor position="8731" topLine="212" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="4324" topLine="145" />
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="7642" topLine="252" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
-		<Cursor position="487" topLine="0" />
+		<Cursor position="185" topLine="0" />
 	</File>
 	<File name="environment.cpp" open="1" top="0" tabpos="28">
 		<Cursor position="979" topLine="51" />
@@ -32,7 +32,7 @@
 		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="joystick.cpp" open="1" top="0" tabpos="27">
-		<Cursor position="1709" topLine="0" />
+		<Cursor position="1709" topLine="66" />
 	</File>
 	<File name="joystick.h" open="1" top="0" tabpos="25">
 		<Cursor position="0" topLine="21" />
@@ -44,13 +44,13 @@
 		<Cursor position="1039" topLine="18" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="1363" topLine="73" />
+		<Cursor position="1363" topLine="130" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="165" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6263" topLine="192" />
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1579" topLine="33" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="1510" topLine="0" />
@@ -71,7 +71,7 @@
 		<Cursor position="92" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3776" topLine="128" />
+		<Cursor position="3149" topLine="84" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="3197" topLine="126" />
@@ -83,10 +83,10 @@
 		<Cursor position="192" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="6649" topLine="170" />
+		<Cursor position="9956" topLine="269" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
-		<Cursor position="291" topLine="0" />
+		<Cursor position="357" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
 		<Cursor position="867" topLine="8" />

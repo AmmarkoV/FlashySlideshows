@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1327707853 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1327889501 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -71,7 +71,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1327698816 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1327890686 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -83,7 +83,7 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1284940665 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1327891652 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1327709208 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
@@ -117,12 +117,13 @@
 
 1327709176 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1327708997 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1327890880 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"
 	"slideshow.h"
 	"load_images.h"
+	"directory_listing.h"
 	"scene_objects.h"
 	"sound.h"
 	<math.h>

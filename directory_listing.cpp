@@ -182,7 +182,7 @@ inline wxString _U2(const char String[] = "")
 
 //ls -lrt sorted directory list
 
-unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space)
+unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func)
 {
   unsigned int COUNT_FILES_ONLY=0;
   unsigned int this_list_total_count=0;
@@ -205,7 +205,13 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
   int cont = dir.GetFirst(&filename,filespec,flags);
   while ( cont )
    {
-      wxFileName fname(filename);
+      wxString dir_and_filename;
+      dir_and_filename.clear();
+      dir_and_filename<<_U2(thedirectory);
+      dir_and_filename<<_U2("/");
+      dir_and_filename<<filename;
+
+      wxFileName fname(dir_and_filename);
      // fname.Normalize(wxPATH_NORM_LONG|wxPATH_NORM_DOTS|wxPATH_NORM_TILDE|wxPATH_NORM_ABSOLUTE);
      // fname.MakeRelativeTo(_U2(thedirectory));
 
@@ -225,8 +231,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
             strncpy(list[this_list_total_pictures_count].filename,(const char*) fullname.mb_str(wxConvUTF8),512);
 
 
-            wxFileName new_file(fullname);
-            mod_time=new_file.GetModificationTime();
+            mod_time=fname.GetModificationTime();
             list[this_list_total_pictures_count].year=mod_time.GetYear();
             list[this_list_total_pictures_count].month=mod_time.GetMonth();
             list[this_list_total_pictures_count].day=mod_time.GetDay();
@@ -234,8 +239,6 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
             list[this_list_total_pictures_count].hour=mod_time.GetHour();
             list[this_list_total_pictures_count].minute=mod_time.GetMinute();
             list[this_list_total_pictures_count].second=mod_time.GetSecond();
-
-
 
 
             if ( this_list_total_pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
@@ -255,11 +258,13 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
         return this_list_total_pictures_count;
     } else
     {
+      if (this_list_total_count>0)
+       {
         fprintf(stderr,"Sorting directory modification time.. ");
-        SortDirectoryList(0,this_list_total_count,1);
+        SortDirectoryList(0,this_list_total_count,comp_func);
         fprintf(stderr,"done\n");
         PrintDirectoryList();
-
+       }
     }
 
   return 1;
@@ -268,7 +273,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
 
 unsigned int CountPicturesInDirectory(char * thedirectory)
 {
-  return GetDirectoryList(thedirectory,0); /*Calling GetDirectoryList with 0 size only counts files!*/
+  return GetDirectoryList(thedirectory,0,0); /*Calling GetDirectoryList with 0 size only counts files!*/
 }
 
 unsigned int GetTotalFilesInDirectory()
@@ -295,6 +300,29 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
 
     return 1;
 }
+
+char * GetFilename(unsigned int file_id)
+{
+    if ( list_size <= file_id ) return 0;
+    if ( list == 0 ) return 0;
+    return list[file_id].filename;
+}
+
+unsigned int GetItemDate(unsigned int file_id,unsigned int data)
+{
+    if ( list_size <= file_id ) return 0;
+    if ( list == 0 ) return 0;
+
+    if ( data == 2 ) { return list[file_id].year; } else
+    if ( data == 1 ) { return list[file_id].month; } else
+    if ( data == 0 ) { return list[file_id].day; } else
+    if ( data == 3 ) { return list[file_id].hour; } else
+    if ( data == 4 ) { return list[file_id].minute; } else
+    if ( data == 5 ) { return list[file_id].second; }
+
+    return 0;
+}
+
 
 unsigned int LaunchGUI_PickDir()
 {
