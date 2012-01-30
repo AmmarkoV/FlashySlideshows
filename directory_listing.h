@@ -1,7 +1,7 @@
 #ifndef DIRECTORY_LISTING_H_INCLUDED
 #define DIRECTORY_LISTING_H_INCLUDED
 
-unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func);
+unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc);
 unsigned int GetTotalFilesInDirectory();
 unsigned int GetTotalViewableFilesInDirectory();
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename);

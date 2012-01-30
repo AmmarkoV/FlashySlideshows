@@ -102,6 +102,10 @@ struct SlideShowData
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
 
+
+  unsigned int sort_ascending; //0=descending 1=ascending
+  unsigned int sort_type; //0 = name , 1=date , 2=size
+
   unsigned int total_images_loaded;
   unsigned int total_images;
   unsigned int images_per_line;

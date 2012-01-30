@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1327889501 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1327964783 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -38,14 +38,14 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1327625337 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1327965154 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
 	<stdlib.h>
 	<stdio.h>
 
-1327611549 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1327964617 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -71,7 +71,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1327890686 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1327965545 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -83,7 +83,7 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1327891652 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1327964680 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1327709208 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
@@ -99,7 +99,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1327624461 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1327967085 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -113,11 +113,11 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1327623818 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
+1327966981 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
 1327709176 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1327890880 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1327967200 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"
@@ -127,6 +127,7 @@
 	"scene_objects.h"
 	"sound.h"
 	<math.h>
+	"camera_control.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>

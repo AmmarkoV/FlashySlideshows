@@ -24,6 +24,10 @@ void SetDestinationOverNextPicture();
 void PickHoverEffect(unsigned int x,unsigned int y);
 
 void CheckForTargetInBounds();
+
+
+int CameraSeesOnlyOnePicture();
+
 void PerformCameraMovement(unsigned int microseconds_of_movement);
 
 #endif // CAMERA_CONTROL_H_INCLUDED

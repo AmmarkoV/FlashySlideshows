@@ -415,6 +415,14 @@ void SetDestinationOverNextPicture()
 
 
 
+int CameraSeesOnlyOnePicture()
+{
+  if ( frame.vz<=frame.distance_block_lower+2.5 ) { return 1; }
+
+  //ADD CODE HERE FOR WHEN ZOOMED BUT MOVING TO A NEIGHBORING PHOTO
+  return 0;
+}
+
 
 void PerformCameraMovement(unsigned int microseconds_of_movement)
 {

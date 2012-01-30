@@ -59,6 +59,9 @@ void InitSlideShow()
 
    frame.images_per_line=3;
 
+   frame.sort_ascending=1; //1=ascending by default
+   frame.sort_type=0;
+
    frame.automatic_slideshow_on=0;
    frame.time_ms_before_last_slide_change=0;
    frame.time_ms_between_two_transitions=5000;

@@ -26,6 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "scene_objects.h"
 #include "sound.h"
 #include <math.h>
+#include "camera_control.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -282,7 +283,7 @@ void DisplayHUD()
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
       glColor3f(0.0,0.0,0.0);
-      sprintf(fps_string,"%u/%u over %s created %u/%u/%u %u:%u:%u",
+      sprintf(fps_string,"%u/%u over %s created %u/%u/%u %u:%02u:%02u",
                           frame.active_image_place,
                           GetTotalViewableFilesInDirectory(),
 
@@ -309,6 +310,12 @@ void MainDisplayFunction()
   unsigned int album_traveler=0;
   unsigned int minpicture=MinPictureThatIsVisible(),maxpicture=MaxPictureThatIsVisible();
 
+
+  if ( CameraSeesOnlyOnePicture() )
+   {
+     minpicture=frame.active_image_place;
+     maxpicture=frame.active_image_place+1;
+   }
           for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
            {
                if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],album_traveler, 7,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 1 Drawing pic %u \n",album_traveler);*/ } } else

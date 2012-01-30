@@ -412,38 +412,23 @@ int main(int argc, char *argv[])
          {
              if (strcmp(argv[i],"-r")==0)
                    { //Recursive Directory command
-                      if (i+1<=argc)
-                      {
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);
-                      }
                    } else
-             if (strcmp(argv[i],"-s")==0)
+             if (strcmp(argv[i],"-sfx")==0)
                    { //Sound Effects command
-                      if (i+1<=argc)
-                      {
                        fprintf(stderr,"%u Sound Effects Enabled %s\n",i,argv[i]);
-                      }
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command
-                      if (i+1<=argc)
-                      {
                        fprintf(stderr,"%u Face Detection Enabled %s\n",i,argv[i]);
-                      }
                    } else
              if (strcmp(argv[i],"-v")==0)
                    { //Visuals Enabled command
-                      if (i+1<=argc)
-                      {
                        fprintf(stderr,"%u Visuals Enabled %s\n",i,argv[i]);
-                      }
                    } else
              if (strcmp(argv[i],"-m")==0)
                    { //Mipmaping Enabled command
-                      if (i+1<=argc)
-                      {
                        fprintf(stderr,"%u Mipmaping Enabled %s\n",i,argv[i]);
-                      }
                    } else
              if (strcmp(argv[i],"-q")==0)
                    { //Quality command
@@ -464,6 +449,19 @@ int main(int argc, char *argv[])
                       if (i+1<=argc)
                       {
                        fprintf(stderr,"%u Transition Type %s=%s\n",i,argv[i],argv[i+1]);
+                      }
+                   } else
+             if (strcmp(argv[i],"-s")==0)
+                   { //Sorting Type command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Sorting Type %s=%s\n",i,argv[i],argv[i+1]);
+                       if  ( *argv[i+1]=='0' ) { fprintf(stderr,"Ascending Name\n"); frame.sort_type=0; frame.sort_ascending=1; } else
+                       if  ( *argv[i+1]=='1' ) { fprintf(stderr,"Ascending Date\n"); frame.sort_type=1; frame.sort_ascending=1; } else
+                       if  ( *argv[i+1]=='2' ) { fprintf(stderr,"Ascending Size\n"); frame.sort_type=2; frame.sort_ascending=1; } else
+                       if  ( *argv[i+1]=='3' ) { fprintf(stderr,"Descending Name\n"); frame.sort_type=0; frame.sort_ascending=0; } else
+                       if  ( *argv[i+1]=='4' ) { fprintf(stderr,"Descending Date\n"); frame.sort_type=1; frame.sort_ascending=0; } else
+                       if  ( *argv[i+1]=='5' ) { fprintf(stderr,"Descending Size\n"); frame.sort_type=2; frame.sort_ascending=0; }
                       }
                    }
 
@@ -550,7 +548,7 @@ int main(int argc, char *argv[])
 
     CountPicturesInDirectory((char*)frame.album_directory);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
-    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),0); /* Load Directory List */
+    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),frame.sort_type,frame.sort_ascending); /* Load Directory List */
 
     frame.total_images=GetTotalViewableFilesInDirectory();
     unsigned int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }

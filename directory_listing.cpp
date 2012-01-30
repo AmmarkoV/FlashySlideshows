@@ -40,6 +40,8 @@ struct FilenameHolder
      unsigned int minute;
      unsigned int second;
 
+     unsigned int filesize;
+
      char filename[512];
 };
 
@@ -51,31 +53,15 @@ unsigned int last_list_total_pictures_count=0;
 
 
 
-unsigned int FirstItemSmallerOrEqualToSecond(unsigned int item_a,unsigned int item_b,unsigned int comp_func)
+unsigned int FirstItemSmallerOrEqualToSecond(unsigned int item_a,unsigned int item_b,unsigned int comp_func,unsigned int asc_desc)
 {
+    unsigned int true_value=1;
+    unsigned int false_value=0;
+
+    if (!asc_desc) { /*IF descending , we swap the result!*/ true_value=0; false_value=1;}
 
     if (comp_func == 0)
-     { // Compare by date
-       if (list[item_a].year < list[item_b].year) { return 1; }
-       if (list[item_a].year > list[item_b].year) { return 0; }
-
-       if (list[item_a].month < list[item_b].month) { return 1; }
-       if (list[item_a].month > list[item_b].month) { return 0; }
-
-       if (list[item_a].day < list[item_b].day) { return 1; }
-       if (list[item_a].day > list[item_b].day) { return 0; }
-
-       if (list[item_a].hour < list[item_b].hour) { return 1; }
-       if (list[item_a].hour > list[item_b].hour) { return 0; }
-
-       if (list[item_a].minute < list[item_b].minute) { return 1; }
-       if (list[item_a].minute > list[item_b].minute) { return 0; }
-
-       if (list[item_a].second < list[item_b].second) { return 1; }
-       if (list[item_a].second > list[item_b].second) { return 0; }
-     } else
-     if (comp_func == 1)
-     {
+     { //Compare by name
        unsigned int size_of_item_a_filename = strlen(list[item_a].filename);
        unsigned int size_of_item_b_filename = strlen(list[item_b].filename);
        unsigned int length=size_of_item_b_filename;
@@ -84,14 +70,39 @@ unsigned int FirstItemSmallerOrEqualToSecond(unsigned int item_a,unsigned int it
        unsigned int i=0;
        for (i=0; i<length; i++)
        {
-          if ( list[item_a].filename[i]<list[item_b].filename[i] ) { return 1;  }
-          if ( list[item_a].filename[i]>list[item_b].filename[i] ) { return 0;  }
+          if ( list[item_a].filename[i]<list[item_b].filename[i] ) { return true_value;  }
+          if ( list[item_a].filename[i]>list[item_b].filename[i] ) { return false_value;  }
        }
 
-       if (size_of_item_a_filename<size_of_item_b_filename) { return 1; }
+       if (size_of_item_a_filename<size_of_item_b_filename) { return true_value; }
+     } else
+    if (comp_func == 1)
+     { // Compare by date
+       if (list[item_a].year < list[item_b].year) { return true_value; }
+       if (list[item_a].year > list[item_b].year) { return false_value; }
+
+       if (list[item_a].month < list[item_b].month) { return true_value; }
+       if (list[item_a].month > list[item_b].month) { return false_value; }
+
+       if (list[item_a].day < list[item_b].day) { return true_value; }
+       if (list[item_a].day > list[item_b].day) { return false_value; }
+
+       if (list[item_a].hour < list[item_b].hour) { return true_value; }
+       if (list[item_a].hour > list[item_b].hour) { return false_value; }
+
+       if (list[item_a].minute < list[item_b].minute) { return true_value; }
+       if (list[item_a].minute > list[item_b].minute) { return false_value; }
+
+       if (list[item_a].second < list[item_b].second) { return true_value; }
+       if (list[item_a].second > list[item_b].second) { return false_value; }
+     } else
+    if (comp_func == 2 )
+     { // Compare by size
+       if (list[item_a].filesize <= list[item_b].filesize) { return true_value; } else
+                                                           { return false_value; }
      }
 
-    return 0;
+    return false_value;
 }
 
 void SwapListItems(unsigned int item_a,unsigned int item_b)
@@ -103,14 +114,14 @@ void SwapListItems(unsigned int item_a,unsigned int item_b)
 }
 
 
-void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func)
+void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func,unsigned int asc_desc)
 {
   if (end > beg + 1)
   {
     unsigned int piv=beg, l = beg + 1, r = end;
     while (l < r)
     {
-      if ( FirstItemSmallerOrEqualToSecond(l,piv,comp_func) )
+      if ( FirstItemSmallerOrEqualToSecond(l,piv,comp_func,asc_desc) )
         {
           l++;
         }
@@ -121,8 +132,8 @@ void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func)
     }
     SwapListItems(--l,beg);
 
-    SortDirectoryList(beg,l,comp_func);
-    SortDirectoryList(r,end,comp_func);
+    SortDirectoryList(beg,l,comp_func,asc_desc);
+    SortDirectoryList(r,end,comp_func,asc_desc);
   }
 }
 
@@ -182,7 +193,7 @@ inline wxString _U2(const char String[] = "")
 
 //ls -lrt sorted directory list
 
-unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func)
+unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc)
 {
   unsigned int COUNT_FILES_ONLY=0;
   unsigned int this_list_total_count=0;
@@ -240,6 +251,8 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
             list[this_list_total_pictures_count].minute=mod_time.GetMinute();
             list[this_list_total_pictures_count].second=mod_time.GetSecond();
 
+            wxULongLong size_long_long = fname.GetSize();
+            list[this_list_total_pictures_count].filesize=(unsigned int) size_long_long.ToULong();
 
             if ( this_list_total_pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
           }
@@ -261,7 +274,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
       if (this_list_total_count>0)
        {
         fprintf(stderr,"Sorting directory modification time.. ");
-        SortDirectoryList(0,this_list_total_count,comp_func);
+        SortDirectoryList(0,this_list_total_count,comp_func,asc_desc);
         fprintf(stderr,"done\n");
         PrintDirectoryList();
        }
@@ -273,7 +286,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
 
 unsigned int CountPicturesInDirectory(char * thedirectory)
 {
-  return GetDirectoryList(thedirectory,0,0); /*Calling GetDirectoryList with 0 size only counts files!*/
+  return GetDirectoryList(thedirectory,0,0,0); /*Calling GetDirectoryList with 0 size only counts files!*/
 }
 
 unsigned int GetTotalFilesInDirectory()
