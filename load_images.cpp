@@ -31,6 +31,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 struct Picture *star=0;
 struct Picture *heart=0;
+struct Picture *play_img;
+struct Picture *pause_img;
 struct Picture *loading=0;
 struct Picture *loading_texture=0;
 struct Picture *failed=0;

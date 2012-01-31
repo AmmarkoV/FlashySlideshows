@@ -71,6 +71,8 @@ struct Picture
 
 extern struct Picture *star;
 extern struct Picture *heart;
+extern struct Picture *play_img;
+extern struct Picture *pause_img;
 extern struct Picture *loading;
 extern struct Picture *loading_texture;
 extern struct Picture *failed;

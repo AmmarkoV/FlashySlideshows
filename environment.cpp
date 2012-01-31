@@ -75,6 +75,14 @@ int LoadStockTexturesAndSounds()
     heart=CreatePicture((char * )filename,1);
     make_texture(heart,1);
 
+    sprintf(filename,"%s/play.png",base_directory);
+    play_img=CreatePicture((char * )filename,1);
+    make_texture(play_img,1);
+
+    sprintf(filename,"%s/pause.png",base_directory);
+    pause_img=CreatePicture((char * )filename,1);
+    make_texture(pause_img,1);
+
     sprintf(filename,"%s/loading_texture.jpg",base_directory);
     loading_texture=CreatePicture((char * )filename,1);
    // loading_texture->position.ok=1;

@@ -33,6 +33,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "wxwidgets_stuff.h"
 #include "joystick.h"
 #include "environment.h"
+#include "scene_objects.h"
 
 
 #include <sys/time.h>
@@ -231,7 +232,10 @@ static void DisplayCallback(void)
 
              MainDisplayFunction();
 
+             Render_3DObjects();
+
              DrawEffects();
+
 
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();
@@ -259,6 +263,7 @@ static void DisplayCallback(void)
 
    /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER/COMPUTER INPUT*/
    PerformCameraMovement(time_passed_microseconds);
+   Run3DObjects(time_passed_microseconds);
 
 
    /* Texture binding via OpenGL , it can only be done in this thread , while not rendering  >>>>>>>>>>>>>>>>>>>>>>*/

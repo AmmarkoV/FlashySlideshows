@@ -20,6 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "slideshow.h"
 #include "camera_control.h"
 #include "sound.h"
+#include "scene_objects.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -144,16 +145,30 @@ void TriggerNextPictureSlideShow()
 
 void ToggleAutomaticSlideshow()
 {
+
+     float icon_z = frame.vz-6.5;
+     if ( icon_z < -5 ) { icon_z = -4.5; }
+
+
      if ( frame.automatic_slideshow_on==0 )
       {
           SoundLibrary_PlaySound(SLIDESHOW_START);
           SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
           frame.time_ms_before_last_slide_change=frame.tick_count;
           frame.automatic_slideshow_on=1;
+          Add_3DObject(//0,0,0,
+                       frame.vx,frame.vy,icon_z,
+                       //frame.vx,frame.vy,frame.vz,
+                       5,5,/*PLAY*/ 2 ,1000000);
+
       } else
       {
           SoundLibrary_PlaySound(SLIDESHOW_STOP);
           frame.automatic_slideshow_on=0;
+          Add_3DObject(//0,0,0,
+                       frame.vx,frame.vy,icon_z,
+                       //frame.vx,frame.vy,frame.vz,
+                       5,5,/*PAUSE*/ 3 ,1000000);
       }
 }
 

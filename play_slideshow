@@ -1,3 +1,3 @@
 #!/bin/bash
-bin/Release/FlashySlideShow bin/Release/FlashySlideShow  -r -fd -m -q 2 -t 1 -d 102 "/home/ammar/Public"
+bin/Release/FlashySlideShow bin/Release/FlashySlideShow  -sfx -r -fd -m -q 2 -t 1 -d 102 "/home/ammar/Pictures"
 exit 0
