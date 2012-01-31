@@ -39,7 +39,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1327975411 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1327975697 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"

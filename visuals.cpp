@@ -338,8 +338,8 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
   glEnable(GL_NORMALIZE);
   glEnable(GL_LINE_SMOOTH);
 
-/*
-  glTranslated(x,y,z);*/
+
+  glTranslated(x,y,z);
   if ( rotation!=0 )    { glRotated(rotation,0.0,0.0,1.0); }
 
   glDisable(GL_CULL_FACE);
@@ -356,10 +356,10 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
     glColor3f(1.0,1.0,1.0);
      float size_x=9,size_y=9;
      float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z/*-4.1*/);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z/*-4.1*/);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z/*-4.1*/);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z/*-4.1*/);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0+xmin,0+ymin,0/*-4.1*/);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(0+xmax,0+ymin,0/*-4.1*/);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(0+xmax,0+ymax,0/*-4.1*/);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0+xmin,0+ymax,0/*-4.1*/);
    glEnd();
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);
@@ -367,7 +367,7 @@ void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_
   glDisable(GL_BLEND);
 
     if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
- /* glTranslated(-x,-y,-z);*/
+  glTranslated(-x,-y,-z);
   glDisable(GL_LINE_SMOOTH);
   glDisable(GL_NORMALIZE);
   glPopMatrix();
@@ -403,8 +403,8 @@ void DrawBackground()
 int DrawEffects()
 {
 
-  DrawDecal(25,0,0,times_drawn_background/1000,0);
-  DrawDecal(25,14,0,times_drawn_background/1000,1);
+  DrawDecal(25,0,0,times_drawn_background/10,0);
+  DrawDecal(25,14,0,-times_drawn_background/10,1);
   return 1;
 }
 
