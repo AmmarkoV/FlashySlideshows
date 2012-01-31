@@ -48,7 +48,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow ver 0.41 / UNDER CONSTRUCTION!";
+char APP_VERSION_STRING[70]="FlashySlideShow v0.42";
 int STOP_APPLICATION=0;
 
  struct timeval last_frame,this_frame,difference;

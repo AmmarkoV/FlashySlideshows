@@ -331,7 +331,7 @@ void MainDisplayFunction()
 
 }
 
-void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_type)
+void DrawDecal(float x,float y,float z,float  rotation,unsigned int decal_type)
 {
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
@@ -403,8 +403,8 @@ void DrawBackground()
 int DrawEffects()
 {
 
-  DrawDecal(25,0,0,times_drawn_background/10,0);
-  DrawDecal(25,14,0,-times_drawn_background/10,1);
+  DrawDecal(25,0,0,(float) times_drawn_background/100,0);
+  DrawDecal(25,14,0,(float) -times_drawn_background/100,1);
   return 1;
 }
 

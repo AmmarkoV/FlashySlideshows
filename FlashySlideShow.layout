@@ -50,7 +50,7 @@
 		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1579" topLine="33" />
+		<Cursor position="1372" topLine="21" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="1510" topLine="0" />
@@ -65,7 +65,7 @@
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="scene_objects.cpp" open="1" top="0" tabpos="23">
-		<Cursor position="28" topLine="0" />
+		<Cursor position="399" topLine="0" />
 	</File>
 	<File name="scene_objects.h" open="1" top="0" tabpos="24">
 		<Cursor position="92" topLine="0" />
@@ -83,10 +83,10 @@
 		<Cursor position="192" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="9956" topLine="269" />
+		<Cursor position="14705" topLine="17" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
-		<Cursor position="357" topLine="0" />
+		<Cursor position="296" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
 		<Cursor position="867" topLine="8" />

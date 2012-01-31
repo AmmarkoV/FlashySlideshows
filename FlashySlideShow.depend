@@ -117,9 +117,9 @@
 
 1327966981 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
-1327972512 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
+1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1327975640 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1327976409 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"visuals.h"
@@ -842,7 +842,7 @@
 1327972544 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
 	"slideshow.h"
 
-1327973618 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
+1327976365 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
 	"scene_objects.h"
 	"visuals.h"
 	<stdlib.h>

@@ -14,7 +14,7 @@ unsigned int Render_3DObject(unsigned int objnum)
              objects[objnum].position.x,
              objects[objnum].position.y,
              objects[objnum].position.z,
-             0,
+             0.0,
              objects[objnum].hardcoded_shape
            );
   return 1;

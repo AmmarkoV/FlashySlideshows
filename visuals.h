@@ -6,7 +6,7 @@ void DisplayHUD();
 void MainDisplayFunction();
 void DrawBackground();
 int DrawEffects();
-void DrawDecal(float x,float y,float z,unsigned int rotation,unsigned int decal_type);
+void DrawDecal(float x,float y,float z,float rotation,unsigned int decal_type);
 
 int MinPictureThatIsVisible();
 int MaxPictureThatIsVisible();
