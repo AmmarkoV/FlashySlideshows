@@ -180,7 +180,6 @@ int Controls_Handle_MouseMotion(int button,int state, int x, int y)
   frame.mouse.mouse_x=x;
   frame.mouse.mouse_y=y;
 
-
    if  ( frame.mouse.left_pressed == 1 ) {
                                          frame.dragging_screen=1;
                                          fprintf(stderr,"DRAGGING \n");
@@ -207,57 +206,6 @@ int Controls_Handle_MouseMotion(int button,int state, int x, int y)
   return 0;
 }
 
-
-int MoveToPicture(unsigned int direction)
-{
-  fprintf(stderr,"Move to picture direction = %u \n",direction);
-  unsigned int last_active_picture=frame.active_image_place;
-  unsigned int last_line=0;
-  if ( frame.images_per_line>0) last_line=frame.total_images/frame.images_per_line;
-
-  fprintf(stderr,"Picture X/Y was %u / %u \n",frame.active_image_x,frame.active_image_y);
-
-    if ( direction == D_UP )
-                               {  /* UP */
-                                    if ( frame.active_image_y > 0 ) {  frame.active_image_y-=1; }
-                               } else
-    if ( direction == D_DOWN )
-                               {  /* DOWN */
-                                    if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; }
-                               } else
-    if ( direction == D_LEFT ) {  /* LEFT */
-                                    if ( frame.active_image_x > 0 ) {  frame.active_image_x-=1; } else
-                                    { //Go to the next row functionality :P
-                                       if ( frame.active_image_y >0 )
-                                       {
-                                           frame.active_image_x=frame.images_per_line-1;
-                                         --frame.active_image_y;
-                                       }
-                                    }
-                               } else
-    if ( direction == D_RIGHT ) {  /* RIGHT */
-                                    if ( frame.active_image_x < frame.images_per_line-1 ) {  frame.active_image_x+=1; } else
-                                    if ( frame.active_image_y < last_line-1 )
-                                       {//Go to the previous row functionality :P
-                                           frame.active_image_x=0;
-                                         ++frame.active_image_y;
-                                       }
-                                }
-
-   fprintf(stderr,"Picture X/Y now is %u / %u \n",frame.active_image_x,frame.active_image_y);
-   unsigned int current_active_picture=frame.active_image_x+frame.active_image_y*frame.images_per_line;
-
-   if ( current_active_picture!=last_active_picture )
-    {
-      fprintf(stderr,"Changing destination\n");
-      frame.active_image_place=current_active_picture;
-      SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
-      frame.seek_move_activated=1; /*THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0
-                                     so it is important to set this right here!*/
-      return 1;
-    }
-   return 0;
-}
 
 
 int Controls_Handle_Keyboard(unsigned char key, int x, int y)

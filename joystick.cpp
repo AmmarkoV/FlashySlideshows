@@ -9,7 +9,7 @@
 
 #include "camera_control.h"
 #include "joystick.h"
-
+#include "slideshow.h"
 
 char joystick_device[512]="/dev/input/js0";
 
@@ -80,7 +80,7 @@ int ExecuteButtonCommand(int button_num)
 /*L2*/case 6: /*IssueCommand((char *) "STOP SOUNDS",0,0,(char *)"JOYSTICK");*/  break;
 /*R2*/case 7: /*IssueCommand((char *) "PLAYSOUND(kleftis_itan_o_pateras_sou)",0,0,(char *)"JOYSTICK");*/ break;
       case 8: break;
-      case 9: break;
+      case 9: ToggleAutomaticSlideshow(); break;
       case 10: break;
       case 11: break;
       case 12: break;
@@ -138,25 +138,12 @@ int HandleJoystickEvent(struct js_event *jse)
            printf("Joystick Stick 3 %d,%d\n",Calibrated_Stick3_AxisX,Calibrated_Stick3_AxisY);
 
 
-          if ( (Calibrated_Stick1_AxisX!=0 ) || ( Calibrated_Stick1_AxisY!=0 ) )
+          if ( (Calibrated_Stick1_AxisX!=0 ) || ( Calibrated_Stick1_AxisY!=0 ) || ( Calibrated_Stick2_AxisY!=0 ) )
            {
             fprintf(stderr , (char *) "JOYSTICK INPUT(%u,%u)",Calibrated_Stick1_AxisX,Calibrated_Stick1_AxisY);
-            if (Calibrated_Stick1_AxisX<0) { MoveDestinationCenter(D_LEFT); } else
-                                           { MoveDestinationCenter(D_RIGHT); }
-
-            if (Calibrated_Stick1_AxisY<0) { MoveDestinationCenter(D_UP); } else
-                                           { MoveDestinationCenter(D_DOWN); }
-         //   IssueCommand(inptstr,0,0,(char *)"GUI");
            }
-          if ( (Calibrated_Stick2_AxisX!=0 ) || ( Calibrated_Stick2_AxisY!=0 ) )
-           {
-            if (Calibrated_Stick1_AxisY<0) { MoveDestinationCenter(D_IN); } else
-                                           { MoveDestinationCenter(D_OUT); }
 
-            //Stick 2 not used yet :)
-            //sprintf(inptstr , (char *) "JOYSTICK INPUT(%u,%u)",Calibrated_Stick1_AxisX,Calibrated_Stick1_AxisY);
-            //IssueCommand(inptstr,0,0,(char *)"GUI");
-           }
+
 		}
 
 		 else
@@ -181,7 +168,26 @@ int HandleJoystickEvent(struct js_event *jse)
 }
 
 
+int ExecuteJoystickEvents()
+{
+if ( (Calibrated_Stick1_AxisX!=0 ) || ( Calibrated_Stick1_AxisY!=0 ) || ( Calibrated_Stick2_AxisY!=0 ) )
+           {
+            MoveDestinationCenterRaw((float) Calibrated_Stick1_AxisX/-500,(float) Calibrated_Stick1_AxisY/500,(float) Calibrated_Stick2_AxisY/2500);
+           }
 
+if ( (Calibrated_Stick3_AxisX!=0 ) || ( Calibrated_Stick3_AxisY!=0 )   )
+           {
+            if (Calibrated_Stick3_AxisX<10) { MoveToPicture(D_LEFT); } else
+            if (Calibrated_Stick3_AxisX>10) { MoveToPicture(D_RIGHT); }
+
+            if (Calibrated_Stick3_AxisY<10) { MoveToPicture(D_UP); } else
+            if (Calibrated_Stick3_AxisY>10) { MoveToPicture(D_DOWN); }
+
+            Calibrated_Stick3_AxisX=0;
+            Calibrated_Stick3_AxisY=0;
+           }
+ return 1;
+}
 
 
 
@@ -236,7 +242,7 @@ void * JoystickPollingLoop(void *ptr )
      {
 
 		rc = read_joystick_event(&jse);
-		usleep(1000);
+		usleep(10000);
 		if (rc == 1)
 		 {
 			//printf("Event: time %8u, value %8hd, type: %3u, axis/button: %u\n",jse.time, jse.value, jse.type, jse.number);
@@ -244,6 +250,7 @@ void * JoystickPollingLoop(void *ptr )
 
 		 }
 
+        ExecuteJoystickEvents();
      }
   JOYSTICK_OK=0;
 

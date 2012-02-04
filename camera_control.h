@@ -15,6 +15,8 @@ enum Directions
 void ToggleTransitionMode();
 
 void SetDestinationCenter();
+void MoveDestinationCenterRaw(float x,float y,float z);
+int  MoveToPicture(unsigned int direction);
 void MoveDestinationCenter(unsigned int movement_direction);
 void SetDestinationOverPicture(unsigned int x,unsigned int y);
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y);
