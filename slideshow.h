@@ -97,6 +97,8 @@ struct SlideShowData
    struct Pictures * pictures_data;
 
   float distance_block_upper,distance_block_lower;
+  float distance_block_left,distance_block_right,distance_block_up,distance_block_down;
+
 
   float distance_barrier_after_considered_zoom,desired_step_zoom;
   float distance_barrier_after_considered_close,desired_step_close;

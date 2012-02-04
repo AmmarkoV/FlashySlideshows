@@ -49,6 +49,10 @@ void InitSlideShow()
 
    frame.distance_block_upper=20;
    frame.distance_block_lower=-4.0;
+   frame.distance_block_left=-20;
+   frame.distance_block_right=20;
+   frame.distance_block_up=20;
+   frame.distance_block_down=-20;
 
    frame.distance_barrier_after_considered_zoom=-2;
    frame.distance_barrier_after_considered_close=3;
