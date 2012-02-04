@@ -2,13 +2,13 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="6715" topLine="243" />
+		<Cursor position="23653" topLine="5" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
-		<Cursor position="650" topLine="0" />
+		<Cursor position="287" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="8731" topLine="212" />
+		<Cursor position="5311" topLine="153" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
@@ -20,19 +20,19 @@
 		<Cursor position="185" topLine="0" />
 	</File>
 	<File name="environment.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="979" topLine="51" />
+		<Cursor position="3620" topLine="0" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
 		<Cursor position="229" topLine="0" />
 	</File>
 	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
-		<Cursor position="65" topLine="0" />
+		<Cursor position="1774" topLine="26" />
 	</File>
 	<File name="image_sensing.h" open="1" top="0" tabpos="26">
 		<Cursor position="165" topLine="0" />
 	</File>
 	<File name="joystick.cpp" open="1" top="0" tabpos="27">
-		<Cursor position="1709" topLine="66" />
+		<Cursor position="237" topLine="0" />
 	</File>
 	<File name="joystick.h" open="1" top="0" tabpos="25">
 		<Cursor position="0" topLine="21" />
@@ -49,10 +49,10 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="165" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1372" topLine="21" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1376" topLine="500" />
 	</File>
-	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
+	<File name="math_3d.cpp" open="1" top="1" tabpos="14">
 		<Cursor position="1510" topLine="0" />
 	</File>
 	<File name="math_3d.h" open="1" top="0" tabpos="18">
@@ -65,16 +65,16 @@
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="scene_objects.cpp" open="1" top="0" tabpos="23">
-		<Cursor position="399" topLine="0" />
+		<Cursor position="399" topLine="84" />
 	</File>
 	<File name="scene_objects.h" open="1" top="0" tabpos="24">
 		<Cursor position="92" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="3149" topLine="84" />
+		<Cursor position="1352" topLine="16" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="3197" topLine="126" />
+		<Cursor position="2200" topLine="75" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="1010" topLine="147" />
@@ -83,7 +83,7 @@
 		<Cursor position="192" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="14705" topLine="17" />
+		<Cursor position="14705" topLine="278" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="296" topLine="0" />

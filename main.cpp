@@ -48,7 +48,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow v0.42";
+char APP_VERSION_STRING[70]="FlashySlideShow v0.43";
 int STOP_APPLICATION=0;
 
  struct timeval last_frame,this_frame,difference;
@@ -400,6 +400,10 @@ void ToggleFullscreen()
 
 int main(int argc, char *argv[])
 {
+    /* Initialize Slideshow variables before the arguments are parsed..*/
+    InitSlideShow();
+
+
     strcpy((char * ) frame.album_directory,"album");
     if ( argc <1 )
      {
@@ -446,7 +450,8 @@ int main(int argc, char *argv[])
                    { //Transition delay command
                       if (i+1<=argc)
                       {
-                       fprintf(stderr,"%u Transition Delay %s = %s\n",i,argv[i],argv[i+1]);
+                       frame.time_ms_between_two_transitions=atoi(argv[i+1]);
+                       fprintf(stderr,"%u Transition Delay %s = %s ( %u ) \n",i,argv[i],argv[i+1],frame.time_ms_between_two_transitions);
                       }
                    } else
              if (strcmp(argv[i],"-t")==0)
@@ -537,8 +542,7 @@ int main(int argc, char *argv[])
 
 
 
-    /* Initialize Slideshow variables */
-    InitSlideShow();
+
 
 
     /* Initialize WxWidgets */

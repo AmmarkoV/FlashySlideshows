@@ -1,3 +1,4 @@
 #!/bin/bash
-bin/Release/FlashySlideShow bin/Release/FlashySlideShow  -sfx -r -fd -m -q 2 -t 1 -d 102 "/home/ammar/Pictures"
+bin/Release/FlashySlideShow bin/Release/FlashySlideShow  -sfx -r -fd -m -q 2 -t 1 -d 6000 "/home/ammar/Documents/Programming/FlashySlideShow/app_clipart"
+#"/home/ammar/Pictures"
 exit 0

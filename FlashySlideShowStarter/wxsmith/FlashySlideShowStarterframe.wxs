@@ -75,7 +75,7 @@
 			<pos>472,264</pos>
 		</object>
 		<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="DelaySpinCtrl" member="yes">
-			<value>1</value>
+			<value>5000</value>
 			<min>100</min>
 			<max>10000</max>
 			<pos>496,152</pos>

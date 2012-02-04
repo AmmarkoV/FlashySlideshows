@@ -119,8 +119,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,256), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
     CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(472,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
     CheckBoxVisuals->SetValue(false);
-    DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("1"), wxPoint(496,152), wxSize(88,27), 0, 100, 10000, 1, _T("ID_SPINCTRL1"));
-    DelaySpinCtrl->SetValue(_T("1"));
+    DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("5000"), wxPoint(496,152), wxSize(88,27), 0, 100, 10000, 5000, _T("ID_SPINCTRL1"));
+    DelaySpinCtrl->SetValue(_T("5000"));
     StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Delay"), wxPoint(456,160), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
     StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("ms"), wxPoint(592,160), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
     CheckBoxIncludeSubfolders = new wxCheckBox(this, ID_CHECKBOX4, _("Include Subfolders"), wxPoint(472,296), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
