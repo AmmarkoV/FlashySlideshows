@@ -45,6 +45,8 @@ void SetDisplayAllPictures(unsigned int newstate)
 
 void InitSlideShow()
 {
+
+   frame.enable_sound_effects=0;
    frame.gpu.usedRAM=0;
 
    frame.distance_block_upper=20;

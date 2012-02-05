@@ -80,6 +80,9 @@ struct FilePicture
 
 struct SlideShowData
 {
+
+  unsigned int enable_sound_effects;
+
   unsigned int tick_count;
   unsigned int fps;
   unsigned int lookahead;

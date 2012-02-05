@@ -476,6 +476,17 @@ void SetDestinationOverNextPicture()
 }
 
 
+int CameraOverPicture(unsigned int x,unsigned int y)
+{
+    return ( (frame.active_image_x==x)&&(frame.active_image_y==y) );
+}
+
+
+int CameraOverPicture(unsigned int pic_place)
+{
+    return (frame.active_image_place==pic_place);
+}
+
 
 int CameraSeesOnlyOnePicture()
 {

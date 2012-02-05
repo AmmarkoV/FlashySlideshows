@@ -53,6 +53,8 @@
 		<Unit filename="controls.h" />
 		<Unit filename="directory_listing.cpp" />
 		<Unit filename="directory_listing.h" />
+		<Unit filename="effects.cpp" />
+		<Unit filename="effects.h" />
 		<Unit filename="environment.cpp" />
 		<Unit filename="environment.h" />
 		<Unit filename="image_sensing.cpp" />

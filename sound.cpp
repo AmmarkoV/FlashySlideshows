@@ -18,6 +18,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "sound.h"
+#include "slideshow.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -175,17 +177,20 @@ void StartSoundLibrary()
 
 void SoundLibrary_PlaySound(unsigned int num)
 {
+   if (!frame.enable_sound_effects) { return; }
    if (num<total_loaded_buffers) { alSourcePlay(Sources[num]);}
 }
 
 void SoundLibrary_LoopSound(unsigned int num)
 {
+   if (!frame.enable_sound_effects) { return; }
    if (num<total_loaded_buffers) { alSourcei (Sources[num], AL_LOOPING,  AL_TRUE          );
                                    alSourcePlay(Sources[num]); }
 }
 
 void SoundLibrary_PlaySoundPos(unsigned int num,float x,float y,float z)
 {
+   if (!frame.enable_sound_effects) { return; }
    if (num<total_loaded_buffers) {  SourcesPos[num][0]=x;
                                     SourcesPos[num][1]=y;
                                     SourcesPos[num][2]=z;

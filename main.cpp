@@ -426,6 +426,7 @@ int main(int argc, char *argv[])
              if (strcmp(argv[i],"-sfx")==0)
                    { //Sound Effects command
                        fprintf(stderr,"%u Sound Effects Enabled %s\n",i,argv[i]);
+                       frame.enable_sound_effects=1;
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command

@@ -27,7 +27,8 @@ void PickHoverEffect(unsigned int x,unsigned int y);
 
 void CheckForTargetInBounds();
 
-
+int CameraOverPicture(unsigned int x,unsigned int y);
+int CameraOverPicture(unsigned int pic_place);
 int CameraSeesOnlyOnePicture();
 
 void PerformCameraMovement(unsigned int microseconds_of_movement);
