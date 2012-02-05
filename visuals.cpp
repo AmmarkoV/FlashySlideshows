@@ -84,16 +84,13 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_NORMALIZE);
+  glEnable(GL_CULL_FACE);
   glEnable(GL_LINE_SMOOTH);
 
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
 
-  //glTranslated(x,y,z);
-
-
-  glDisable(GL_CULL_FACE);
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
 
 
@@ -141,14 +138,10 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  /*  if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }*/
 
   glDisable ( GL_TEXTURE_2D );
-  glEnable(GL_COLOR_MATERIAL);
-  glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
-
-
- // glTranslated(-x,-y,-z);
   glDisable(GL_LINE_SMOOTH);
   glDisable(GL_NORMALIZE);
+  glEnable(GL_COLOR_MATERIAL);
   glPopMatrix();
   return 1;
 }
@@ -268,13 +261,18 @@ void MainDisplayFunction()
    {
      minpicture=frame.active_image_place;
      maxpicture=frame.active_image_place+1;
+   } else
+   {
+       DrawBackground();
    }
+
+
           for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
            {
                if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],album_traveler, 7,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 1 Drawing pic %u \n",album_traveler);*/ } } else
                if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler],album_traveler,  0,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 2 Drawing pic %u \n",album_traveler);*/ } } else
                if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler],album_traveler, -7,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 3 Drawing pic %u \n",album_traveler);*/ }
-                                                                                                              y+=6;  } else
+                                            y+=6;  } else
                                           { fprintf(stderr,"Wtf"); }
            }
 
@@ -337,7 +335,8 @@ void DrawBackground()
     glColor4f(1.0,1.0,1.0,1.0);
 
     float x=frame.vx,y=frame.vy,z=0;
-    float xmin=(-1)*100,xmax=100,ymin=(-1)*100,ymax=100;
+    float xmin=-50,xmax=50;
+    float ymin=-((xmax-xmin)*3/4)/2,ymax=ymin*(-1);
 
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-15);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-15);	// Bottom Right Of The Texture and Quad

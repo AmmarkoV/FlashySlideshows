@@ -228,7 +228,7 @@ static void DisplayCallback(void)
           glRotatef(frame.angle_z,0,0,-1.0);
           glTranslatef(-frame.vx, -frame.vy, -frame.vz);
 
-             DrawBackground();
+
 
              MainDisplayFunction();
 
@@ -535,12 +535,12 @@ int main(int argc, char *argv[])
 
   //  glClearColor(0.5f,0.5f,0.5f,1.0f);			// We'll Clear To The Color Of The Fog ( Modified )
 
-    glFogi(GL_FOG_MODE, fogMode[fogfilter]);		// Fog Mode
-    glFogfv(GL_FOG_COLOR, fogColor);			// Set Fog Color
-    glFogf(GL_FOG_DENSITY, 0.35f);				// How Dense Will The Fog Be
-    glHint(GL_FOG_HINT, GL_DONT_CARE);			// Fog Hint Value
-    glFogf(GL_FOG_START, 1.0f);				// Fog Start Depth
-    glFogf(GL_FOG_END, 5.0f);				// Fog End Depth
+  //  glFogi(GL_FOG_MODE, fogMode[fogfilter]);		// Fog Mode
+  //  glFogfv(GL_FOG_COLOR, fogColor);			// Set Fog Color
+  //  glFogf(GL_FOG_DENSITY, 0.35f);				// How Dense Will The Fog Be
+  //  glHint(GL_FOG_HINT, GL_DONT_CARE);			// Fog Hint Value
+  //  glFogf(GL_FOG_START, 1.0f);				// Fog Start Depth
+  //  glFogf(GL_FOG_END, 5.0f);				// Fog End Depth
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 

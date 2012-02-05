@@ -1,4 +1,5 @@
 #include "math_3d.h"
+#include <math.h>
 
 /*
   TAKEN FROM http://www.lighthouse3d.com/opengl/maths/index.php?raytriint
@@ -77,3 +78,7 @@ int rayIntersectsRectangle(float *p, float *d,float *v0, float *v1, float *v2, f
    return 0;
 }
 
+float distanceBetween3DPoints(float *x1,float*y1,float *z1,float *x2,float*y2,float *z2)
+{
+  return (float) sqrt( (*x1 * *x2) + (*y1 * *y2) + (*z1* *z2) );
+}

@@ -32,7 +32,9 @@ int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place);
 int CameraMoving();
 int CameraOverPicture(unsigned int x,unsigned int y);
 int CameraOverPicture(unsigned int pic_place);
+
 int CameraSeesOnlyOnePicture();
+int CameraSeesBackground();
 
 void PerformCameraMovement(unsigned int microseconds_of_movement);
 

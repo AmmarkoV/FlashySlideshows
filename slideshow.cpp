@@ -208,8 +208,6 @@ int SlideshowLastPictureToLoad()
   return 0;
 }
 
-
-
 int MinPictureThatIsVisible()
 {
   if ( DISPLAY_ALL_PICTURES == 1 ) { return 0; }/* OVERRIDE UNTIL EVERYTHING IS READY */
@@ -248,6 +246,19 @@ int MaxPictureThatIsVisible()
   //fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);
   return max_picture;
 }
+
+
+int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z)
+{
+    if (PictureOutOfBounds(pic_place)) { return 0; }
+
+    *x=album[pic_place]->position.x;
+    *y=album[pic_place]->position.y;
+    *z=album[pic_place]->position.z;
+    return 1;
+}
+
+
 
 int PicturesNeededToBeLoaded()
 {

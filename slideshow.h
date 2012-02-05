@@ -27,6 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define FRAME_DOWN_LEFT 3
 #define FRAME_DOWN_RIGHT 4
 
+#include "load_images.h"
 
  struct Color
  {
@@ -182,6 +183,8 @@ void ToggleAutomaticSlideshow();
 void AutomaticSlideShowControl_if_needed();
 
 void TriggerEndOfSlideShow();
+
+int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z);
 
 int MaxPictureThatIsVisible();
 int MinPictureThatIsVisible();

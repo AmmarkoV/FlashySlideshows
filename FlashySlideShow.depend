@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1328455614 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1328465611 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -39,7 +39,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1328455790 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1328467972 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -47,7 +47,8 @@
 	<stdlib.h>
 	<stdio.h>
 
-1328455539 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1328467844 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
@@ -102,7 +103,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1328414157 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1328468550 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -116,11 +117,11 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1328410317 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
+1328465958 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
 1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1328402394 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1328468754 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -167,10 +168,11 @@
 
 1284666049 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
 
-1284853490 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
+1328466535 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
 
-1284853747 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
+1328466555 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
 	"math_3d.h"
+	<math.h>
 
 1314284222 /usr/include/wx-2.8/wx/image.h
 	"wx/defs.h"
@@ -880,7 +882,7 @@
 1327634996 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1327969942 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1328465561 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
 	"load_images.h"
 	"load_textures.h"

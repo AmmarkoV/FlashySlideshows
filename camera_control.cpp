@@ -99,14 +99,14 @@ void CalculateActiveImage_AccordingToPosition()
    float inf_left[3]={0.0,0.0,-5} , inf_right[3]={0.0,0.0,-5};
    if ( !PictureOutOfBounds (total_y*frame.images_per_line) )
      {
-       bot_left[0]=album[album_traveler]->position.x - 100;
+       bot_left[0]=album[album_traveler]->position.x - 1000;
        bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
 
-       bot_right[0]=album[album_traveler]->position.x + 100;
+       bot_right[0]=album[album_traveler]->position.x + 1000;
        bot_right[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
 
-       inf_left[0]=bot_left[0]-100;  inf_right[0]=bot_right[0]+100;
-       inf_left[1]=bot_left[1]+100;  inf_right[1]=bot_right[1]+100;
+       inf_left[0]=bot_left[0]-1000;  inf_right[0]=bot_right[0]+1000;
+       inf_left[1]=bot_left[1]+1000;  inf_right[1]=bot_right[1]+1000;
        if ( rayIntersectsRectangle(camera_point,camera_direction,bot_left,bot_right,inf_left,inf_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
@@ -129,8 +129,8 @@ void CalculateActiveImage_AccordingToPosition()
        top_right[0]=album[album_traveler]->position.x + album[album_traveler]->position.size_x;
        top_right[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
 
-       inf_left[0]=bot_left[0]-100;  inf_right[0]=bot_right[0]+100;
-       inf_left[1]=bot_left[1]-100;  inf_right[1]=bot_right[1]-100;
+       inf_left[0]=bot_left[0]-1000;  inf_right[0]=bot_right[0]+1000;
+       inf_left[1]=bot_left[1]-1000;  inf_right[1]=bot_right[1]-1000;
        if ( rayIntersectsRectangle(camera_point,camera_direction,inf_left,inf_right,top_left,top_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
@@ -556,12 +556,29 @@ int CameraOverPicture(unsigned int pic_place)
 
 int CameraSeesOnlyOnePicture()
 {
-  if ( frame.vz<=frame.distance_block_lower+2.5 ) { return 1; }
 
-  //ADD CODE HERE FOR WHEN ZOOMED BUT MOVING TO A NEIGHBORING PHOTO
+
+  if ( frame.vz<=frame.distance_block_lower+3.5  )
+   {
+     float xcoord,ycoord,zcoord,distance;
+     GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);
+     distance=distanceBetween3DPoints(&xcoord,&ycoord,&zcoord,&frame.vx,&frame.vy,&frame.vz);
+
+     if (distance < 12.4)
+      {
+        //TODO :P fprintf(stderr,"Only one picture ( distance = %0.2f ) \n",distance);
+        return 1;
+      }
+   }
+
   return 0;
 }
 
+int CameraSeesBackground()
+{
+    //distanceBetween3DPoints(float *x1,float*y1,float *z1,float *x2,float*y2,float *z2)
+   return (!CameraSeesOnlyOnePicture());
+}
 
 void PerformCameraMovement(unsigned int microseconds_of_movement)
 {
