@@ -46,6 +46,7 @@ void SetDisplayAllPictures(unsigned int newstate)
 
 void InitSlideShow()
 {
+   frame.quality_setting=4; // Medium Quality
 
    frame.enable_sound_effects=0;
    frame.gpu.usedRAM=0;

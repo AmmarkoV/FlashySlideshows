@@ -89,6 +89,7 @@ struct SlideShowData
   unsigned int force_mipmap_generation;
   unsigned int mipmaping;
 
+  unsigned int quality_setting; //Smaller is better
   unsigned int fullscreen;
   unsigned int automatic_slideshow_on;
   unsigned int currently_loading;

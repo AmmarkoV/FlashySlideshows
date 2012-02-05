@@ -40,6 +40,49 @@ struct Picture *background=0;
 struct Picture *picture_frame=0;
 
 
+inline wxString _U(const char String[] = "")
+{
+  return wxString(String, wxConvUTF8);
+}
+
+unsigned int GetWidthQuality(unsigned int quality)
+{
+  switch (quality)
+  {
+    case 1: return 1920; break;
+    case 2: return 1600; break;
+    case 3: return 1152; break;
+    case 4: return 1024; break;
+    case 5: return 800; break;
+    case 6: return 640; break;
+  };
+  return 640;
+}
+
+unsigned int GetHeightQuality(unsigned int quality)
+{
+  return GetWidthQuality(quality)*3/4;
+}
+
+
+float PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
+{
+  unsigned int best_height = GetHeightQuality(frame.quality_setting);
+  unsigned int best_width = GetWidthQuality(frame.quality_setting);
+
+
+  if ( ( start_width < best_width ) && (start_height < best_height) ) { return 100; }
+  float ratio_width=start_width/best_width;
+  float ratio_height=start_height/best_height;
+
+  unsigned int scale_percentage=40;
+
+  if (( ratio_width==0 ) | ( ratio_height==0 )) {  } else
+  if ( ratio_width < ratio_height ) { scale_percentage=(float) 100/ratio_width; } else
+                                    { scale_percentage=(float) 100/ratio_height; }
+  return scale_percentage;
+}
+
 int PictureCreationPending(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) return 1;
@@ -60,12 +103,12 @@ int PictureLoadingPending(struct Picture * picturedata)
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
-    fprintf(stderr,"PreparePictureForImage Called for an image %u x %u : %u \n",width,height,depth);
+    fprintf(stderr,"PreparePictureForImage , image %u x %u : %u ",width,height,depth);
 
     if ((pic->rgb_data!=0) || (pic->rgb_data_size!=0))
      {
          /* CLEAR MEMORY TO ALLOCATE IT LATER*/
-         fprintf(stderr,"Picture Structure is dirty\n");
+         fprintf(stderr,"dirty Picture struct ");
          frame.system.usedRAM-=pic->rgb_data_size;
 
          if ( pic->rgb_data!=0 ) { free (pic->rgb_data);
@@ -74,8 +117,8 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          pic->rgb_data_size=0;
      }
 
-    if ( ( width == 0 ) || ( height == 0 ) || ( depth == 0 ) ) {  fprintf(stderr,"PreparePictureForImage only cleared allocated memory\n");
-                                                                  return 1; }
+    if ( ( width == 0 ) || ( height == 0 ) || ( depth == 0 ) ) {  fprintf(stderr,"PreparePictureForImage only cleared allocated memory\n"); return 1; }
+    if ( ( width < 50 ) || ( height < 50 ) ) {  fprintf(stderr,"This picture is very small (%u,%u) , skipping it\n",width,height); return 0; }
 
     if ((pic->rgb_data==0) || (pic->rgb_data_size==0))
      {
@@ -84,7 +127,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          //if (frame.system.maxRAM < frame.system.usedRAM + width*height*depth ) { fprintf(stderr,"System memory bounds reached"); return 0; }
 
          frame.system.lastTexture=width*height*depth;
-         if ( !RAM_Memory_can_accomodate(frame.system.lastTexture) ) { return 0; }
+         if ( !RAM_Memory_can_accomodate(frame.system.lastTexture) ) { fprintf(stderr,"RAM Memory cannot accomodate %u bytes \n",frame.system.lastTexture); return 0; }
 
          frame.system.usedRAM+=frame.system.lastTexture;
          pic->rgb_data=(char *) malloc( ( width*height*depth ) + depth );
@@ -103,30 +146,12 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      pic->depth=depth;
      pic->rgb_data_size=width*height*depth;
      frame.system.lastTexture=pic->rgb_data_size;
-     fprintf(stderr,"PreparePictureForImage completed\n");
+     fprintf(stderr,"ok\n");
 
     return 1;
 }
 
-inline wxString _U(const char String[] = "")
-{
-  return wxString(String, wxConvUTF8);
-}
 
-
-unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
-{
-  if ( ( start_width < 1024 ) && (start_height < 768) ) { return 100; }
-  float ratio_width=start_width/1024;
-  float ratio_height=start_height/768;
-
-  unsigned int scale_percentage=40;
-
-  if (( ratio_width==0 ) | ( ratio_height==0 )) {  } else
-  if ( ratio_width < ratio_height ) { scale_percentage=(unsigned int) 100/ratio_width; } else
-                                    { scale_percentage=(unsigned int) 100/ratio_height; }
-  return scale_percentage;
-}
 
 int WxLoadJPEG(char * filename,struct Picture * pic)
 {
@@ -165,10 +190,12 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 
     if ( WxLoadJPEG(filename,pic) )       { pic->marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
-                                     else { pic->failed_to_load=1;
+                                     else {
+                                            pic->failed_to_load=1;
                                             pic->gl_rgb_texture=failed->gl_rgb_texture;
                                             fprintf(stderr,"Failed to open and load picture \n");
-                                            return 0; }
+                                            return 0;
+                                          }
 
 
 
@@ -223,8 +250,16 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
 
   if (force_load==1)
    {
-    LoadPicture(filename,new_picture);
-    frame.total_images_loaded++;
+    if ( LoadPicture(filename,new_picture) )
+      {
+        frame.total_images_loaded++;
+      } else
+      {
+        //Picture cannot be loaded this may have happened for a lot of reasons..
+        //Not enough memory , bad file , removed file , whatever
+        free(new_picture);
+        return 0;
+      }
    }
   return new_picture;
 }

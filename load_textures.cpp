@@ -105,7 +105,10 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
    }
 
-    fprintf(stderr,"PLease note that when using mipmaps there is a lot more memory consumption :P \n");
+   if (enable_mipmaping)
+    {
+      fprintf(stderr,"Using mipmaps there is a lot more memory consumption , needs work..\n");
+    }
 
 
     frame.gpu.usedRAM+=frame.gpu.lastTexture;

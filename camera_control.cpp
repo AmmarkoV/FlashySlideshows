@@ -43,6 +43,35 @@ void ToggleTransitionMode()
     if ( transition_mode > 1 ) transition_mode = 0;
 }
 
+
+
+int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
+{
+  frame.last_image_x=frame.active_image_x;
+  frame.last_image_y=frame.active_image_y;
+  frame.last_image_place=frame.active_image_place;
+
+  if ( (x==0)&&(y==0)&&(place==0))
+   {
+     frame.active_image_x=0;
+     frame.active_image_y=0;
+     frame.active_image_place=0;
+   } else
+  if ((x==0)&&(y==0)&&(place!=0) )
+   {
+     frame.active_image_place=place;
+     frame.active_image_x=place%3;
+     frame.active_image_y=place/3;
+   } else
+   {
+     frame.active_image_x=x;
+     frame.active_image_y=y;
+     frame.active_image_place=x+(y*3);
+   }
+
+  return 1;
+}
+
 void CalculateActiveImage_AccordingToPosition()
 {
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
@@ -55,14 +84,17 @@ void CalculateActiveImage_AccordingToPosition()
 
 
    unsigned int start_y=0;
-   unsigned int total_y=frame.total_images / frame.images_per_line;
+   unsigned int total_y=(unsigned int) frame.total_images / frame.images_per_line;
 
    // ECONOMY :P
-   start_y=MinPictureThatIsVisible() / frame.images_per_line;
-   total_y=(MaxPictureThatIsVisible()  / frame.images_per_line)+3;
+   start_y=(unsigned int) MinPictureThatIsVisible()  / frame.images_per_line;
+   total_y=(unsigned int) MaxPictureThatIsVisible()  / frame.images_per_line;
+   //total_y+=3;
+
+
 
    album_traveler=total_y * frame.images_per_line;
-
+   if (album_traveler > frame.total_images) { album_traveler=frame.total_images; }
 
    float inf_left[3]={0.0,0.0,-5} , inf_right[3]={0.0,0.0,-5};
    if ( !PictureOutOfBounds (total_y*frame.images_per_line) )
@@ -79,9 +111,9 @@ void CalculateActiveImage_AccordingToPosition()
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
-                frame.active_image_y=(unsigned int) MaxPictureThatIsVisible()/frame.images_per_line;
-                frame.active_image_x=(unsigned int) MaxPictureThatIsVisible()%frame.images_per_line;
-                frame.active_image_place = MaxPictureThatIsVisible();
+                ChangeActiveImage((unsigned int) MaxPictureThatIsVisible()%frame.images_per_line,
+                                  (unsigned int) MaxPictureThatIsVisible()/frame.images_per_line,
+                                   0);
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
@@ -103,21 +135,24 @@ void CalculateActiveImage_AccordingToPosition()
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
-                frame.active_image_y=(unsigned int) MinPictureThatIsVisible()/frame.images_per_line;
-                frame.active_image_x=(unsigned int) MinPictureThatIsVisible()%frame.images_per_line;
-                frame.active_image_place = MinPictureThatIsVisible();
+                               ChangeActiveImage((unsigned int) MinPictureThatIsVisible()%frame.images_per_line,
+                                                 (unsigned int) MinPictureThatIsVisible()/frame.images_per_line,
+                                                  0);
+
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
 
 
+   album_traveler=start_y * frame.images_per_line;
+   if (album_traveler > frame.total_images) { album_traveler=frame.total_images; }
 
    for (y=start_y; y<total_y; y++)
     {
-       top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
-       bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
-       top_right[1]=top_left[1];
-       bot_right[1]=bot_left[1];
+     top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+     bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
+     top_right[1]=top_left[1];
+     bot_right[1]=bot_left[1];
 
 
      for (x=0; x<frame.images_per_line; x++)
@@ -132,9 +167,17 @@ void CalculateActiveImage_AccordingToPosition()
                 //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
                    //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
                    //fprintf(stderr,"RECTANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f,%f)\n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2],bot_left[0],bot_left[1],bot_left[2]);
-                   frame.active_image_y=y;
-                   frame.active_image_x=x;
-                   frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
+
+                   //frame.active_image_y=y;
+                   //frame.active_image_x=x;
+                   //frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
+
+                   if ((x!=frame.active_image_x)||(y!=frame.active_image_y))
+                    {
+                      //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                      //fprintf(stderr,"y from %u to %u\n",start_y,total_y);
+                      ChangeActiveImage(x,y,0);
+                    }
                   return;
             }
                  else
@@ -143,6 +186,7 @@ void CalculateActiveImage_AccordingToPosition()
                 }
 
        ++album_traveler;
+       if (album_traveler > frame.total_images) { album_traveler=frame.total_images; return; }
      }
     }
 
@@ -288,33 +332,6 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
   frame.vz=frame.desired_z;
 }
 
-
-int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
-{
-  frame.last_image_x=frame.active_image_x;
-  frame.last_image_y=frame.active_image_y;
-  frame.last_image_place=frame.active_image_place;
-
-  if ( (x==0)&&(y==0)&&(place==0))
-   {
-     frame.active_image_x=0;
-     frame.active_image_y=0;
-     frame.active_image_place=0;
-   } else
-  if ((x==0)&&(y==0)&&(place!=0) )
-   {
-     frame.active_image_place=place;
-     frame.active_image_x=place%3;
-     frame.active_image_y=place/3;
-   } else
-   {
-     frame.active_image_x=x;
-     frame.active_image_y=y;
-     frame.active_image_place=x+(y*3);
-   }
-
-  return 1;
-}
 
 
 void SetDestinationOverPicture(unsigned int x,unsigned int y)

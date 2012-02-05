@@ -445,7 +445,8 @@ int main(int argc, char *argv[])
                    { //Quality command
                       if (i+1<=argc)
                       {
-                       fprintf(stderr,"%u Image Quality %s = %s\n",i,argv[i],argv[i+1]);
+                       frame.quality_setting=atoi(argv[i+1]); // Quality
+                       fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
                       }
                    } else
              if (strcmp(argv[i],"-d")==0)

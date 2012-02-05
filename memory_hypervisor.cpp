@@ -70,12 +70,18 @@ int LoadPicturesIfNeeded()
          if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
             {
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack_mem_hyper,0);
-               ++loaded_pictures_this_loop;
+               if ( album[album_traveler] != 0 )
+                 {
+                     ++loaded_pictures_this_loop;
+                 } else
+                 {
+                     fprintf(stderr,"Failed to Create Picture TODO remove it from album and RemoveListItem\n");
+                     //RemoveListItem(album_traveler);
+                 }
+
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
     }
-
-   // usleep(10);
 
     ++album_traveler;
    }

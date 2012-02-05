@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1328403252 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1328455879 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"memory_hypervisor.h"
 	<stdlib.h>
@@ -14,7 +14,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1328404759 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1328455614 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -39,7 +39,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1328414009 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1328455790 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -47,12 +47,12 @@
 	<stdlib.h>
 	<stdio.h>
 
-1328409599 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1328455539 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1328404746 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1328453762 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"slideshow.h"
@@ -74,7 +74,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1327965545 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1328454746 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -86,7 +86,7 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1327964680 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1328454429 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1328319625 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
@@ -146,7 +146,7 @@
 	<string.h>
 	<ctype.h>
 
-1327701408 source:/home/ammar/Documents/Programming/FlashySlideShow/image_sensing.cpp
+1328453359 source:/home/ammar/Documents/Programming/FlashySlideShow/image_sensing.cpp
 	"image_sensing.h"
 	<stdlib.h>
 	<stdio.h>
@@ -156,7 +156,7 @@
 
 1327634892 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1327700976 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1328454943 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"

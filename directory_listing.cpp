@@ -48,7 +48,7 @@ struct FilenameHolder
 struct FilenameHolder * list=0;
 
 unsigned int list_size=0;
-unsigned int last_list_total_count=0;
+unsigned int last_list_total_countNOTUSEDANYWHERE=0; // We dont actually care about the total count of files , only about the pictures thus NOTUSEDANYWHERE :P
 unsigned int last_list_total_pictures_count=0;
 
 
@@ -114,6 +114,22 @@ void SwapListItems(unsigned int item_a,unsigned int item_b)
 }
 
 
+void RemoveListItem(unsigned int item_num)
+{
+  //Since the list is always sorted , we will have to move all items one step back
+  // TODO , this could be a linked list to make things easier , typically remove list items
+  // is not called in sorting so it will not have a performance impact
+
+  unsigned int item_iterator=item_num+1;
+  while (item_iterator<last_list_total_pictures_count)
+   {
+      list[item_iterator-1]=list[item_iterator];
+   }
+   --last_list_total_pictures_count;
+}
+
+
+
 void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func,unsigned int asc_desc)
 {
   if (end > beg + 1)
@@ -142,7 +158,7 @@ void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func,
 void PrintDirectoryList()
 {
   unsigned int i=0;
-  for (i=0; i<last_list_total_count; i++)
+  for (i=0; i<last_list_total_pictures_count; i++)
    {
      fprintf(stderr,"%u - %s\n",i,list[i].filename);
    }
@@ -230,10 +246,10 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
       fullname=fname.GetFullName();
 
       unsigned int is_a_picture=0;
-      if ( extension.CmpNoCase(wxT("JPG")) ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("JPEG")) ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("PNG")) ) {is_a_picture=1;}
-//      else if ( extension.CmpNoCase(wxT("BMP")) ) {is_a_picture=1;}
+      if ( extension.CmpNoCase(wxT("JPG"))==0 ) {is_a_picture=1;}
+      else if ( extension.CmpNoCase(wxT("JPEG"))==0 ) {is_a_picture=1;}
+      else if ( extension.CmpNoCase(wxT("PNG"))==0 ) {is_a_picture=1;}
+//      else if ( extension.CmpNoCase(wxT("BMP")==0) ) {is_a_picture=1;}
 
       if ( is_a_picture )
         {
@@ -266,7 +282,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
 
   if (COUNT_FILES_ONLY)
     {
-        last_list_total_count=this_list_total_count;
+        last_list_total_countNOTUSEDANYWHERE=this_list_total_count;
         last_list_total_pictures_count=this_list_total_pictures_count;
         return this_list_total_pictures_count;
     } else
@@ -274,7 +290,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
       if (this_list_total_count>0)
        {
         fprintf(stderr,"Sorting directory modification time.. ");
-        SortDirectoryList(0,this_list_total_count,comp_func,asc_desc);
+        SortDirectoryList(0,this_list_total_pictures_count,comp_func,asc_desc);
         fprintf(stderr,"done\n");
         PrintDirectoryList();
        }
@@ -291,7 +307,7 @@ unsigned int CountPicturesInDirectory(char * thedirectory)
 
 unsigned int GetTotalFilesInDirectory()
 {
-    return last_list_total_count;
+    return last_list_total_countNOTUSEDANYWHERE;
 }
 
 
