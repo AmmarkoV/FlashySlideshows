@@ -87,6 +87,7 @@ struct SlideShowData
   unsigned int fps;
   unsigned int lookahead;
   unsigned int force_mipmap_generation;
+  unsigned int mipmaping;
 
   unsigned int fullscreen;
   unsigned int automatic_slideshow_on;

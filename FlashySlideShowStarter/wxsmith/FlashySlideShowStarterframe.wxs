@@ -45,10 +45,12 @@
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX1" variable="CheckBoxSound" member="yes">
 			<label>Sound Effects</label>
+			<checked>1</checked>
 			<pos>472,280</pos>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX2" variable="CheckBoxFaceDetection" member="yes">
 			<label>Face Detection</label>
+			<checked>1</checked>
 			<pos>472,248</pos>
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX1" variable="ComboBoxTransitions" member="yes">
@@ -72,6 +74,7 @@
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX3" variable="CheckBoxVisuals" member="yes">
 			<label>Visual Effects</label>
+			<checked>1</checked>
 			<pos>472,264</pos>
 		</object>
 		<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="DelaySpinCtrl" member="yes">

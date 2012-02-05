@@ -115,7 +115,7 @@ int ManageCreatingTextures(int count_only)
   UnLoadTexturesIfNeeded();
   for ( i=0; i<frame.total_images; i++)
    {
-     if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],0); }
+     if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],frame.mipmaping); }
 
      if (!count_only)
       {
@@ -439,6 +439,7 @@ int main(int argc, char *argv[])
              if (strcmp(argv[i],"-m")==0)
                    { //Mipmaping Enabled command
                        fprintf(stderr,"%u Mipmaping Enabled %s\n",i,argv[i]);
+                       frame.mipmaping=1;
                    } else
              if (strcmp(argv[i],"-q")==0)
                    { //Quality command

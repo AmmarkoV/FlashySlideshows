@@ -165,7 +165,10 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 
     if ( WxLoadJPEG(filename,pic) )       { pic->marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
-                                     else { pic->failed_to_load=1; fprintf(stderr,"Failed to open and load picture \n"); return 0; }
+                                     else { pic->failed_to_load=1;
+                                            pic->gl_rgb_texture=failed->gl_rgb_texture;
+                                            fprintf(stderr,"Failed to open and load picture \n");
+                                            return 0; }
 
 
 

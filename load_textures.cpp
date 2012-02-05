@@ -172,6 +172,6 @@ unsigned int clear_texture(struct Picture * picturedata)
 unsigned int refresh_texture(struct Picture * picturedata)
 {
   clear_texture(picturedata);
-  make_texture(picturedata,0);
+  make_texture(picturedata,frame.mipmaping);
   return 1;
 }
