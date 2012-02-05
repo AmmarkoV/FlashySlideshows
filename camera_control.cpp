@@ -558,7 +558,7 @@ int CameraSeesOnlyOnePicture()
 {
 
 
-  if ( frame.vz<=frame.distance_block_lower+3.5  )
+  if ( frame.vz<=frame.distance_block_lower+2.5  )
    {
      float xcoord,ycoord,zcoord,distance;
      GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);
