@@ -116,6 +116,7 @@ struct SlideShowData
   unsigned int total_images;
   unsigned int images_per_line;
   unsigned int active_image_x,active_image_y,active_image_place;
+  unsigned int last_image_x,last_image_y,last_image_place;
 
   float desired_x,desired_y,desired_z,desired_step;
   float angle_x,angle_y,angle_z,step;

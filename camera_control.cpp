@@ -54,8 +54,13 @@ void CalculateActiveImage_AccordingToPosition()
 
 
 
-   unsigned int start_y=MinPictureThatIsVisible() /* REDUCE COMPLEXITY 0 */  / frame.images_per_line;
-   unsigned int total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  / frame.images_per_line;
+   unsigned int start_y=0;
+   unsigned int total_y=frame.total_images / frame.images_per_line;
+
+   // ECONOMY :P
+   start_y=MinPictureThatIsVisible() / frame.images_per_line;
+   total_y=(MaxPictureThatIsVisible()  / frame.images_per_line)+3;
+
    album_traveler=total_y * frame.images_per_line;
 
 
@@ -283,8 +288,40 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
   frame.vz=frame.desired_z;
 }
 
+
+int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
+{
+  frame.last_image_x=frame.active_image_x;
+  frame.last_image_y=frame.active_image_y;
+  frame.last_image_place=frame.active_image_place;
+
+  if ( (x==0)&&(y==0)&&(place==0))
+   {
+     frame.active_image_x=0;
+     frame.active_image_y=0;
+     frame.active_image_place=0;
+   } else
+  if ((x==0)&&(y==0)&&(place!=0) )
+   {
+     frame.active_image_place=place;
+     frame.active_image_x=place%3;
+     frame.active_image_y=place/3;
+   } else
+   {
+     frame.active_image_x=x;
+     frame.active_image_y=y;
+     frame.active_image_place=x+(y*3);
+   }
+
+  return 1;
+}
+
+
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
 {
+
+   ChangeActiveImage(x,y,0);
+
    switch ( transition_mode)
    {
      case 0 : SetDestinationOverPicture3dSeek(x,y); break;
@@ -302,45 +339,47 @@ int MoveToPicture(unsigned int direction)
   if ( frame.images_per_line>0) last_line=frame.total_images/frame.images_per_line;
 
   fprintf(stderr,"Picture X/Y was %u / %u \n",frame.active_image_x,frame.active_image_y);
-
+  unsigned int image_x=frame.active_image_x,image_y=frame.active_image_y;
     if ( direction == D_UP )
                                {  /* UP */
-                                    if ( frame.active_image_y > 0 ) {  frame.active_image_y-=1; }
+                                    if ( image_y > 0 ) {  image_y-=1; }
                                } else
     if ( direction == D_DOWN )
                                {  /* DOWN */
-                                    if ( frame.active_image_y < last_line-1 ) {  frame.active_image_y+=1; }
+                                    if ( image_y < last_line-1 ) {  image_y+=1; }
                                } else
     if ( direction == D_LEFT ) {  /* LEFT */
-                                    if ( frame.active_image_x > 0 ) {  frame.active_image_x-=1; } else
+                                    if ( image_x > 0 ) {  image_x-=1; } else
                                     { //Go to the next row functionality :P
-                                       if ( frame.active_image_y >0 )
+                                       if ( image_y >0 )
                                        {
-                                           frame.active_image_x=frame.images_per_line-1;
-                                         --frame.active_image_y;
+                                           image_x=frame.images_per_line-1;
+                                         --image_y;
                                        }
                                     }
                                } else
     if ( direction == D_RIGHT ) {  /* RIGHT */
-                                    if ( frame.active_image_x < frame.images_per_line-1 ) {  frame.active_image_x+=1; } else
-                                    if ( frame.active_image_y < last_line-1 )
+                                    if ( image_x < frame.images_per_line-1 ) {  image_x+=1; } else
+                                    if ( image_y < last_line-1 )
                                        {//Go to the previous row functionality :P
-                                           frame.active_image_x=0;
-                                         ++frame.active_image_y;
+                                           image_x=0;
+                                         ++image_y;
                                        }
                                 }
 
-   fprintf(stderr,"Picture X/Y now is %u / %u \n",frame.active_image_x,frame.active_image_y);
-   unsigned int current_active_picture=frame.active_image_x+frame.active_image_y*frame.images_per_line;
+   unsigned int current_active_picture=image_x+image_y*frame.images_per_line;
 
    if ( current_active_picture!=last_active_picture )
     {
-      fprintf(stderr,"Changing destination\n");
       frame.active_image_place=current_active_picture;
-      SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
+      SetDestinationOverPicture(image_x,image_y);
+      fprintf(stderr,"Picture X/Y from %u/%u -> %u/%u \n",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
       frame.seek_move_activated=1; /*THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0
                                      so it is important to set this right here!*/
       return 1;
+    } else
+    {
+      fprintf(stderr,"Staying over the same picture\n");
     }
    return 0;
 }
@@ -456,6 +495,8 @@ void SetDestinationOverNextPicture()
 
     new_active_picture = new_active_x+new_active_y*frame.images_per_line;
 
+
+
     if ( new_active_picture >= frame.total_images ) { /* WE PASSED THE LAST ACTIVE PICTURE SO THERE ACTUALY ISN`t A NEXT PICTURE! */
                                                       TriggerEndOfSlideShow();
                                                     } else
@@ -468,13 +509,21 @@ void SetDestinationOverNextPicture()
                                                        /*There is a next picture :) , we`re gonna change to it*/
                                                        fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture+1, frame.total_images);
 
-                                                       frame.active_image_x=new_active_x;
-                                                       frame.active_image_y=new_active_y;
-                                                       frame.active_image_place=new_active_picture;
+                                                       //frame.active_image_x=new_active_x;
+                                                       //frame.active_image_y=new_active_y;
+                                                       //frame.active_image_place=new_active_picture;
                                                        SetDestinationOverPicture(new_active_x,new_active_y);
+
+                                                       fprintf(stderr,"Picture new destination %u/%u -> %u/%u \n ",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
                                                     }
 }
 
+
+
+int CameraMoving()
+{
+    return ( (frame.desired_x != frame.vx)||(frame.desired_y != frame.vy)||(frame.desired_z != frame.vz) );
+}
 
 int CameraOverPicture(unsigned int x,unsigned int y)
 {

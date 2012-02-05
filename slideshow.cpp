@@ -37,6 +37,7 @@ struct Point3D down_left={3.6,2.8,-3.4};
 struct Point3D down_right={-3.6,2.8,-3.4};
 
 unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
+unsigned int LINES_AWAY_DRAWN=2; /*THIS CONTROLS DRAWING TO CONSERVE GPU RESOURCES*/
 
 void SetDisplayAllPictures(unsigned int newstate)
 {
@@ -75,6 +76,10 @@ void InitSlideShow()
 
    frame.active_image_x=2;  frame.active_image_y=2;
    frame.active_image_place=4;
+
+   frame.last_image_x=2;  frame.last_image_y=2;
+   frame.last_image_place=4;
+
 
    frame.desired_x=00.0; frame.desired_y=00.0; frame.desired_z=14.0;
    frame.desired_step=1.35;
@@ -208,9 +213,15 @@ int MinPictureThatIsVisible()
 {
   if ( DISPLAY_ALL_PICTURES == 1 ) { return 0; }/* OVERRIDE UNTIL EVERYTHING IS READY */
 
+  if ( CameraMoving() ) { }
+
   unsigned int min_picture=0;
-  if ( frame.active_image_place  <= frame.images_per_line * 3 ) {} else
-                                                               { min_picture=frame.active_image_place-frame.images_per_line * 3;
+  unsigned int cur_place=frame.active_image_place;
+  if ( cur_place > frame.last_image_place ) { cur_place = frame.last_image_place; }
+
+
+  if ( cur_place  <= frame.images_per_line * LINES_AWAY_DRAWN ) {} else
+                                                               { min_picture=cur_place-frame.images_per_line * LINES_AWAY_DRAWN;
                                                                  if ( min_picture-1 >= 0 ) { min_picture-=1; }
                                                                }
   //fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
@@ -226,8 +237,11 @@ int PictureOutOfBounds(unsigned int pic_place)
 int MaxPictureThatIsVisible()
 {
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
+  unsigned int cur_place=frame.active_image_place;
+  if ( cur_place < frame.last_image_place ) { cur_place = frame.last_image_place; }
 
-  unsigned int max_picture=frame.active_image_place + frame.images_per_line * 3;
+  unsigned int max_picture=cur_place + (frame.images_per_line-1) + frame.images_per_line * LINES_AWAY_DRAWN;
+
 
   if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
   //fprintf(stderr," %u MaxPictureThatIsVisible == \n",max_picture);

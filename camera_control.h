@@ -27,6 +27,9 @@ void PickHoverEffect(unsigned int x,unsigned int y);
 
 void CheckForTargetInBounds();
 
+int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place);
+
+int CameraMoving();
 int CameraOverPicture(unsigned int x,unsigned int y);
 int CameraOverPicture(unsigned int pic_place);
 int CameraSeesOnlyOnePicture();
