@@ -307,7 +307,7 @@ void MouseCallback( int button,int state, int x, int y)
 
 static void KeyCallback(unsigned char key, int x, int y)
 { //'q'
-  if (key==27) exit(0); /* Closes Application on Escape Key*/
+  if (key==27) { EnableScreenSaver(); exit(0); }/* Closes Application on Escape Key*/
         else
   if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
 
@@ -402,6 +402,7 @@ int main(int argc, char *argv[])
 {
     /* Initialize Slideshow variables before the arguments are parsed..*/
     InitSlideShow();
+    DisableScreenSaver();
 
 
     strcpy((char * ) frame.album_directory,"album");
@@ -579,6 +580,7 @@ int main(int argc, char *argv[])
     /* Start Rendering */
     glutMainLoop();
 
+    EnableScreenSaver();
     StopJoystickControl();
     UnLoadStockTexturesAndSounds();
     wxlibstuff.OnClose();

@@ -7,4 +7,8 @@ long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct
 int LoadStockTexturesAndSounds();
 int UnLoadStockTexturesAndSounds();
 
+
+void DisableScreenSaver();
+void EnableScreenSaver();
+
 #endif // ENVIRONMENT_H_INCLUDED

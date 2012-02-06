@@ -172,3 +172,16 @@ int UnLoadStockTexturesAndSounds()
     CloseFaceRecognition();
     return 1;
 }
+
+
+void DisableScreenSaver()
+{
+  system("gconftool-2 --set /apps/gnome-screensaver/idle_activation_enabled --type bool FALSE");
+  system("gconftool-2 --set /apps/gnome-powermanager/idle_activation_enabled --type bool FALSE");
+}
+
+void EnableScreenSaver()
+{
+  system("gconftool-2 --set /apps/gnome-screensaver/idle_activation_enabled --type bool TRUE");
+  system("gconftool-2 --set /apps/gnome-powermanager/idle_activation_enabled --type bool TRUE");
+}
