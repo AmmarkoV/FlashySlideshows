@@ -233,16 +233,16 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
 
         case 13 : /* ENTER */ ToggleAutomaticSlideshow(); break;
 
-        case 48+0 : /*Number 0*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort0/"); break;
-        case 48+1 : /*Number 1*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort1/"); break;
-        case 48+2 : /*Number 2*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort2/"); break;
-        case 48+3 : /*Number 3*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort3/"); break;
-        case 48+4 : /*Number 4*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort4/"); break;
-        case 48+5 : /*Number 5*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort5/"); break;
-        case 48+6 : /*Number 6*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort6/"); break;
-        case 48+7 : /*Number 7*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort7/"); break;
-        case 48+8 : /*Number 8*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort8/"); break;
-        case 48+9 : /*Number 9*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort9/"); break;
+        case 48+0 : /*Number 0*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort0/"))  MoveToPicture(D_RIGHT); break;
+        case 48+1 : /*Number 1*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort1/"))  MoveToPicture(D_RIGHT);break;
+        case 48+2 : /*Number 2*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort2/"))  MoveToPicture(D_RIGHT);break;
+        case 48+3 : /*Number 3*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort3/"))  MoveToPicture(D_RIGHT);break;
+        case 48+4 : /*Number 4*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort4/"))  MoveToPicture(D_RIGHT);break;
+        case 48+5 : /*Number 5*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort5/"))  MoveToPicture(D_RIGHT);break;
+        case 48+6 : /*Number 6*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort6/"))  MoveToPicture(D_RIGHT);break;
+        case 48+7 : /*Number 7*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort7/"))  MoveToPicture(D_RIGHT);break;
+        case 48+8 : /*Number 8*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort8/"))  MoveToPicture(D_RIGHT);break;
+        case 48+9 : /*Number 9*/ if (MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort9/"))  MoveToPicture(D_RIGHT);break;
 
 
         case 'o': SetDestinationCenter();

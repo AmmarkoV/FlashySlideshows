@@ -40,7 +40,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1328790632 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1328791107 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -91,7 +91,7 @@
 
 1328781425 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1328781809 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1328795957 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -124,7 +124,7 @@
 
 1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1328790542 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1328791209 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -160,7 +160,7 @@
 
 1327634892 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1328790497 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1328790992 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"
