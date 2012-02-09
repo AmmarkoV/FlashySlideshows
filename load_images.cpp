@@ -40,6 +40,8 @@ struct Picture *failed=0;
 struct Picture *background=0;
 struct Picture *picture_frame=0;
 
+int STRECH_IMAGES=0;
+
 
 inline wxString _U(const char String[] = "")
 {
@@ -66,7 +68,7 @@ unsigned int GetHeightQuality(unsigned int quality)
 }
 
 
-float PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
+unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
 {
   unsigned int best_height = GetHeightQuality(frame.quality_setting);
   unsigned int best_width = GetWidthQuality(frame.quality_setting);
@@ -82,6 +84,36 @@ float PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height
   if ( ratio_width < ratio_height ) { scale_percentage=(float) 100/ratio_width; } else
                                     { scale_percentage=(float) 100/ratio_height; }
   return scale_percentage;
+}
+
+
+int FixOpenGLPictureSize(struct Picture * pic)
+{
+  if (STRECH_IMAGES)
+   {
+     pic->position.size_x=6;
+     pic->position.size_y=4.5;
+     return 1;
+   }
+
+
+  if(pic->height==0) { return 0; }
+
+  if (pic->width > pic->height)
+   {
+     float size_ratio = pic->width / 6;
+     if (size_ratio==0) { return 0; }
+     pic->position.size_x=6;  pic->position.size_y=pic->height/size_ratio;
+   } else
+  if (pic->width < pic->height)
+   {
+     float size_ratio = pic->height / 4.5;
+     if (size_ratio==0) { return 0; }
+     pic->position.size_y=4.5;  pic->position.size_x=pic->width/size_ratio;
+   }
+
+
+  return 1;
 }
 
 int PictureCreationPending(struct Picture * picturedata)
@@ -113,10 +145,12 @@ int PrintPictureData(struct Picture * picturedata)
    fprintf(stderr,"_____________________________________\n");
    fprintf(stderr,"Directory list index : %u \n",picturedata->directory_list_index);
    PrintDirectoryListItem(picturedata->directory_list_index);
-   fprintf(stderr,"size : %ux%u:%u ",picturedata->width,picturedata->height,picturedata->depth);
-   fprintf(stderr,"time_viewed : %u , times_viewed : %u , transparency : %0.2f \n",picturedata->time_viewed,picturedata->times_viewed,picturedata->transparency);
+   fprintf(stderr,"Image size : %ux%u:%u ratio %0.2f",picturedata->width,picturedata->height,picturedata->depth,(float)picturedata->width/picturedata->height);
+   fprintf(stderr," OpenGL size : %0.2fx%0.2f ratio %0.2f",picturedata->position.size_x,picturedata->position.size_y,(float)picturedata->position.size_x/picturedata->position.size_y);
 
-   fprintf(stderr,"Status\n");
+   fprintf(stderr,"\ntime_viewed : %u , times_viewed : %u , transparency : %0.2f \n",picturedata->time_viewed,picturedata->times_viewed,picturedata->transparency);
+
+   fprintf(stderr," Status\n");
    fprintf(stderr,"Failed to Load : %u , Thumbnail texture loaded : %u , Texture loaded : %u \n",picturedata->failed_to_load,picturedata->thumbnail_texture_loaded,picturedata->texture_loaded);
    fprintf(stderr,"Mark tex load : %u , Mark tex rm : %u , Mark RGB load: %u Mark RGB rm : %u \n",picturedata->marked_for_texture_loading,picturedata->marked_for_texture_removal,picturedata->marked_for_rgbdata_loading,picturedata->marked_for_rgbdata_removal);
    fprintf(stderr,"_____________________________________\n");
@@ -175,6 +209,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
 
 
 
+
 int WxLoadJPEG(char * filename,struct Picture * pic)
 {
 
@@ -189,6 +224,8 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
  height = (unsigned int) (height * rescale_ratio / 100);
 
  new_img.Rescale(width,height);
+
+
 
  unsigned char * data = new_img.GetData();
 
@@ -220,9 +257,8 @@ int LoadPicture(char * filename,struct Picture * pic)
                                           }
 
 
-
+  FixOpenGLPictureSize(pic);
   GetInterestingAreasList(pic);
-
 
   if ( pic->overflow_guard != OVERFLOW_GUARD_BYTES ) { fprintf(stderr,"Memory Overflow at Picture structure \n "); }
 
@@ -329,9 +365,6 @@ int PositionPicture(struct Picture * pic,unsigned int place)
   pic->position.heading=0;
   pic->position.yaw=0;
   pic->position.pitch=0;
-
-  pic->position.size_x=6;
-  pic->position.size_y=4.5;
 
   return 1;
 }
