@@ -1,5 +1,6 @@
 #!/bin/bash
-bin/Release/FlashySlideShow bin/Release/FlashySlideShow -mv_sort -sfx -r -fd -q 2 -t 1 -d 6000 "/home/ammar/Downloads/"
+bin/Release/FlashySlideShow bin/Release/FlashySlideShow -mv_sort -sfx -r -fd -q 2 -t 1 -d 6000 "/home/ammar/Pictures"
+#"/home/ammar/Downloads/"
 # "/home/ammar/Documents/Programming/FlashySlideShow/app_clipart"
 #"/home/ammar/Pictures"
 exit 0

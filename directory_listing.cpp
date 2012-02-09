@@ -396,6 +396,6 @@ int MoveFileToDir(unsigned int file_id,char * dir)
     fprintf(stderr,"Executing %s \n",move_operation);
     int i=system(move_operation);
 
-  return i;
+  return (i==0);
 }
 
