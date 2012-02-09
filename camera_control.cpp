@@ -335,7 +335,7 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 
   frame.desired_x=vx;
   frame.desired_y=vy;
-  frame.desired_z=-1.0;
+  frame.desired_z=-0.5;
 }
 
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
@@ -350,7 +350,7 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
   vy=-12.0 + y_inc * y; frame.desired_z=-1.0;
   frame.desired_x=vx;
   frame.desired_y=vy;
-  frame.desired_z=-1.0;
+  frame.desired_z=-0.5;
   frame.vx=frame.desired_x;
   frame.vy=frame.desired_y;
   frame.vz=frame.desired_z;
