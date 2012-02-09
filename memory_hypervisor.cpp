@@ -52,7 +52,7 @@ int RAM_Memory_can_accomodate(unsigned int newfile)
 }
 
 
-int LoadPicturesIfNeeded()
+int CreatePicturesIfNeeded()
 {
   unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
   unsigned int album_traveler=MinPictureThatIsVisible();
@@ -72,11 +72,12 @@ int LoadPicturesIfNeeded()
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack_mem_hyper,0);
                if ( album[album_traveler] != 0 )
                  {
-                     ++loaded_pictures_this_loop;
+                    album[album_traveler]->directory_list_index=album_traveler; // Create a link between the directory list and the picture struct
+                    ++loaded_pictures_this_loop;
                  } else
                  {
                      fprintf(stderr,"Failed to Create Picture TODO remove it from album and RemoveListItem\n");
-                     //RemoveListItem(album_traveler);
+                     RemoveListItem(album_traveler);
                  }
 
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
@@ -89,15 +90,15 @@ int LoadPicturesIfNeeded()
   return loaded_pictures_this_loop;
 }
 
-int UnLoadPicturesIfNeeded()
+int DestroyPicturesIfNeeded()
 {
   return 0;
 }
 
-int ManagePicturesMemory()
+int ManagePicturesCreationMemory()
 {
-   UnLoadPicturesIfNeeded();
-   return LoadPicturesIfNeeded();
+   DestroyPicturesIfNeeded();
+   return CreatePicturesIfNeeded();
 }
 
 
@@ -152,7 +153,7 @@ int GPU_Memory_can_accomodate(unsigned int newfile)
  return 1;
 }
 
-int LoadTexturesIfNeeded()
+int LoadPicturesIfNeeded()
 {
   unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
   unsigned int album_traveler=MinPictureThatIsVisible();
@@ -181,7 +182,7 @@ int LoadTexturesIfNeeded()
   return 0;
 }
 
-int UnLoadTexturesIfNeeded()
+int UnLoadPicturesIfNeeded()
 {
   if ( frame.total_images == 0 ) { return 0; }
   unsigned int MAX_album_traveler=MinPictureThatIsVisible();
@@ -227,9 +228,9 @@ int UnLoadTexturesIfNeeded()
   return 0;
 }
 
-int ManageTexturesMemory()
+int ManagePicturesLoadingMemory()
 {
-  // UnLoadTexturesIfNeeded(); THIS ONLY SHOULD BE CALLED FROM THE MAIN THREAD
-   return LoadTexturesIfNeeded();
+  // UnLoadPicturesIfNeeded(); THIS ONLY SHOULD BE CALLED FROM THE MAIN THREAD
+   return LoadPicturesIfNeeded();
 }
 

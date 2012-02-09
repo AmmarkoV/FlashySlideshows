@@ -26,11 +26,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <unistd.h>
 
-void complain_about_errors()
+int complain_about_errors()
 {
   int err=glGetError();
   if  ( err!=0 ) fprintf(stderr,"OpenGL Error %u ",(unsigned int )err);
-  return;
+  return err;
 }
 
 int wait_before_making_textures()
@@ -56,11 +56,13 @@ int PictureTextureLoaded(struct Picture * picturedata)
 
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
+
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
 	                          return 0; }
 
-    frame.gpu.lastTexture=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
-    if ( GPU_Memory_can_accomodate(frame.gpu.lastTexture)==0 ) { return 0; }
+    frame.gpu.lastTexture= picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
+    if ( GPU_Memory_can_accomodate(frame.gpu.lastTexture)==0 ) { fprintf(stderr,"Failed making texture , GPU cant accomodate it \n");
+                                                                 return 0; }
 
     glEnable(GL_TEXTURE_2D);
     GLint texSize=0;
@@ -70,15 +72,14 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     GLuint new_tex_id=0;
     fprintf(stderr,"OpenGL Generating new Texture \n");
     glGenTextures(1,&new_tex_id);
-
-    complain_about_errors();
+    if ( complain_about_errors() ) { return 0; }
 
     fprintf(stderr,"OpenGL Binding new Texture \n");
     glBindTexture(GL_TEXTURE_2D,new_tex_id);
+    if ( complain_about_errors() ) { return 0; }
     glFlush();
 
     picturedata->gl_rgb_texture=new_tex_id;
-    complain_about_errors();
 
 
   if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
@@ -115,7 +116,8 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
     picturedata->marked_for_texture_loading=0;
 
-    complain_about_errors();
+    if ( complain_about_errors() ) { return 0; }
+
 
     /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN RAM MEMORY */
       if ( picturedata->rgb_data != 0 )

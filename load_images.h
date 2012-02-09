@@ -61,7 +61,8 @@ struct Picture
 
   struct Position3D position;
 
-  char filename[MAX_PATH];
+  //char filename[MAX_PATH]; This can be acquired through the directory_list
+  unsigned int directory_list_index;
 
   unsigned long rgb_data_size;
   char * rgb_data;
@@ -84,6 +85,8 @@ extern int OpenGL_is_making_textures;
 
 int PictureCreationPending(struct Picture * picturedata);
 int PictureLoadingPending(struct Picture * picturedata);
+int PictureFailed(struct Picture * picturedata);
+int PrintPictureData(struct Picture * picturedata);
 
 struct Picture * CreatePicture(char * filename,unsigned int force_load);
 int LoadPicture(char * filename,struct Picture * pic);

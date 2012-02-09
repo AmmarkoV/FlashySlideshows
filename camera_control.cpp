@@ -47,27 +47,51 @@ void ToggleTransitionMode()
 
 int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
 {
-  frame.last_image_x=frame.active_image_x;
-  frame.last_image_y=frame.active_image_y;
-  frame.last_image_place=frame.active_image_place;
 
   if ( (x==0)&&(y==0)&&(place==0))
    {
-     frame.active_image_x=0;
-     frame.active_image_y=0;
-     frame.active_image_place=0;
+    if ( place != frame.active_image_place )
+     {
+      frame.last_image_x=frame.active_image_x;
+      frame.last_image_y=frame.active_image_y;
+      frame.last_image_place=frame.active_image_place;
+      frame.active_image_x=0;
+      frame.active_image_y=0;
+      frame.active_image_place=0;
+     }
    } else
   if ((x==0)&&(y==0)&&(place!=0) )
    {
-     frame.active_image_place=place;
-     frame.active_image_x=place%3;
-     frame.active_image_y=place/3;
+     if ( place != frame.active_image_place )
+     {
+      frame.last_image_x=frame.active_image_x;
+      frame.last_image_y=frame.active_image_y;
+      frame.last_image_place=frame.active_image_place;
+      frame.active_image_place=place;
+      frame.active_image_x=place%3;
+      frame.active_image_y=place/3;
+     }
    } else
    {
+    if ( ( x != frame.active_image_x ) || ( y != frame.active_image_y ) )
+    {
+     fprintf(stderr,"Active Image is now %u,%u -> %u,%u -> %u,%u (now) \n",
+             frame.last_image_x,frame.last_image_y ,
+             frame.active_image_x, frame.active_image_y,
+             x,y );
+     frame.last_image_x=frame.active_image_x;
+     frame.last_image_y=frame.active_image_y;
+     frame.last_image_place=frame.active_image_place;
      frame.active_image_x=x;
      frame.active_image_y=y;
      frame.active_image_place=x+(y*3);
+
+     PrintPictureData(album[frame.active_image_place]);
+
+    }
    }
+
+
 
   return 1;
 }

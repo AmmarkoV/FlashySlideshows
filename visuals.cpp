@@ -57,20 +57,23 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
 
 
-  if ( pic -> failed_to_load == 1 ) { pic=failed; }
   if ( pic->position.ok == 0 ) { PositionPicture(pic,place); }
+  float size_x=12,size_y=9,ratio=0.0;
+  if ( pic->height != 0 ) { ratio=(float) pic->width/pic->height; }
 
+  if (PictureFailed(pic)) { pic=failed; } else
+  if (PictureCreationPending(pic)) { pic=loading; } else
+  if (PictureLoadingPending(pic)) {    pic=loading_texture; } else
+  if ( pic->height == 0 ) {
+                             fprintf(stderr,"Zero Height on this image %u !\n",pic->directory_list_index);
+                             PrintDirectoryListItem(pic->directory_list_index);
+                             pic=loading_texture;
+                           } else
+   if ( ratio == 0.0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %u !\n",pic->directory_list_index);
+                          PrintDirectoryListItem(pic->directory_list_index);
 
-   float size_x=12,size_y=9,ratio=0.0;
-   if ( pic->height != 0 ) { ratio=pic->width/pic->height; } else
-                           { //fprintf(stderr,"Zero Height on this image %s !\n",pic->filename);
-                             DisplayPicture(loading_texture,place,x,y,z,heading,pitch,roll);
-                             return 0;
-                           }
-   if ( ratio == 0 )  { //fprintf(stderr,"Zero X/Y Ratio on this image %s !\n",pic->filename);
-                        DisplayPicture(loading_texture,place,x,y,z,heading,pitch,roll);
-                        return 0;
-                      }
+                          pic=loading_texture;
+                        }
 
    size_y=size_x/ratio;
    float frame_size=0.9;

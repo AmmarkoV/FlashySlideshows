@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "load_images.h"
 #include "memory_hypervisor.h"
+#include "directory_listing.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -99,7 +100,28 @@ int PictureLoadingPending(struct Picture * picturedata)
   return picturedata->marked_for_rgbdata_loading;
 }
 
+int PictureFailed(struct Picture * picturedata)
+{
+  if ( picturedata == 0 ) return 1;
+  if ( picturedata == loading ) return 0;
+  return picturedata->marked_for_rgbdata_loading;
+}
 
+int PrintPictureData(struct Picture * picturedata)
+{
+  if ( picturedata == 0 ) { fprintf(stderr,"Null picture structure \n"); return 0; }
+   fprintf(stderr,"_____________________________________\n");
+   fprintf(stderr,"Directory list index : %u \n",picturedata->directory_list_index);
+   PrintDirectoryListItem(picturedata->directory_list_index);
+   fprintf(stderr,"size : %ux%u:%u ",picturedata->width,picturedata->height,picturedata->depth);
+   fprintf(stderr,"time_viewed : %u , times_viewed : %u , transparency : %0.2f \n",picturedata->time_viewed,picturedata->times_viewed,picturedata->transparency);
+
+   fprintf(stderr,"Status\n");
+   fprintf(stderr,"Failed to Load : %u , Thumbnail texture loaded : %u , Texture loaded : %u \n",picturedata->failed_to_load,picturedata->thumbnail_texture_loaded,picturedata->texture_loaded);
+   fprintf(stderr,"Mark tex load : %u , Mark tex rm : %u , Mark RGB load: %u Mark RGB rm : %u \n",picturedata->marked_for_texture_loading,picturedata->marked_for_texture_removal,picturedata->marked_for_rgbdata_loading,picturedata->marked_for_rgbdata_removal);
+   fprintf(stderr,"_____________________________________\n");
+ return 1;
+}
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
@@ -233,6 +255,8 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->marked_for_rgbdata_removal=0;
     new_picture->gl_rgb_texture=0;
 
+    new_picture->directory_list_index=0;
+
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
 
     new_picture->transparency=1.0;
@@ -252,7 +276,7 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
    {
     if ( LoadPicture(filename,new_picture) )
       {
-        frame.total_images_loaded++;
+        //everything seems good
       } else
       {
         //Picture cannot be loaded this may have happened for a lot of reasons..

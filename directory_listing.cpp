@@ -166,6 +166,11 @@ void PrintDirectoryList()
 }
 
 
+void PrintDirectoryListItem(unsigned int item)
+{
+  fprintf(stderr,"%u - %s\n",item,list[item].filename);
+}
+
 
 
 
@@ -323,7 +328,7 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
     if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
     if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 3 parameter ? \n"); return 0; }
 
-    fprintf(stderr,"Copying `%s` \n",list[file_id].filename);
+    fprintf(stderr,"Copying picture %u = `%s` \n",file_id,list[file_id].filename);
     strcpy(filename,directory);
     strcat(filename,list[file_id].filename);
 

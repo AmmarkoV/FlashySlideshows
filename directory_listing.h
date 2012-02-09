@@ -11,4 +11,6 @@ unsigned int CountPicturesInDirectory(char * thedirectory);
 unsigned int LaunchGUI_PickDir();
 char * GetFilename(unsigned int file_id);
 unsigned int GetItemDate(unsigned int file_id,unsigned int data);
+
+void PrintDirectoryListItem(unsigned int item);
 #endif // DIRECTORY_LISTING_H_INCLUDED

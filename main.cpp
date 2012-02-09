@@ -92,11 +92,11 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
   {
-    loaded_pictures_this_loop= ManagePicturesMemory();// If no pictures loaded returns 0
-    loaded_pictures_this_loop+=ManageTexturesMemory();// If no pictures adds 0
+    loaded_pictures_this_loop= ManagePicturesCreationMemory();// If no pictures loaded returns 0
+    loaded_pictures_this_loop+=ManagePicturesLoadingMemory();// If no pictures adds 0
 
-    if ( loaded_pictures_this_loop == 0 ) { usleep(1000000);  } else
-                                          { usleep(10000);  }
+    if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
+                                          { usleep(1000);  }
   }
   return 0;
 }
@@ -112,10 +112,21 @@ int ManageCreatingTextures(int count_only)
    struct timeval start_creating_textures,now,difference;
 
   gettimeofday(&start_creating_textures,0x0);
-  UnLoadTexturesIfNeeded();
+  UnLoadPicturesIfNeeded();
   for ( i=0; i<frame.total_images; i++)
    {
-     if ( PictureLoadedOpenGLTexturePending(album[i]) ) { ++count;  if(!count_only) make_texture(album[i],frame.mipmaping); }
+     if ( PictureLoadedOpenGLTexturePending(album[i]) )
+       {
+         ++count;
+         if(!count_only)
+          {
+            if ( !make_texture(album[i],frame.mipmaping) )
+              {
+                //Failed making the texture , ( and picture was loaded correctly .. ! )
+
+              }
+          }
+        }
 
      if (!count_only)
       {
