@@ -83,6 +83,9 @@ extern struct Picture *picture_frame;
 extern int OpenGL_is_rendering;
 extern int OpenGL_is_making_textures;
 
+unsigned int GetWidthQuality(unsigned int quality);
+unsigned int GetHeightQuality(unsigned int quality);
+
 int PictureCreationPending(struct Picture * picturedata);
 int PictureLoadingPending(struct Picture * picturedata);
 int PictureFailed(struct Picture * picturedata);

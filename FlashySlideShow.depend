@@ -11,11 +11,11 @@
 	"load_textures.h"
 	"image_sensing.h"
 
-1328751898 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1328787938 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 	"slideshow.h"
 
-1328785433 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1328789897 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -40,7 +40,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1328784018 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1328790632 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -48,13 +48,13 @@
 	<stdlib.h>
 	<stdio.h>
 
-1328784003 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1328787725 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1328785570 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1328790877 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"directory_listing.h"
@@ -77,7 +77,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1328784027 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1328785856 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -124,7 +124,7 @@
 
 1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1328776910 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1328790542 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -160,7 +160,7 @@
 
 1327634892 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1328785752 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1328790497 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"
@@ -169,7 +169,7 @@
 	<stdio.h>
 	<unistd.h>
 
-1328752537 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
+1328790859 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
 
 1328466535 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
 

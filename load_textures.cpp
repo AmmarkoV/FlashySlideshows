@@ -49,9 +49,9 @@ int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
 int PictureTextureLoaded(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) {return 0;}
-  if ( picturedata->texture_loaded == 0 ) {return 1;}
-  if ( picturedata->thumbnail_texture_loaded == 0 ) {return 1;}
-  return (!picturedata->marked_for_texture_loading);
+  if ( picturedata->texture_loaded == 1 ) {return 1;}
+  if ( picturedata->thumbnail_texture_loaded == 1 ) {return 1;}
+  return 0;
 }
 
 
@@ -62,7 +62,8 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 	                          return 0; }
 
     frame.gpu.lastTexture= picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
-    if ( GPU_Memory_can_accomodate(frame.gpu.lastTexture)==0 ) { fprintf(stderr,"Failed making texture , GPU cant accomodate it \n");
+    if ( GPU_Memory_can_accomodate(frame.gpu.lastTexture)==0 ) { fprintf(stderr,"Abort making texture , GPU cant accomodate it \n");
+                                                                 SignalGPUFull=1;
                                                                  return 0; }
 
     glEnable(GL_TEXTURE_2D);
@@ -114,11 +115,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     }
 
 
-    frame.gpu.usedRAM+=frame.gpu.lastTexture;
 
-    picturedata->marked_for_texture_loading=0;
-
-    if ( complain_about_errors() ) { return 0; }
 
 
     /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN RAM MEMORY */
@@ -130,6 +127,12 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
           picturedata->rgb_data_size=0;
         }
 
+    frame.gpu.usedRAM+=frame.gpu.lastTexture;
+
+    picturedata->marked_for_texture_loading=0;
+    picturedata->texture_loaded=1;
+
+    if ( complain_about_errors() ) { return 0; }
 
     fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
 
@@ -146,15 +149,19 @@ unsigned int clear_texture(struct Picture * picturedata)
 
     if ( ( picturedata->gl_rgb_texture != loading->gl_rgb_texture ) && ( picturedata->gl_rgb_texture != 0) )
        {
-           fprintf(stderr,"Trying to delete texture ");
+           fprintf(stderr,"Trying to delete texture for picture ");
+           PrintDirectoryListItem(picturedata->directory_list_index);
+
            glDeleteTextures(1,&picturedata->gl_rgb_texture);
-           fprintf(stderr,"ok\n");
+           fprintf(stderr,"... ok\n");
 
            picturedata->gl_rgb_texture=loading->gl_rgb_texture;
-           frame.gpu.usedRAM-=picturedata->width*picturedata->height* /*RGBA ->*/ 4 /* <- RGBA*/ ;
+
+           frame.gpu.usedRAM-= picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
        } else
        {
-           fprintf(stderr,"clear_texture called for already clear texture\n");
+           fprintf(stderr,"clear_texture called for already clear texture ");
+           PrintDirectoryListItem(picturedata->directory_list_index);
         }
 
 /*

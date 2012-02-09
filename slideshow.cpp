@@ -47,6 +47,7 @@ void SetDisplayAllPictures(unsigned int newstate)
 void InitSlideShow()
 {
    frame.quality_setting=4; // Medium Quality
+   frame.gpu.maximum_frame_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
 
    frame.enable_sound_effects=0;
    frame.allow_mv_operation_sorting=0;
@@ -109,6 +110,7 @@ void InitSlideShow()
    frame.effect_end_y=00.0;
    frame.effect_end_z=00.0;
 
+   frame.total_files=0;
    frame.total_images_loaded=0;
    frame.total_images=0;
    frame.fullscreen=0;
@@ -123,10 +125,12 @@ void InitSlideShow()
    frame.gpu.usedRAM=0;
    frame.gpu.maxRAM=256 * 1024 * 1024;
    frame.gpu.maxTexture=1024; /* MAX TEXTURE DIMENSION , will be updated*/
+   frame.gpu.lastTexture=0;
 
    /* SYSTEM DATA */
    frame.system.usedRAM=0;
-   frame.system.maxRAM=64 * 1024 * 1024;
+   frame.system.maxRAM=128 * 1024 * 1024;
+   frame.system.lastTexture=0;
 
    /* EFFECTS */
    frame.effects.fog_on=0;

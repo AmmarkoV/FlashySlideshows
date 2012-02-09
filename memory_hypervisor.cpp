@@ -31,6 +31,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+int SignalGPUFull=0;
 
 
 
@@ -39,11 +40,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 int RAM_Memory_can_accomodate(unsigned int newfile)
 {
+  /*
   if ( frame.gpu.maxRAM < newfile + frame.gpu.usedRAM )
     {
        fprintf(stderr,"It looks like there is no free memory on GPU :P \n");
        return 0;
-    }
+    }*/
+
    if (frame.system.maxRAM < frame.system.usedRAM + newfile)
     {
        fprintf(stderr,"System memory bounds reached"); return 0;
@@ -146,7 +149,7 @@ int GPU_Memory_can_accomodate(unsigned int newfile)
 {
   if ( frame.gpu.maxRAM < newfile + frame.gpu.usedRAM )
     {
-       fprintf(stderr,"It looks like there is no free memory on GPU :P \n");
+       //fprintf(stderr,"GPU_Memory_can_accomodate :  no free memory\n");
        return 0;
     }
 
@@ -163,7 +166,7 @@ int LoadPicturesIfNeeded()
   char pictures_filename_shared_stack_mem_hyper[1024]={0};
   while (album_traveler<MAX_album_traveler)
    {
-    if (GPU_Memory_can_accomodate(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
+    if (RAM_Memory_can_accomodate(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
     { if ( PictureLoadingPending(album[album_traveler]) )
       {
           // THIS SHOULD LOAD THE PICTURE
@@ -184,45 +187,54 @@ int LoadPicturesIfNeeded()
 
 int UnLoadPicturesIfNeeded()
 {
+
   if ( frame.total_images == 0 ) { return 0; }
+  unsigned int safety_factor=3;
+
+  if (GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size*safety_factor))  { /*No need to unload anything */ return 1;}
+  fprintf(stderr,"UnLoadPicturesIfNeeded startin\n");
+
   unsigned int MAX_album_traveler=MinPictureThatIsVisible();
   unsigned int album_traveler=0;
   unsigned int unloaded_textures_this_loop=0;
 
   /*SCAN THE PICTURES FROM 0 to MinVisible in order to free up some space*/
+  fprintf(stderr,"Unload pictures 1 ");
   while (album_traveler<MAX_album_traveler)
    {
-    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) )
+    if ((!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size*safety_factor) ) || ( SignalGPUFull ) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )
        {
          clear_texture(album[album_traveler]);
          ++unloaded_textures_this_loop;
+         fprintf(stderr,"%u",album_traveler);
        }
     }
     ++album_traveler;
    }
+  fprintf(stderr,"\n");
 
   /*SCAN THE PICTURES FROM MaxVisible to END in order to free up some space*/
 
   album_traveler=frame.total_images-1;
   unsigned int MIN_album_traveler=MaxPictureThatIsVisible();
+  fprintf(stderr,"Unload pictures 2 ");
   while ((album_traveler>MIN_album_traveler) && (album_traveler>0) )
    {
-    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) ) //No point trying to load if it doesnt't fit
+    if ( (!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size*safety_factor) )|| ( SignalGPUFull ) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )
        {
          clear_texture(album[album_traveler]);
          ++unloaded_textures_this_loop;
+         fprintf(stderr,"%u",album_traveler);
        }
     }
     if ( album_traveler != 0 ) { --album_traveler; } else
                                { break; }
-
-
-     //usleep(100);
    }
+  fprintf(stderr,"\n");
 
 
   return 0;

@@ -209,26 +209,29 @@ void DisplayHUD()
    glEnd();
  glDisable(GL_BLEND);
 
-      glColor3f(1,0.0,0.0);
-      glRasterPos2f(0,0);
+      //glColor3f(1,0.0,0.0);
+      //glRasterPos2f(0,0);
 
-      glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "UNDER CONSTRUCTION!");
+      //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "UNDER CONSTRUCTION!");
 
        if (frame.currently_loading==1)
        {
          SoundLibrary_PlaySound(LOADED_PICTURE);
         //   SoundLibrary_PlaySoundPos(0,0,0,0);
-         glRasterPos2f(0,20);
-         glColor3f(1.0,0.0,0.0);
-         glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE");
+         //glRasterPos2f(0,20);
+         //glColor3f(1.0,0.0,0.0);
+         //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE");
         }
 
       char fps_string[512]={0};
-      unsigned int max_ram_used_by_gpu=(unsigned int) (frame.gpu.maxRAM/ (1024*1024));
-      unsigned int total_ram_used_by_gpu=(unsigned int) (frame.gpu.usedRAM/ (1024*1024));
-      sprintf(fps_string,"Rendering Speed : %u fps - %u/%u pics loaded - %u/%u MB",frame.fps,frame.total_images_loaded,frame.total_images,total_ram_used_by_gpu,max_ram_used_by_gpu);
+      unsigned int max_memory_used_by_gpu=(unsigned int) (frame.gpu.maxRAM/ (1024*1024));
+      unsigned int total_memory_used_by_gpu=(unsigned int) (frame.gpu.usedRAM/ (1024*1024));
+
+      unsigned int max_memory=(unsigned int) (frame.system.maxRAM/ (1024*1024));
+      unsigned int total_memory=(unsigned int) (frame.system.usedRAM/ (1024*1024));
+      sprintf(fps_string,"Rendering Speed : %u fps - %u/%u pics loaded - GPU %u/%u MB - RAM %u/%u MB",frame.fps,frame.total_images_loaded,frame.total_images,total_memory_used_by_gpu,max_memory_used_by_gpu,total_memory,max_memory);
       glColor3f(1.0,1.0,0.0);
-      glRasterPos2f(400,10);
+      glRasterPos2f(0,10);
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
       glColor3f(0.0,0.0,0.0);

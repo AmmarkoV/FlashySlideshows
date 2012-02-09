@@ -123,7 +123,6 @@ int ManageCreatingTextures(int count_only)
             if ( !make_texture(album[i],frame.mipmaping) )
               {
                 //Failed making the texture , ( and picture was loaded correctly .. ! )
-
               }
           }
         }
@@ -468,6 +467,8 @@ int main(int argc, char *argv[])
                       {
                        frame.quality_setting=atoi(argv[i+1]); // Quality
                        fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
+                       frame.gpu.maximum_frame_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
+
                       }
                    } else
              if (strcmp(argv[i],"-d")==0)
