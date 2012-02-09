@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "load_textures.h"
 #include "load_images.h"
+#include "directory_listing.h"
 #include "slideshow.h"
 #include "memory_hypervisor.h"
 #include <stdlib.h>
@@ -67,7 +68,8 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     glEnable(GL_TEXTURE_2D);
     GLint texSize=0;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
-    fprintf(stderr,"Maximum Texture Size is %u\n",(unsigned int) texSize);
+    fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
+    PrintDirectoryListItem(picturedata->directory_list_index);
 
     GLuint new_tex_id=0;
     fprintf(stderr,"OpenGL Generating new Texture \n");

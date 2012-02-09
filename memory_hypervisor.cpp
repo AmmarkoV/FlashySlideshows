@@ -221,7 +221,7 @@ int UnLoadPicturesIfNeeded()
                                { break; }
 
 
-     usleep(100);
+     //usleep(100);
    }
 
 

@@ -169,6 +169,8 @@ void PrintDirectoryList()
 
 void PrintDirectoryListItem(unsigned int item)
 {
+  if (list==0) {return;}
+  if (item>=last_list_total_pictures_count) {return; }
   fprintf(stderr,"%u - %s\n",item,list[item].filename);
 }
 
