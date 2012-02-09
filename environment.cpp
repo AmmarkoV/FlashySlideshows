@@ -99,11 +99,11 @@ int LoadStockTexturesAndSounds()
     make_texture(failed,1);
 
     srand( time(NULL) );
-    unsigned int background_pic_to_load = rand()%8;
-    if ( background_pic_to_load >= 7 ) { background_pic_to_load=0; }
+    unsigned int background_pic_to_load = rand()%10;
+    if ( background_pic_to_load >= 10 ) { background_pic_to_load=0; }
     sprintf(filename,"%s/background%u.jpg",base_directory,background_pic_to_load);
     background=CreatePicture((char * )filename,1);
-    make_texture(background,1);
+    make_texture(background,1); //frame.mipmaping <- no mipmapping on background ( is a performance hit :P ) but mipmaping screws the bacground details..!
 
     sprintf(filename,"%s/frame.jpg",base_directory);
     picture_frame=CreatePicture((char * )filename,1);

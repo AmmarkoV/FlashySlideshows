@@ -338,7 +338,7 @@ void DrawBackground()
     glColor4f(1.0,1.0,1.0,1.0);
 
     float x=frame.vx,y=frame.vy,z=0;
-    float xmin=-50,xmax=50;
+    float xmin=-70,xmax=70;
     float ymin=-((xmax-xmin)*3/4)/2,ymax=ymin*(-1);
 
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-15);	// Bottom Left Of The Texture and Quad

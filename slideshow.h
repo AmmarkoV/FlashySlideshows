@@ -95,6 +95,8 @@ struct SlideShowData
   unsigned int automatic_slideshow_on;
   unsigned int currently_loading;
 
+  unsigned int allow_mv_operation_sorting;
+
   unsigned int time_ms_before_last_slide_change;
   unsigned int time_ms_between_two_transitions;
   unsigned int next_transition;
@@ -185,6 +187,7 @@ void AutomaticSlideShowControl_if_needed();
 void TriggerEndOfSlideShow();
 
 int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z);
+unsigned int GetPictureDirectoryListIndex(unsigned int pic_place);
 
 int MaxPictureThatIsVisible();
 int MinPictureThatIsVisible();

@@ -13,4 +13,5 @@ char * GetFilename(unsigned int file_id);
 unsigned int GetItemDate(unsigned int file_id,unsigned int data);
 
 void PrintDirectoryListItem(unsigned int item);
+int MoveFileToDir(unsigned int file_id,char * dir);
 #endif // DIRECTORY_LISTING_H_INCLUDED

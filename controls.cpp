@@ -24,6 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "camera_control.h"
 #include "controls.h"
 #include "visuals.h"
+#include "directory_listing.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -50,6 +51,9 @@ void inline MouseLook(int x,int y)
 
 int Controls_Handle_MouseButtons(int button,int state, int x, int y)
 {
+    frame.mouse.mouse_x=x;
+    frame.mouse.mouse_y=y;
+    fprintf(stderr,"Mouse %u,%u\n",x,y);
     if ( frame.mouse.block_mouse_calls_until > frame.tick_count ) { return 0; /* We are blocking mouse calls to improve user friendlieness :P */ }
 
 
@@ -176,7 +180,7 @@ if (button==GLUT_RIGHT_BUTTON)
 
 int Controls_Handle_MouseMotion(int button,int state, int x, int y)
 {
-  //fprintf(stderr,"Mouse moved at %u %u\n",x,y);
+  //fprintf(stderr,"Mouse %u,%u\n",x,y);
   frame.mouse.mouse_x=x;
   frame.mouse.mouse_y=y;
 
@@ -218,6 +222,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
     /*---------------------------------------------------------------------------------------------------------------*/
 
     int nokey=0;
+    fprintf(stderr,"Key %u \n",key);
     switch (key)
     {
         case 1 : /* UP */    MoveToPicture(D_UP); break;
@@ -227,6 +232,18 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
 
 
         case 13 : /* ENTER */ ToggleAutomaticSlideshow(); break;
+
+        case 48+0 : /*Number 0*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort0/"); break;
+        case 48+1 : /*Number 1*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort1/"); break;
+        case 48+2 : /*Number 2*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort2/"); break;
+        case 48+3 : /*Number 3*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort3/"); break;
+        case 48+4 : /*Number 4*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort4/"); break;
+        case 48+5 : /*Number 5*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort5/"); break;
+        case 48+6 : /*Number 6*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort6/"); break;
+        case 48+7 : /*Number 7*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort7/"); break;
+        case 48+8 : /*Number 8*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort8/"); break;
+        case 48+9 : /*Number 9*/ MoveFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),(char *) "~/Pictures/FlashySlideshows/Sort9/"); break;
+
 
         case 'o': SetDestinationCenter();
                   break;
@@ -245,6 +262,9 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'h': frame.angle_z+=0.5; break;
         case 'n': if (ENABLE_WIGGLING) {ENABLE_WIGGLING=0;} else {ENABLE_WIGGLING=1;} break;
         case 'm': ToggleTransitionMode(); break;
+
+        case 153: MoveToPicture(D_UP);   MoveToPicture(D_UP);   MoveToPicture(D_UP);  break; //PAGE UP
+        case 161: MoveToPicture(D_DOWN); MoveToPicture(D_DOWN); MoveToPicture(D_DOWN); break; //PAGE DOWN
 
         case 'b': PickHoverEffect(frame.active_image_x,frame.active_image_y); break;
 

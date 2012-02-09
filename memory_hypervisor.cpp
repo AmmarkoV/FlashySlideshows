@@ -192,7 +192,7 @@ int UnLoadPicturesIfNeeded()
   /*SCAN THE PICTURES FROM 0 to MinVisible in order to free up some space*/
   while (album_traveler<MAX_album_traveler)
    {
-    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) ) //No point trying to load if it doesnt't fit
+    if (!GPU_Memory_can_accomodate(frame.gpu.lastTexture*6) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )
        {
@@ -221,7 +221,7 @@ int UnLoadPicturesIfNeeded()
                                { break; }
 
 
-   //  usleep(10);
+     usleep(100);
    }
 
 

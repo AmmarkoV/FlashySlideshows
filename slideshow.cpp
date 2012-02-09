@@ -49,6 +49,7 @@ void InitSlideShow()
    frame.quality_setting=4; // Medium Quality
 
    frame.enable_sound_effects=0;
+   frame.allow_mv_operation_sorting=0;
    frame.gpu.usedRAM=0;
 
    frame.distance_block_upper=20;
@@ -258,6 +259,13 @@ int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z)
     return 1;
 }
 
+unsigned int GetPictureDirectoryListIndex(unsigned int pic_place)
+{
+    if (PictureOutOfBounds(pic_place)) { return 0; }
+
+
+    return album[pic_place]->directory_list_index;
+}
 
 
 int PicturesNeededToBeLoaded()

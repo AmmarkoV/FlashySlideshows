@@ -15,7 +15,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1328757340 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1328779760 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -40,7 +40,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1328467972 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1328781706 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -48,7 +48,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1328467844 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1328781717 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -76,7 +76,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1328751756 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1328782085 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -88,15 +88,16 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1328751768 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1328781425 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1328319625 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1328781809 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
 	"camera_control.h"
 	"controls.h"
 	"visuals.h"
+	"directory_listing.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
@@ -104,7 +105,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1328750201 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1328776919 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -122,7 +123,7 @@
 
 1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1328755484 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1328776910 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -883,7 +884,7 @@
 1328531753 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1328755245 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1328779222 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
 	"load_images.h"
 	"load_textures.h"

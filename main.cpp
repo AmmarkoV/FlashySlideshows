@@ -345,6 +345,10 @@ void SpecialFunctionCallback (int key, int x, int y)
 		case GLUT_KEY_DOWN:  { Controls_Handle_Keyboard(2,x,y); break; }
 		case GLUT_KEY_RIGHT: { Controls_Handle_Keyboard(4,x,y); break; }
 		case GLUT_KEY_LEFT:  { Controls_Handle_Keyboard(3,x,y); break; }
+		case GLUT_KEY_PAGE_UP:    { Controls_Handle_Keyboard(153,x,y); break; }
+		case GLUT_KEY_PAGE_DOWN:  { Controls_Handle_Keyboard(161,x,y); break; }
+		//case GLUT_KEY_HOME: { Controls_Handle_Keyboard(153,x,y); break; }
+		//case GLUT_KEY_END:  { Controls_Handle_Keyboard(161,x,y); break; }
         default: nokey=1; break;
 	}
 
@@ -439,6 +443,11 @@ int main(int argc, char *argv[])
                    { //Sound Effects command
                        fprintf(stderr,"%u Sound Effects Enabled %s\n",i,argv[i]);
                        frame.enable_sound_effects=1;
+                   } else
+             if (strcmp(argv[i],"-mv_sort")==0)
+                   { //Sound Effects command
+                       fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
+                       frame.allow_mv_operation_sorting=1;
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command

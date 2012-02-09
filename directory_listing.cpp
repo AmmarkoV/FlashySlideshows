@@ -45,6 +45,7 @@ struct FilenameHolder
      char filename[512];
 };
 
+
 struct FilenameHolder * list=0;
 
 unsigned int list_size=0;
@@ -378,3 +379,21 @@ unsigned int LaunchGUI_PickDir()
 
  return 0;
 }
+
+
+int MoveFileToDir(unsigned int file_id,char * dir)
+{
+    if (!frame.allow_mv_operation_sorting) { return 0; }
+    char move_operation[2048];
+    strcpy(move_operation,"mv ");
+
+    strcat(move_operation,(char*)frame.album_directory);
+    strcat(move_operation,list[file_id].filename);
+    strcat(move_operation," ");
+    strcat(move_operation,dir);
+    fprintf(stderr,"Executing %s \n",move_operation);
+    int i=system(move_operation);
+
+  return i;
+}
+
