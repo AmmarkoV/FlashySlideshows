@@ -590,10 +590,18 @@ int main(int argc, char *argv[])
 
     CountPicturesInDirectory((char*)frame.album_directory);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
+    if (GetTotalViewableFilesInDirectory()==0)
+      {
+         fprintf(stderr,"Could not find any pictures to display \n");
+         return 1;
+      }
+    if (! CreateSlideshowPictureStructure(GetTotalViewableFilesInDirectory()) )
+      {
+          fprintf(stderr,"Unrecoverable error , could not allocate enough memory for %u Picture structure pointers..\nYou may try to re-run when more RAM will be availiable\n",GetTotalViewableFilesInDirectory());
+          return 1;
+      }
     GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),frame.sort_type,frame.sort_ascending); /* Load Directory List */
-
     frame.total_images=GetTotalViewableFilesInDirectory();
-    unsigned int i=0;  for (i=0; i<frame.total_images; i++) { album[i]=loading; }
 
 
 
@@ -612,6 +620,8 @@ int main(int argc, char *argv[])
     EnableScreenSaver();
     StopJoystickControl();
     UnLoadStockTexturesAndSounds();
+    DestroySlideshowPictureStructure();
     wxlibstuff.OnClose();
+
     return EXIT_SUCCESS;
 }

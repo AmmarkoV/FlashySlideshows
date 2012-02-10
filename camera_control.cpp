@@ -35,14 +35,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <GL/glu.h>
 #endif
 
-unsigned int transition_mode=0; /* 0 = 3d seek , 1 = immediate */
-
-void ToggleTransitionMode()
-{
-    ++transition_mode;
-    if ( transition_mode > 1 ) transition_mode = 0;
-}
-
 
 
 int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
@@ -363,7 +355,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
 
    ChangeActiveImage(x,y,0);
 
-   switch ( transition_mode)
+   switch ( frame.transition_mode)
    {
      case 0 : SetDestinationOverPicture3dSeek(x,y); break;
      case 1 : SetDestinationOverPictureImmediate(x,y); break;

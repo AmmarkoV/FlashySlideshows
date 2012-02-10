@@ -85,6 +85,9 @@ struct SlideShowData
   unsigned int background_number;
   unsigned int enable_sound_effects;
 
+
+  unsigned int transition_mode;
+
   unsigned int tick_count;
   unsigned int fps;
   unsigned int lookahead;
@@ -168,7 +171,7 @@ extern unsigned int time_passed_microseconds;
 
 extern struct SlideShowData frame;
 extern unsigned int ALBUM_SIZE;
-extern struct Picture *album[10000];
+extern struct Picture **album;
 
 extern struct Point3D up_left;
 extern struct Point3D up_right;
@@ -177,11 +180,16 @@ extern struct Point3D down_right;
 
 void InitSlideShow();
 
+unsigned int CreateSlideshowPictureStructure(unsigned int memory_size);
+void DestroySlideshowPictureStructure();
+
 int PictureOutOfBounds(unsigned int pic_place);
 
 void SetDisplayAllPictures(unsigned int newstate);
 
 void ToggleAutomaticSlideshow();
+
+void ToggleTransitionMode();
 
 void AutomaticSlideShowControl_if_needed();
 

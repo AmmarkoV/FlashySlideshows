@@ -12,7 +12,6 @@ enum Directions
    D_OUT
 };
 
-void ToggleTransitionMode();
 
 void SetDestinationCenter();
 void MoveDestinationCenterRaw(float x,float y,float z);

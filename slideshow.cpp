@@ -30,7 +30,7 @@ struct SlideShowData frame;
 unsigned int time_passed_microseconds=0;
 
 unsigned int ALBUM_SIZE=10000;
-struct Picture *album[10000]={0};
+struct Picture ** album=0;
 
 struct Point3D up_left={3.6,-2.8,-3.4};
 struct Point3D up_right={-3.6,-2.8,-3.4};
@@ -45,11 +45,38 @@ void SetDisplayAllPictures(unsigned int newstate)
   DISPLAY_ALL_PICTURES=newstate;
 }
 
+unsigned int CreateSlideshowPictureStructure(unsigned int memory_size)
+{
+    ALBUM_SIZE=memory_size+150;
+    if ( album != 0 ) { free(album); }
+
+   album = ( struct Picture ** ) malloc((ALBUM_SIZE)*sizeof(struct Picture));
+   if (album==0) { fprintf(stderr,"Could not allocate structure for picture info storage\n"); return 0; }
+
+
+   unsigned int i=0;
+   //struct Picture zeroPictureElement={0};
+   for (i=0; i<ALBUM_SIZE; i++)
+    {
+       //album[i]=zeroPictureElement;
+       album[i]=loading;
+    }
+
+   return 1;
+}
+
+void DestroySlideshowPictureStructure()
+{
+
+}
+
 void InitSlideShow()
 {
    srand( time(NULL) );
    frame.background_number = rand()%10;
    if (frame.background_number>10) {frame.background_number=0;}
+
+   frame.transition_mode=0;
 
    frame.quality_setting=4; // Medium Quality
    frame.gpu.maximum_frame_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
@@ -194,6 +221,14 @@ void ToggleAutomaticSlideshow()
                        //frame.vx,frame.vy,frame.vz,
                        5,5,/*PAUSE*/ 3 ,1000000);
       }
+}
+
+
+void ToggleTransitionMode()
+{
+    /* 0 = 3d seek , 1 = immediate */
+    ++frame.transition_mode;
+    if ( frame.transition_mode > 1 ) frame.transition_mode = 0;
 }
 
 void AutomaticSlideShowControl_if_needed()

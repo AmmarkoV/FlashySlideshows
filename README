@@ -1,7 +1,15 @@
 Flashy Slide Show
 -----------------
 
-to compile the project issue
+
+Screenshots :
+http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot1.jpg 
+http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot2.jpg 
+http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot3.png 
+http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.jpg 
+
+
+to compile the project open a terminal and run
 ./make
 This will produce the executables ( FlashySlideShowStarterApp and bin/Release/FlashySlideShow )
 you can issue 
@@ -13,8 +21,6 @@ if you want to install the app , run
 ./install.sh
 your password is required.. 
 This will add a shortcut on the applications list and the binaries FlashySlideShowStarterApp and FlashySlideShow ..
-
-
 
 
 
@@ -31,10 +37,6 @@ TODO LIST - THOUGHT DUMP :P
 
 * Organize code , and make a memory hypervisor ( or something ) 
 
-* Monitor all mallocs / frees and pass them to frame.gpu and frame.system values
-
-* Implement a real loading mechanism that loads/unloads textures to provide seamless slideshows on low RAM GPUs
-
 * Implement frame scaling to fill thumbnails with small textures faster
 
 * Implement frame scaling to lower the maximum resolution to fit more things in RAM where RAM is scarce   
@@ -43,25 +45,15 @@ TODO LIST - THOUGHT DUMP :P
 
 * Add effects ( shiny floor , transparency , particles ) to images
 
-* Fix Directory issues , find out where to install program in order for it to load default textures correctly  
-
-* Add file sorting via Filename or Date ( wxDir ) 
-
-* Add text lists to directory listing.cpp!
-
 * Make paper ( bending ) effects with 3D fonts
 
 * Implement image_sensing.cpp
 
 * Improve sound.cpp
 
-* Make thing cross platform ( the last thing to do :P )
-
 DONE
 >>>>>>>>>>>>
 
 -----------------
 
-Screenshots :
-1 ) http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot1.jpg 
 
