@@ -159,6 +159,7 @@ void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func,
 
 void PrintDirectoryList()
 {
+  if (!PrintPictureLoadingMsg())   { return; }
   unsigned int i=0;
   for (i=0; i<last_list_total_pictures_count; i++)
    {

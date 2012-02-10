@@ -156,11 +156,12 @@ void timerCB(int millisec)
 
 int framerate_limiter()
 {
- //return 0; /*Disabled */
+ usleep (1000); //1ms flat sleep time for the card
+ return 0; /*Disabled */
 
-  if ( frame.fps > 105 )
+  if ( frame.fps > 40 )
    {
-     unsigned int frames_to_cut = frame.fps - 100;
+     unsigned int frames_to_cut = frame.fps - 40;
      unsigned int time_to_cut = (unsigned int) 1000000/frames_to_cut;
      usleep (time_to_cut);
    }
@@ -467,8 +468,7 @@ int main(int argc, char *argv[])
                       {
                        frame.quality_setting=atoi(argv[i+1]); // Quality
                        fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
-                       frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
-                       frame.gpu.maximum_frame_total_size*=3; // <- Safety Factor
+                       //THIS HAS A SECOND PAYLOAD THAT HAPPENS AFTERWARDS----> to initialize frame.gpu.maximum_frame_total_size
                       }
                    } else
              if (strcmp(argv[i],"-b")==0)
@@ -573,8 +573,13 @@ int main(int argc, char *argv[])
   //  glFogf(GL_FOG_END, 5.0f);				// Fog End Depth
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
-
-
+   //Now that we have an OpenGL context we can query the maximum texture dimension..
+   GLint texSize=0;
+   glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+   frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+   frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
+   frame.gpu.maximum_frame_total_size*=3; // <- Safety Factor
+   fprintf(stderr,"Image Sizes set to %ux%u\n",GetWidthQuality(frame.quality_setting),GetHeightQuality(frame.quality_setting));
 
 
 

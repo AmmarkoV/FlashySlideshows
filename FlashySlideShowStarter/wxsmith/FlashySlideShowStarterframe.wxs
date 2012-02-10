@@ -102,13 +102,14 @@
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX2" variable="ComboBoxQuality" member="yes">
 			<content>
+				<item>Very Low</item>
+				<item>Low</item>
+				<item>Medium</item>
 				<item>Very High</item>
 				<item>High</item>
-				<item>Medium</item>
-				<item>Low</item>
-				<item>Very Low</item>
+				<item>Ultra</item>
 			</content>
-			<selection>1</selection>
+			<selection>2</selection>
 			<pos>456,56</pos>
 			<size>176,29</size>
 		</object>

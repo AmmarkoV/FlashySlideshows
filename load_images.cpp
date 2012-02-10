@@ -51,15 +51,17 @@ inline wxString _U(const char String[] = "")
 
 unsigned int GetWidthQuality(unsigned int quality)
 {
-  unsigned int chosen_width=640;
+  unsigned int chosen_width=1920;
   switch (quality)
   {
-    case 1: chosen_width=1920; break;
-    case 2: chosen_width=1600; break;
-    case 3: chosen_width=1152; break;
+    case 1: chosen_width=320; break;
+    case 2: chosen_width=640; break;
+    case 3: chosen_width=800; break;
     case 4: chosen_width=1024; break;
-    case 5: chosen_width=800; break;
-    case 6: chosen_width=640; break;
+    case 5: chosen_width=1152; break;
+    case 6: chosen_width=1600; break;
+    case 7: chosen_width=1920; break;
+
   };
 
   if ( frame.gpu.maximum_frame_dimension_size<chosen_width )

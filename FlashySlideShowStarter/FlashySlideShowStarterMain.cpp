@@ -127,11 +127,12 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     CheckBoxIncludeSubfolders->SetValue(false);
     StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Picture Quality"), wxPoint(456,40), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
     ComboBoxQuality = new wxComboBox(this, ID_COMBOBOX2, wxEmptyString, wxPoint(456,56), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX2"));
-    ComboBoxQuality->Append(_("Very High"));
-    ComboBoxQuality->SetSelection( ComboBoxQuality->Append(_("High")) );
-    ComboBoxQuality->Append(_("Medium"));
-    ComboBoxQuality->Append(_("Low"));
     ComboBoxQuality->Append(_("Very Low"));
+    ComboBoxQuality->Append(_("Low"));
+    ComboBoxQuality->SetSelection( ComboBoxQuality->Append(_("Medium")) );
+    ComboBoxQuality->Append(_("Very High"));
+    ComboBoxQuality->Append(_("High"));
+    ComboBoxQuality->Append(_("Ultra"));
     CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(472,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
     CheckBoxMipmap->SetValue(false);
     DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,368), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
