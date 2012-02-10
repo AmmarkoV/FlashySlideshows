@@ -82,7 +82,7 @@ struct FilePicture
 
 struct SlideShowData
 {
-
+  unsigned int background_number;
   unsigned int enable_sound_effects;
 
   unsigned int tick_count;

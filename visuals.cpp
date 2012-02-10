@@ -61,9 +61,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   float size_x=12,size_y=9,ratio=0.0;
   if ( pic->height != 0 ) { ratio=(float) pic->width/pic->height; }
 
-  if (PictureFailed(pic)) { pic=failed; } else
   if (PictureCreationPending(pic)) { pic=loading; } else
   if (PictureLoadingPending(pic)) {    pic=loading_texture; } else
+  if (PictureFailed(pic)) { pic=failed; } else
   if ( pic->height == 0 ) {
                              fprintf(stderr,"Zero Height on this image %u !\n",pic->directory_list_index);
                              PrintDirectoryListItem(pic->directory_list_index);

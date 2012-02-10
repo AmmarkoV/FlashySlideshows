@@ -468,7 +468,15 @@ int main(int argc, char *argv[])
                        frame.quality_setting=atoi(argv[i+1]); // Quality
                        fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
                        frame.gpu.maximum_frame_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
-
+                       frame.gpu.maximum_frame_size*=3; // <- Safety Factor
+                      }
+                   } else
+             if (strcmp(argv[i],"-b")==0)
+                   { //Quality command
+                      if (i+1<=argc)
+                      {
+                        frame.background_number=atoi(argv[i+1]); // Background
+                        fprintf(stderr,"%u Frame Background Manually Chosen %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.background_number);
                       }
                    } else
              if (strcmp(argv[i],"-d")==0)

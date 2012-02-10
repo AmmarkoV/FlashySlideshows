@@ -61,10 +61,14 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
 	                          return 0; }
 
-    frame.gpu.lastTexture= picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
-    if ( GPU_Memory_can_accomodate(frame.gpu.lastTexture)==0 ) { fprintf(stderr,"Abort making texture , GPU cant accomodate it \n");
-                                                                 SignalGPUFull=1;
-                                                                 return 0; }
+    unsigned long this_texture = picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
+    if ( !GPU_Memory_can_accomodate(this_texture) ) {
+                                                      fprintf(stderr,"Abort making texture , GPU cant accomodate it ( %u KB ) \n",(unsigned int) this_texture/1024);
+                                                      SignalGPUFull=1;
+                                                      return 0;
+                                                    }
+
+
 
     glEnable(GL_TEXTURE_2D);
     GLint texSize=0;
@@ -127,6 +131,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
           picturedata->rgb_data_size=0;
         }
 
+    frame.gpu.lastTexture=this_texture;
     frame.gpu.usedRAM+=frame.gpu.lastTexture;
 
     picturedata->marked_for_texture_loading=0;

@@ -23,6 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "scene_objects.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 struct SlideShowData frame;
 
@@ -46,8 +47,13 @@ void SetDisplayAllPictures(unsigned int newstate)
 
 void InitSlideShow()
 {
+   srand( time(NULL) );
+   frame.background_number = rand()%10;
+   if (frame.background_number>10) {frame.background_number=0;}
+
    frame.quality_setting=4; // Medium Quality
    frame.gpu.maximum_frame_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
+   frame.gpu.maximum_frame_size*=3; // <- Safety Factor
 
    frame.enable_sound_effects=0;
    frame.allow_mv_operation_sorting=0;
