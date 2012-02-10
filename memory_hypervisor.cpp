@@ -149,7 +149,7 @@ int CheckIfSignalGPUFullAppliesAnyMore()
 {
   if (SignalGPUFull)
    {
-     if (GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size)) { SignalGPUFull=0; }
+     if (GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size)) { SignalGPUFull=0; }
    }
 
   return 1;
@@ -200,7 +200,7 @@ int UnLoadPicturesIfNeeded()
 
   if ( frame.total_images == 0 ) { return 0; }
 
-  if ((GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size))&&(!SignalGPUFull))  { /*No need to unload anything */ return 1;}
+  if ((GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size))&&(!SignalGPUFull))  { /*No need to unload anything */ return 1;}
   fprintf(stderr,"UnLoadPicturesIfNeeded startin\n");
 
   unsigned int MAX_album_traveler=MinPictureThatIsVisible();
@@ -211,7 +211,7 @@ int UnLoadPicturesIfNeeded()
   fprintf(stderr,"Unload pictures 1 ");
   while (album_traveler<MAX_album_traveler)
    {
-    if ((!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size) ) || ( SignalGPUFull ) )
+    if ((!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size) ) || ( SignalGPUFull ) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )
        {
@@ -232,7 +232,7 @@ int UnLoadPicturesIfNeeded()
   fprintf(stderr,"Unload pictures 2 ");
   while ((album_traveler>MIN_album_traveler) && (album_traveler>0) )
    {
-    if ( (!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_size) )|| ( SignalGPUFull ) )
+    if ( (!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size) )|| ( SignalGPUFull ) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )
        {

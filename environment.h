@@ -7,6 +7,9 @@ long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct
 int LoadStockTexturesAndSounds();
 int UnLoadStockTexturesAndSounds();
 
+int PrintOpenGLDebugMsg();
+int PrintPictureLoadingMsg();
+int PrintDevMsg();
 
 void DisableScreenSaver();
 void EnableScreenSaver();

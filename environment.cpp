@@ -8,6 +8,21 @@
 #include <string.h>
 #include <time.h>
 
+int PrintOpenGLDebugMsg()
+{
+  return 0;
+}
+
+int PrintPictureLoadingMsg()
+{
+  return 0;
+}
+
+int PrintDevMsg()
+{
+  return 0;
+}
+
 long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct timeval *start_time )
 {
 

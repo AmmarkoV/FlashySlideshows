@@ -28,6 +28,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "load_textures.h"
 #include "image_sensing.h"
+#include "environment.h"
 
 
 struct Picture *star=0;
@@ -50,16 +51,23 @@ inline wxString _U(const char String[] = "")
 
 unsigned int GetWidthQuality(unsigned int quality)
 {
+  unsigned int chosen_width=640;
   switch (quality)
   {
-    case 1: return 1920; break;
-    case 2: return 1600; break;
-    case 3: return 1152; break;
-    case 4: return 1024; break;
-    case 5: return 800; break;
-    case 6: return 640; break;
+    case 1: chosen_width=1920; break;
+    case 2: chosen_width=1600; break;
+    case 3: chosen_width=1152; break;
+    case 4: chosen_width=1024; break;
+    case 5: chosen_width=800; break;
+    case 6: chosen_width=640; break;
   };
-  return 640;
+
+  if ( frame.gpu.maximum_frame_dimension_size<chosen_width )
+    {  //Make sure graphics card can take it..
+        chosen_width=frame.gpu.maximum_frame_dimension_size-1;
+    }
+
+  return chosen_width;
 }
 
 unsigned int GetHeightQuality(unsigned int quality)
@@ -141,7 +149,8 @@ int PictureFailed(struct Picture * picturedata)
 
 int PrintPictureData(struct Picture * picturedata)
 {
-  if ( picturedata == 0 ) { fprintf(stderr,"Null picture structure \n"); return 0; }
+   if ( picturedata == 0 ) { fprintf(stderr,"Null picture structure \n"); return 0; }
+   if (!PrintPictureLoadingMsg()) { return 0; }
    fprintf(stderr,"_____________________________________\n");
    fprintf(stderr,"Directory list index : %u \n",picturedata->directory_list_index);
    PrintDirectoryListItem(picturedata->directory_list_index);
@@ -159,7 +168,7 @@ int PrintPictureData(struct Picture * picturedata)
 
 int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int height,unsigned int depth)
 {
-    fprintf(stderr,"PreparePictureForImage , image %u x %u : %u ",width,height,depth);
+    if (PrintPictureLoadingMsg()) fprintf(stderr,"PreparePictureForImage , image %u x %u : %u ",width,height,depth);
 
     if ((pic->rgb_data!=0) || (pic->rgb_data_size!=0))
      {
@@ -202,7 +211,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      pic->depth=depth;
      pic->rgb_data_size=width*height*depth;
      frame.system.lastTexture=pic->rgb_data_size;
-     fprintf(stderr,"ok\n");
+     if (PrintPictureLoadingMsg()) fprintf(stderr,"ok\n");
 
     return 1;
 }
@@ -243,7 +252,7 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
 
 int LoadPicture(char * filename,struct Picture * pic)
 {
-  fprintf(stderr,"Loading picture %s \n",filename);
+  if (PrintPictureLoadingMsg()) fprintf(stderr,"Loading picture %s \n",filename);
   if ( pic == 0 ) { fprintf(stderr,"Error loading picture (%s) , accomodation structure is not allocated\n",filename); return 0; }
 
 

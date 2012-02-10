@@ -133,7 +133,7 @@ int ManageCreatingTextures(int count_only)
             unsigned int elapsed_time = timeval_diff(&difference,&now,&start_creating_textures);
             if (elapsed_time>1000)
              {
-                 fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
+                 if (PrintDevMsg()) fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
                  return count;
              }
       }
@@ -266,8 +266,7 @@ static void DisplayCallback(void)
 
 
     glutSwapBuffers();
-   glFlush();
-
+    glFlush();
 
    AutomaticSlideShowControl_if_needed(); /* if automatic slide show is enabled it will relay commands */
 
@@ -276,7 +275,8 @@ static void DisplayCallback(void)
    Run3DObjects(time_passed_microseconds);
 
 
-   /* Texture binding via OpenGL , it can only be done in this thread , while not rendering  >>>>>>>>>>>>>>>>>>>>>>*/
+   /* Texture binding via OpenGL , it can only be done in this thread , while not rendering
+        >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
    ManageCreatingTextures(0);
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
@@ -326,7 +326,7 @@ static void KeyCallback(unsigned char key, int x, int y)
   if ( nokey == 0 )
   {
      key=0;
-     fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
+     if (PrintDevMsg()) fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
      glutPostRedisplay();
   }
 }
@@ -467,8 +467,8 @@ int main(int argc, char *argv[])
                       {
                        frame.quality_setting=atoi(argv[i+1]); // Quality
                        fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
-                       frame.gpu.maximum_frame_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
-                       frame.gpu.maximum_frame_size*=3; // <- Safety Factor
+                       frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
+                       frame.gpu.maximum_frame_total_size*=3; // <- Safety Factor
                       }
                    } else
              if (strcmp(argv[i],"-b")==0)

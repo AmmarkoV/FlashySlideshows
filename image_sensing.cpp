@@ -4,6 +4,7 @@
 #include <cv.h>
 #include <cxcore.h>
 #include "load_images.h"
+#include "environment.h"
 
 
 
@@ -19,7 +20,7 @@ int GetInterestingAreasList(struct Picture *picture)
   /* This function should call edge/face detection on the picture to find out intresting regions on the image
      They will be used for smart zoom in/out and improving the computer camera
   */
-  fprintf(stderr," stub : GetInterestingAreasList not implemented yet\n");
+  if (PrintDevMsg()) fprintf(stderr," stub : GetInterestingAreasList not implemented yet\n");
   return 0;
 
 

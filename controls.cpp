@@ -24,6 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "camera_control.h"
 #include "controls.h"
 #include "visuals.h"
+#include "environment.h"
 #include "directory_listing.h"
 
 #ifdef __APPLE__
@@ -53,7 +54,7 @@ int Controls_Handle_MouseButtons(int button,int state, int x, int y)
 {
     frame.mouse.mouse_x=x;
     frame.mouse.mouse_y=y;
-    fprintf(stderr,"Mouse %u,%u\n",x,y);
+    if (PrintDevMsg()) fprintf(stderr,"Mouse %u,%u\n",x,y);
     if ( frame.mouse.block_mouse_calls_until > frame.tick_count ) { return 0; /* We are blocking mouse calls to improve user friendlieness :P */ }
 
 
@@ -95,21 +96,21 @@ int Controls_Handle_MouseButtons(int button,int state, int x, int y)
        if (state == GLUT_UP )
        {
          frame.mouse.left_pressed=1;
-         fprintf(stderr,"Left mouse button UP ( but down in reality ) \n");
+         if (PrintDevMsg()) fprintf(stderr,"Left mouse button UP ( but down in reality ) \n");
        } else
        if (state == GLUT_DOWN )
        {
          frame.mouse.left_pressed=1;
-         fprintf(stderr,"Left mouse button DOWN \n");
+         if (PrintDevMsg()) fprintf(stderr,"Left mouse button DOWN \n");
        } else
        {
-         fprintf(stderr,"Left mouse button OTHER ( but up in reality :P )\n");
+         if (PrintDevMsg()) fprintf(stderr,"Left mouse button OTHER ( but up in reality :P )\n");
            if ( frame.mouse.left_pressed==1 ) {
                                                 frame.mouse.left_pressed=0;
                                               } else /* RELEASING DRAG AND DROP */
            {
              /* UP Without already been used to drag */
-             fprintf(stderr,"Strange state");
+             if (PrintDevMsg()) fprintf(stderr,"Strange state");
              frame.dragging_screen=0;
            }
        }
@@ -121,11 +122,11 @@ if (button==GLUT_RIGHT_BUTTON)
      {
        if (state == GLUT_DOWN )
        {
-         fprintf(stderr,"Right mouse button DOWN \n");
+         if (PrintDevMsg()) fprintf(stderr,"Right mouse button DOWN \n");
        } else
        if (state == GLUT_UP )
        {
-         fprintf(stderr,"Right mouse button UP \n");
+         if (PrintDevMsg()) fprintf(stderr,"Right mouse button UP \n");
             if ( frame.mouse.left_pressed==1 ) {  } else /* RELEASING DRAG AND DROP */
            {
              /* UP Without already been used to drag */
@@ -144,11 +145,11 @@ if (button==GLUT_RIGHT_BUTTON)
 
     if  ( frame.mouse.left_pressed == 1 ) {
                                          frame.dragging_screen=1;
-                                         fprintf(stderr,"START DRAGGING \n");
+                                         if (PrintDevMsg()) fprintf(stderr,"START DRAGGING \n");
                                        } else
                                        {
                                          frame.dragging_screen=0;
-                                         fprintf(stderr,"START NO DRAGGING \n");
+                                         if (PrintDevMsg()) fprintf(stderr,"START NO DRAGGING \n");
                                        }
 
     if ( frame.dragging_screen == 1 )
@@ -186,7 +187,7 @@ int Controls_Handle_MouseMotion(int button,int state, int x, int y)
 
    if  ( frame.mouse.left_pressed == 1 ) {
                                          frame.dragging_screen=1;
-                                         fprintf(stderr,"DRAGGING \n");
+                                         if (PrintDevMsg()) fprintf(stderr,"DRAGGING \n");
                                        } else
                                        {
                                          frame.dragging_screen=0;
@@ -222,7 +223,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
     /*---------------------------------------------------------------------------------------------------------------*/
 
     int nokey=0;
-    fprintf(stderr,"Key %u \n",key);
+    if (PrintDevMsg()) fprintf(stderr,"Key %u \n",key);
     switch (key)
     {
         case 1 : /* UP */    MoveToPicture(D_UP); break;

@@ -45,7 +45,8 @@ struct GPU_Data
   unsigned long maxTexture;
   unsigned long lastTexture;
   unsigned long usedRAM;
-  unsigned long maximum_frame_size;
+  unsigned long maximum_frame_total_size;
+  unsigned int  maximum_frame_dimension_size;
 };
 
 struct System_Data

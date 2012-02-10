@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "load_textures.h"
 #include "load_images.h"
+#include "environment.h"
 #include "directory_listing.h"
 #include "slideshow.h"
 #include "memory_hypervisor.h"
@@ -73,15 +74,17 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     glEnable(GL_TEXTURE_2D);
     GLint texSize=0;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
-    fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
+    if (PrintOpenGLDebugMsg()) fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
+    frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+
     PrintDirectoryListItem(picturedata->directory_list_index);
 
     GLuint new_tex_id=0;
-    fprintf(stderr,"OpenGL Generating new Texture \n");
+    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Generating new Texture \n");
     glGenTextures(1,&new_tex_id);
     if ( complain_about_errors() ) { return 0; }
 
-    fprintf(stderr,"OpenGL Binding new Texture \n");
+    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Binding new Texture \n");
     glBindTexture(GL_TEXTURE_2D,new_tex_id);
     if ( complain_about_errors() ) { return 0; }
     glFlush();
@@ -115,7 +118,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
    if (enable_mipmaping)
     {
-      fprintf(stderr,"Using mipmaps there is a lot more memory consumption , needs work..\n");
+     if (PrintDevMsg()) fprintf(stderr,"Using mipmaps there is a lot more memory consumption , needs work..\n");
     }
 
 
@@ -139,7 +142,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
     if ( complain_about_errors() ) { return 0; }
 
-    fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
+    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
 
     glFlush();
 
@@ -154,11 +157,11 @@ unsigned int clear_texture(struct Picture * picturedata)
 
     if ( ( picturedata->gl_rgb_texture != loading->gl_rgb_texture ) && ( picturedata->gl_rgb_texture != 0) )
        {
-           fprintf(stderr,"Trying to delete texture for picture ");
+           if (PrintOpenGLDebugMsg()) fprintf(stderr,"Trying to delete texture for picture ");
            PrintDirectoryListItem(picturedata->directory_list_index);
 
            glDeleteTextures(1,&picturedata->gl_rgb_texture);
-           fprintf(stderr,"... ok\n");
+           if (PrintOpenGLDebugMsg()) fprintf(stderr,"... ok\n");
 
            picturedata->gl_rgb_texture=loading->gl_rgb_texture;
 
