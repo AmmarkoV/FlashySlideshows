@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="6581" topLine="455" />
+	<File name="camera_control.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="20000" topLine="543" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="166" topLine="0" />
@@ -14,7 +14,7 @@
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="5255" topLine="151" />
+		<Cursor position="5000" topLine="151" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="743" topLine="0" />
@@ -43,20 +43,20 @@
 	<File name="joystick.h" open="1" top="0" tabpos="25">
 		<Cursor position="0" topLine="21" />
 	</File>
-	<File name="load_images.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="4116" topLine="132" />
+	<File name="load_images.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1273" topLine="35" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="2008" topLine="35" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="4835" topLine="92" />
+		<Cursor position="2613" topLine="38" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="3951" topLine="113" />
+		<Cursor position="19144" topLine="563" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="1599" topLine="37" />
@@ -77,7 +77,7 @@
 		<Cursor position="92" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2417" topLine="58" />
+		<Cursor position="2417" topLine="136" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="1248" topLine="127" />

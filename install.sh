@@ -33,15 +33,33 @@ fi
   fi
 
 
+if [ -d "/usr/share/flashyslideshows/app_clipart" ]; then
+  echo "FlashySlideshows Clipart directory detected , patching it up :)" 
+else
+  echo "Creating Clipart Directory" 
   sudo mkdir /usr/share/flashyslideshows/app_clipart
+fi
+
+
+if [ -d "/usr/share/flashyslideshows/sounds" ]; then
+  echo "FlashySlideshows Sounds directory detected , patching it up :)" 
+else
+  echo "Creating Sounds Directory" 
   sudo mkdir /usr/share/flashyslideshows/sounds
+fi
+ 
   sudo cp app_clipart/* /usr/share/flashyslideshows/app_clipart
   sudo cp sounds/* /usr/share/flashyslideshows/sounds
   sudo cp app_clipart/flashyicon.png /usr/share/icons/flashyicon.png
   sudo cp FlashySlideshows.desktop /usr/share/applications/FlashySlideshows.desktop
-
-  sudo echo `date` > /usr/share/flashyslideshows/install_time
-
+  
+  sudo chmod 744 /usr/share/flashyslideshows/app_clipart/*  
+  sudo chmod 744 /usr/share/flashyslideshows/app_clipart/*  
+  
+  TIME_STAMP=`date` 
+  sudo  touch /usr/share/flashyslideshows/install_time
+  echo "$TIME_STAMP" | sudo cat >> /usr/share/flashyslideshows/install_time
+  #sudo echo "$TIME_STAMP" >> /usr/share/flashyslideshows/install_time
 
 
   echo "Done" 

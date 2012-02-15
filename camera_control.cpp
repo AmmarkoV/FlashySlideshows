@@ -573,7 +573,6 @@ int CameraOverPicture(unsigned int pic_place)
 int CameraSeesOnlyOnePicture()
 {
 
-
   if ( frame.vz<=frame.distance_block_lower+2.5  )
    {
      float xcoord,ycoord,zcoord,distance;
