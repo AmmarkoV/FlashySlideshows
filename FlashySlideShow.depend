@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1328872776 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1329314496 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"memory_hypervisor.h"
 	"directory_listing.h"
@@ -12,11 +12,11 @@
 	"image_sensing.h"
 	"environment.h"
 
-1328787938 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1329312581 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 	"slideshow.h"
 
-1328863258 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1328873627 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -41,7 +41,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1328861594 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1329313722 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -50,7 +50,7 @@
 	<stdio.h>
 	<time.h>
 
-1328861571 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1329313766 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -111,7 +111,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1328860405 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1329314430 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
@@ -129,7 +129,7 @@
 
 1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1328857011 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1329314362 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"

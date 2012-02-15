@@ -41,6 +41,7 @@ struct Picture
   unsigned int width;
   unsigned int depth;
   float transparency; /* 0.0 -> 1.0 */
+  float target_transparency; /* 0.0 -> 1.0 */
 
   unsigned int time_viewed;
   unsigned int times_viewed;

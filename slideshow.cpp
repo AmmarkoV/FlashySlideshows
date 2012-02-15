@@ -230,7 +230,7 @@ void ToggleTransitionMode()
 {
     /* 0 = 3d seek , 1 = immediate */
     ++frame.transition_mode;
-    if ( frame.transition_mode > 1 ) frame.transition_mode = 0;
+    if ( frame.transition_mode > 2 ) frame.transition_mode = 0;
 }
 
 void AutomaticSlideShowControl_if_needed()
@@ -304,6 +304,19 @@ int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z)
     *y=album[pic_place]->position.y;
     *z=album[pic_place]->position.z;
     return 1;
+}
+
+
+unsigned int PictureXYtoID(unsigned int x,unsigned int y)
+{
+  return x+(y*frame.images_per_line);
+}
+
+
+void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place)
+{
+  *x=place%frame.images_per_line;
+  *y=place/frame.images_per_line;
 }
 
 unsigned int GetPictureDirectoryListIndex(unsigned int pic_place)

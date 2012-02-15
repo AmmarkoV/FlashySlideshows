@@ -50,6 +50,40 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 }
 
 
+int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z,float heading,float pitch,float roll)
+{
+   unsigned int SIMPLE_FAST_FRAME=1; // This is kind of a shitty flag :P
+
+   float frame_size=0.1; // <---    FRAME SIZE SETTING
+   float frame_enforced_transparency=0.6; // <---    FRAME TRANSPARENCY
+
+   if (SIMPLE_FAST_FRAME)
+    {
+          glDisable ( GL_TEXTURE_2D ); //No textures , transparencies , etc , just a white QUAD :P less is more .. :P
+    } else
+    {
+     glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
+     if ( pic->transparency == 1.0 ) { glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }
+    }
+    glBegin(GL_QUADS);
+    if (pic->transparency>frame_enforced_transparency) { glColor4f(1.0,1.0,1.0,frame_enforced_transparency); } else //Frame always a little transparent..
+                                                       { glColor4f(1.0,1.0,1.0,pic->transparency); }
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x-frame_size,y+pic->position.y-pic->position.size_y-frame_size,z+pic->position.z-0.05);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x+frame_size,y+pic->position.y-pic->position.size_y-frame_size,z+pic->position.z-0.05);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x+frame_size,y+pic->position.y+pic->position.size_y+frame_size,z+pic->position.z-0.05);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+pic->position.x-pic->position.size_x-frame_size,y+pic->position.y+pic->position.size_y+frame_size,z+pic->position.z-0.05);
+   glEnd();
+
+  if (SIMPLE_FAST_FRAME)
+    {
+          glEnable ( GL_TEXTURE_2D );
+    } else
+   if (!SIMPLE_FAST_FRAME)
+    {
+      if ( pic->transparency == 1.0 ) { glDisable(GL_BLEND); }
+    }
+   return 1;
+}
 
 
 int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float z,float heading,float pitch,float roll)
@@ -58,8 +92,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
 
   if ( pic->position.ok == 0 ) { PositionPicture(pic,place); }
-  float size_x=12,size_y=9,ratio=0.0;
-  if ( pic->height != 0 ) { ratio=(float) pic->width/pic->height; }
 
   if (PictureCreationPending(pic)) { pic=loading; } else
   if (PictureLoadingPending(pic)) {    pic=loading_texture; } else
@@ -68,15 +100,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
                              fprintf(stderr,"Zero Height on this image %u !\n",pic->directory_list_index);
                              PrintDirectoryListItem(pic->directory_list_index);
                              pic=loading_texture;
-                           } else
-   if ( ratio == 0.0 )  { fprintf(stderr,"Zero X/Y Ratio on this image %u !\n",pic->directory_list_index);
-                          PrintDirectoryListItem(pic->directory_list_index);
-
-                          pic=loading_texture;
-                        }
-
-   size_y=size_x/ratio;
-   float frame_size=0.9;
+                           }
 
 
   x=0; y=0; z=0;
@@ -97,25 +121,18 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
 
 
-  /* if ( pic->transparency != 1.0 ) {  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }*/
+   if ( pic->transparency != 1.0 ) {  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }
 
   glEnable ( GL_TEXTURE_2D );
 
   if ( (!ENABLE_WIGGLING) || (!CameraOverPicture(place)))
   {
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
- glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-  glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
-   glBegin(GL_QUADS);
-    glColor4f(1.0,1.0,1.0,pic->transparency);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x-frame_size,y+pic->position.y-pic->position.size_y-frame_size,z+pic->position.z-0.1);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x+frame_size,y+pic->position.y-pic->position.size_y-frame_size,z+pic->position.z-0.1);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x+frame_size,y+pic->position.y+pic->position.size_y+frame_size,z+pic->position.z-0.1);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+pic->position.x-pic->position.size_x-frame_size,y+pic->position.y+pic->position.size_y+frame_size,z+pic->position.z-0.1);
-   glEnd();
-  glDisable(GL_BLEND);
+
+    DisplayFrame(pic,place,x,y,z,heading,pitch,roll);
 
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
 
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
    glBegin(GL_QUADS);
@@ -138,7 +155,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  { // This needs a nicer implementation :P
    PerformWiggling();
  }
- /*  if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }*/
+   if ( pic->transparency != 1.0 ) {  glDisable(GL_BLEND);  }
 
   glDisable ( GL_TEXTURE_2D );
   glDisable(GL_BLEND);

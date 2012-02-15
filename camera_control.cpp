@@ -60,8 +60,7 @@ int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
       frame.last_image_y=frame.active_image_y;
       frame.last_image_place=frame.active_image_place;
       frame.active_image_place=place;
-      frame.active_image_x=place%3;
-      frame.active_image_y=place/3;
+      PictureIDtoXY(&frame.active_image_x,&frame.active_image_y,place);
      }
    } else
    {
@@ -74,9 +73,10 @@ int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
      frame.last_image_x=frame.active_image_x;
      frame.last_image_y=frame.active_image_y;
      frame.last_image_place=frame.active_image_place;
+
      frame.active_image_x=x;
      frame.active_image_y=y;
-     frame.active_image_place=x+(y*3);
+     frame.active_image_place=PictureXYtoID(x,y);
 
      PrintPictureData(album[frame.active_image_place]);
 
@@ -352,13 +352,17 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
 
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
 {
-
+   unsigned int place = PictureXYtoID(x,y);
    ChangeActiveImage(x,y,0);
 
    switch ( frame.transition_mode)
    {
      case 0 : SetDestinationOverPicture3dSeek(x,y); break;
      case 1 : SetDestinationOverPictureImmediate(x,y); break;
+     case 2 :
+               album[place]->transparency=0.0;
+               album[place]->target_transparency=1.0;
+               SetDestinationOverPictureImmediate(x,y); break;
      default :  SetDestinationOverPicture3dSeek(x,y);  break;
    };
 }
@@ -367,6 +371,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
 int MoveToPicture(unsigned int direction)
 {
   fprintf(stderr,"Move to picture direction = %u \n",direction);
+  if (frame.active_image_place!=PictureXYtoID(frame.active_image_x,frame.active_image_y)) { fprintf(stderr,"ERROR Inconsistent x,y place\n"); }
   unsigned int last_active_picture=frame.active_image_place;
   unsigned int last_line=0;
   if ( frame.images_per_line>0) last_line=frame.total_images/frame.images_per_line;
@@ -400,7 +405,7 @@ int MoveToPicture(unsigned int direction)
                                        }
                                 }
 
-   unsigned int current_active_picture=image_x+image_y*frame.images_per_line;
+   unsigned int current_active_picture=PictureXYtoID(image_x,image_y);
 
    if ( current_active_picture!=last_active_picture )
     {
@@ -721,6 +726,22 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
 
 
+   /* PICTURE CONTROL */
+   if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
+      { album[frame.active_image_place]->transparency-=0.01*microseconds_of_movement;
+        if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
+         {
+            album[frame.active_image_place]->transparency=album[frame.active_image_place]->target_transparency;
+         }
+       }
+
+      if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
+      { album[frame.active_image_place]->transparency+=0.01*microseconds_of_movement;
+        if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
+         {
+            album[frame.active_image_place]->transparency=album[frame.active_image_place]->target_transparency;
+         }
+       }
 
   /* -------------------------------------
      CAMERA SAFE GUARD!
