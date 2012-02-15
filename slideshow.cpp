@@ -230,6 +230,9 @@ void ToggleTransitionMode()
 {
     /* 0 = 3d seek , 1 = immediate */
     ++frame.transition_mode;
+    if ( frame.transition_mode == 2 ) { fprintf(stderr,"Transparency effect (UNDER CONSTRUCTION) enabled\n"); }
+
+
     if ( frame.transition_mode > 2 ) frame.transition_mode = 0;
 }
 
@@ -268,9 +271,10 @@ int MinPictureThatIsVisible()
 
 
   if ( cur_place  <= frame.images_per_line * LINES_AWAY_DRAWN ) {} else
-                                                               { min_picture=cur_place-frame.images_per_line * LINES_AWAY_DRAWN;
-                                                                 if ( min_picture-1 >= 0 ) { min_picture-=1; }
-                                                               }
+                                                                {
+                                                                  min_picture=cur_place-frame.images_per_line * LINES_AWAY_DRAWN;
+                                                                  if ( min_picture-1 >= 0 ) { min_picture-=1; }
+                                                                }
   //fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
   return min_picture;
 }

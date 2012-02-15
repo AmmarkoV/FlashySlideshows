@@ -362,6 +362,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
      case 2 :
                album[place]->transparency=0.0;
                album[place]->target_transparency=1.0;
+               fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",place,album[place]->transparency,album[place]->target_transparency);
                SetDestinationOverPictureImmediate(x,y); break;
      default :  SetDestinationOverPicture3dSeek(x,y);  break;
    };
@@ -728,20 +729,25 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
    /* PICTURE CONTROL */
    if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
-      { album[frame.active_image_place]->transparency-=0.01*microseconds_of_movement;
+      { album[frame.active_image_place]->transparency-=0.000001*microseconds_of_movement;
         if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
          {
             album[frame.active_image_place]->transparency=album[frame.active_image_place]->target_transparency;
          }
        }
-
-      if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
-      { album[frame.active_image_place]->transparency+=0.01*microseconds_of_movement;
+         else
+   if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
+      { album[frame.active_image_place]->transparency+=0.000001*microseconds_of_movement;
         if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
          {
             album[frame.active_image_place]->transparency=album[frame.active_image_place]->target_transparency;
          }
        }
+
+  if ( album[frame.active_image_place]->transparency!=album[frame.active_image_place]->target_transparency )
+    {
+        fprintf(stderr,"Transparency %0.5f \n",album[frame.active_image_place]->transparency);
+    }
 
   /* -------------------------------------
      CAMERA SAFE GUARD!
