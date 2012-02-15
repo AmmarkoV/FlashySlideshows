@@ -81,13 +81,26 @@ struct FilePicture
   char * filename;
 };
 
+struct TransitionState
+{
+
+
+  unsigned int transition_mode;
+
+  unsigned int automatic_slideshow_on;
+  unsigned int currently_loading;
+
+  unsigned int seek_move_activated;
+  unsigned int effect_move_activated;
+
+};
+
+
 struct SlideShowData
 {
   unsigned int background_number;
   unsigned int enable_sound_effects;
 
-
-  unsigned int transition_mode;
 
   unsigned int tick_count;
   unsigned int fps;
@@ -95,10 +108,10 @@ struct SlideShowData
   unsigned int force_mipmap_generation;
   unsigned int mipmaping;
 
+  struct TransitionState transitions;
+
   unsigned int quality_setting; //Smaller is better
   unsigned int fullscreen;
-  unsigned int automatic_slideshow_on;
-  unsigned int currently_loading;
 
   unsigned int allow_mv_operation_sorting;
 
@@ -131,9 +144,6 @@ struct SlideShowData
   float angle_x,angle_y,angle_z,step;
 
   float vx,vy,vz;
-
-  unsigned int seek_move_activated;
-  unsigned int effect_move_activated;
 
 
   float effect_start_x,effect_start_y,effect_start_z;

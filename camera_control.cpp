@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "transitions/basic_transition.h"
+
 #include "slideshow.h"
 #include "camera_control.h"
 #include "load_images.h"
@@ -221,8 +223,8 @@ float RefreshDesiredStep_AccordingToPosition()
 
 void CameraReachedDestination()
 {
-  frame.effect_move_activated=0;
-  frame.seek_move_activated=0;
+  frame.transitions.effect_move_activated=0;
+  frame.transitions.seek_move_activated=0;
 }
 
 
@@ -272,7 +274,7 @@ void MoveDestinationCenter(unsigned int movement_direction)
     /* axis ( 0 x , 1 y , 2 z ) */
     /* direction ( 0 + , 1 - ) */
 
-    frame.effect_move_activated=0; /*Overriding hover*/
+    frame.transitions.effect_move_activated=0; /*Overriding hover*/
 
     switch ( axis )
     {
@@ -301,8 +303,8 @@ void MoveDestinationCenter(unsigned int movement_direction)
 
 void SetDestinationCenter()
 {
-    frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
-    frame.effect_move_activated=0;
+    frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+    frame.transitions.effect_move_activated=0;
 
     frame.desired_x=0;
     frame.desired_y=0;
@@ -316,7 +318,7 @@ void SetDestinationCenter()
 
 void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 {
-  frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+  frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
 
   float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
@@ -332,7 +334,7 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
 {
-  frame.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+  frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
 
   float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
@@ -355,7 +357,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
    unsigned int place = PictureXYtoID(x,y);
    ChangeActiveImage(x,y,0);
 
-   switch ( frame.transition_mode)
+   switch ( frame.transitions.transition_mode)
    {
      case 0 : SetDestinationOverPicture3dSeek(x,y); break;
      case 1 : SetDestinationOverPictureImmediate(x,y); break;
@@ -413,7 +415,7 @@ int MoveToPicture(unsigned int direction)
       frame.active_image_place=current_active_picture;
       SetDestinationOverPicture(image_x,image_y);
       fprintf(stderr,"Picture X/Y from %u/%u -> %u/%u \n",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
-      frame.seek_move_activated=1; /*THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0
+      frame.transitions.seek_move_activated=1; /*THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0
                                      so it is important to set this right here!*/
       return 1;
     } else
@@ -497,7 +499,7 @@ void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigne
         break;
    };
 
-        frame.effect_move_activated=1; /* ACTIVATE START Coords */
+        frame.transitions.effect_move_activated=1; /* ACTIVATE START Coords */
 
         frame.effect_start_x=frame.desired_x+frame.effect_start_x;
         frame.effect_start_y=frame.desired_y+frame.effect_start_y;
@@ -626,7 +628,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
     float speed=2; // 2 is a good value , 1 is an also good value ( faster :P )
     float speed_factor = 3/2; /* 1/5 */
 
-    if ( frame.effect_move_activated >= 2 ) { /* Frame is beeing hovered for an effect move , so we prefer slow speed */
+    if ( frame.transitions.effect_move_activated >= 2 ) { /* Frame is beeing hovered for an effect move , so we prefer slow speed */
                                               speed_factor = (float) 3/2;
                                             } else
                                             {
@@ -687,7 +689,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
                            } else { reached_target+=5; } /* + One coordinate has reached target */
 
 
- switch ( frame.effect_move_activated )
+ switch ( frame.transitions.effect_move_activated )
   {
      case 0 :
       /* DEAD STATE :) */
@@ -698,12 +700,12 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
       frame.desired_x=frame.effect_start_x;
       frame.desired_y=frame.effect_start_y;
       frame.desired_z=frame.effect_start_z;
-      frame.effect_move_activated=2;
+      frame.transitions.effect_move_activated=2;
      break;
 
      /* Reach start place*/
      case 2 :
-      if ( reached_target >= 9 ) { frame.effect_move_activated=3; }
+      if ( reached_target >= 9 ) { frame.transitions.effect_move_activated=3; }
      break;
 
      /* Start movement to end */
@@ -711,17 +713,17 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
       frame.desired_x=frame.effect_end_x;
       frame.desired_y=frame.effect_end_y;
       frame.desired_z=frame.effect_end_z;
-      frame.effect_move_activated=4;
+      frame.transitions.effect_move_activated=4;
      break;
 
      /* Reach end place*/
      case 4 :
-      if ( reached_target >= 9 ) { frame.effect_move_activated = 0; }
+      if ( reached_target >= 9 ) { frame.transitions.effect_move_activated = 0; }
      break;
 
      default :
       fprintf(stderr,"Erroneous state :P \n");
-      frame.effect_move_activated = 0;
+      frame.transitions.effect_move_activated = 0;
      break;
   };
 
@@ -778,7 +780,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
   if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
 
-  if ( !frame.seek_move_activated ) { CalculateActiveImage_AccordingToPosition(); }
+  if ( !frame.transitions.seek_move_activated ) { CalculateActiveImage_AccordingToPosition(); }
   /* If we are performing a seek move ( i.e. keyboard arrows ) we dont want to calculate active_image again , we
      know where we are headed*/
 

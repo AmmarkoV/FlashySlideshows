@@ -76,7 +76,7 @@ void InitSlideShow()
    frame.background_number = rand()%10;
    if (frame.background_number>10) {frame.background_number=0;}
 
-   frame.transition_mode=0;
+   frame.transitions.transition_mode=0;
 
    frame.quality_setting=4; // Medium Quality
    frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
@@ -108,7 +108,7 @@ void InitSlideShow()
    frame.sort_ascending=1; //1=ascending by default
    frame.sort_type=0;
 
-   frame.automatic_slideshow_on=0;
+   frame.transitions.automatic_slideshow_on=0;
    frame.time_ms_before_last_slide_change=0;
    frame.time_ms_between_two_transitions=5000;
 
@@ -128,14 +128,14 @@ void InitSlideShow()
 
    frame.step=0.05;
 
-   frame.currently_loading=0;
+   frame.transitions.currently_loading=0;
 
    frame.vx=00.0;
    frame.vy=00.0;
    frame.vz=00.0;
 
-   frame.seek_move_activated=0;
-   frame.effect_move_activated=0;
+   frame.transitions.seek_move_activated=0;
+   frame.transitions.effect_move_activated=0;
 
    frame.effect_start_x=00.0;
    frame.effect_start_y=00.0;
@@ -184,9 +184,9 @@ void InitSlideShow()
 
 void TriggerEndOfSlideShow()
 {
-    if ( frame.automatic_slideshow_on==1 )
+    if ( frame.transitions.automatic_slideshow_on==1 )
       {
-          frame.automatic_slideshow_on=0;
+          frame.transitions.automatic_slideshow_on=0;
       }
 }
 
@@ -203,12 +203,12 @@ void ToggleAutomaticSlideshow()
      if ( icon_z < -5 ) { icon_z = -4.5; }
 
 
-     if ( frame.automatic_slideshow_on==0 )
+     if ( frame.transitions.automatic_slideshow_on==0 )
       {
           SoundLibrary_PlaySound(SLIDESHOW_START);
           SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
           frame.time_ms_before_last_slide_change=frame.tick_count;
-          frame.automatic_slideshow_on=1;
+          frame.transitions.automatic_slideshow_on=1;
           Add_3DObject(//0,0,0,
                        frame.vx,frame.vy,icon_z,
                        //frame.vx,frame.vy,frame.vz,
@@ -217,7 +217,7 @@ void ToggleAutomaticSlideshow()
       } else
       {
           SoundLibrary_PlaySound(SLIDESHOW_STOP);
-          frame.automatic_slideshow_on=0;
+          frame.transitions.automatic_slideshow_on=0;
           Add_3DObject(//0,0,0,
                        frame.vx,frame.vy,icon_z,
                        //frame.vx,frame.vy,frame.vz,
@@ -229,16 +229,16 @@ void ToggleAutomaticSlideshow()
 void ToggleTransitionMode()
 {
     /* 0 = 3d seek , 1 = immediate */
-    ++frame.transition_mode;
-    if ( frame.transition_mode == 2 ) { fprintf(stderr,"Transparency effect (UNDER CONSTRUCTION) enabled\n"); }
+    ++frame.transitions.transition_mode;
+    if ( frame.transitions.transition_mode == 2 ) { fprintf(stderr,"Transparency effect (UNDER CONSTRUCTION) enabled\n"); }
 
 
-    if ( frame.transition_mode > 2 ) frame.transition_mode = 0;
+    if ( frame.transitions.transition_mode > 2 ) frame.transitions.transition_mode = 0;
 }
 
 void AutomaticSlideShowControl_if_needed()
 {
-  if ( frame.automatic_slideshow_on==0 ) { return; }
+  if ( frame.transitions.automatic_slideshow_on==0 ) { return; }
 
 
      if ( frame.tick_count-frame.time_ms_before_last_slide_change > frame.time_ms_between_two_transitions )

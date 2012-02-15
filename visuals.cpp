@@ -126,7 +126,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   {
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    if (frame.transition_mode!=2) { DisplayFrame(pic,place,x,y,z,heading,pitch,roll); }
+    if (frame.transitions.transition_mode!=2) { DisplayFrame(pic,place,x,y,z,heading,pitch,roll); }
 
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -142,7 +142,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  glColor4f(1.0,1.0,1.0,pic->transparency);
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
    glBegin(GL_QUADS);
-    if (frame.transition_mode==2) {  glColor4f(pic->transparency,pic->transparency,pic->transparency,pic->transparency); }
+    if (frame.transitions.transition_mode==2) {  glColor4f(pic->transparency,pic->transparency,pic->transparency,pic->transparency); }
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);	// Top Right Of The Texture and Quad
@@ -237,7 +237,7 @@ void DisplayHUD()
 
       //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "UNDER CONSTRUCTION!");
 
-       if (frame.currently_loading==1)
+       if (frame.transitions.currently_loading==1)
        {
          SoundLibrary_PlaySound(LOADED_PICTURE);
         //   SoundLibrary_PlaySoundPos(0,0,0,0);

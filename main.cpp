@@ -222,8 +222,8 @@ static void DisplayCallback(void)
 
    /* Texture binding via OpenGL , it can only be done in this thread , before actually rendering  >>>>>>>>>>>>>>>>>>>>>>*/
    /* This code only counts textures to be created , they are actually loaded on the end of this function >>>>>>>>>>>>>>>*/
-   if (ManageCreatingTextures(1)>0)  { frame.currently_loading=1; } else
-                                     { frame.currently_loading=0; }
+   if (ManageCreatingTextures(1)>0)  { frame.transitions.currently_loading=1; } else
+                                     { frame.transitions.currently_loading=0; }
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
