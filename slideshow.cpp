@@ -1,6 +1,6 @@
 /* FancySlideShow..
 A fancy , OpenGL slideshow application !
-URLs: http://ammarkov.ath.cx
+URLs: http://ammar.gr
 Written by Ammar Qammaz a.k.a. AmmarkoV 2010
 
 This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-
 #include "slideshow.h"
 #include "camera_control.h"
 #include "sound.h"

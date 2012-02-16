@@ -1,6 +1,6 @@
 /* FancySlideShow..
 A fancy , OpenGL slideshow application !
-URLs: http://ammarkov.ath.cx
+URLs: http://ammar.gr
 Written by Ammar Qammaz a.k.a. AmmarkoV 2010
 
 This program is free software; you can redistribute it and/or modify
