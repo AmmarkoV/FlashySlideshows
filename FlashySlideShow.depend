@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1329335056 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1329345118 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -25,6 +25,7 @@
 	"visuals.h"
 	"directory_listing.h"
 	"camera_control.h"
+	"pictures_control.h"
 	"controls.h"
 	"load_images.h"
 	"load_textures.h"
@@ -41,7 +42,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1329335107 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1329342359 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -49,8 +50,9 @@
 	<stdlib.h>
 	<stdio.h>
 	<time.h>
+	"transitions/basic_transition.h"
 
-1329331239 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1329342080 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -95,7 +97,7 @@
 
 1328781425 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1328863116 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1329350278 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -111,7 +113,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1329335047 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1329346833 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"
@@ -128,9 +130,9 @@
 
 1328858487 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
-1327976380 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
+1329351110 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1329321947 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1329351365 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -853,10 +855,10 @@
 1314284222 /usr/include/wx-2.8/wx/gtk/dirdlg.h
 	"wx/generic/dirdlgg.h"
 
-1327972544 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
+1329350576 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
 	"slideshow.h"
 
-1327976365 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
+1329351145 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
 	"scene_objects.h"
 	"visuals.h"
 	<stdlib.h>
@@ -1280,8 +1282,16 @@
 
 1328399098 /home/ammar/Documents/Programming/FlashySlideShow/effects.h
 
-1329334604 /home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.h
+1329342260 /home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.h
 
-1329335131 source:/home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.cpp
+1329341949 source:/home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.cpp
 	"basic_transition.h"
+
+1329344997 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
+
+1329346876 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
+	"pictures_control.h"
+	"slideshow.h"
+	<stdlib.h>
+	<stdio.h>
 

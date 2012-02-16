@@ -215,4 +215,12 @@ int MinPictureThatIsVisible();
 unsigned int PictureXYtoID(unsigned int x,unsigned int y);
 void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place);
 
+
+int Generic_HandleState_OneTime_Start_MovementToNextPicture();
+int Generic_HandleState_During_MovementToNextPicture();
+int Generic_HandleState_OneTime_End_MovementToNextPicture();
+int Generic_HandleState_OneTime_StartEffect();
+int Generic_HandleState_During_Effect();
+int Generic_HandleState_OneTime_EndEffect();
+
 #endif // SLIDESHOW_H_INCLUDED

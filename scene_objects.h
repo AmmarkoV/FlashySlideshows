@@ -2,6 +2,8 @@
 #define SCENE_OBJECTS_H_INCLUDED
 #include "slideshow.h"
 
+ #define MAX_SCENE_OBJECTS 100
+
  struct SceneObject
 {
    bool exists;
@@ -13,6 +15,7 @@
 
    struct Point3D position;
    struct Point3D velocity;
+   struct Point3D rotation_velocity;
    struct Point3D acceleration;
    struct Point3D decceleration;
 
@@ -36,6 +39,10 @@
    unsigned int stage;
 
 };
+
+ extern struct SceneObject objects[MAX_SCENE_OBJECTS ];
+ extern unsigned int existing_objects;
+
 
 unsigned int Render_3DObjects();
 unsigned int Add_3DObject(struct SceneObject newobj);

@@ -249,6 +249,11 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'o': SetDestinationCenter();
                   break;
 
+        case 'u': StaryFountain(1); /*TEST "PARTICLE" EFFECT*/ break;
+        case 'i': StaryFountain(2); /*TEST "PARTICLE" EFFECT*/ break;
+        case 'j': StaryFountain(4); /*TEST "PARTICLE" EFFECT*/ break;
+
+
         case 'r': MoveDestinationCenter(D_OUT); /*frame.desired_z+=frame.desired_step;*/ break;
         case 'f': MoveDestinationCenter(D_IN); /*frame.desired_z-=frame.desired_step;*/ break;
         case 'a': MoveDestinationCenter(D_LEFT); /*frame.desired_x+=frame.desired_step;*/ break;

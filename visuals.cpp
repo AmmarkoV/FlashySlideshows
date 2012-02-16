@@ -311,7 +311,7 @@ void MainDisplayFunction()
 
 }
 
-void DrawDecal(float x,float y,float z,float  rotation,unsigned int decal_type)
+void DrawDecal(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type)
 {
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
@@ -334,7 +334,7 @@ void DrawDecal(float x,float y,float z,float  rotation,unsigned int decal_type)
                           glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); /* DEFAULT */
    glBegin(GL_QUADS);
     glColor3f(1.0,1.0,1.0);
-     float size_x=9,size_y=9;
+     float size_x=width,size_y=height;
      float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
     glTexCoord2f(1.0f, 0.0f); glVertex3f(0+xmin,0+ymin,0/*-4.1*/);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(0+xmax,0+ymin,0/*-4.1*/);	// Bottom Right Of The Texture and Quad
@@ -384,11 +384,46 @@ void DrawBackground()
 int DrawEffects()
 {
 
-  DrawDecal(25,0,0,(float) times_drawn_background/100,0);
-  DrawDecal(25,14,0,(float) -times_drawn_background/100,1);
+  DrawDecal(25,0,0,(float) times_drawn_background/100,9,9,0);
+  DrawDecal(25,14,0,(float) -times_drawn_background/100,9,9,1);
   return 1;
 }
 
+
+int StaryFountain(unsigned int stock_image)
+{
+  float x,y,z,size,speed_x,speed_y;
+  x=album[frame.active_image_place]->position.x;
+  y=album[frame.active_image_place]->position.y;
+  z=album[frame.active_image_place]->position.z+1;
+
+
+  unsigned int i=0;
+  unsigned int mem=0;
+   for (i=0; i<25; i++)
+    {
+        size=0.01;
+        size+=(float) 0.15*(rand()%20);
+        mem=Add_3DObject(x,y,z+0.25*i,size,size,stock_image,1000000);
+
+        speed_x = (float) 60-rand()%120;
+        speed_y = (float) 60-rand()%120;
+
+        objects[mem].velocity.x=0.0001*speed_x;
+        if (objects[mem].velocity.x<0) { objects[mem].velocity.x-=0.05;} else
+                                       { objects[mem].velocity.x+=0.05;}
+        objects[mem].velocity.y=0.001*speed_y;
+        if (objects[mem].velocity.y<0) { objects[mem].velocity.y-=0.05;} else
+                                       { objects[mem].velocity.y+=0.05;}
+
+
+        objects[mem].rotation_velocity.z=1+rand()%2;
+        //objects[mem].velocity.z=0.1*(1+rand()%5);
+    }
+
+
+  return 1;
+}
 
 
 

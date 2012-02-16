@@ -6,12 +6,15 @@ void DisplayHUD();
 void MainDisplayFunction();
 void DrawBackground();
 int DrawEffects();
-void DrawDecal(float x,float y,float z,float rotation,unsigned int decal_type);
+
+void DrawDecal(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type);
 
 int MinPictureThatIsVisible();
 int MaxPictureThatIsVisible();
 
 void InitEffects();
+
+int StaryFountain(unsigned int stock_image);
 
 extern unsigned int ENABLE_WIGGLING;
 #endif // VISUALS_H_INCLUDED

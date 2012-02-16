@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
- #define MAX_OBJECTS 100
- struct SceneObject objects[MAX_OBJECTS]={0};
+
+ struct SceneObject objects[MAX_SCENE_OBJECTS ]={0};
  unsigned int existing_objects=0;
 
 
@@ -14,7 +14,9 @@ unsigned int Render_3DObject(unsigned int objnum)
              objects[objnum].position.x,
              objects[objnum].position.y,
              objects[objnum].position.z,
-             0.0,
+             objects[objnum].roll,
+             objects[objnum].width,
+             objects[objnum].height,
              objects[objnum].hardcoded_shape
            );
   return 1;
@@ -33,13 +35,13 @@ unsigned int Render_3DObjects()
 
 unsigned int Full_of_3DObjects()
 {
-    if (MAX_OBJECTS<=existing_objects) { return 1; }
+    if (MAX_SCENE_OBJECTS <=existing_objects) { return 1; }
     return 0;
 }
 
 unsigned int Object_Out_Of_Mem(unsigned int objnum)
 {
-    if (MAX_OBJECTS<= objnum) { return 1; } else
+    if (MAX_SCENE_OBJECTS <= objnum) { return 1; } else
     if (existing_objects<= objnum) { return 1; }
     return 0;
 }
@@ -47,7 +49,7 @@ unsigned int Object_Out_Of_Mem(unsigned int objnum)
 
 unsigned int Clear_3DObject(unsigned int objnum)
 {
-    if (MAX_OBJECTS<= objnum) { return 1; }
+    if (MAX_SCENE_OBJECTS <= objnum) { return 1; }
 
     struct SceneObject clear_obj = {0};
     objects[objnum]=clear_obj;
@@ -113,6 +115,17 @@ void Run3DObjects(unsigned int microseconds)
   unsigned int object_traverser=0;
   while ( object_traverser < existing_objects )
    {
+
+     objects[object_traverser].position.x+=objects[object_traverser].velocity.x;
+     objects[object_traverser].position.y+=objects[object_traverser].velocity.y;
+     objects[object_traverser].position.z+=objects[object_traverser].velocity.z;
+
+     // NOT SURE IF AXIS ARE CORRECT :P
+     objects[object_traverser].heading+=objects[object_traverser].rotation_velocity.y;
+     objects[object_traverser].roll+=objects[object_traverser].rotation_velocity.z;
+     objects[object_traverser].pitch+=objects[object_traverser].rotation_velocity.x;
+
+
      if (objects[object_traverser].lifetime!=0)
       {
           if (microseconds>=objects[object_traverser].lifetime)
@@ -125,6 +138,9 @@ void Run3DObjects(unsigned int microseconds)
               objects[object_traverser].lifetime-=microseconds;
             }
       }
+
+
+
 
      ++object_traverser;
    }

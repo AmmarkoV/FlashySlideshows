@@ -24,6 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include "transitions/basic_transition.h"
 
 struct SlideShowData frame;
 
@@ -335,6 +336,40 @@ unsigned int GetPictureDirectoryListIndex(unsigned int pic_place)
 int PicturesNeededToBeLoaded()
 {
   return 0;
+}
+
+
+//SEEK MOVEMENT  =============================================
+int Generic_HandleState_OneTime_Start_MovementToNextPicture()
+{
+  return HandleState_OneTime_Start_BasicMovementToNextPicture();
+}
+
+int Generic_HandleState_During_MovementToNextPicture()
+{
+  return HandleState_During_BasicMovementToNextPicture();
+}
+
+int Generic_HandleState_OneTime_End_MovementToNextPicture()
+{
+  return HandleState_OneTime_End_BasicMovementToNextPicture();
+}
+
+
+//KEN_BURNS(LIKE) EFFECT ======================================
+int Generic_HandleState_OneTime_StartEffect()
+{
+  return HandleState_OneTime_BasicStartEffect();
+}
+
+int Generic_HandleState_During_Effect()
+{
+  return HandleState_During_BasicEffect();
+}
+
+int Generic_HandleState_OneTime_EndEffect()
+{
+  return HandleState_OneTime_BasicEndEffect();
 }
 
 

@@ -25,6 +25,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "visuals.h"
 #include "directory_listing.h"
 #include "camera_control.h"
+#include "pictures_control.h"
 #include "controls.h"
 #include "load_images.h"
 #include "load_textures.h"
@@ -273,6 +274,8 @@ static void DisplayCallback(void)
 
    /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER/COMPUTER INPUT*/
    PerformCameraMovement(time_passed_microseconds);
+   PerformPicturesMovement(time_passed_microseconds);
+
    Run3DObjects(time_passed_microseconds);
 
 

@@ -70,12 +70,16 @@
 		<Unit filename="math_3d.h" />
 		<Unit filename="memory_hypervisor.cpp" />
 		<Unit filename="memory_hypervisor.h" />
+		<Unit filename="pictures_control.cpp" />
+		<Unit filename="pictures_control.h" />
 		<Unit filename="scene_objects.cpp" />
 		<Unit filename="scene_objects.h" />
 		<Unit filename="slideshow.cpp" />
 		<Unit filename="slideshow.h" />
 		<Unit filename="sound.cpp" />
 		<Unit filename="sound.h" />
+		<Unit filename="transitions/basic_transition.cpp" />
+		<Unit filename="transitions/basic_transition.h" />
 		<Unit filename="visuals.cpp" />
 		<Unit filename="visuals.h" />
 		<Unit filename="wxwidgets_stuff.cpp" />
