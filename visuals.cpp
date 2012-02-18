@@ -252,7 +252,6 @@ void DisplayHUD()
 
        if (frame.transitions.currently_loading==1)
        {
-         SoundLibrary_PlaySound(LOADED_PICTURE);
         //   SoundLibrary_PlaySoundPos(0,0,0,0);
          //glRasterPos2f(0,20);
          //glColor3f(1.0,0.0,0.0);

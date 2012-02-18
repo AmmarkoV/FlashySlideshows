@@ -535,21 +535,10 @@ void PickHoverEffect(unsigned int x,unsigned int y)
 
 void SetDestinationOverNextPicture()
 {
-   unsigned int new_active_x=frame.active_image_x;
-   unsigned int new_active_y=frame.active_image_y;
-   unsigned int new_active_picture=frame.active_image_place;
-
-   if ( new_active_x>=frame.images_per_line-1 )
-    {
-      new_active_x=0;
-      ++new_active_y;
-    } else
-    {
-      ++new_active_x;
-    }
-
-    new_active_picture = new_active_x+new_active_y*frame.images_per_line;
-
+   unsigned int new_active_picture=frame.active_image_place+1;
+   unsigned int new_active_x;
+   unsigned int new_active_y;
+   PictureIDtoXY(&new_active_x,&new_active_y,new_active_picture);
 
 
     if ( new_active_picture >= frame.total_images ) { /* WE PASSED THE LAST ACTIVE PICTURE SO THERE ACTUALY ISN`t A NEXT PICTURE! */
@@ -562,13 +551,8 @@ void SetDestinationOverNextPicture()
                                                     } else
                                                     {
                                                        /*There is a next picture :) , we`re gonna change to it*/
-                                                       fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture+1, frame.total_images);
-
-                                                       //frame.active_image_x=new_active_x;
-                                                       //frame.active_image_y=new_active_y;
-                                                       //frame.active_image_place=new_active_picture;
+                                                       fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture, frame.total_images);
                                                        SetDestinationOverPicture(new_active_x,new_active_y);
-
                                                        fprintf(stderr,"Picture new destination %u/%u -> %u/%u \n ",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
                                                     }
 }
@@ -601,9 +585,10 @@ int CameraSeesOnlyOnePicture()
      GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);
      distance=distanceBetween3DPoints(&xcoord,&ycoord,&zcoord,&frame.vx,&frame.vy,&frame.vz);
 
-     if (distance < 12.4)
+     if ((distance < 12.4) && (album[frame.active_image_place]->position.size_x>album[frame.active_image_place]->position.size_y) )
       {
         //TODO :P fprintf(stderr,"Only one picture ( distance = %0.2f ) \n",distance);
+        fprintf(stderr,"Check Camera sees Only One Picture for %0.2f,%0.2f image and z=%0.2f\n",album[frame.active_image_place]->position.size_x,album[frame.active_image_place]->position.size_y,frame.vz);
         return 1;
       }
    }
@@ -742,7 +727,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
   };
 
 
-
+//test floating effectframe.vz+=0.0001*microseconds_of_movement;
 
 
   /* -------------------------------------

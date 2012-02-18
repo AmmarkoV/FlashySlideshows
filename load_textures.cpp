@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "environment.h"
 #include "directory_listing.h"
 #include "slideshow.h"
+#include "sound.h"
 #include "memory_hypervisor.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -146,6 +147,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
     glFlush();
 
+         SoundLibrary_PlaySound(LOADED_PICTURE);
     return 1;
 }
 
