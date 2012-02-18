@@ -134,21 +134,34 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  if ( pic->transparency != 1.0 )
   {
     glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0);
-    //glAlphaFunc(GL_ALWAYS,0.0);
+    //glAlphaFunc(GL_GREATER, 0);
+    glAlphaFunc(GL_ALWAYS,0.0);
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_COLOR,GL_DST_ALPHA);
+    glBlendEquation(GL_FUNC_ADD);
+    //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
+    glBlendColor(0,0,0,0);
+    //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
+    glBlendFunc(GL_ONE,GL_ONE);//GL_ONE,GL_ZERO);//GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);//GL_SRC_COLOR,GL_DST_ALPHA);
+    //glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
   } //
  glColor4f(1.0,1.0,1.0,pic->transparency);
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
    glBegin(GL_QUADS);
-    if (frame.transitions.transition_mode==2) {  glColor4f(pic->transparency,pic->transparency,pic->transparency,pic->transparency); }
+    if (frame.transitions.transition_mode==2)
+    {
+      glColor4f(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
+    }
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);	// Top Right Of The Texture and Quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);
    glEnd();
-   if ( pic->transparency != 1.0 ) {  glDisable(GL_ALPHA_TEST); glDisable(GL_BLEND);  }
+
+   if ( pic->transparency != 1.0 )
+   {
+     glDisable(GL_ALPHA_TEST);
+     glDisable(GL_BLEND);
+   }
   }
    else
  if( ENABLE_WIGGLING )

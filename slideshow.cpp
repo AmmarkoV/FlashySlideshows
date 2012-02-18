@@ -88,9 +88,12 @@ void InitSlideShow()
    frame.allow_mv_operation_sorting=0;
    frame.gpu.usedRAM=0;
 
+   frame.images_per_line=3;
+
+
    frame.distance_block_upper=20;
    frame.distance_block_lower=-4.0;
-   frame.distance_block_left=-20;
+   frame.distance_block_left=-14.0*(frame.images_per_line-1)-4.0;// This has to do with images per line :P;
    frame.distance_block_right=20;
    frame.distance_block_up=20;
    frame.distance_block_down=-20;
@@ -103,7 +106,6 @@ void InitSlideShow()
    frame.desired_step_close=1;
    frame.desired_step_far=5;
 
-   frame.images_per_line=3;
 
    frame.sort_ascending=1; //1=ascending by default
    frame.sort_type=0;

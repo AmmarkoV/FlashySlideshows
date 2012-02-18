@@ -323,7 +323,10 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
   float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
   if ( x==1 ) { vx= 0.0; } else
-  if ( x==2 ) { vx=-14.0; }
+  if ( x==2 ) { vx=-14.0; } else
+              {
+                vx=(x-1)*-14.0;
+              }
 
   vy=-12.0 + y_inc * y;
 
@@ -339,7 +342,10 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
   float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
   if ( x==1 ) { vx= 0.0; } else
-  if ( x==2 ) { vx=-14.0; }
+  if ( x==2 ) { vx=-14.0; } else
+              {
+                vx=(x-1)*-14.0;
+              }
 
   vy=-12.0 + y_inc * y; frame.desired_z=-1.0;
   frame.desired_x=vx;
@@ -383,29 +389,37 @@ int MoveToPicture(unsigned int direction)
   unsigned int image_x=frame.active_image_x,image_y=frame.active_image_y;
     if ( direction == D_UP )
                                {  /* UP */
+                                    fprintf(stderr,"For UP at %u,%u we got ",image_x,image_y);
                                     if ( image_y > 0 ) {  image_y-=1; }
+                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
                                } else
     if ( direction == D_DOWN )
                                {  /* DOWN */
+                                    fprintf(stderr,"For DOWN at %u,%u we got ",image_x,image_y);
                                     if ( image_y < last_line-1 ) {  image_y+=1; }
+                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
                                } else
     if ( direction == D_LEFT ) {  /* LEFT */
+                                    fprintf(stderr,"For LEFT at %u,%u we got ",image_x,image_y);
                                     if ( image_x > 0 ) {  image_x-=1; } else
-                                    { //Go to the next row functionality :P
+                                    { //Go to the previous row functionality :P
                                        if ( image_y >0 )
                                        {
                                            image_x=frame.images_per_line-1;
                                          --image_y;
                                        }
                                     }
+                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
                                } else
     if ( direction == D_RIGHT ) {  /* RIGHT */
+                                    fprintf(stderr,"For RIGHT at %u,%u we got ",image_x,image_y);
                                     if ( image_x < frame.images_per_line-1 ) {  image_x+=1; } else
                                     if ( image_y < last_line-1 )
-                                       {//Go to the previous row functionality :P
+                                       {//Go to the next row functionality :P
                                            image_x=0;
                                          ++image_y;
                                        }
+                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
                                 }
 
    unsigned int current_active_picture=PictureXYtoID(image_x,image_y);
