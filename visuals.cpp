@@ -135,22 +135,37 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   {
     glEnable(GL_ALPHA_TEST);
     //glAlphaFunc(GL_GREATER, 0);
-    glAlphaFunc(GL_ALWAYS,0.0);
+    //glAlphaFunc(GL_ALWAYS,0.0);
+    glAlphaFunc(GL_GREATER, 0.1);
     glEnable(GL_BLEND);
-    glBlendEquation(GL_FUNC_ADD);
+    //glBlendEquation(GL_FUNC_ADD);
     //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
-    glBlendColor(0,0,0,0);
+
+    //glBlendColor(0,0,0,0);
+
     //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
-    glBlendFunc(GL_ONE,GL_ONE);//GL_ONE,GL_ZERO);//GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);//GL_SRC_COLOR,GL_DST_ALPHA);
+    //glBlendFunc(GL_ONE,GL_ONE);//GL_ONE,GL_ZERO);//GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);//GL_SRC_COLOR,GL_DST_ALPHA);
+    glBlendFunc(GL_SRC_COLOR,GL_DST_ALPHA);
+
     //glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+
+    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
   } //
  glColor4f(1.0,1.0,1.0,pic->transparency);
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smalled than
+
    glBegin(GL_QUADS);
     if (frame.transitions.transition_mode==2)
     {
-      glColor4f(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
+      glColor4f(1.0,1.0,1.0,pic->transparency);
     }
+    glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);	// Top Right Of The Texture and Quad

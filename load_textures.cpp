@@ -56,6 +56,20 @@ int PictureTextureLoaded(struct Picture * picturedata)
   return 0;
 }
 
+void software_add_alpha_channel(char * inbuf,char * outbuf,unsigned int width,unsigned int height)
+{
+  //This code inflates the image to RGBA format :P
+  int in=0,out=0,lim=width*height*3;
+  while (in<lim)
+   {
+     outbuf[out++]=inbuf[in++];
+     outbuf[out++]=inbuf[in++];
+     outbuf[out++]=inbuf[in++];
+     outbuf[out++]=50;
+   }
+}
+
+
 
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
@@ -93,6 +107,22 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     picturedata->gl_rgb_texture=new_tex_id;
 
 
+    unsigned int depth_flag=GL_RGB;
+    char * rgba_data = picturedata->rgb_data;
+
+/* RGBA Software conversion for debugging :p   HAS ANOTHER PART (line 150+ ) THAT DOES THE FREE CALL
+    rgba_data = (char*) malloc(picturedata->width*picturedata->height*4*sizeof(unsigned char));
+    if (rgba_data==0)
+      {
+       rgba_data = picturedata->rgb_data;
+      } else
+      {
+       depth_flag=GL_RGBA;
+       software_add_alpha_channel(picturedata->rgb_data,rgba_data,picturedata->width,picturedata->height);
+       fprintf(stderr,"Using Alpha texture conversion\n");
+      }
+*/
+
   if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
    {
       /* LOADING TEXTURE --WITH-- MIPMAPING */
@@ -102,7 +132,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);                      // GL_RGB
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE, (const GLvoid *) picturedata->rgb_data);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
       if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
    } else
    {
@@ -113,9 +143,14 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);                       //GL_RGB
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, GL_RGB, GL_UNSIGNED_BYTE,(const GLvoid *) picturedata->rgb_data);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE,(const GLvoid *) rgba_data);
       if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
    }
+
+/* RGBA Software conversion for debugging :p HAS A PREVIOUS PART
+   if ( (rgba_data != 0)&&(depth_flag=GL_RGBA) )  { free(rgba_data); }
+*/
+
 
    if (enable_mipmaping)
     {

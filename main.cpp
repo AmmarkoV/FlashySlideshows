@@ -230,6 +230,7 @@ static void DisplayCallback(void)
 
 
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	  glPushMatrix();
        glMatrixMode(GL_MODELVIEW);
@@ -531,7 +532,7 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv);
     glutInitWindowSize(1024,600);
     glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE );
 
     glutCreateWindow(APP_VERSION_STRING);
 
@@ -542,12 +543,15 @@ int main(int argc, char *argv[])
 
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
     glClearColor(1,1,1,1);
-   glEnable(GL_CULL_FACE);
+
+     glEnable(GL_CULL_FACE);
      glCullFace(GL_BACK);
      glEnable(GL_COLOR_MATERIAL);
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    glClearDepth(1.0);				// Enables Clearing Of The Depth Buffer
+
 
     glEnable(GL_LIGHT0);
     glEnable(GL_NORMALIZE);
@@ -565,15 +569,6 @@ int main(int argc, char *argv[])
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
-  //  glClearColor(0.5f,0.5f,0.5f,1.0f);			// We'll Clear To The Color Of The Fog ( Modified )
-
-  //  glFogi(GL_FOG_MODE, fogMode[fogfilter]);		// Fog Mode
-  //  glFogfv(GL_FOG_COLOR, fogColor);			// Set Fog Color
-  //  glFogf(GL_FOG_DENSITY, 0.35f);				// How Dense Will The Fog Be
-  //  glHint(GL_FOG_HINT, GL_DONT_CARE);			// Fog Hint Value
-  //  glFogf(GL_FOG_START, 1.0f);				// Fog Start Depth
-  //  glFogf(GL_FOG_END, 5.0f);				// Fog End Depth
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
    //Now that we have an OpenGL context we can query the maximum texture dimension..
