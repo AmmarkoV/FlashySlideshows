@@ -275,6 +275,7 @@ void MoveDestinationCenter(unsigned int movement_direction)
     /* direction ( 0 + , 1 - ) */
 
     frame.transitions.effect_move_activated=0; /*Overriding hover*/
+    frame.transitions.seek_move_activated=1; /*Setting Destination Over Point cancels seek move!*/
 
     switch ( axis )
     {
@@ -296,6 +297,7 @@ void MoveDestinationCenter(unsigned int movement_direction)
 
    // If target is out of bounds fix it
    CheckForTargetInBounds();
+   CalculateActiveImage_AccordingToPosition(); // <- hardcode coords checking..
 }
 
 

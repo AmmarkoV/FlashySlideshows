@@ -58,12 +58,13 @@
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1329408089 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1329548520 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"environment.h"
 	"directory_listing.h"
 	"slideshow.h"
+	"sound.h"
 	"memory_hypervisor.h"
 	<stdlib.h>
 	<stdio.h>
@@ -113,7 +114,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1329548403 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1330290546 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"
@@ -132,7 +133,7 @@
 
 1329351110 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1329526018 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1329548500 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
