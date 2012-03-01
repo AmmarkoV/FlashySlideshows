@@ -68,10 +68,10 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
     glBegin(GL_QUADS);
     if (pic->transparency>frame_enforced_transparency) { glColor4f(1.0,1.0,1.0,frame_enforced_transparency); } else //Frame always a little transparent..
                                                        { glColor4f(1.0,1.0,1.0,pic->transparency); }
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x-frame_size,y+pic->position.y-pic->position.size_y-frame_size,z+pic->position.z-0.05);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x+frame_size,y+pic->position.y-pic->position.size_y-frame_size,z+pic->position.z-0.05);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x+frame_size,y+pic->position.y+pic->position.size_y+frame_size,z+pic->position.z-0.05);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+pic->position.x-pic->position.size_x-frame_size,y+pic->position.y+pic->position.size_y+frame_size,z+pic->position.z-0.05);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-pic->position.size_x-frame_size,y-pic->position.size_y-frame_size,z-0.05);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.size_x+frame_size,y-pic->position.size_y-frame_size,z-0.05);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.size_x+frame_size,y+pic->position.size_y+frame_size,z-0.05);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-pic->position.size_x-frame_size,y+pic->position.size_y+frame_size,z-0.05);
    glEnd();
 
   if (SIMPLE_FAST_FRAME)
@@ -103,7 +103,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
                            }
 
 
-  x=0; y=0; z=0;
   if ( (pic!=loading_texture) && ( pic!=failed ) && ( pic!=loading ) ) { /* NORMAL PHOTO*/  } else
                                                                        { PositionPicture(pic,place); }
 
@@ -170,10 +169,10 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
       glColor4f(1.0,1.0,1.0,pic->transparency);
     }
     glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y-pic->position.size_y,z+pic->position.z);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.x+pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+pic->position.x-pic->position.size_x,y+pic->position.y+pic->position.size_y,z+pic->position.z);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-pic->position.size_x,y-pic->position.size_y,z);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.size_x,y-pic->position.size_y,z);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.size_x,y+pic->position.size_y,z);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-pic->position.size_x,y+pic->position.size_y,z);
    glEnd();
 
    if ( pic->transparency != 1.0 )
@@ -329,11 +328,14 @@ void MainDisplayFunction()
 
           for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
            {
-               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],album_traveler, 7,y,-5,0,0,album[album_traveler]->rotate)!= 1 ) { /*fprintf(stderr,"Error 1 Drawing pic %u \n",album_traveler);*/ } } else
-               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler],album_traveler,  0,y,-5,0,0,album[album_traveler]->rotate)!= 1 ) { /*fprintf(stderr,"Error 2 Drawing pic %u \n",album_traveler);*/ } } else
-               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler],album_traveler, -7,y,-5,0,0,album[album_traveler]->rotate)!= 1 ) { /*fprintf(stderr,"Error 3 Drawing pic %u \n",album_traveler);*/ }
-                                            y+=6;  } else
-                                          { fprintf(stderr,"Wtf"); }
+
+               DisplayPicture( album[album_traveler],album_traveler ,
+                               album[album_traveler]->position.x,
+                               album[album_traveler]->position.y,
+                               album[album_traveler]->position.z,
+                               0,
+                               0,
+                               album[album_traveler]->rotate);
            }
 
 
