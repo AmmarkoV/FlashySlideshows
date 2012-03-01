@@ -42,6 +42,29 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
          }
        }
 
+
+   if ( album[frame.active_image_place]->rotate>album[frame.active_image_place]->target_rotate)
+      { album[frame.active_image_place]->rotate-=0.000001*microseconds_of_movement;
+        if ( album[frame.active_image_place]->rotate<album[frame.active_image_place]->target_rotate)
+         {
+            album[frame.active_image_place]->rotate=album[frame.active_image_place]->target_rotate;
+         }
+       }
+         else
+   if ( album[frame.active_image_place]->rotate<album[frame.active_image_place]->target_rotate)
+      { album[frame.active_image_place]->rotate+=0.000001*microseconds_of_movement;
+        if ( album[frame.active_image_place]->rotate>album[frame.active_image_place]->target_rotate)
+         {
+            album[frame.active_image_place]->rotate=album[frame.active_image_place]->target_rotate;
+         }
+       }
+
+
+  if ( album[frame.active_image_place]->rotate!=album[frame.active_image_place]->target_rotate )
+    {
+        fprintf(stderr,"Rotation %0.5f \n",album[frame.active_image_place]->rotate);
+    }
+
   if ( album[frame.active_image_place]->transparency!=album[frame.active_image_place]->target_transparency )
     {
         fprintf(stderr,"Transparency %0.5f \n",album[frame.active_image_place]->transparency);
@@ -53,7 +76,7 @@ int RotatePictureRight()
 {
   //fprintf(stderr,"RotatePictureRight is deactivated!\n");
   //return 0;
-  album[frame.active_image_place]->rotate-=45;
+  album[frame.active_image_place]->target_rotate-=45;
   return 1;
 }
 
@@ -61,7 +84,7 @@ int RotatePictureLeft()
 {
   //fprintf(stderr,"RotatePictureLeft is deactivated!\n");
   //return 0;
-  album[frame.active_image_place]->rotate+=45;
+  album[frame.active_image_place]->target_rotate+=45;
   return 1;
 }
 

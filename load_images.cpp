@@ -237,6 +237,56 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
  new_img.Rescale(width,height);
 
 
+ //Handle orientation here..!
+ FILE *fpipe;
+ char command[1024]={0};
+ strcpy(command,"jpegexiforient \"");
+ strcat(command,filename);
+ strcat(command,"\"\0");
+
+
+ fprintf(stderr,"Executing %s \n",command);
+
+ char line[256];
+ if ( !(fpipe = (FILE*)popen(command,"r")) )
+   {
+       fprintf(stderr,"Error extracting orientation for %s \n",filename);
+   } else
+   {
+
+       /*
+               1        2       3      4
+
+              888888  888888      88  88
+              88          88      88  88
+              8888      8888    8888  8888
+              88          88      88  88
+              88          88  888888  888888
+
+
+              5            6           7          8
+
+              8888888888  88                  88  8888888888
+              88  88      88  88          88  88      88  88
+              88          8888888888  8888888888          88
+
+     */
+
+     while ( fgets( line, sizeof line, fpipe))
+       {
+          //fprintf(stderr,"Orientation for %s is `%s` \n",filename,line);
+          if (line[0]=='1') { fprintf(stderr,"Normal Orientation\n"); } else
+          if (line[0]=='2') { fprintf(stderr,"Inverted , but Normal Orientation\n");  pic->mirror=1;  }else
+          if (line[0]=='3') { fprintf(stderr,"Rotated 180 degs but Normal Orientation\n"); pic->rotate=180; pic->target_rotate=180; }else
+          if (line[0]=='4') { fprintf(stderr,"Rotated 180 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=180; pic->target_rotate=180; }else
+          if (line[0]=='5') { fprintf(stderr,"Rotated 270 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=270; pic->target_rotate=270; }else
+          if (line[0]=='6') { fprintf(stderr,"Rotated 270 degs but Normal Orientation\n"); pic->rotate=270; pic->target_rotate=270; }else
+          if (line[0]=='7') { fprintf(stderr,"Rotated 90 degs but Inverted Orientation\n"); pic->mirror=1; pic->rotate=90; pic->target_rotate=90;  }else
+          if (line[0]=='8') { fprintf(stderr,"Rotated 90 degs but Normal Orientation\n"); pic->rotate=90; pic->target_rotate=90; }
+       }
+   }
+ pclose(fpipe);
+
 
  unsigned char * data = new_img.GetData();
 
@@ -305,7 +355,10 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->directory_list_index=0;
 
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
+
+    new_picture->mirror=0;
     new_picture->rotate=0;
+    new_picture->target_rotate=0;
 
     new_picture->transparency=1.0;
     new_picture->target_transparency=1.0;
