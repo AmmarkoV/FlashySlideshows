@@ -114,15 +114,15 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glEnable(GL_LINE_SMOOTH);
 
 
- //glTranslated(-x-pic->position.x,-y-pic->position.y,-z-pic->position.z);
+ glTranslated(x,y,z);
 
 
-
+  float tx=0,ty=0,tz=0;
+// float tx=x,ty=y,tz=z;
 
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
- // glTranslated(x+pic->position.x,y+pic->position.y,z+pic->position.z);
 
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
 
@@ -132,7 +132,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   {
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    if (frame.transitions.transition_mode!=2) { DisplayFrame(pic,place,x,y,z,size_x,size_y,heading,pitch,roll); }
+    if (frame.transitions.transition_mode!=2) { DisplayFrame(pic,place,tx,ty,tz,size_x,size_y,heading,pitch,roll); }
 
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -173,10 +173,10 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
       glColor4f(1.0,1.0,1.0,pic->transparency);
     }
     glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-size_x,y-size_y,z);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+size_x,y-size_y,z);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+size_x,y+size_y,z);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-size_x,y+size_y,z);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(tx-size_x,ty-size_y,tz);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(tx+size_x,ty-size_y,tz);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(tx+size_x,ty+size_y,tz);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(tx-size_x,ty+size_y,tz);
    glEnd();
 
    if ( pic->transparency != 1.0 )
@@ -203,6 +203,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glDisable(GL_LINE_SMOOTH);
   glDisable(GL_NORMALIZE);
   glEnable(GL_COLOR_MATERIAL);
+
+  glTranslated(-x,-y,-z);
+
   glPopMatrix();
   return 1;
 }

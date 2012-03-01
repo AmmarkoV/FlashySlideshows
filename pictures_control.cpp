@@ -51,17 +51,17 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
 
 int RotatePictureRight()
 {
-  fprintf(stderr,"RotatePictureRight is deactivated!\n");
-  return 0;
-  album[frame.active_image_place]->rotate+=45;
+  //fprintf(stderr,"RotatePictureRight is deactivated!\n");
+  //return 0;
+  album[frame.active_image_place]->rotate-=45;
   return 1;
 }
 
 int RotatePictureLeft()
 {
-  fprintf(stderr,"RotatePictureLeft is deactivated!\n");
-  return 0;
-  album[frame.active_image_place]->rotate-=45;
+  //fprintf(stderr,"RotatePictureLeft is deactivated!\n");
+  //return 0;
+  album[frame.active_image_place]->rotate+=45;
   return 1;
 }
 
