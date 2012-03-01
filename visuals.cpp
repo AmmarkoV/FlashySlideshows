@@ -114,9 +114,12 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glEnable(GL_CULL_FACE);
   glEnable(GL_LINE_SMOOTH);
 
+
+ // glTranslated(-x-pic->position.x,-y-pic->position.y,-z-pic->position.z);
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
+ // glTranslated(x+pic->position.x,y+pic->position.y,z+pic->position.z);
 
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
 
@@ -145,7 +148,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
     //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
     //glBlendFunc(GL_ONE,GL_ONE);//GL_ONE,GL_ZERO);//GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);//GL_SRC_COLOR,GL_DST_ALPHA);
-    glBlendFunc(GL_SRC_COLOR,GL_DST_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    //glBlendFunc(GL_SRC_COLOR,GL_DST_ALPHA);
 
     //glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 
@@ -325,9 +329,9 @@ void MainDisplayFunction()
 
           for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
            {
-               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],album_traveler, 7,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 1 Drawing pic %u \n",album_traveler);*/ } } else
-               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler],album_traveler,  0,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 2 Drawing pic %u \n",album_traveler);*/ } } else
-               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler],album_traveler, -7,y,-5,0,0,0)!= 1 ) { /*fprintf(stderr,"Error 3 Drawing pic %u \n",album_traveler);*/ }
+               if ( album_traveler%3==0 ) { if ( DisplayPicture(album[album_traveler],album_traveler, 7,y,-5,0,0,album[album_traveler]->rotate)!= 1 ) { /*fprintf(stderr,"Error 1 Drawing pic %u \n",album_traveler);*/ } } else
+               if ( album_traveler%3==1 ) { if ( DisplayPicture(album[album_traveler],album_traveler,  0,y,-5,0,0,album[album_traveler]->rotate)!= 1 ) { /*fprintf(stderr,"Error 2 Drawing pic %u \n",album_traveler);*/ } } else
+               if ( album_traveler%3==2 ) { if ( DisplayPicture(album[album_traveler],album_traveler, -7,y,-5,0,0,album[album_traveler]->rotate)!= 1 ) { /*fprintf(stderr,"Error 3 Drawing pic %u \n",album_traveler);*/ }
                                             y+=6;  } else
                                           { fprintf(stderr,"Wtf"); }
            }

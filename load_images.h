@@ -40,6 +40,8 @@ struct Picture
   unsigned int height;
   unsigned int width;
   unsigned int depth;
+
+  signed int rotate;
   float transparency; /* 0.0 -> 1.0 */
   float target_transparency; /* 0.0 -> 1.0 */
 

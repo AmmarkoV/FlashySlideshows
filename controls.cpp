@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "slideshow.h"
 #include "camera_control.h"
+#include "pictures_control.h"
 #include "controls.h"
 #include "visuals.h"
 #include "environment.h"
@@ -252,6 +253,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'u': StaryFountain(1); /*TEST "PARTICLE" EFFECT*/ break;
         case 'i': StaryFountain(2); /*TEST "PARTICLE" EFFECT*/ break;
         case 'j': StaryFountain(4); /*TEST "PARTICLE" EFFECT*/ break;
+
+
+        case 'q': RotatePictureLeft(); break;
+        case 'e': RotatePictureRight();  break;
 
 
         case 'r': MoveDestinationCenter(D_OUT); /*frame.desired_z+=frame.desired_step;*/ break;

@@ -47,3 +47,23 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
         fprintf(stderr,"Transparency %0.5f \n",album[frame.active_image_place]->transparency);
     }
 }
+
+
+int RotatePictureRight()
+{
+  fprintf(stderr,"RotatePictureRight is deactivated!\n");
+  return 0;
+  album[frame.active_image_place]->rotate+=45;
+  return 1;
+}
+
+int RotatePictureLeft()
+{
+  fprintf(stderr,"RotatePictureLeft is deactivated!\n");
+  return 0;
+  album[frame.active_image_place]->rotate-=45;
+  return 1;
+}
+
+
+

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1329408081 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1330622182 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"memory_hypervisor.h"
 	"directory_listing.h"
@@ -12,7 +12,7 @@
 	"image_sensing.h"
 	"environment.h"
 
-1329312581 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
+1330622221 /home/ammar/Documents/Programming/FlashySlideShow/load_images.h
 	<GL/glu.h>
 	"slideshow.h"
 
@@ -98,11 +98,12 @@
 
 1328781425 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1329530445 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1330622015 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
 	"camera_control.h"
+	"pictures_control.h"
 	"controls.h"
 	"visuals.h"
 	"environment.h"
@@ -133,7 +134,7 @@
 
 1329351110 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1330295081 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1330623888 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -1288,9 +1289,9 @@
 1329341949 source:/home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.cpp
 	"basic_transition.h"
 
-1329344997 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
+1330621848 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
 
-1329408125 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
+1330622262 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
 	"pictures_control.h"
 	"slideshow.h"
 	<stdlib.h>

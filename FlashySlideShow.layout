@@ -2,13 +2,13 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="27381" topLine="712" />
+		<Cursor position="4040" topLine="129" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="166" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="11534" topLine="243" />
+		<Cursor position="11534" topLine="228" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
@@ -44,19 +44,19 @@
 		<Cursor position="0" topLine="20" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="741" topLine="343" />
+		<Cursor position="8523" topLine="215" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="1692" topLine="29" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="889" topLine="0" />
+		<Cursor position="4093" topLine="106" />
 	</File>
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="14814" topLine="336" />
+		<Cursor position="18159" topLine="540" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="57" />
@@ -80,7 +80,7 @@
 		<Cursor position="425" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="5400" topLine="186" />
+		<Cursor position="3828" topLine="115" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="4783" topLine="179" />
@@ -91,11 +91,11 @@
 	<File name="sound.h" open="1" top="0" tabpos="30">
 		<Cursor position="192" topLine="0" />
 	</File>
-	<File name="transitions/basic_transition.cpp" open="1" top="1" tabpos="34">
+	<File name="transitions/basic_transition.cpp" open="1" top="0" tabpos="34">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="8727" topLine="222" />
+	<File name="visuals.cpp" open="1" top="1" tabpos="8">
+		<Cursor position="5593" topLine="126" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="356" topLine="0" />

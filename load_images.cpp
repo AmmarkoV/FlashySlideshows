@@ -305,6 +305,7 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->directory_list_index=0;
 
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
+    new_picture->rotate=0;
 
     new_picture->transparency=1.0;
     new_picture->target_transparency=1.0;
