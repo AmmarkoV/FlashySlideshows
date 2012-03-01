@@ -50,7 +50,7 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 }
 
 
-int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z,float heading,float pitch,float roll)
+int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z,float size_x,float size_y,float heading,float pitch,float roll)
 {
    unsigned int SIMPLE_FAST_FRAME=1; // This is kind of a shitty flag :P
 
@@ -68,10 +68,10 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
     glBegin(GL_QUADS);
     if (pic->transparency>frame_enforced_transparency) { glColor4f(1.0,1.0,1.0,frame_enforced_transparency); } else //Frame always a little transparent..
                                                        { glColor4f(1.0,1.0,1.0,pic->transparency); }
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-pic->position.size_x-frame_size,y-pic->position.size_y-frame_size,z-0.05);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.size_x+frame_size,y-pic->position.size_y-frame_size,z-0.05);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.size_x+frame_size,y+pic->position.size_y+frame_size,z-0.05);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-pic->position.size_x-frame_size,y+pic->position.size_y+frame_size,z-0.05);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-size_x-frame_size,y-size_y-frame_size,z-0.05);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+size_x+frame_size,y-size_y-frame_size,z-0.05);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+size_x+frame_size,y+size_y+frame_size,z-0.05);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-size_x-frame_size,y+size_y+frame_size,z-0.05);
    glEnd();
 
   if (SIMPLE_FAST_FRAME)
@@ -86,7 +86,7 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
 }
 
 
-int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float z,float heading,float pitch,float roll)
+int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float z,float size_x,float size_y,float heading,float pitch,float roll)
 {
   if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
 
@@ -114,7 +114,11 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   glEnable(GL_LINE_SMOOTH);
 
 
- // glTranslated(-x-pic->position.x,-y-pic->position.y,-z-pic->position.z);
+ //glTranslated(-x-pic->position.x,-y-pic->position.y,-z-pic->position.z);
+
+
+
+
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
@@ -128,7 +132,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   {
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    if (frame.transitions.transition_mode!=2) { DisplayFrame(pic,place,x,y,z,heading,pitch,roll); }
+    if (frame.transitions.transition_mode!=2) { DisplayFrame(pic,place,x,y,z,size_x,size_y,heading,pitch,roll); }
 
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -169,10 +173,10 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
       glColor4f(1.0,1.0,1.0,pic->transparency);
     }
     glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-pic->position.size_x,y-pic->position.size_y,z);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+pic->position.size_x,y-pic->position.size_y,z);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+pic->position.size_x,y+pic->position.size_y,z);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-pic->position.size_x,y+pic->position.size_y,z);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x-size_x,y-size_y,z);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+size_x,y-size_y,z);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+size_x,y+size_y,z);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x-size_x,y+size_y,z);
    glEnd();
 
    if ( pic->transparency != 1.0 )
@@ -333,6 +337,8 @@ void MainDisplayFunction()
                                album[album_traveler]->position.x,
                                album[album_traveler]->position.y,
                                album[album_traveler]->position.z,
+                               album[album_traveler]->position.size_x,
+                               album[album_traveler]->position.size_y,
                                0,
                                0,
                                album[album_traveler]->rotate);
