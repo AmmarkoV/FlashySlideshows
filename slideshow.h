@@ -180,6 +180,9 @@ struct SlideShowData
 
 extern unsigned int time_passed_microseconds;
 
+
+
+
 extern struct SlideShowData frame;
 extern unsigned int ALBUM_SIZE;
 extern struct Picture **album;

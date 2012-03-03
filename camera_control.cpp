@@ -38,25 +38,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-
-int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
+int ChangeActiveImage(unsigned int place)
 {
-
-  if ( (x==0)&&(y==0)&&(place==0))
-   {
-    if ( place != frame.active_image_place )
-     {
-      frame.last_image_x=frame.active_image_x;
-      frame.last_image_y=frame.active_image_y;
-      frame.last_image_place=frame.active_image_place;
-      frame.active_image_x=0;
-      frame.active_image_y=0;
-      frame.active_image_place=0;
-     }
-   } else
-  if ((x==0)&&(y==0)&&(place!=0) )
-   {
-     if ( place != frame.active_image_place )
+   if ( place != frame.active_image_place )
      {
       frame.last_image_x=frame.active_image_x;
       frame.last_image_y=frame.active_image_y;
@@ -64,8 +48,14 @@ int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
       frame.active_image_place=place;
       PictureIDtoXY(&frame.active_image_x,&frame.active_image_y,place);
      }
-   } else
-   {
+
+    return 1;
+}
+
+
+int ChangeActiveImage(unsigned int x,unsigned int y)
+{
+
     if ( ( x != frame.active_image_x ) || ( y != frame.active_image_y ) )
     {
      fprintf(stderr,"Active Image is now %u,%u -> %u,%u -> %u,%u (now) \n",
@@ -83,9 +73,6 @@ int ChangeActiveImage(unsigned int x,unsigned int y,unsigned int place)
      PrintPictureData(album[frame.active_image_place]);
 
     }
-   }
-
-
 
   return 1;
 }
@@ -129,9 +116,9 @@ void CalculateActiveImage_AccordingToPosition()
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
-                ChangeActiveImage((unsigned int) MaxPictureThatIsVisible()%frame.images_per_line,
-                                  (unsigned int) MaxPictureThatIsVisible()/frame.images_per_line,
-                                   0);
+                ChangeActiveImage(MaxPictureThatIsVisible());
+              //  ChangeActiveImage((unsigned int) MaxPictureThatIsVisible()%frame.images_per_line,
+              //                    (unsigned int) MaxPictureThatIsVisible()/frame.images_per_line );
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
@@ -153,10 +140,9 @@ void CalculateActiveImage_AccordingToPosition()
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
-                               ChangeActiveImage((unsigned int) MinPictureThatIsVisible()%frame.images_per_line,
-                                                 (unsigned int) MinPictureThatIsVisible()/frame.images_per_line,
-                                                  0);
-
+                             //  ChangeActiveImage((unsigned int) MinPictureThatIsVisible()%frame.images_per_line,
+                             //                    (unsigned int) MinPictureThatIsVisible()/frame.images_per_line );
+                  ChangeActiveImage(MinPictureThatIsVisible());
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
@@ -192,9 +178,9 @@ void CalculateActiveImage_AccordingToPosition()
 
                    if ((x!=frame.active_image_x)||(y!=frame.active_image_y))
                     {
-                      //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                      //fprintf(stderr,"y from %u to %u\n",start_y,total_y);
-                      ChangeActiveImage(x,y,0);
+                      fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                      fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
+                      ChangeActiveImage(x,y);
                     }
                   return;
             }
@@ -320,7 +306,9 @@ void SetDestinationCenter()
 
 void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 {
-  frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+  frame.transitions.seek_move_activated=0; //Setting Destination Over Point cancels seek move!
+
+  ChangeActiveImage(x,y);
 
   float vx=0.0,vy=0.0,y_inc=12.0;
   if ( x==0 ) { vx= 14.0; } else
@@ -339,20 +327,8 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
 {
-  frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
-
-  float vx=0.0,vy=0.0,y_inc=12.0;
-  if ( x==0 ) { vx= 14.0; } else
-  if ( x==1 ) { vx= 0.0; } else
-  if ( x==2 ) { vx=-14.0; } else
-              {
-                vx=(x-1)*-14.0;
-              }
-
-  vy=-12.0 + y_inc * y; frame.desired_z=-1.0;
-  frame.desired_x=vx;
-  frame.desired_y=vy;
-  frame.desired_z=-0.5;
+  //Call 3dSeek and basically set position at target :P
+  SetDestinationOverPicture3dSeek(x,y);
   frame.vx=frame.desired_x;
   frame.vy=frame.desired_y;
   frame.vz=frame.desired_z;
@@ -363,17 +339,19 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
 {
    unsigned int place = PictureXYtoID(x,y);
-   ChangeActiveImage(x,y,0);
 
    switch ( frame.transitions.transition_mode)
    {
      case 0 : SetDestinationOverPicture3dSeek(x,y); break;
      case 1 : SetDestinationOverPictureImmediate(x,y); break;
      case 2 :
-               album[place]->transparency=0.0;
-               album[place]->target_transparency=1.0;
-               fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",place,album[place]->transparency,album[place]->target_transparency);
-               SetDestinationOverPictureImmediate(x,y); break;
+               fprintf(stderr,"We want to go to %u,%u (%u) and we were at %u,%u (%u)\n",x,y,place,frame.active_image_x,frame.active_image_y,frame.active_image_place);
+               SetDestinationOverPictureImmediate(x,y);
+
+               album[frame.active_image_place]->transparency=0.0;
+               album[frame.active_image_place]->target_transparency=1.0;
+               fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",frame.active_image_place,album[frame.active_image_place]->transparency,album[frame.active_image_place]->target_transparency);
+              break;
      default :  SetDestinationOverPicture3dSeek(x,y);  break;
    };
 }

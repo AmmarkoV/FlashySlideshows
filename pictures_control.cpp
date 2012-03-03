@@ -26,6 +26,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 void PerformPicturesMovement(unsigned int microseconds_of_movement)
 {
 /* PICTURE CONTROL */
+
+
+
    if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
       { album[frame.active_image_place]->transparency-=0.000001*microseconds_of_movement;
         if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
@@ -62,12 +65,12 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
 
   if ( album[frame.active_image_place]->rotate!=album[frame.active_image_place]->target_rotate )
     {
-        fprintf(stderr,"Rotation %0.5f \n",album[frame.active_image_place]->rotate);
+       // fprintf(stderr,"Rotation %0.5f \n",album[frame.active_image_place]->rotate);
     }
 
   if ( album[frame.active_image_place]->transparency!=album[frame.active_image_place]->target_transparency )
     {
-        fprintf(stderr,"Transparency %0.5f \n",album[frame.active_image_place]->transparency);
+       // fprintf(stderr,"Transparency %0.5f for pic %u \n",album[frame.active_image_place]->transparency,frame.active_image_place);
     }
 }
 

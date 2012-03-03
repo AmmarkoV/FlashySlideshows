@@ -109,9 +109,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-  glEnable(GL_NORMALIZE);
   glEnable(GL_CULL_FACE);
-  glEnable(GL_LINE_SMOOTH);
 
 
  glTranslated(x,y,z);
@@ -139,28 +137,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  glEnable ( GL_TEXTURE_2D );
  if ( pic->transparency != 1.0 )
   {
-    glEnable(GL_ALPHA_TEST);
-    //glAlphaFunc(GL_GREATER, 0);
-    //glAlphaFunc(GL_ALWAYS,0.0);
-    glAlphaFunc(GL_GREATER, 0.1);
-    glEnable(GL_BLEND);
-    //glBlendEquation(GL_FUNC_ADD);
-    //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
-
-    //glBlendColor(0,0,0,0);
-
-    //glBlendColor(pic->transparency,pic->transparency,pic->transparency,pic->transparency);
-    //glBlendFunc(GL_ONE,GL_ONE);//GL_ONE,GL_ZERO);//GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);//GL_SRC_COLOR,GL_DST_ALPHA);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-    //glBlendFunc(GL_SRC_COLOR,GL_DST_ALPHA);
-
-    //glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-
-    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
      glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-  } //
+  }
  glColor4f(1.0,1.0,1.0,pic->transparency);
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
 
@@ -181,8 +159,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
    if ( pic->transparency != 1.0 )
    {
-     glDisable(GL_ALPHA_TEST);
-     glDisable(GL_BLEND);
    }
   }
    else
@@ -199,9 +175,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  }
 
   glDisable ( GL_TEXTURE_2D );
-  glDisable(GL_BLEND);
-  glDisable(GL_LINE_SMOOTH);
-  glDisable(GL_NORMALIZE);
   glEnable(GL_COLOR_MATERIAL);
 
   glTranslated(-x,-y,-z);
@@ -295,7 +268,9 @@ void DisplayHUD()
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
       glColor3f(0.0,0.0,0.0);
-      sprintf(fps_string,"%u/%u over %s created %u/%u/%u %u:%02u:%02u",
+      sprintf(fps_string,"At %u,%u %u/%u over %s created %u/%u/%u %u:%02u:%02u",
+                          frame.active_image_x,
+                          frame.active_image_y,
                           frame.active_image_place,
                           GetTotalViewableFilesInDirectory(),
 
@@ -321,6 +296,13 @@ void MainDisplayFunction()
   y+=6 * line_at;
   unsigned int album_traveler=0;
   unsigned int minpicture=MinPictureThatIsVisible(),maxpicture=MaxPictureThatIsVisible();
+
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_LINE_SMOOTH);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.1);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); //
 
 
   if ( CameraSeesOnlyOnePicture() )
@@ -348,6 +330,10 @@ void MainDisplayFunction()
            }
 
 
+     glDisable(GL_ALPHA_TEST);
+     glDisable(GL_BLEND);
+     glDisable(GL_LINE_SMOOTH);
+     glDisable(GL_NORMALIZE);
 
 
 
@@ -419,7 +405,6 @@ void DrawBackground()
     glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_CULL_FACE);
-  glDisable(GL_BLEND);
 
 }
 

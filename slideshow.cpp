@@ -37,6 +37,10 @@ struct Point3D up_right={-3.6,-2.8,-3.4};
 struct Point3D down_left={3.6,2.8,-3.4};
 struct Point3D down_right={-3.6,2.8,-3.4};
 
+
+unsigned int FIRST_X=0,FIRST_Y=0;
+unsigned int LAST_X=0,LAST_Y=0;
+
 unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
 unsigned int LINES_AWAY_DRAWN=2; /*THIS CONTROLS DRAWING TO CONSERVE GPU RESOURCES*/
 
@@ -89,6 +93,7 @@ void InitSlideShow()
    frame.gpu.usedRAM=0;
 
    frame.images_per_line=3;
+
 
 
    frame.distance_block_upper=20;
@@ -315,13 +320,13 @@ int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z)
 
 unsigned int PictureXYtoID(unsigned int x,unsigned int y)
 {
-  return x+(y*frame.images_per_line);
+  return ((x)+(y*frame.images_per_line));
 }
 
 
 void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place)
 {
-  *x=place%frame.images_per_line;
+  *x=(place%frame.images_per_line);
   *y=place/frame.images_per_line;
 }
 

@@ -413,9 +413,9 @@ int PositionPicture(struct Picture * pic,unsigned int place)
 
   unsigned int x,y;
   if ( frame.images_per_line == 0 ) { return 0; }
-  y = (unsigned int ) ( place / frame.images_per_line);
-  x = (unsigned int ) ( place % frame.images_per_line);
 
+
+  PictureIDtoXY(&x,&y,place);
 
   pic->position.ok=1;
 
