@@ -65,8 +65,8 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
           glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
     }
     glBegin(GL_QUADS);
-    if (pic->transparency>frame_enforced_transparency) { glColor4f(1.0,1.0,1.0,frame_enforced_transparency); } else //Frame always a little transparent..
-                                                       { glColor4f(1.0,1.0,1.0,pic->transparency); }
+//    if (pic->transparency>frame_enforced_transparency) { glColor4f(1.0,1.0,1.0,frame_enforced_transparency); } else //Frame always a little transparent..
+//                                                       { glColor4f(1.0,1.0,1.0,pic->transparency); }
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x-size_x-frame_size,y-size_y-frame_size,z-0.05);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+size_x+frame_size,y-size_y-frame_size,z-0.05);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+size_x+frame_size,y+size_y+frame_size,z-0.05);	// Top Right Of The Texture and Quad
@@ -78,7 +78,7 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
           glEnable ( GL_TEXTURE_2D );
     }
 
-   glColor4f(1.0,1.0,1.0,1.0);
+//   glColor4f(1.0,1.0,1.0,1.0);
    return 1;
 }
 
@@ -87,6 +87,10 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 {
   if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
 
+ if (frame.transitions.transition_mode==2)
+    { // AYTO EDW MALLON DEN PREPEI NA EINAI EDW <______
+      glColor4f(1.0,1.0,1.0,pic->transparency);
+    }
 
   if ( pic->position.ok == 0 ) { PositionPicture(pic,place); }
 
@@ -135,10 +139,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
- if (frame.transitions.transition_mode==2)
-    {
-      glColor4f(1.0,1.0,1.0,pic->transparency);
-    }
 
  glEnable ( GL_TEXTURE_2D );
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
