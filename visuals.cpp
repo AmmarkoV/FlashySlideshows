@@ -55,7 +55,6 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
    unsigned int SIMPLE_FAST_FRAME=1; // This is kind of a shitty flag :P
 
    float frame_size=0.1; // <---    FRAME SIZE SETTING
-   float frame_enforced_transparency=0.6; // <---    FRAME TRANSPARENCY
 
    if (SIMPLE_FAST_FRAME)
     {
@@ -90,6 +89,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  if (frame.transitions.transition_mode==2)
     { // AYTO EDW MALLON DEN PREPEI NA EINAI EDW <______
       glColor4f(1.0,1.0,1.0,pic->transparency);
+    } else
+    {
+      glColor4f(1.0,1.0,1.0,1.0);
     }
 
   if ( pic->position.ok == 0 ) { PositionPicture(pic,place); }

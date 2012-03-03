@@ -351,7 +351,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
                CalculateActiveImage_AccordingToPosition();
 
                FadeInPicture();
-               RotatePictureRight();
+               FreeRotatePicture(15);
 
                fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",frame.active_image_place,album[frame.active_image_place]->transparency,album[frame.active_image_place]->target_transparency);
               break;

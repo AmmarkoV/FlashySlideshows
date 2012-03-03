@@ -104,5 +104,15 @@ int RotatePictureLeft()
   return 1;
 }
 
+int FreeRotatePicture(unsigned int max_rotation_either_way)
+{
+  //fprintf(stderr,"RotatePictureRight is deactivated!\n");
+  //return 0;
 
+  signed int target_rotation = rand()%(2*max_rotation_either_way);
+  target_rotation-=max_rotation_either_way;
+
+  album[frame.active_image_place]->target_rotate=target_rotation;
+  return 1;
+}
 

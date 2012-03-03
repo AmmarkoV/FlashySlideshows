@@ -8,4 +8,5 @@ int FadeOutPicture();
 
 int RotatePictureRight();
 int RotatePictureLeft();
+int FreeRotatePicture(unsigned int max_rotation_either_way);
 #endif // PICTURES_CONTROL_H_INCLUDED
