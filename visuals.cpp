@@ -62,8 +62,7 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
           glDisable ( GL_TEXTURE_2D ); //No textures , transparencies , etc , just a white QUAD :P less is more .. :P
     } else
     {
-     glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
-     if ( pic->transparency == 1.0 ) { glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE); }
+          glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture );
     }
     glBegin(GL_QUADS);
     if (pic->transparency>frame_enforced_transparency) { glColor4f(1.0,1.0,1.0,frame_enforced_transparency); } else //Frame always a little transparent..
@@ -77,11 +76,9 @@ int DisplayFrame(struct Picture * pic,unsigned int place,float x,float y,float z
   if (SIMPLE_FAST_FRAME)
     {
           glEnable ( GL_TEXTURE_2D );
-    } else
-   if (!SIMPLE_FAST_FRAME)
-    {
-      if ( pic->transparency == 1.0 ) { glDisable(GL_BLEND); }
     }
+
+   glColor4f(1.0,1.0,1.0,1.0);
    return 1;
 }
 
@@ -105,6 +102,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
   if ( (pic!=loading_texture) && ( pic!=failed ) && ( pic!=loading ) ) { /* NORMAL PHOTO*/  } else
                                                                        { PositionPicture(pic,place); }
+
+
+
 
 
   glPushMatrix();
@@ -134,22 +134,22 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
+
+ if (frame.transitions.transition_mode==2)
+    {
+      glColor4f(1.0,1.0,1.0,pic->transparency);
+    }
+
  glEnable ( GL_TEXTURE_2D );
- if ( pic->transparency != 1.0 )
-  {
-     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-  }
- glColor4f(1.0,1.0,1.0,pic->transparency);
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
 
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smalled than
 
+
+
+
    glBegin(GL_QUADS);
-    if (frame.transitions.transition_mode==2)
-    {
-      glColor4f(1.0,1.0,1.0,pic->transparency);
-    }
     glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
     glTexCoord2f(1.0f, 0.0f); glVertex3f(tx-size_x,ty-size_y,tz);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(tx+size_x,ty-size_y,tz);	// Bottom Right Of The Texture and Quad
@@ -157,9 +157,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
     glTexCoord2f(1.0f, 1.0f); glVertex3f(tx-size_x,ty+size_y,tz);
    glEnd();
 
-   if ( pic->transparency != 1.0 )
-   {
-   }
+
+
   }
    else
  if( ENABLE_WIGGLING )
@@ -318,7 +317,8 @@ void MainDisplayFunction()
           for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
            {
 
-               DisplayPicture( album[album_traveler],album_traveler ,
+               DisplayPicture( album[album_traveler],
+                               album_traveler ,
                                album[album_traveler]->position.x,
                                album[album_traveler]->position.y,
                                album[album_traveler]->position.z,

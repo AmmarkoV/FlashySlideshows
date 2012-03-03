@@ -115,11 +115,12 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1330737747 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1330740484 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"
 	"load_images.h"
+	"pictures_control.h"
 	<stdlib.h>
 	<stdio.h>
 	<math.h>
@@ -134,7 +135,7 @@
 
 1329351110 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1330737290 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1330739638 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -1289,9 +1290,9 @@
 1329341949 source:/home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.cpp
 	"basic_transition.h"
 
-1330621848 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
+1330740353 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
 
-1330737861 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
+1330740342 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
 	"pictures_control.h"
 	"slideshow.h"
 	<stdlib.h>

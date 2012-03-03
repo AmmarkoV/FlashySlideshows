@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "slideshow.h"
 #include "camera_control.h"
 #include "load_images.h"
+#include "pictures_control.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -347,9 +348,11 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
      case 2 :
                fprintf(stderr,"We want to go to %u,%u (%u) and we were at %u,%u (%u)\n",x,y,place,frame.active_image_x,frame.active_image_y,frame.active_image_place);
                SetDestinationOverPictureImmediate(x,y);
+               CalculateActiveImage_AccordingToPosition();
 
-               album[frame.active_image_place]->transparency=0.0;
-               album[frame.active_image_place]->target_transparency=1.0;
+               FadeInPicture();
+               RotatePictureRight();
+
                fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",frame.active_image_place,album[frame.active_image_place]->transparency,album[frame.active_image_place]->target_transparency);
               break;
      default :  SetDestinationOverPicture3dSeek(x,y);  break;
