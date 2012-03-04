@@ -77,6 +77,9 @@ const long FlashySlideShowStarterFrame::ID_STATICTEXT6 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_BUTTON3 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATICTEXT7 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_COMBOBOX3 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_CHECKBOX6 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_CHECKBOX7 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAbout = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATUSBAR1 = wxNewId();
@@ -98,32 +101,32 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     wxMenuBar* MenuBar1;
     wxMenu* Menu2;
 
-    Create(parent, id, _("Flashy SlideShow Starter "), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+    Create(parent, wxID_ANY, _("Flashy SlideShow Starter "), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
     SetClientSize(wxSize(663,495));
-    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(200,312), 0, _T("ID_STATICBOX2"));
+    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(200,320), 0, _T("ID_STATICBOX2"));
     StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(24,16), wxSize(416,312), 0, _T("ID_STATICBOX1"));
-    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,328), wxSize(200,72), 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,344), wxSize(200,64), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     wxFont ButtonStartFont(36,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
     ButtonStart->SetFont(ButtonStartFont);
     ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(584,408), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,334), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,330), wxSize(336,27), 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
-    CheckBoxSound = new wxCheckBox(this, ID_CHECKBOX1, _("Sound Effects"), wxPoint(472,280), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
+    CheckBoxSound = new wxCheckBox(this, ID_CHECKBOX1, _("Sound Effects"), wxPoint(456,280), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
     CheckBoxSound->SetValue(true);
-    CheckBoxFaceDetection = new wxCheckBox(this, ID_CHECKBOX2, _("Face Detection"), wxPoint(472,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
+    CheckBoxFaceDetection = new wxCheckBox(this, ID_CHECKBOX2, _("Face Detection"), wxPoint(456,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
     CheckBoxFaceDetection->SetValue(true);
-    ComboBoxTransitions = new wxComboBox(this, ID_COMBOBOX1, wxEmptyString, wxPoint(456,112), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX1"));
+    ComboBoxTransitions = new wxComboBox(this, ID_COMBOBOX1, wxEmptyString, wxPoint(456,102), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX1"));
     ComboBoxTransitions->SetSelection( ComboBoxTransitions->Append(_("Random Transitions")) );
     ComboBoxTransitions->Append(_("Movement"));
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Transitions"), wxPoint(456,96), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Transitions"), wxPoint(456,86), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,256), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
-    CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(472,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
+    CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(456,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
     CheckBoxVisuals->SetValue(true);
-    DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("5000"), wxPoint(496,152), wxSize(88,27), 0, 100, 10000, 5000, _T("ID_SPINCTRL1"));
+    DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("5000"), wxPoint(496,138), wxSize(88,27), 0, 100, 10000, 5000, _T("ID_SPINCTRL1"));
     DelaySpinCtrl->SetValue(_T("5000"));
-    StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Delay"), wxPoint(456,160), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
-    StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("ms"), wxPoint(592,160), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
-    CheckBoxIncludeSubfolders = new wxCheckBox(this, ID_CHECKBOX4, _("Include Subfolders"), wxPoint(472,296), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
+    StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Delay"), wxPoint(456,142), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
+    StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("ms"), wxPoint(592,142), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
+    CheckBoxIncludeSubfolders = new wxCheckBox(this, ID_CHECKBOX4, _("Include Subfolders"), wxPoint(456,216), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
     CheckBoxIncludeSubfolders->SetValue(false);
     StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Picture Quality"), wxPoint(456,40), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
     ComboBoxQuality = new wxComboBox(this, ID_COMBOBOX2, wxEmptyString, wxPoint(456,56), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX2"));
@@ -133,18 +136,23 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxQuality->Append(_("Very High"));
     ComboBoxQuality->Append(_("High"));
     ComboBoxQuality->Append(_("Ultra"));
-    CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(472,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
+    CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(456,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
     CheckBoxMipmap->SetValue(false);
     DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,368), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
     ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,408), wxSize(128,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
-    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Sort Pictures By"), wxPoint(456,184), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
-    ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,200), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
+    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Sort Pictures By"), wxPoint(456,168), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+    ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,186), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
     ComboBoxSort->SetSelection( ComboBoxSort->Append(_("Names Ascending")) );
     ComboBoxSort->Append(_("Dates Ascending"));
     ComboBoxSort->Append(_("Sizes Ascending"));
     ComboBoxSort->Append(_("Names Descending"));
     ComboBoxSort->Append(_("Dates Descending"));
     ComboBoxSort->Append(_("Sizes Descending"));
+    CheckBoxFileMove = new wxCheckBox(this, ID_CHECKBOX6, _("Move Func"), wxPoint(456,296), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX6"));
+    CheckBoxFileMove->SetValue(false);
+    CheckBoxFileResize = new wxCheckBox(this, ID_CHECKBOX7, _("Resize Func"), wxPoint(456,312), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX7"));
+    CheckBoxFileResize->SetValue(false);
+    TextCtrlResizeResolution = new wxTextCtrl(this, ID_TEXTCTRL2, _("1024x768"), wxPoint(554,300), wxSize(88,27), 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -244,6 +252,10 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     if ( CheckBoxFaceDetection->IsChecked() ) { what_to_call<< wxT(" -fd"); }
     if ( CheckBoxVisuals->IsChecked() ) { what_to_call<< wxT(" -v"); }
     if ( CheckBoxMipmap->IsChecked() ) { what_to_call<< wxT(" -m"); }
+    if ( CheckBoxFileMove->IsChecked() ) { what_to_call<< wxT(" -mv_sort"); }
+    if ( CheckBoxFileResize->IsChecked() ) { what_to_call<< wxT(" -mv_resize ");
+                                             what_to_call<<TextCtrlResizeResolution->GetValue();
+                                           }
 
     if ( ComboBoxQuality->GetCurrentSelection()!=1 ) { what_to_call<< wxT(" -q "); what_to_call<<ComboBoxQuality->GetCurrentSelection(); }
     if ( ComboBoxTransitions->GetCurrentSelection()!=0 ) { what_to_call<< wxT(" -t ");  what_to_call<<ComboBoxTransitions->GetCurrentSelection();  }
@@ -342,6 +354,7 @@ void FlashySlideShowStarterFrame::OnButtonControlsClick(wxCommandEvent& event)
     controls_text<< wxT(" W = Up , S = Down , A = Left , D = Right \n");
     controls_text<< wxT("---------------------------------------------\n");
     controls_text<< wxT(" Arrow Keys = Change Picture \n F = Zoom out , R = Zoom in \n");
+    controls_text<< wxT(" Q = Rotate Counter Clockwise \n E = Rotate Clockwise \n");
     controls_text<< wxT("---------------------------------------------\n");
     controls_text<< wxT(" Enter = Automatic Slideshow \n M = Change Transition Mode \n B = Change Hover Effect \n");
     controls_text<< wxT(" N = Cycle Effects \n J = Toggle Fullscreen \n Escape = Quit \n");

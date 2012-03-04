@@ -3,10 +3,11 @@
 	<object class="wxFrame" name="FlashySlideShowStarterFrame">
 		<title>Flashy SlideShow Starter </title>
 		<size>663,495</size>
+		<id_arg>0</id_arg>
 		<object class="wxStaticBox" name="ID_STATICBOX2" variable="StaticBox2" member="yes">
 			<label>Slideshow Options</label>
 			<pos>448,16</pos>
-			<size>200,312</size>
+			<size>200,320</size>
 		</object>
 		<object class="wxStaticBox" name="ID_STATICBOX1" variable="StaticBox1" member="yes">
 			<label>Folder Preview</label>
@@ -15,8 +16,8 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON1" variable="ButtonStart" member="yes">
 			<label>Start!</label>
-			<pos>448,328</pos>
-			<size>200,72</size>
+			<pos>448,344</pos>
+			<size>200,64</size>
 			<font>
 				<size>36</size>
 				<style>normal</style>
@@ -46,12 +47,12 @@
 		<object class="wxCheckBox" name="ID_CHECKBOX1" variable="CheckBoxSound" member="yes">
 			<label>Sound Effects</label>
 			<checked>1</checked>
-			<pos>472,280</pos>
+			<pos>456,280</pos>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX2" variable="CheckBoxFaceDetection" member="yes">
 			<label>Face Detection</label>
 			<checked>1</checked>
-			<pos>472,248</pos>
+			<pos>456,248</pos>
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX1" variable="ComboBoxTransitions" member="yes">
 			<content>
@@ -59,12 +60,12 @@
 				<item>Movement</item>
 			</content>
 			<selection>0</selection>
-			<pos>456,112</pos>
+			<pos>456,102</pos>
 			<size>176,29</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
 			<label>Transitions</label>
-			<pos>456,96</pos>
+			<pos>456,86</pos>
 		</object>
 		<object class="wxGenericDirCtrl" name="ID_GENERICDIRCTRL1" variable="PictureFolder" member="yes">
 			<defaultfolder>~/Pictures</defaultfolder>
@@ -75,26 +76,26 @@
 		<object class="wxCheckBox" name="ID_CHECKBOX3" variable="CheckBoxVisuals" member="yes">
 			<label>Visual Effects</label>
 			<checked>1</checked>
-			<pos>472,264</pos>
+			<pos>456,264</pos>
 		</object>
 		<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="DelaySpinCtrl" member="yes">
 			<value>5000</value>
 			<min>100</min>
 			<max>10000</max>
-			<pos>496,152</pos>
+			<pos>496,138</pos>
 			<size>88,27</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
 			<label>Delay</label>
-			<pos>456,160</pos>
+			<pos>456,142</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
 			<label>ms</label>
-			<pos>592,160</pos>
+			<pos>592,142</pos>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX4" variable="CheckBoxIncludeSubfolders" member="yes">
 			<label>Include Subfolders</label>
-			<pos>472,296</pos>
+			<pos>456,216</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
 			<label>Picture Quality</label>
@@ -115,7 +116,7 @@
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX5" variable="CheckBoxMipmap" member="yes">
 			<label>Use Mipmaping</label>
-			<pos>472,232</pos>
+			<pos>456,232</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="DateText" member="yes">
 			<label>Select a directory and then click Start to begin Slideshow</label>
@@ -129,7 +130,7 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText7" member="yes">
 			<label>Sort Pictures By</label>
-			<pos>456,184</pos>
+			<pos>456,168</pos>
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX3" variable="ComboBoxSort" member="yes">
 			<content>
@@ -141,8 +142,21 @@
 				<item>Sizes Descending</item>
 			</content>
 			<selection>0</selection>
-			<pos>456,200</pos>
+			<pos>456,186</pos>
 			<size>176,29</size>
+		</object>
+		<object class="wxCheckBox" name="ID_CHECKBOX6" variable="CheckBoxFileMove" member="yes">
+			<label>Move Func</label>
+			<pos>456,296</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_CHECKBOX7" variable="CheckBoxFileResize" member="yes">
+			<label>Resize Func</label>
+			<pos>456,312</pos>
+		</object>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="TextCtrlResizeResolution" member="yes">
+			<value>1024x768</value>
+			<pos>554,300</pos>
+			<size>88,27</size>
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

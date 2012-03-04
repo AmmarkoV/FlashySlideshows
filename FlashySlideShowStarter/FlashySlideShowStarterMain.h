@@ -68,6 +68,9 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_BUTTON3;
         static const long ID_STATICTEXT7;
         static const long ID_COMBOBOX3;
+        static const long ID_CHECKBOX6;
+        static const long ID_CHECKBOX7;
+        static const long ID_TEXTCTRL2;
         static const long idMenuQuit;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
@@ -75,6 +78,7 @@ class FlashySlideShowStarterFrame: public wxFrame
 
         //(*Declarations(FlashySlideShowStarterFrame)
         wxCheckBox* CheckBoxMipmap;
+        wxTextCtrl* TextCtrlResizeResolution;
         wxCheckBox* CheckBoxVisuals;
         wxTextCtrl* PathTextCtrl;
         wxStatusBar* StatusBar1;
@@ -87,6 +91,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         wxStaticBox* StaticBox2;
         wxStaticText* StaticText3;
         wxCheckBox* CheckBoxIncludeSubfolders;
+        wxCheckBox* CheckBoxFileMove;
         wxStaticBox* StaticBox1;
         wxStaticText* StaticText7;
         wxComboBox* ComboBoxTransitions;
@@ -96,6 +101,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         wxStaticText* StaticText5;
         wxStaticText* StaticText2;
         wxButton* ButtonStart;
+        wxCheckBox* CheckBoxFileResize;
         wxStaticText* DateText;
         wxButton* ButtonQuit;
         //*)

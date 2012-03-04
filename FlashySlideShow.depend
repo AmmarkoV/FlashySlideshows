@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1330736317 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1330822506 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -42,17 +42,18 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1330736430 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1330823033 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
 	"scene_objects.h"
+	<string.h>
 	<stdlib.h>
 	<stdio.h>
 	<time.h>
 	"transitions/basic_transition.h"
 
-1330736341 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1330822449 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -83,7 +84,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1329408151 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1330822929 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	"environment.h"
@@ -115,7 +116,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1330805149 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1330813532 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"
@@ -135,7 +136,7 @@
 
 1329351110 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1330773338 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1330805223 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	"effects.h"
@@ -1290,9 +1291,9 @@
 1329341949 source:/home/ammar/Documents/Programming/FlashySlideShow/transitions/basic_transition.cpp
 	"basic_transition.h"
 
-1330804518 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
+1330813507 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
 
-1330804506 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
+1330813583 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
 	"pictures_control.h"
 	"slideshow.h"
 	<stdlib.h>

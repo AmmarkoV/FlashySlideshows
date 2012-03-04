@@ -114,6 +114,9 @@ struct SlideShowData
   unsigned int fullscreen;
 
   unsigned int allow_mv_operation_sorting;
+  unsigned int allow_mv_operation_rescaling;
+  char rescale_resolution_string[100];
+
 
   unsigned int time_ms_before_last_slide_change;
   unsigned int time_ms_between_two_transitions;

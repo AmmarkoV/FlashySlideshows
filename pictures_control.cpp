@@ -74,12 +74,21 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
     }
 }
 
+int ResetPictureRotation()
+{
+  album[frame.active_image_place]->target_rotate=0;
+  album[frame.active_image_place]->rotate=0;
+  return 1;
+}
+
+
 int FadeInPicture()
 {
   album[frame.active_image_place]->transparency=0.0;
   album[frame.active_image_place]->target_transparency=1.0;
   return 1;
 }
+
 
 int FadeOutPicture()
 {

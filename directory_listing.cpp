@@ -385,9 +385,40 @@ unsigned int LaunchGUI_PickDir()
 }
 
 
+int RescaleFileToDir(unsigned int file_id,char * dir)
+{
+    char rescale_operation[2048];
+
+   /*
+    sprintf(rescale_operation,"convert %s%s -resize \"%s>\" -size \"%s\" xc:white +swap -gravity center -composite %s%s-out.jpg",
+            (char*)frame.album_directory,list[file_id].filename,
+             frame.rescale_resolution_string,frame.rescale_resolution_string,
+            (char*)frame.album_directory,list[file_id].filename);*/
+    sprintf(rescale_operation,"convert %s%s -resize \"%s>^\" %s%s-out.jpg",
+            (char*)frame.album_directory,list[file_id].filename,
+             frame.rescale_resolution_string,
+            (char*)frame.album_directory,list[file_id].filename);
+
+    fprintf(stderr,"Executing %s \n",rescale_operation);
+    int i=system(rescale_operation);
+
+
+
+    strcpy(rescale_operation,"mv ");
+
+    strcat(rescale_operation,(char*)frame.album_directory);
+    strcat(rescale_operation,list[file_id].filename);
+    strcat(rescale_operation,"-out.jpg ");
+    strcat(rescale_operation,dir);
+    fprintf(stderr,"Executing %s \n",rescale_operation);
+    i=system(rescale_operation);
+  return (i==0);
+}
+
 int MoveFileToDir(unsigned int file_id,char * dir)
 {
     if (!frame.allow_mv_operation_sorting) { return 0; }
+    if (frame.allow_mv_operation_rescaling) { return RescaleFileToDir(file_id,dir); }
     char move_operation[2048];
     strcpy(move_operation,"mv ");
 

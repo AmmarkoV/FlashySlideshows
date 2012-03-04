@@ -49,7 +49,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow v0.46";
+char APP_VERSION_STRING[70]="FlashySlideShow v0.56";
 int STOP_APPLICATION=0;
 
  struct timeval last_frame,this_frame,difference;
@@ -452,6 +452,15 @@ int main(int argc, char *argv[])
                    { //Sound Effects command
                        fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
                        frame.allow_mv_operation_sorting=1;
+                   } else
+             if (strcmp(argv[i],"-mv_resize")==0)
+                   { //Sound Effects command
+                        if (i+1<=argc)
+                        {
+                         fprintf(stderr,"%u Move Resized Enabled at Resolution %s with keys 0 to 9 %s\n",i,argv[i+1],argv[i]);
+                         frame.allow_mv_operation_rescaling=1;
+                         strcpy(frame.rescale_resolution_string,argv[i+1]);
+                        }
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command

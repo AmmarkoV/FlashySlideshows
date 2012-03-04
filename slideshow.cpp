@@ -20,6 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "camera_control.h"
 #include "sound.h"
 #include "scene_objects.h"
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -38,8 +39,6 @@ struct Point3D down_left={3.6,2.8,-3.4};
 struct Point3D down_right={-3.6,2.8,-3.4};
 
 
-unsigned int FIRST_X=0,FIRST_Y=0;
-unsigned int LAST_X=0,LAST_Y=0;
 
 unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
 unsigned int LINES_AWAY_DRAWN=2; /*THIS CONTROLS DRAWING TO CONSERVE GPU RESOURCES*/
@@ -90,6 +89,8 @@ void InitSlideShow()
 
    frame.enable_sound_effects=0;
    frame.allow_mv_operation_sorting=0;
+   frame.allow_mv_operation_rescaling=0;
+   strcpy(frame.rescale_resolution_string,"1024x768");
    frame.gpu.usedRAM=0;
 
    frame.images_per_line=3;

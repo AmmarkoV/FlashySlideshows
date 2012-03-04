@@ -343,8 +343,8 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
 
    switch ( frame.transitions.transition_mode)
    {
-     case 0 : SetDestinationOverPicture3dSeek(x,y); break;
-     case 1 : SetDestinationOverPictureImmediate(x,y); break;
+     case 0 : SetDestinationOverPicture3dSeek(x,y); ResetPictureRotation(); break;
+     case 1 : SetDestinationOverPictureImmediate(x,y); ResetPictureRotation(); break;
      case 2 :
                fprintf(stderr,"We want to go to %u,%u (%u) and we were at %u,%u (%u)\n",x,y,place,frame.active_image_x,frame.active_image_y,frame.active_image_place);
                SetDestinationOverPictureImmediate(x,y);
@@ -355,7 +355,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
 
                fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",frame.active_image_place,album[frame.active_image_place]->transparency,album[frame.active_image_place]->target_transparency);
               break;
-     default :  SetDestinationOverPicture3dSeek(x,y);  break;
+     default :  SetDestinationOverPicture3dSeek(x,y); ResetPictureRotation(); break;
    };
 }
 

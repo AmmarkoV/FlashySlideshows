@@ -6,6 +6,7 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement);
 int FadeInPicture();
 int FadeOutPicture();
 
+int ResetPictureRotation();
 int RotatePictureRight();
 int RotatePictureLeft();
 int FreeRotatePicture(unsigned int max_rotation_either_way);
