@@ -425,6 +425,9 @@ int main(int argc, char *argv[])
 
 
     strcpy((char * ) frame.album_directory,"album");
+    strcpy((char * ) frame.move_directory,"Moved");
+    strcpy((char * ) frame.resize_directory,"Resized");
+
     if ( argc <1 )
      {
        fprintf(stderr,"Something weird is happening , argument zero should be executable path :S \n");

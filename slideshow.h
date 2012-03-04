@@ -177,6 +177,9 @@ struct SlideShowData
 
   unsigned char program_data_directory[MAX_PATH];
   unsigned char album_directory[MAX_PATH];
+  unsigned char move_directory[MAX_PATH];
+  unsigned char resize_directory[MAX_PATH];
+
 
   struct FilePicture * pictures_in_folder;
 };
