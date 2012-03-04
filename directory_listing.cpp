@@ -394,7 +394,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
             (char*)frame.album_directory,list[file_id].filename,
              frame.rescale_resolution_string,frame.rescale_resolution_string,
             (char*)frame.album_directory,list[file_id].filename);*/
-    sprintf(rescale_operation,"convert %s%s -resize \"%s>^\" %s%s-out.jpg",
+    sprintf(rescale_operation,"convert %s%s -resize \"%s>^\" %s%s-resized.jpg",
             (char*)frame.album_directory,list[file_id].filename,
              frame.rescale_resolution_string,
             (char*)frame.album_directory,list[file_id].filename);
@@ -408,7 +408,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
 
     strcat(rescale_operation,(char*)frame.album_directory);
     strcat(rescale_operation,list[file_id].filename);
-    strcat(rescale_operation,"-out.jpg ");
+    strcat(rescale_operation,"-resized.jpg ");
     strcat(rescale_operation,dir);
     fprintf(stderr,"Executing %s \n",rescale_operation);
     i=system(rescale_operation);
