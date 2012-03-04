@@ -214,6 +214,7 @@ void ToggleTransitionMode();
 void AutomaticSlideShowControl_if_needed();
 
 void TriggerEndOfSlideShow();
+void TriggerNextPictureSlideShow();
 
 int GetPictureCenterCoords(unsigned int pic_place,float *x,float *y,float *z);
 unsigned int GetPictureDirectoryListIndex(unsigned int pic_place);

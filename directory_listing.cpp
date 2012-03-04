@@ -419,21 +419,21 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
   //  return 0;
 
     if (!frame.allow_mv_operation_rescaling) { return 0; }
-    char rescale_operation[2048];
-   /*
+    /*
     sprintf(rescale_operation,"convert %s%s -resize \"%s>\" -size \"%s\" xc:white +swap -gravity center -composite %s%s-out.jpg",
             (char*)frame.album_directory,list[file_id].filename,
              frame.rescale_resolution_string,frame.rescale_resolution_string,
             (char*)frame.album_directory,list[file_id].filename);*/
 
-    char raw_filename[2048];
+    char rescale_operation[MAX_PATH]={0};
+    char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
 
+/*
+    char escaped_filename[MAX_PATH];
+    escape_str(raw_filename,escaped_filename);*/
 
-    char escaped_filename[2048];
-    escape_str(raw_filename,escaped_filename);
-
-    sprintf(rescale_operation,"convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"",
+    sprintf(rescale_operation,"convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"&",
              raw_filename,
              frame.rescale_resolution_string,
              dir,
@@ -451,14 +451,14 @@ int MoveFileToDir(unsigned int file_id,char * dir)
   //  return 0;
 
     if (!frame.allow_mv_operation_sorting) { return 0; }
-    char move_operation[2048];
-    strcpy(move_operation,"mv \"");
 
-    char escaped_filename[2048];
-    char raw_filename[2048];
+    char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
-    escape_str(raw_filename,escaped_filename);
+//    char escaped_filename[2048];
+//    escape_str(raw_filename,escaped_filename);
 
+    char move_operation[MAX_PATH]={0};
+    strcpy(move_operation,"mv \"");
     strcat(move_operation,raw_filename);
     strcat(move_operation,"\" \"");
     strcat(move_operation,dir);
@@ -493,7 +493,7 @@ int CreateDirsForMoveOrRescale(char * dir,unsigned int true_if_resize,unsigned i
 
 int MoveOrRescaleFileToDir(unsigned int file_id,unsigned int sort_id)
 {
-  char dir[MAX_PATH];
+  char dir[MAX_PATH]={0};
 
   if ((!frame.allow_mv_operation_rescaling)&&(!frame.allow_mv_operation_sorting) )
     {
@@ -516,6 +516,8 @@ int MoveOrRescaleFileToDir(unsigned int file_id,unsigned int sort_id)
      CreateDirsForMoveOrRescale(dir,0,sort_id);
      return MoveFileToDir(file_id,dir);
     }
+
+
  return 0;
 }
 
