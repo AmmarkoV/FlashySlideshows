@@ -41,6 +41,8 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnButtonQuitClick(wxCommandEvent& event);
         void OnPathTextCtrlText(wxCommandEvent& event);
         void OnButtonControlsClick(wxCommandEvent& event);
+        void OnCheckBoxFileMoveClick(wxCommandEvent& event);
+        void OnCheckBoxFileResizeClick(wxCommandEvent& event);
         //*)
         void OnRefreshDir(wxCommandEvent& event);
 

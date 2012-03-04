@@ -148,10 +148,12 @@
 		<object class="wxCheckBox" name="ID_CHECKBOX6" variable="CheckBoxFileMove" member="yes">
 			<label>Move Func</label>
 			<pos>456,296</pos>
+			<handler function="OnCheckBoxFileMoveClick" entry="EVT_CHECKBOX" />
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX7" variable="CheckBoxFileResize" member="yes">
 			<label>Resize Func</label>
 			<pos>456,312</pos>
+			<handler function="OnCheckBoxFileResizeClick" entry="EVT_CHECKBOX" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="TextCtrlResizeResolution" member="yes">
 			<value>1024x768</value>

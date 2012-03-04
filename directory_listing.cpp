@@ -417,8 +417,9 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
 
 int MoveFileToDir(unsigned int file_id,char * dir)
 {
-    if (!frame.allow_mv_operation_sorting) { return 0; }
     if (frame.allow_mv_operation_rescaling) { return RescaleFileToDir(file_id,dir); }
+
+    if (!frame.allow_mv_operation_sorting) { return 0; }
     char move_operation[2048];
     strcpy(move_operation,"mv ");
 

@@ -174,6 +174,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnButtonQuitClick);
     Connect(ID_TEXTCTRL1,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnPathTextCtrlText);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnButtonControlsClick);
+    Connect(ID_CHECKBOX6,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileMoveClick);
+    Connect(ID_CHECKBOX7,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileResizeClick);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnAbout);
     //*)
@@ -360,4 +362,14 @@ void FlashySlideShowStarterFrame::OnButtonControlsClick(wxCommandEvent& event)
     controls_text<< wxT(" N = Cycle Effects \n J = Toggle Fullscreen \n Escape = Quit \n");
     wxMessageBox(controls_text, _("FlashySlideShow Controls list..!"));
 
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxFileMoveClick(wxCommandEvent& event)
+{
+  CheckBoxFileResize->SetValue(0);
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxFileResizeClick(wxCommandEvent& event)
+{
+  CheckBoxFileMove->SetValue(0);
 }
