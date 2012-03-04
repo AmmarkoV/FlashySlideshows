@@ -270,7 +270,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     what_to_call<< path;
     what_to_call<< wxT("\"");
 
-   // wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
+    //wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
     wxExecute(what_to_call);
 }
 

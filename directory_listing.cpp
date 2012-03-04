@@ -385,51 +385,107 @@ unsigned int LaunchGUI_PickDir()
 }
 
 
+
+int escape_str(char *in_str,char *out_str)
+{
+  int i=0,o=0;
+    while (i<strlen(in_str))
+     {
+        if ( in_str[i]=='\'' ) { out_str[o]='\\'; ++o; out_str[o]='\''; } else
+        if ( in_str[i]=='"' ) { out_str[o]='\\'; ++o; out_str[o]='"'; } else
+        if ( in_str[i]=='(' ) { out_str[o]='\\'; ++o; out_str[o]='('; } else
+        if ( in_str[i]==')' ) { out_str[o]='\\'; ++o; out_str[o]=')'; } else
+        if ( in_str[i]=='*' ) { out_str[o]='\\'; ++o; out_str[o]='*'; } else
+        if ( in_str[i]=='!' ) { out_str[o]='\\'; ++o; out_str[o]='!'; } else
+        if ( in_str[i]=='?' ) { out_str[o]='\\'; ++o; out_str[o]='\?'; } else
+          {
+            out_str[o]=in_str[i];
+          }
+      ++o;
+      ++i;
+     }
+    out_str[o]=0; //Null terminator , hasta la vista baby :P
+  return 1;
+}
+
+
 int RescaleFileToDir(unsigned int file_id,char * dir)
 {
-    char rescale_operation[2048];
+    fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for rescaled files..!\n");
+    return 0;
 
+    if (!frame.allow_mv_operation_rescaling) { return 0; }
+    char rescale_operation[2048];
    /*
     sprintf(rescale_operation,"convert %s%s -resize \"%s>\" -size \"%s\" xc:white +swap -gravity center -composite %s%s-out.jpg",
             (char*)frame.album_directory,list[file_id].filename,
              frame.rescale_resolution_string,frame.rescale_resolution_string,
             (char*)frame.album_directory,list[file_id].filename);*/
-    sprintf(rescale_operation,"convert %s%s -resize \"%s>^\" %s%s-resized.jpg",
-            (char*)frame.album_directory,list[file_id].filename,
+
+    char raw_filename[2048];
+    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+
+
+    char escaped_filename[2048];
+    escape_str(raw_filename,escaped_filename);
+
+    sprintf(rescale_operation,"convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"",
+             raw_filename,
              frame.rescale_resolution_string,
-            (char*)frame.album_directory,list[file_id].filename);
+             dir,
+             list[file_id].filename);
 
     fprintf(stderr,"Executing %s \n",rescale_operation);
     int i=system(rescale_operation);
+/*
 
-
-
-    strcpy(rescale_operation,"mv ");
-
-    strcat(rescale_operation,(char*)frame.album_directory);
-    strcat(rescale_operation,list[file_id].filename);
-    strcat(rescale_operation,"-resized.jpg ");
+    sprintf(rescale_operation,"mv \"%s",escaped_filename);
+    strcat(rescale_operation,"-resized.jpg\" \"");
     strcat(rescale_operation,dir);
-    fprintf(stderr,"Executing %s \n",rescale_operation);
-    i=system(rescale_operation);
+    fprintf(stderr,"Executing %s\" \n",rescale_operation);
+    i=system(rescale_operation);*/
   return (i==0);
 }
 
 int MoveFileToDir(unsigned int file_id,char * dir)
 {
-    if (frame.allow_mv_operation_rescaling) { return RescaleFileToDir(file_id,dir); }
+    fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for moved files..!\n");
+    return 0;
 
     if (!frame.allow_mv_operation_sorting) { return 0; }
     char move_operation[2048];
-    strcpy(move_operation,"mv ");
+    strcpy(move_operation,"mv \"");
 
-    strcat(move_operation,(char*)frame.album_directory);
-    strcat(move_operation,list[file_id].filename);
-    strcat(move_operation," ");
+    char escaped_filename[2048];
+    char raw_filename[2048];
+    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    escape_str(raw_filename,escaped_filename);
+
+    strcat(move_operation,escaped_filename);
+    strcat(move_operation,"\" \"");
     strcat(move_operation,dir);
-    fprintf(stderr,"Executing %s \n",move_operation);
+    fprintf(stderr,"Executing %s\" \n",move_operation);
     int i=system(move_operation);
 
   return (i==0);
 }
+
+int MoveOrRescaleFileToDir(unsigned int file_id,char * dir)
+{
+  if ((!frame.allow_mv_operation_rescaling)&&(!frame.allow_mv_operation_sorting) )
+    {
+      fprintf(stderr,"Both Moving and Resizing are disabled , please start program with -mv_sort or -mv_resize\n");
+      return 0;
+    } else
+  if ((frame.allow_mv_operation_rescaling)&&(frame.allow_mv_operation_sorting) )
+    { fprintf(stderr,"Both Moving and Resizing are enabled, using resize function\n");
+      return RescaleFileToDir(file_id,dir);
+    } else
+  if (frame.allow_mv_operation_rescaling )  {  return RescaleFileToDir(file_id,dir); } else
+  if (frame.allow_mv_operation_sorting )  {  return MoveFileToDir(file_id,dir); }
+ return 0;
+}
+
+
+
 
