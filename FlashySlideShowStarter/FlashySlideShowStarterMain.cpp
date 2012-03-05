@@ -10,6 +10,11 @@
 #include "FlashySlideShowStarterMain.h"
 #include <wx/msgdlg.h>
 #include <wx/filename.h>
+#include <wx/dc.h>
+#include <wx/dcclient.h>
+#include <wx/wx.h>
+#include <wx/utils.h>
+#include "EmptyThumbnail.h"
 
 //(*InternalHeaders(FlashySlideShowStarterFrame)
 #include <wx/string.h>
@@ -17,6 +22,12 @@
 #include <wx/font.h>
 //*)
 #include <wx/treectrl.h>
+
+
+
+
+wxBitmap *default_bmp_thumb=0,*bmp_thumb1=0,*bmp_thumb2=0,*bmp_thumb3=0,*bmp_thumb4=0,*bmp_thumb5=0;
+wxImage   default_img_thumb=0,img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
 
 //helper functions
 enum wxbuildinfoformat {
@@ -79,8 +90,10 @@ const long FlashySlideShowStarterFrame::ID_STATICTEXT7 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_COMBOBOX3 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX6 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX7 = wxNewId();
-const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_COMBOBOX4 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
+const long FlashySlideShowStarterFrame::ID_MENUITEM1 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAbout = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATUSBAR1 = wxNewId();
 //*)
@@ -89,7 +102,7 @@ const long FlashySlideShowStarterFrame::ID_STATUSBAR1 = wxNewId();
 BEGIN_EVENT_TABLE(FlashySlideShowStarterFrame,wxFrame)
     //(*EventTable(FlashySlideShowStarterFrame)
     //*)
-
+        EVT_PAINT(FlashySlideShowStarterFrame::OnPaint)
 END_EVENT_TABLE()
 
 FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWindowID id)
@@ -98,17 +111,19 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     wxMenuItem* MenuItem2;
     wxMenuItem* MenuItem1;
     wxMenu* Menu1;
+    wxMenuItem* MenuItem3;
     wxMenuBar* MenuBar1;
+    wxMenuItem* MenuItem4;
     wxMenu* Menu2;
 
     Create(parent, wxID_ANY, _("Flashy SlideShow Starter "), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    SetClientSize(wxSize(663,495));
-    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(200,320), 0, _T("ID_STATICBOX2"));
+    SetClientSize(wxSize(673,495));
+    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(216,320), 0, _T("ID_STATICBOX2"));
     StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(24,16), wxSize(416,312), 0, _T("ID_STATICBOX1"));
-    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,344), wxSize(200,64), 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,344), wxSize(216,64), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     wxFont ButtonStartFont(36,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
     ButtonStart->SetFont(ButtonStartFont);
-    ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(584,408), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(604,408), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,334), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,330), wxSize(336,27), 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     CheckBoxSound = new wxCheckBox(this, ID_CHECKBOX1, _("Sound Effects"), wxPoint(456,280), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
@@ -138,8 +153,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxQuality->Append(_("Ultra"));
     CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(456,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
     CheckBoxMipmap->SetValue(false);
-    DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,368), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-    ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,408), wxSize(128,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,360), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+    ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,408), wxSize(144,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
     StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Sort Pictures By"), wxPoint(456,168), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
     ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,186), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
     ComboBoxSort->SetSelection( ComboBoxSort->Append(_("Names Ascending")) );
@@ -148,17 +163,33 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxSort->Append(_("Names Descending"));
     ComboBoxSort->Append(_("Dates Descending"));
     ComboBoxSort->Append(_("Sizes Descending"));
-    CheckBoxFileMove = new wxCheckBox(this, ID_CHECKBOX6, _("Move Func"), wxPoint(456,296), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX6"));
+    CheckBoxFileMove = new wxCheckBox(this, ID_CHECKBOX6, _("File Move"), wxPoint(456,296), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX6"));
     CheckBoxFileMove->SetValue(false);
-    CheckBoxFileResize = new wxCheckBox(this, ID_CHECKBOX7, _("Resize Func"), wxPoint(456,312), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX7"));
+    CheckBoxFileMove->SetToolTip(_("Selecting this option will make the buttons 1,2,3,4,5,6,7,8,9,0 move thecurrently viewed picture inside the Moved/CategoryX/ folder where X is the number pressed"));
+    CheckBoxFileMove->SetHelpText(_("Selecting this option will make the buttons 1,2,3,4,5,6,7,8,9,0 move thecurrently viewed picture inside the Moved/CategoryX/ folder where X is the number pressed"));
+    CheckBoxFileResize = new wxCheckBox(this, ID_CHECKBOX7, _("File Resize"), wxPoint(456,312), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX7"));
     CheckBoxFileResize->SetValue(false);
-    TextCtrlResizeResolution = new wxTextCtrl(this, ID_TEXTCTRL2, _("1024x768"), wxPoint(554,300), wxSize(88,27), 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    CheckBoxFileResize->SetToolTip(_("Selecting this option will make the buttons 1,2,3,4,5,6,7,8,9,0 make a resized copy of the currently viewed picture inside the Resized/CategoryX/ folder where X is the number pressed"));
+    CheckBoxFileResize->SetHelpText(_("Selecting this option will make the buttons 1,2,3,4,5,6,7,8,9,0 make a resized copy of the currently viewed picture inside the Resized/CategoryX/ folder where X is the number pressed"));
+    ComboBoxResizeResolution = new wxComboBox(this, ID_COMBOBOX4, wxEmptyString, wxPoint(552,300), wxSize(104,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX4"));
+    ComboBoxResizeResolution->Append(_("320x240"));
+    ComboBoxResizeResolution->Append(_("640x480"));
+    ComboBoxResizeResolution->SetSelection( ComboBoxResizeResolution->Append(_("1024x768")) );
+    ComboBoxResizeResolution->Append(_("1280x720"));
+    ComboBoxResizeResolution->Append(_("30%"));
+    ComboBoxResizeResolution->Append(_("50%"));
+    wxFont ComboBoxResizeResolutionFont(8,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
+    ComboBoxResizeResolution->SetFont(ComboBoxResizeResolutionFont);
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     Menu1->Append(MenuItem1);
     MenuBar1->Append(Menu1, _("&File"));
     Menu2 = new wxMenu();
+    MenuItem3 = new wxMenuItem(Menu2, idMenuGithub, _("Visit Github Repository"), _("Click to open the github repository of FlashySlideshows on your browser"), wxITEM_NORMAL);
+    Menu2->Append(MenuItem3);
+    MenuItem4 = new wxMenuItem(Menu2, ID_MENUITEM1, _("Visit Author\'s Website"), _("Click to open the website of the author of the program"), wxITEM_NORMAL);
+    Menu2->Append(MenuItem4);
     MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
     Menu2->Append(MenuItem2);
     MenuBar1->Append(Menu2, _("Help"));
@@ -173,6 +204,11 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnButtonStartClick);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnButtonQuitClick);
     Connect(ID_TEXTCTRL1,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnPathTextCtrlText);
+    Connect(ID_CHECKBOX1,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxSoundClick);
+    Connect(ID_CHECKBOX2,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFaceDetectionClick);
+    Connect(ID_CHECKBOX3,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxVisualsClick);
+    Connect(ID_CHECKBOX4,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxIncludeSubfoldersClick);
+    Connect(ID_CHECKBOX5,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxMipmapClick);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnButtonControlsClick);
     Connect(ID_CHECKBOX6,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileMoveClick);
     Connect(ID_CHECKBOX7,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileResizeClick);
@@ -181,10 +217,22 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     //*)
 
 
+    default_img_thumb.SetData((unsigned char *)EmptyThumbnail.pixel_data,EmptyThumbnail.width ,EmptyThumbnail.height,true);
+    default_bmp_thumb = new wxBitmap(default_img_thumb);
+   // free(pixel);
+
+
+    StatusBar1->SetStatusText(wxT("Welcome to Flashy Slideshows!"));
+
     PathTreeCtrl=PictureFolder->GetTreeCtrl();
 
     Connect(PathTreeCtrl->GetId(),wxEVT_COMMAND_TREE_SEL_CHANGED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnRefreshDir);
+
+    ComboBoxResizeResolution->Disable();
 }
+
+
+
 
 FlashySlideShowStarterFrame::~FlashySlideShowStarterFrame()
 {
@@ -213,13 +261,29 @@ void FlashySlideShowStarterFrame::OnRefreshDir(wxCommandEvent& event)
 int FileExists(const char *fname)
 {
     FILE *file;
-    if (file = fopen(fname, "r"))
+    file = fopen(fname, "r");
+    if (file!=0)
     {
         fclose(file);
         return 1;
     }
     return 0;
 }
+
+
+void ComplainAboutInstallation()
+{
+  wxString error_message; error_message.clear();
+  error_message<<wxT("FlashySlideshowStarter was unable to locate the main executable of FlashySlideshows.\n");
+  error_message<<wxT("This means a bad installation , execution from a weird directory or possibly that there are\n");
+  error_message<<wxT("unresolved OpenGL dependencies and the main executable couldnt be compiled\n\n");
+  error_message<<wxT("You can visit the github repository using the help menu and create an issue ticket\n");
+  error_message<<wxT("describing your problem..!\n");
+  error_message<<wxT("\n\n");
+  error_message<<wxT("Sorry for the inconvinience :)\n");
+  wxMessageBox(error_message,wxT("Cannot find required executable files.."));
+}
+
 
 void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 {
@@ -247,7 +311,11 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     what_to_call.clear();
 
     if ( FileExists("bin/Release/FlashySlideShow")) { /*Dev Build*/ what_to_call<< wxT("bin/Release/FlashySlideShow "); } else
-    if ( FileExists("/usr/bin/FlashySlideShow"))    { /*Normal Deployment */what_to_call<< wxT("/usr/bin/FlashySlideShow "); }
+    if ( FileExists("/usr/bin/FlashySlideShow"))    { /*Normal Deployment */what_to_call<< wxT("/usr/bin/FlashySlideShow "); } else
+                                                    { /*Bad installation ? Weird System ? */
+                                                      ComplainAboutInstallation();
+                                                      return;
+                                                    }
 
     if ( CheckBoxIncludeSubfolders->IsChecked() ) { what_to_call<< wxT(" -r"); }
     if ( CheckBoxSound->IsChecked() ) { what_to_call<< wxT(" -sfx"); }
@@ -256,7 +324,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     if ( CheckBoxMipmap->IsChecked() ) { what_to_call<< wxT(" -m"); }
     if ( CheckBoxFileMove->IsChecked() ) { what_to_call<< wxT(" -mv_sort"); }
     if ( CheckBoxFileResize->IsChecked() ) { what_to_call<< wxT(" -mv_resize ");
-                                             what_to_call<<TextCtrlResizeResolution->GetValue();
+                                             what_to_call<<ComboBoxResizeResolution->GetValue();
                                            }
 
     if ( ComboBoxQuality->GetCurrentSelection()!=1 ) { what_to_call<< wxT(" -q "); what_to_call<<ComboBoxQuality->GetCurrentSelection(); }
@@ -271,8 +339,52 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     what_to_call<< wxT("\"");
 
     //wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
-    wxExecute(what_to_call);
+    long result=wxExecute(what_to_call,wxEXEC_SYNC);
+    if ( result != 0 )
+      {  //Non Zero return from FlashySlideshows
+          wxString error_message; error_message.clear();
+          error_message<<wxT("Failed to execute FlashySlideshows , it returned the following error identifier (");
+          error_message<<result;
+          error_message<<wxT(")\n\n");
+          error_message<<wxT("The execution string was : \n");
+          error_message<<what_to_call;
+          wxMessageBox(error_message,wxT("Execution Error"));
+      }
 }
+
+
+
+
+
+
+
+void FlashySlideShowStarterFrame::OnPaint(wxPaintEvent& event)
+{
+  wxPaintDC dc(this);
+  if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),385,true); }
+  if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),385,true); }
+  if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),385,true); }
+  if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),385,true); }
+  if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),385,true); }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void FlashySlideShowStarterFrame::OnButtonBrowseFolderClick(wxCommandEvent& event)
 {
@@ -367,9 +479,49 @@ void FlashySlideShowStarterFrame::OnButtonControlsClick(wxCommandEvent& event)
 void FlashySlideShowStarterFrame::OnCheckBoxFileMoveClick(wxCommandEvent& event)
 {
   CheckBoxFileResize->SetValue(0);
+  if ( CheckBoxFileResize->IsChecked() ) { ComboBoxResizeResolution->Enable(); } else
+                                         { ComboBoxResizeResolution->Disable(); }
+
+  StatusBar1->SetStatusText(wxT("Buttons 0 to 9 will make a resized copy of the currently viewed picture inside the Resized/CategoryX/ folder where X is the number pressed"));
+
+
+
 }
 
 void FlashySlideShowStarterFrame::OnCheckBoxFileResizeClick(wxCommandEvent& event)
 {
   CheckBoxFileMove->SetValue(0);
+  StatusBar1->SetStatusText(wxT("Buttons 0 to 9 will move the currently viewed picture inside the Moved/CategoryX/ folder where X is the number pressed"));
+  if ( CheckBoxFileResize->IsChecked() ) { ComboBoxResizeResolution->Enable(); } else
+                                         { ComboBoxResizeResolution->Disable(); }
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxSoundClick(wxCommandEvent& event)
+{
+  if ( CheckBoxSound->IsChecked() ) { StatusBar1->SetStatusText(wxT("Sound effects enabled..!")); } else
+                                    { StatusBar1->SetStatusText(wxT("Sound effects disabled..!")); }
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxVisualsClick(wxCommandEvent& event)
+{
+  if ( CheckBoxVisuals->IsChecked() ) { StatusBar1->SetStatusText(wxT("Visual effects enabled..!")); } else
+                                      { StatusBar1->SetStatusText(wxT("Visual effects disabled..!")); }
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxFaceDetectionClick(wxCommandEvent& event)
+{
+   if ( CheckBoxFaceDetection->IsChecked() ) { StatusBar1->SetStatusText(wxT("Face Detection enabled..!")); } else
+                                             { StatusBar1->SetStatusText(wxT("Face Detection disabled..!")); }
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxMipmapClick(wxCommandEvent& event)
+{
+   if ( CheckBoxMipmap->IsChecked() ) { StatusBar1->SetStatusText(wxT("OpenGL Texture Mipmaping enabled..!")); } else
+                                      { StatusBar1->SetStatusText(wxT("OpenGL Texture Mipmaping disabled..!")); }
+}
+
+void FlashySlideShowStarterFrame::OnCheckBoxIncludeSubfoldersClick(wxCommandEvent& event)
+{
+   if ( CheckBoxIncludeSubfolders->IsChecked() ) { StatusBar1->SetStatusText(wxT("Pictures found in subfolders will be included to your slideshow enabled..!")); } else
+                                                 { StatusBar1->SetStatusText(wxT("Subfolder's will not be included in slideshow..!")); }
 }

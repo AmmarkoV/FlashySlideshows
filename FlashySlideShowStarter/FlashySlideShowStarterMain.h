@@ -32,7 +32,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         virtual ~FlashySlideShowStarterFrame();
 
     private:
-
+        void OnPaint(wxPaintEvent& event);
         //(*Handlers(FlashySlideShowStarterFrame)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
@@ -43,6 +43,11 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnButtonControlsClick(wxCommandEvent& event);
         void OnCheckBoxFileMoveClick(wxCommandEvent& event);
         void OnCheckBoxFileResizeClick(wxCommandEvent& event);
+        void OnCheckBoxSoundClick(wxCommandEvent& event);
+        void OnCheckBoxVisualsClick(wxCommandEvent& event);
+        void OnCheckBoxFaceDetectionClick(wxCommandEvent& event);
+        void OnCheckBoxMipmapClick(wxCommandEvent& event);
+        void OnCheckBoxIncludeSubfoldersClick(wxCommandEvent& event);
         //*)
         void OnRefreshDir(wxCommandEvent& event);
 
@@ -72,17 +77,19 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_COMBOBOX3;
         static const long ID_CHECKBOX6;
         static const long ID_CHECKBOX7;
-        static const long ID_TEXTCTRL2;
+        static const long ID_COMBOBOX4;
         static const long idMenuQuit;
+        static const long idMenuGithub;
+        static const long ID_MENUITEM1;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
         //*)
 
         //(*Declarations(FlashySlideShowStarterFrame)
         wxCheckBox* CheckBoxMipmap;
-        wxTextCtrl* TextCtrlResizeResolution;
         wxCheckBox* CheckBoxVisuals;
         wxTextCtrl* PathTextCtrl;
+        wxComboBox* ComboBoxResizeResolution;
         wxStatusBar* StatusBar1;
         wxGenericDirCtrl* PictureFolder;
         wxCheckBox* CheckBoxSound;

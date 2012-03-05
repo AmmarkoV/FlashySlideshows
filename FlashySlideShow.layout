@@ -13,8 +13,8 @@
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="13298" topLine="417" />
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="13298" topLine="447" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="719" topLine="0" />
@@ -55,8 +55,8 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="11973" topLine="412" />
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="13240" topLine="430" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="56" />
@@ -83,7 +83,7 @@
 		<Cursor position="425" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="5240" topLine="179" />
+		<Cursor position="5240" topLine="44" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="4718" topLine="188" />
