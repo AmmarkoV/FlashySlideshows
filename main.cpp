@@ -552,7 +552,6 @@ int main(int argc, char *argv[])
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
     glClearColor(1,1,1,1);
 
@@ -571,6 +570,9 @@ int main(int argc, char *argv[])
 
     glShadeModel(GL_SMOOTH);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
     glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);

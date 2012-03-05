@@ -145,8 +145,12 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  glEnable ( GL_TEXTURE_2D );
  glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
 
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smalled than
+  //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
+  //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smaller than
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // good quality when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // good quality when image smaller than
+
 
 
 
@@ -300,6 +304,7 @@ void MainDisplayFunction()
 
     glEnable(GL_NORMALIZE);
     glEnable(GL_LINE_SMOOTH);
+    glEnable (GL_POLYGON_SMOOTH);
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.1);
     glEnable(GL_BLEND);
@@ -335,6 +340,7 @@ void MainDisplayFunction()
      glDisable(GL_ALPHA_TEST);
      glDisable(GL_BLEND);
      glDisable(GL_LINE_SMOOTH);
+     glDisable (GL_POLYGON_SMOOTH);
      glDisable(GL_NORMALIZE);
 
 

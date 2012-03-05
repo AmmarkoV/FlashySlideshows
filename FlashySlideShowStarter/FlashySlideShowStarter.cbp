@@ -37,6 +37,7 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="EmptyThumbnail.h" />
 		<Unit filename="FlashySlideShowStarterApp.cpp" />
 		<Unit filename="FlashySlideShowStarterApp.h" />
 		<Unit filename="FlashySlideShowStarterMain.cpp" />
