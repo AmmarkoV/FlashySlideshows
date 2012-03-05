@@ -43,6 +43,7 @@ struct Picture
 
 
   unsigned int mirror;
+  float default_rotate;
   float rotate;
   float target_rotate;
 

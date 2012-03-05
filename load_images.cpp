@@ -284,6 +284,8 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
           if (line[0]=='7') { fprintf(stderr,"Rotated 90 degs but Inverted Orientation\n"); pic->mirror=1; pic->rotate=90; pic->target_rotate=90;  }else
           if (line[0]=='8') { fprintf(stderr,"Rotated 90 degs but Normal Orientation\n"); pic->rotate=90; pic->target_rotate=90; }
        }
+
+       pic->default_rotate=pic->rotate;
    }
  pclose(fpipe);
 
@@ -357,6 +359,8 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
 
     new_picture->mirror=0;
+
+    new_picture->default_rotate=0;
     new_picture->rotate=0;
     new_picture->target_rotate=0;
 

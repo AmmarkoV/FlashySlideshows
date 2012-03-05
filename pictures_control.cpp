@@ -76,8 +76,8 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
 
 int ResetPictureRotation()
 {
-  album[frame.active_image_place]->target_rotate=0;
-  album[frame.active_image_place]->rotate=0;
+  album[frame.active_image_place]->target_rotate=album[frame.active_image_place]->default_rotate;
+  album[frame.active_image_place]->rotate=album[frame.active_image_place]->default_rotate;
   return 1;
 }
 
