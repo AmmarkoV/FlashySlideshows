@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="12088" topLine="575" />
+	<File name="camera_control.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="2346" topLine="36" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="748" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="7817" topLine="222" />
+		<Cursor position="9628" topLine="228" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="13298" topLine="447" />
+		<Cursor position="13756" topLine="378" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="719" topLine="0" />
@@ -56,7 +56,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6829" topLine="215" />
+		<Cursor position="6829" topLine="308" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="56" />
@@ -70,8 +70,8 @@
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="100" topLine="0" />
 	</File>
-	<File name="pictures_control.cpp" open="1" top="1" tabpos="33">
-		<Cursor position="3379" topLine="55" />
+	<File name="pictures_control.cpp" open="1" top="0" tabpos="33">
+		<Cursor position="3499" topLine="55" />
 	</File>
 	<File name="pictures_control.h" open="1" top="0" tabpos="35">
 		<Cursor position="194" topLine="0" />
@@ -83,10 +83,10 @@
 		<Cursor position="425" topLine="0" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="5240" topLine="44" />
+		<Cursor position="5276" topLine="179" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="4718" topLine="188" />
+		<Cursor position="3330" topLine="116" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="5245" topLine="151" />

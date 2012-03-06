@@ -73,6 +73,8 @@ int ChangeActiveImage(unsigned int x,unsigned int y)
 
      PrintPictureData(album[frame.active_image_place]);
 
+     // This is to signal the time the change was made to stop automatic slideshow from refiring
+     frame.time_ms_before_last_slide_change=frame.tick_count;
     }
 
   return 1;
@@ -566,6 +568,9 @@ int CameraOverPicture(unsigned int pic_place)
 
 int CameraSeesOnlyOnePicture()
 {
+  if ( abs(frame.vx-frame.desired_x)>3 ) { return 0; }
+  if ( abs(frame.vy-frame.desired_y)>3 ) { return 0; }
+
 
   if ( frame.vz<=frame.distance_block_lower+2.5  )
    {
