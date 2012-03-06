@@ -1,6 +1,6 @@
 #!/bin/bash
 #-b 0
-bin/Release/FlashySlideShow bin/Release/FlashySlideShow -mv_sort -mv_resize 1024x768 -sfx -r -fd -q 6 -t 1 -d 6000 "/home/ammar/Downloads/" 
+bin/Release/FlashySlideShow bin/Release/FlashySlideShow -file_resize 1024x768 -sfx -r -fd -q 6 -t 1 -d 6000 "/home/ammar/Downloads/" 
 #"/home/ammar/Pictures/Pictures/'12_03_03_01(Tritsi)"
 #"/home/ammar/Pictures/Pictures/'12_02_26_01(Kalavryta)"
 #"/home/ammar/Pictures/Pictures/'11_04_14_01"

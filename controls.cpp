@@ -236,16 +236,16 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 13 : /* ENTER */ ToggleAutomaticSlideshow(); break;
         case ' ' : /* SPACE */ ToggleAutomaticSlideshow(); break;
 
-        case 48+0 : /*Number 0*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),0)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+1 : /*Number 1*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),1)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+2 : /*Number 2*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),2)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+3 : /*Number 3*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),3)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+4 : /*Number 4*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),4)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+5 : /*Number 5*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),5)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+6 : /*Number 6*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),6)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+7 : /*Number 7*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),7)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+8 : /*Number 8*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),8)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+9 : /*Number 9*/ if (MoveOrRescaleFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),9)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+0 : /*Number 0*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),0)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+1 : /*Number 1*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),1)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+2 : /*Number 2*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),2)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+3 : /*Number 3*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),3)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+4 : /*Number 4*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),4)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+5 : /*Number 5*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),5)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+6 : /*Number 6*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),6)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+7 : /*Number 7*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),7)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+8 : /*Number 8*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),8)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+9 : /*Number 9*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),9)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
 
 
         case 'o': SetDestinationCenter();

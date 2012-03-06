@@ -523,13 +523,13 @@ int CreateDirsForMoveOrRescale(char * dir,unsigned int resize2_copy1_move0,unsig
 }
 
 
-int MoveOrRescaleFileToDir(unsigned int file_id,unsigned int sort_id)
+int MoveOrRescaleOrCopyFileToDir(unsigned int file_id,unsigned int sort_id)
 {
   char dir[MAX_PATH]={0};
 
-  if ((!frame.allow_operation_resize)&&(!frame.allow_operation_move) )
+  if ((!frame.allow_operation_resize)&&(!frame.allow_operation_move)&&(!frame.allow_operation_copy) )
     {
-      fprintf(stderr,"Both Moving and Resizing are disabled , please start program with -mv_sort or -mv_resize\n");
+      fprintf(stderr,"MoveOrRescaleOrCopyFileToDir Activated but , Moving , Resizing and Copying are disabled , please start program with -file_move or -file_copy or -file_resize\n");
       return 0;
     } else
   if ((frame.allow_operation_resize)&&(frame.allow_operation_move) )
