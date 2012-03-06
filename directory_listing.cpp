@@ -462,7 +462,7 @@ int MoveFileToDir(unsigned int file_id,char * dir)
     strcat(move_operation,raw_filename);
     strcat(move_operation,"\" \"");
     strcat(move_operation,dir);
-    strcat(move_operation,"\"");
+    strcat(move_operation,"\"&");
     fprintf(stderr,"Executing %s \n",move_operation);
     int i=system(move_operation);
 

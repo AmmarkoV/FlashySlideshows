@@ -44,10 +44,10 @@
 		<Cursor position="0" topLine="20" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="14115" topLine="328" />
+		<Cursor position="10013" topLine="250" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="1102" topLine="26" />
+		<Cursor position="1132" topLine="26" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="4093" topLine="76" />
@@ -55,8 +55,8 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="13240" topLine="430" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="6829" topLine="215" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="56" />
@@ -70,8 +70,8 @@
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="100" topLine="0" />
 	</File>
-	<File name="pictures_control.cpp" open="1" top="0" tabpos="33">
-		<Cursor position="3426" topLine="55" />
+	<File name="pictures_control.cpp" open="1" top="1" tabpos="33">
+		<Cursor position="3379" topLine="55" />
 	</File>
 	<File name="pictures_control.h" open="1" top="0" tabpos="35">
 		<Cursor position="194" topLine="0" />

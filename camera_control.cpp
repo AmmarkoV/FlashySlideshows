@@ -56,8 +56,8 @@ int ChangeActiveImage(unsigned int place)
 
 int ChangeActiveImage(unsigned int x,unsigned int y)
 {
-
-    if ( ( x != frame.active_image_x ) || ( y != frame.active_image_y ) )
+    unsigned int new_image_place = PictureXYtoID(x,y);
+    if ( ( x != frame.active_image_x ) || ( y != frame.active_image_y ) || (new_image_place != frame.active_image_place) )
     {
      fprintf(stderr,"Active Image is now %u,%u -> %u,%u -> %u,%u (now) \n",
              frame.last_image_x,frame.last_image_y ,
@@ -519,24 +519,29 @@ void PickHoverEffect(unsigned int x,unsigned int y)
 void SetDestinationOverNextPicture()
 {
    unsigned int new_active_picture=frame.active_image_place+1;
-   unsigned int new_active_x;
-   unsigned int new_active_y;
-   PictureIDtoXY(&new_active_x,&new_active_y,new_active_picture);
 
 
     if ( new_active_picture >= frame.total_images ) { /* WE PASSED THE LAST ACTIVE PICTURE SO THERE ACTUALY ISN`t A NEXT PICTURE! */
                                                       TriggerEndOfSlideShow();
+                                                      fprintf(stderr,"No more pictures to go to after set destination over next picture\n");
                                                     } else
     if ( new_active_picture == frame.active_image_place )
                                                     {
                                                       /* Weirdly no change was made to the image this is a bug ? Should stop slide show */
                                                       TriggerEndOfSlideShow();
+                                                      fprintf(stderr,"No change made after set destination over next picture\n");
                                                     } else
                                                     {
-                                                       /*There is a next picture :) , we`re gonna change to it*/
+                                                       MoveToPicture(D_RIGHT); // Reduce Code Surface
+                                                       /* The following is buggy :P
+                                                       unsigned int new_active_x;
+                                                       unsigned int new_active_y;
+                                                       PictureIDtoXY(&new_active_x,&new_active_y,new_active_picture);
+                                                       //There is a next picture :) , we`re gonna change to it
                                                        fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture, frame.total_images);
                                                        SetDestinationOverPicture(new_active_x,new_active_y);
                                                        fprintf(stderr,"Picture new destination %u/%u -> %u/%u \n ",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
+                                                       */
                                                     }
 }
 
