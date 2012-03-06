@@ -48,6 +48,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnCheckBoxFaceDetectionClick(wxCommandEvent& event);
         void OnCheckBoxMipmapClick(wxCommandEvent& event);
         void OnCheckBoxIncludeSubfoldersClick(wxCommandEvent& event);
+        void OnCheckBoxFileCopyClick(wxCommandEvent& event);
         //*)
         void OnRefreshDir(wxCommandEvent& event);
 
@@ -78,6 +79,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_CHECKBOX6;
         static const long ID_CHECKBOX7;
         static const long ID_COMBOBOX4;
+        static const long ID_CHECKBOX8;
         static const long idMenuQuit;
         static const long idMenuGithub;
         static const long ID_MENUITEM1;
@@ -113,6 +115,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         wxCheckBox* CheckBoxFileResize;
         wxStaticText* DateText;
         wxButton* ButtonQuit;
+        wxCheckBox* CheckBoxFileCopy;
         //*)
 
         wxTreeCtrl* PathTreeCtrl;

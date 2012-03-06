@@ -34,16 +34,13 @@ your password is required..
 
 TODO LIST - THOUGHT DUMP :P
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*Improve code structure
 
-* Organize code , and make a memory hypervisor ( or something ) 
-
-* Implement frame scaling to fill thumbnails with small textures faster
-
-* Implement frame scaling to lower the maximum resolution to fit more things in RAM where RAM is scarce   
+* Find System/GPU RAM caps to adjust resolution to fit more things in system RAM where GPU RAM is scarce   
 
 * Implement a "plugin" system for effects , each picture position , next / last picture changed according to plugin layout
 
-* Add effects ( shiny floor , transparency , particles ) to images
+* Add effects ( shiny floor ) to images  ,  transparency , particles  are done
 
 * Make paper ( bending ) effects with 3D fonts
 

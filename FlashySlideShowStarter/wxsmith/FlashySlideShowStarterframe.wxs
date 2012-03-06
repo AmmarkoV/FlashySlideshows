@@ -7,7 +7,7 @@
 		<object class="wxStaticBox" name="ID_STATICBOX2" variable="StaticBox2" member="yes">
 			<label>Slideshow Options</label>
 			<pos>448,16</pos>
-			<size>216,320</size>
+			<size>216,344</size>
 		</object>
 		<object class="wxStaticBox" name="ID_STATICBOX1" variable="StaticBox1" member="yes">
 			<label>Folder Preview</label>
@@ -16,10 +16,10 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON1" variable="ButtonStart" member="yes">
 			<label>Start!</label>
-			<pos>448,344</pos>
-			<size>216,64</size>
+			<pos>448,360</pos>
+			<size>216,48</size>
 			<font>
-				<size>36</size>
+				<size>32</size>
 				<style>normal</style>
 				<weight>normal</weight>
 				<underlined>0</underlined>
@@ -174,7 +174,7 @@
 				<item>50%</item>
 			</content>
 			<selection>2</selection>
-			<pos>552,300</pos>
+			<pos>552,308</pos>
 			<size>104,29</size>
 			<font>
 				<size>8</size>
@@ -184,6 +184,11 @@
 				<family>swiss</family>
 				<face>Sans</face>
 			</font>
+		</object>
+		<object class="wxCheckBox" name="ID_CHECKBOX8" variable="CheckBoxFileCopy" member="yes">
+			<label>File Copy</label>
+			<pos>456,328</pos>
+			<handler function="OnCheckBoxFileCopyClick" entry="EVT_CHECKBOX" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1330972281 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1331034426 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -42,7 +42,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1330823033 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1331034409 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -53,7 +53,7 @@
 	<time.h>
 	"transitions/basic_transition.h"
 
-1330864806 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1331033669 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -84,7 +84,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1330999797 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1331034582 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	"environment.h"
@@ -116,7 +116,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1331001964 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1331002350 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"

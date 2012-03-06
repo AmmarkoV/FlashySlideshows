@@ -113,8 +113,9 @@ struct SlideShowData
   unsigned int quality_setting; //Smaller is better
   unsigned int fullscreen;
 
-  unsigned int allow_mv_operation_sorting;
-  unsigned int allow_mv_operation_rescaling;
+  unsigned int allow_operation_move;
+  unsigned int allow_operation_copy;
+  unsigned int allow_operation_resize;
   char rescale_resolution_string[100];
 
 
@@ -178,6 +179,7 @@ struct SlideShowData
   unsigned char program_data_directory[MAX_PATH];
   unsigned char album_directory[MAX_PATH];
   unsigned char move_directory[MAX_PATH];
+  unsigned char copy_directory[MAX_PATH];
   unsigned char resize_directory[MAX_PATH];
 
 

@@ -425,6 +425,7 @@ int main(int argc, char *argv[])
 
 
     strcpy((char * ) frame.album_directory,"album");
+    strcpy((char * ) frame.copy_directory,"Copied");
     strcpy((char * ) frame.move_directory,"Moved");
     strcpy((char * ) frame.resize_directory,"Resized");
 
@@ -451,19 +452,24 @@ int main(int argc, char *argv[])
                        fprintf(stderr,"%u Sound Effects Enabled %s\n",i,argv[i]);
                        frame.enable_sound_effects=1;
                    } else
-             if (strcmp(argv[i],"-mv_sort")==0)
-                   { //Sound Effects command
+             if (strcmp(argv[i],"-file_move")==0)
+                   { //Move Files command
                        fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
-                       frame.allow_mv_operation_sorting=1;
+                       frame.allow_operation_move=1;
                    } else
-             if (strcmp(argv[i],"-mv_resize")==0)
-                   { //Sound Effects command
+             if (strcmp(argv[i],"-file_resize")==0)
+                   { //Resize Files command
                         if (i+1<=argc)
                         {
                          fprintf(stderr,"%u Move Resized Enabled at Resolution %s with keys 0 to 9 %s\n",i,argv[i+1],argv[i]);
-                         frame.allow_mv_operation_rescaling=1;
+                         frame.allow_operation_resize=1;
                          strcpy(frame.rescale_resolution_string,argv[i+1]);
                         }
+                   } else
+             if (strcmp(argv[i],"-file_copy")==0)
+                   { //File Copy command
+                       fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
+                       frame.allow_operation_copy=1;
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command

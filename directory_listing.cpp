@@ -418,7 +418,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
   //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for rescaled files..!\n");
   //  return 0;
 
-    if (!frame.allow_mv_operation_rescaling) { return 0; }
+    if (!frame.allow_operation_resize) { return 0; }
     /*
     sprintf(rescale_operation,"convert %s%s -resize \"%s>\" -size \"%s\" xc:white +swap -gravity center -composite %s%s-out.jpg",
             (char*)frame.album_directory,list[file_id].filename,
@@ -450,7 +450,7 @@ int MoveFileToDir(unsigned int file_id,char * dir)
   //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for moved files..!\n");
   //  return 0;
 
-    if (!frame.allow_mv_operation_sorting) { return 0; }
+    if (!frame.allow_operation_move) { return 0; }
 
     char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
@@ -469,14 +469,46 @@ int MoveFileToDir(unsigned int file_id,char * dir)
   return (i==0);
 }
 
-
-int CreateDirsForMoveOrRescale(char * dir,unsigned int true_if_resize,unsigned int sort_id)
+int CopyFileToDir(unsigned int file_id,char * dir)
 {
-  if (true_if_resize)
+  //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for moved files..!\n");
+  //  return 0;
+
+    if (!frame.allow_operation_copy) { return 0; }
+
+    char raw_filename[MAX_PATH]={0};
+    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+//    char escaped_filename[2048];
+//    escape_str(raw_filename,escaped_filename);
+
+    char move_operation[MAX_PATH]={0};
+    strcpy(move_operation,"cp \"");
+    strcat(move_operation,raw_filename);
+    strcat(move_operation,"\" \"");
+    strcat(move_operation,dir);
+    strcat(move_operation,"\"&");
+    fprintf(stderr,"Executing %s \n",move_operation);
+    int i=system(move_operation);
+
+  return (i==0);
+}
+
+
+int CreateDirsForMoveOrRescale(char * dir,unsigned int resize2_copy1_move0,unsigned int sort_id)
+{
+   if (resize2_copy1_move0==2)
    {
       sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.resize_directory);
       if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
       sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.resize_directory,sort_id);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
+      strcat(dir,"/");
+   } else
+  if (resize2_copy1_move0==1)
+   {
+      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.copy_directory);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
+      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.copy_directory,sort_id);
       if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
       strcat(dir,"/");
    } else
@@ -495,23 +527,28 @@ int MoveOrRescaleFileToDir(unsigned int file_id,unsigned int sort_id)
 {
   char dir[MAX_PATH]={0};
 
-  if ((!frame.allow_mv_operation_rescaling)&&(!frame.allow_mv_operation_sorting) )
+  if ((!frame.allow_operation_resize)&&(!frame.allow_operation_move) )
     {
       fprintf(stderr,"Both Moving and Resizing are disabled , please start program with -mv_sort or -mv_resize\n");
       return 0;
     } else
-  if ((frame.allow_mv_operation_rescaling)&&(frame.allow_mv_operation_sorting) )
+  if ((frame.allow_operation_resize)&&(frame.allow_operation_move) )
     {
       fprintf(stderr,"Both Moving and Resizing are enabled, using resize function\n");
       CreateDirsForMoveOrRescale(dir,1,sort_id);
       return RescaleFileToDir(file_id,dir);
     } else
-  if (frame.allow_mv_operation_rescaling )
+  if (frame.allow_operation_resize )
    {
-     CreateDirsForMoveOrRescale(dir,1,sort_id);
+     CreateDirsForMoveOrRescale(dir,2,sort_id);
      return RescaleFileToDir(file_id,dir);
     } else
-  if (frame.allow_mv_operation_sorting )
+  if (frame.allow_operation_copy)
+    {
+     CreateDirsForMoveOrRescale(dir,1,sort_id);
+     return CopyFileToDir(file_id,dir);
+    } else
+  if (frame.allow_operation_move)
     {
      CreateDirsForMoveOrRescale(dir,0,sort_id);
      return MoveFileToDir(file_id,dir);
