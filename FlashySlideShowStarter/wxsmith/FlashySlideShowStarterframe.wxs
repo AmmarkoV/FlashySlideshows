@@ -42,6 +42,7 @@
 			<value>~/Pictures</value>
 			<pos>104,330</pos>
 			<size>336,27</size>
+			<style>wxTE_PROCESS_ENTER</style>
 			<handler function="OnPathTextCtrlText" entry="EVT_TEXT" />
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX1" variable="CheckBoxSound" member="yes">

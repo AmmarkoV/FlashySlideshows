@@ -14,6 +14,7 @@
 #include <wx/dcclient.h>
 #include <wx/wx.h>
 #include <wx/utils.h>
+#include <wx/dir.h>
 #include "EmptyThumbnail.h"
 
 //(*InternalHeaders(FlashySlideShowStarterFrame)
@@ -126,7 +127,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ButtonStart->SetFont(ButtonStartFont);
     ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(604,408), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,334), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-    PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,330), wxSize(336,27), 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,330), wxSize(336,27), wxTE_PROCESS_ENTER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     CheckBoxSound = new wxCheckBox(this, ID_CHECKBOX1, _("Sound Effects"), wxPoint(456,280), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
     CheckBoxSound->SetValue(true);
     CheckBoxFaceDetection = new wxCheckBox(this, ID_CHECKBOX2, _("Face Detection"), wxPoint(456,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
@@ -351,6 +352,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     StatusBar1->SetStatusText(wxT("FlashySlideshows terminated.."));
     if ( result != 0 )
       {  //Non Zero return from FlashySlideshows
+          StatusBar1->SetStatusText(wxT("FlashySlideshows terminated with an error.."));
           wxString error_message; error_message.clear();
           error_message<<wxT("Failed to execute FlashySlideshows , it returned the following error identifier (");
           error_message<<result;
@@ -404,8 +406,21 @@ void FlashySlideShowStarterFrame::OnButtonQuitClick(wxCommandEvent& event)
     Close();
 }
 
+void FlashySlideShowStarterFrame::RefreshThumbnails()
+{
+   return ;
+}
+
+
 void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
 {
+    wxDir dir(PathTextCtrl->GetValue());
+
+    if ( !dir.IsOpened() )
+      {
+        StatusBar1->SetStatusText(wxT("Dir does not exist.."));
+        return ; //DIR does not exist..
+      }
 
     StatusBar1->SetStatusText(wxT("Please Wait while accessing filesystem.."));
     PictureFolder->SetPath(PathTextCtrl->GetValue());
@@ -458,6 +473,9 @@ void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
        value << mod_time.GetYear();
 
        DateText->SetLabel(value);
+
+
+       RefreshThumbnails();
 
      } else
      {

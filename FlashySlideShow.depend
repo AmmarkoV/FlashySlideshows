@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1331159945 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1331224185 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"memory_hypervisor.h"
 	"directory_listing.h"
@@ -85,7 +85,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1331164107 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1331224333 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"slideshow.h"
 	"visuals.h"
@@ -98,8 +98,9 @@
 	"wx/filename.h"
 	"wx/dirdlg.h"
 	<wx/filefn.h>
+	"directory_sorting.h"
 
-1331036488 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1331224167 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1331164821 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
@@ -138,7 +139,7 @@
 
 1331161131 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1331164426 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1331165026 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -865,7 +866,7 @@
 1331165004 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
 	"slideshow.h"
 
-1331161311 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
+1331165035 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
 	"scene_objects.h"
 	"visuals.h"
 	<stdlib.h>
@@ -1301,4 +1302,20 @@
 	"slideshow.h"
 	<stdlib.h>
 	<stdio.h>
+
+1331223641 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.cpp
+
+1331224136 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_transactions.cpp
+	"directory_transactions.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<sys/stat.h>
+	"slideshow.h"
+	"visuals.h"
+	"directory_listing.h"
+
+1331223884 /home/ammar/Documents/Programming/FlashySlideShow/directory_transactions.h
+
+1331224324 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
 

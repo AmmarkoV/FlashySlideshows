@@ -51,6 +51,10 @@
 		<Unit filename="controls.h" />
 		<Unit filename="directory_listing.cpp" />
 		<Unit filename="directory_listing.h" />
+		<Unit filename="directory_sorting.cpp" />
+		<Unit filename="directory_sorting.h" />
+		<Unit filename="directory_transactions.cpp" />
+		<Unit filename="directory_transactions.h" />
 		<Unit filename="effects.cpp" />
 		<Unit filename="effects.h" />
 		<Unit filename="environment.cpp" />
