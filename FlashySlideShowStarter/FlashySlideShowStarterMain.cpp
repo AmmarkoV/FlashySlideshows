@@ -346,7 +346,9 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     what_to_call<< wxT("\"");
 
     //wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
+    StatusBar1->SetStatusText(wxT("Starting FlashySlideshows..!!!"));
     long result=wxExecute(what_to_call,wxEXEC_SYNC);
+    StatusBar1->SetStatusText(wxT("FlashySlideshows terminated.."));
     if ( result != 0 )
       {  //Non Zero return from FlashySlideshows
           wxString error_message; error_message.clear();
@@ -404,12 +406,16 @@ void FlashySlideShowStarterFrame::OnButtonQuitClick(wxCommandEvent& event)
 
 void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
 {
+
+    StatusBar1->SetStatusText(wxT("Please Wait while accessing filesystem.."));
     PictureFolder->SetPath(PathTextCtrl->GetValue());
+    StatusBar1->SetStatusText(wxT("Please Wait while thumbnails are generated.."));
 
 
     wxFileName fname(PathTextCtrl->GetValue());
     wxDateTime mod_time=fname.GetModificationTime();
     wxDateTime now_time=wxDateTime::Now();
+    StatusBar1->SetStatusText(wxT(" "));
 
     if ( mod_time.IsEarlierThan(now_time) )
      {
