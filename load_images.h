@@ -78,6 +78,7 @@ struct Picture
 
 };
 
+extern struct Picture *label;
 extern struct Picture *star;
 extern struct Picture *heart;
 extern struct Picture *play_img;

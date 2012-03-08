@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "directory_listing.h"
 #include "slideshow.h"
+#include "visuals.h"
 #include "environment.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -526,6 +527,7 @@ int CreateDirsForMoveOrRescale(char * dir,unsigned int resize2_copy1_move0,unsig
 int MoveOrRescaleOrCopyFileToDir(unsigned int file_id,unsigned int sort_id)
 {
   char dir[MAX_PATH]={0};
+  char msg[512]={0};
 
   if ((!frame.allow_operation_resize)&&(!frame.allow_operation_move)&&(!frame.allow_operation_copy) )
     {
@@ -535,21 +537,34 @@ int MoveOrRescaleOrCopyFileToDir(unsigned int file_id,unsigned int sort_id)
   if ((frame.allow_operation_resize)&&(frame.allow_operation_move) )
     {
       fprintf(stderr,"Both Moving and Resizing are enabled, using resize function\n");
+
+      sprintf(msg,"Resizing Category %u",sort_id);
+      NewLabel(frame.vx,frame.vy,msg);
+
       CreateDirsForMoveOrRescale(dir,1,sort_id);
       return RescaleFileToDir(file_id,dir);
     } else
   if (frame.allow_operation_resize )
    {
+     sprintf(msg,"Resizing Category %u",sort_id);
+     NewLabel(frame.vx,frame.vy,msg);
+
      CreateDirsForMoveOrRescale(dir,2,sort_id);
      return RescaleFileToDir(file_id,dir);
     } else
   if (frame.allow_operation_copy)
     {
+     sprintf(msg,"Copying Category %u",sort_id);
+     NewLabel(frame.vx,frame.vy,msg);
+
      CreateDirsForMoveOrRescale(dir,1,sort_id);
      return CopyFileToDir(file_id,dir);
     } else
   if (frame.allow_operation_move)
     {
+     sprintf(msg,"Moving Category %u",sort_id);
+     NewLabel(frame.vx,frame.vy,msg);
+
      CreateDirsForMoveOrRescale(dir,0,sort_id);
      return MoveFileToDir(file_id,dir);
     }

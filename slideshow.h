@@ -215,6 +215,8 @@ void ToggleTransitionMode();
 
 void AutomaticSlideShowControl_if_needed();
 
+int SetTransitionTime(unsigned int trans_time);
+
 void TriggerEndOfSlideShow();
 void TriggerNextPictureSlideShow();
 

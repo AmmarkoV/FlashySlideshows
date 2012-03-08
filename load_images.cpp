@@ -30,7 +30,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "image_sensing.h"
 #include "environment.h"
 
-
+struct Picture *label=0;
 struct Picture *star=0;
 struct Picture *heart=0;
 struct Picture *play_img;

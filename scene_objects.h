@@ -38,6 +38,8 @@
    unsigned int lifetime;
    unsigned int stage;
 
+   unsigned char has_label;
+   char label[128];
 };
 
  extern struct SceneObject objects[MAX_SCENE_OBJECTS ];
@@ -47,6 +49,8 @@
 unsigned int Render_3DObjects();
 unsigned int Add_3DObject(struct SceneObject newobj);
 unsigned int Add_3DObject(float x,float y,float z,float width,float height,unsigned int stock_number,unsigned int lifetime);
+unsigned int Delete_All3DObjectsOfShape(unsigned int shape);
+
 void Run3DObjects(unsigned int microseconds);
 
 #endif // SCENE_OBJECTS_H_INCLUDED

@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "slideshow.h"
 #include "camera_control.h"
 #include "sound.h"
+#include "visuals.h"
 #include "scene_objects.h"
 #include <string.h>
 #include <stdlib.h>
@@ -221,7 +222,7 @@ void ToggleAutomaticSlideshow()
           Add_3DObject(//0,0,0,
                        frame.vx,frame.vy,icon_z,
                        //frame.vx,frame.vy,frame.vz,
-                       5,5,/*PLAY*/ 2 ,1000000);
+                       5,5,/*PLAY*/ 3 ,1000000);
 
       } else
       {
@@ -230,7 +231,7 @@ void ToggleAutomaticSlideshow()
           Add_3DObject(//0,0,0,
                        frame.vx,frame.vy,icon_z,
                        //frame.vx,frame.vy,frame.vz,
-                       5,5,/*PAUSE*/ 3 ,1000000);
+                       5,5,/*PAUSE*/ 4 ,1000000);
       }
 }
 
@@ -243,6 +244,11 @@ void ToggleTransitionMode()
 
 
     if ( frame.transitions.transition_mode > 2 ) frame.transitions.transition_mode = 0;
+
+
+    char message[512];
+    sprintf(message,"   Transition mode set to %u \n",frame.transitions.transition_mode);
+    NewLabel(frame.vx-3,frame.vy+3,message);
 }
 
 void AutomaticSlideShowControl_if_needed()
@@ -254,6 +260,17 @@ void AutomaticSlideShowControl_if_needed()
        {
          TriggerNextPictureSlideShow();
        }
+}
+
+
+int SetTransitionTime(unsigned int trans_time)
+{
+  char msg[128]={0};
+  sprintf(msg,"Transition time set to %u\n",trans_time);
+  NewLabel(frame.desired_x,frame.desired_y,(char *) msg);
+  fprintf(stderr,"%s",msg);
+  frame.time_ms_between_two_transitions=trans_time;
+  return 0;
 }
 
 

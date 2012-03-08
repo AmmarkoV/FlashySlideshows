@@ -249,11 +249,12 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
 
 
         case 'o': SetDestinationCenter();
+                  NewLabel(frame.desired_x,frame.desired_y,(char *) "Reset Camera to center..!");
                   break;
 
-        case 'u': StaryFountain(1); /*TEST "PARTICLE" EFFECT*/ break;
-        case 'i': StaryFountain(2); /*TEST "PARTICLE" EFFECT*/ break;
-        case 'j': StaryFountain(4); /*TEST "PARTICLE" EFFECT*/ break;
+        case 'u': StaryFountain(2); /*TEST "PARTICLE" EFFECT*/ break;
+        case 'i': StaryFountain(3); /*TEST "PARTICLE" EFFECT*/ break;
+        case 'j': StaryFountain(5); /*TEST "PARTICLE" EFFECT*/ break;
 
 
         case 'q': RotatePictureLeft(); break;
@@ -266,12 +267,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'd': MoveDestinationCenter(D_RIGHT); /*frame.desired_x-=frame.desired_step;*/ break;
         case 's': MoveDestinationCenter(D_UP); /*frame.desired_y+=frame.desired_step;*/ break;
         case 'w': MoveDestinationCenter(D_DOWN); /*frame.desired_y-=frame.desired_step;*/ break;
-        case '-': if ( frame.time_ms_between_two_transitions > 200 )
-                               { frame.time_ms_between_two_transitions-=200; }
-                  fprintf(stderr,"Transition time reduced to %u ms \n",frame.time_ms_between_two_transitions);
+        case '-': if ( frame.time_ms_between_two_transitions >= 100 )
+                     { SetTransitionTime(frame.time_ms_between_two_transitions-100);  }
                   break;
-        case '+': frame.time_ms_between_two_transitions+=100;
-                  fprintf(stderr,"Transition time increased to %u ms \n",frame.time_ms_between_two_transitions); break;
+        case '+': SetTransitionTime(frame.time_ms_between_two_transitions+100); break;
         case 'z': frame.angle_x-=0.5; break;
         case 'c': frame.angle_x+=0.5; break;
         case 't': frame.angle_y-=0.5; break;

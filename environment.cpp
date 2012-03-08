@@ -140,6 +140,11 @@ int LoadStockTexturesAndSounds()
     sprintf(filename,"%s/frame.jpg",base_directory);
     picture_frame=CreatePicture((char * )filename,1);
     make_texture(picture_frame,1);
+
+    sprintf(filename,"%s/label.jpg",base_directory);
+    label=CreatePicture((char * )filename,1);
+    make_texture(label,1);
+
     /*  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 

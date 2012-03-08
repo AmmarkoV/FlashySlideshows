@@ -29,6 +29,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 unsigned int Render_3DObject(unsigned int objnum)
 {
+  char * iffed_label=0;
+  if ( objects[objnum].has_label!= 0 ) { iffed_label = objects[objnum].label; }
+
   DrawDecal(
              objects[objnum].position.x,
              objects[objnum].position.y,
@@ -36,7 +39,8 @@ unsigned int Render_3DObject(unsigned int objnum)
              objects[objnum].roll,
              objects[objnum].width,
              objects[objnum].height,
-             objects[objnum].hardcoded_shape
+             objects[objnum].hardcoded_shape,
+             iffed_label
            );
   return 1;
 }
@@ -94,6 +98,7 @@ unsigned int Add_3DObject(float x,float y,float z,float width,float height,unsig
   if (!Full_of_3DObjects())
    {
      Clear_3DObject(existing_objects);
+     objects[existing_objects].has_label=0;
      objects[existing_objects].position.x=x;
      objects[existing_objects].position.y=y;
      objects[existing_objects].position.z=z;
@@ -127,7 +132,24 @@ unsigned int Delete_3DObject(unsigned int objnum)
 }
 
 
+unsigned int Delete_All3DObjectsOfShape(unsigned int shape)
+{
+   if (existing_objects==0) { return 0; }
 
+   int i=0;
+   while (i<existing_objects)
+    {
+      if (objects[i].hardcoded_shape==shape)
+       {
+         Delete_3DObject(i);
+       } else
+       {
+         ++i;
+       }
+    }
+
+  return 1;
+}
 
 void Run3DObjects(unsigned int microseconds)
 {

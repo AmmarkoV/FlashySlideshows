@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "effects.h"
 #include "visuals.h"
@@ -190,8 +191,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
 
 
-void setOrthographicProjection() {
-
+void setOrthographicProjection()
+{
 	// switch to projection mode
 	glMatrixMode(GL_PROJECTION);
 	// save previous matrix which contains the
@@ -347,7 +348,7 @@ void MainDisplayFunction()
 
 }
 
-void DrawDecal(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type)
+void DrawDecal(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type,char * text)
 {
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
@@ -358,15 +359,20 @@ void DrawDecal(float x,float y,float z,float  rotation,float width,float height,
   glTranslated(x,y,z);
   if ( rotation!=0 )    { glRotated(rotation,0.0,0.0,1.0); }
 
+
+if ( decal_type != 0 )
+{ //Decal type zero may only have text :P
+
   glDisable(GL_CULL_FACE);
   glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
   glEnable ( GL_TEXTURE_2D );
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-  if ( decal_type == 0 )  glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); else
-  if ( decal_type == 1 )  glBindTexture(GL_TEXTURE_2D, star->gl_rgb_texture ); else
-  if ( decal_type == 2 )  glBindTexture(GL_TEXTURE_2D, play_img->gl_rgb_texture ); else
-  if ( decal_type == 3 )  glBindTexture(GL_TEXTURE_2D, pause_img->gl_rgb_texture ); else
+  if ( decal_type == 1 )  glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); else
+  if ( decal_type == 2 )  glBindTexture(GL_TEXTURE_2D, star->gl_rgb_texture ); else
+  if ( decal_type == 3 )  glBindTexture(GL_TEXTURE_2D, play_img->gl_rgb_texture ); else
+  if ( decal_type == 4 )  glBindTexture(GL_TEXTURE_2D, pause_img->gl_rgb_texture ); else
+  if ( decal_type == 5 )  glBindTexture(GL_TEXTURE_2D, label->gl_rgb_texture ); else
                           glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); /* DEFAULT */
    glBegin(GL_QUADS);
     glColor3f(1.0,1.0,1.0);
@@ -381,8 +387,34 @@ void DrawDecal(float x,float y,float z,float  rotation,float width,float height,
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
+}
 
-    if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
+
+  if (text!=0)
+    {
+      glColor3f(1.0,1.0,1.0);
+      glDisable( GL_LIGHTING );
+      glRasterPos3f(width/2,0,0.1);
+      //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)text);
+        glPushMatrix();
+         glRotated(180,0.0,0.0,1.0);
+         glTranslated(-10,0,0);
+         glLineWidth(3.0);
+         static GLfloat f = 1.0/100;
+         glScalef( f, f, f );
+         glutStrokeString(GLUT_STROKE_ROMAN,(const unsigned char*)text); //GLUT_STROKE_ROMAN GLUT_STROKE_MONO_ROMAN
+         glScalef( 1/f, 1/f, 1/f );
+         glLineWidth(1.0);
+         glTranslated(0,0,0);
+         glRotated(-180,0.0,0.0,1.0);
+        glPopMatrix();
+
+      glEnable( GL_LIGHTING );
+    }
+
+
+
+  if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
   glTranslated(-x,-y,-z);
   glDisable(GL_LINE_SMOOTH);
   glDisable(GL_NORMALIZE);
@@ -419,8 +451,19 @@ void DrawBackground()
 int DrawEffects()
 {
 
-  DrawDecal(25,0,0,(float) times_drawn_background/100,9,9,0);
-  DrawDecal(25,14,0,(float) -times_drawn_background/100,9,9,1);
+  DrawDecal(25,0,0,(float) times_drawn_background/100,9,9,1,0);
+  DrawDecal(25,14,0,(float) -times_drawn_background/100,9,9,2,0);
+  return 1;
+}
+
+int NewLabel(float x,float y,char * text)
+{
+  Delete_All3DObjectsOfShape(/*LABEL ONLY*/ 0);
+  unsigned int label_flying=Add_3DObject(frame.vx-3,frame.vy+3,frame.vz-4.1,6,1,/*LABEL ONLY*/0,4000000);
+  objects[label_flying].velocity.x=0.02;
+  strncpy(objects[label_flying].label,text,128);
+  objects[label_flying].has_label=1;
+  //objects[label_flying].velocity.y=0.001;
   return 1;
 }
 
