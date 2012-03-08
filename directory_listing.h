@@ -4,7 +4,7 @@
 void RemoveListItem(unsigned int item_num);
 
 unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
-unsigned int GetDirectoryList(char * thedirectory,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
+unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
 unsigned int GetTotalViewableFilesInDirectory();
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename);
 unsigned int CountPicturesInDirectory(char * thedirectory,int recursive);
@@ -29,7 +29,8 @@ struct FilenameHolder
 
      unsigned int filesize;
 
-     char filename[512];
+     char filename[256];
+     char subdir[1024];
 };
 
 

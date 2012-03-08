@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1331238021 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1331241220 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -42,7 +42,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1331233425 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1331244023 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -85,7 +85,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1331236945 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1331247581 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"directory_sorting.h"
 	<stdlib.h>
@@ -97,9 +97,9 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1331238369 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1331247771 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331164821 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1331243056 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -136,7 +136,7 @@
 
 1331161131 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1331165026 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1331244807 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -634,7 +634,7 @@
 
 1314284222 /usr/include/wx-2.8/wx/gtk/app.h
 
-1329408148 source:/home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.cpp
+1331238408 source:/home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.cpp
 	<wx/msgdlg.h>
 	<wx/utils.h>
 	"wxwidgets_stuff.h"
@@ -899,7 +899,7 @@
 1328862949 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1331159779 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1331246175 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
 	"load_images.h"
 	"load_textures.h"

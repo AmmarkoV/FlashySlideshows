@@ -157,9 +157,16 @@ void timerCB(int millisec)
 
 int framerate_limiter()
 {
- usleep (1000); //1ms flat sleep time for the card
- return 0; /*Disabled */
+ if ( frame.fps <= 50 ) { return 0; } else
+ if ( frame.fps <= 100 ) {  usleep (500); return 0; } else
+ if ( frame.fps <= 200 ) {  usleep (1000); return 0; } else
+ if ( frame.fps <= 300 ) {  usleep (2000);return 0; } else
+    {
+      usleep (2000); //1ms flat sleep time for the card
+    }
+ return 1;
 
+ /* THIS SLEEPING BEHAVIOUR CAUSES INCONSISTEN
   if ( frame.fps > 40 )
    {
      unsigned int frames_to_cut = frame.fps - 40;
@@ -167,7 +174,7 @@ int framerate_limiter()
      usleep (time_to_cut);
    }
 
-  return 1;
+  return 1;*/
 }
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -612,7 +619,11 @@ int main(int argc, char *argv[])
 
 
 
-    LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.recursive);
+    if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.recursive))
+      {
+          fprintf(stderr,"Could not Load pictures in directory ( %u total pictures found)\n",GetTotalViewableFilesInDirectory());
+          return 1;
+      }
     frame.total_images=GetTotalViewableFilesInDirectory();
     if (!CreateSlideshowPictureStructure(GetTotalViewableFilesInDirectory()))
       {

@@ -252,9 +252,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
                   NewLabel(frame.desired_x,frame.desired_y,(char *) "Reset Camera to center..!");
                   break;
 
-        case 'u': StaryFountain(2); /*TEST "PARTICLE" EFFECT*/ break;
-        case 'i': StaryFountain(3); /*TEST "PARTICLE" EFFECT*/ break;
-        case 'j': StaryFountain(5); /*TEST "PARTICLE" EFFECT*/ break;
+        case 'u': StaryFountain(2); /*"PARTICLE" EFFECT*/ break;
+        case 'i': StaryFountain(3); /*"PARTICLE" EFFECT*/ break;
+        case 'k': StaryFountain(6); /*"PARTICLE" EFFECT*/ break;
+        case 'j': StaryFountain(5); /*"PARTICLE" EFFECT*/ break;
 
 
         case 'q': RotatePictureLeft(); break;

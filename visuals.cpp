@@ -101,9 +101,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if (PictureLoadingPending(pic)) {    pic=loading_texture; } else
   if (PictureFailed(pic)) { pic=failed; } else
   if ( pic->height == 0 ) {
-                             fprintf(stderr,"Zero Height on this image %u !\n",pic->directory_list_index);
+                             //fprintf(stderr,"Zero Height on this image %u !\n",pic->directory_list_index);
                              PrintDirectoryListItem(pic->directory_list_index);
-                             pic=loading_texture;
+                             pic=failed;
                            }
 
 
