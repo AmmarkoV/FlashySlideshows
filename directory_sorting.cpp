@@ -73,11 +73,11 @@ void RemoveListItem(unsigned int item_num)
   // is not called in sorting so it will not have a performance impact
 
   unsigned int item_iterator=item_num+1;
-  while (item_iterator<last_list_total_pictures_count)
+  while (item_iterator<pictures_count)
    {
       list[item_iterator-1]=list[item_iterator];
    }
-   --last_list_total_pictures_count;
+   --pictures_count;
 }
 
 

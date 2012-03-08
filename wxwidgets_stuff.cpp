@@ -53,3 +53,28 @@ bool WxWidgetsContext::OnClose()
   fprintf(stderr,"WxWidgets closing down\n");
   return 0;
 }
+
+
+unsigned int LaunchGUI_PickDir()
+{
+  return 0;
+  /*
+  WxWidgetsContext* Frame = new WxWidgetsContext();
+
+  //Frame->Show();
+  //SetTopWindow(Frame);
+
+ wxString defaultPath=wxT("/");
+ wxDirDialog dialog((wxWindow *) Frame,wxT("Please select a directory to view files"),defaultPath,wxDD_NEW_DIR_BUTTON);
+ if (dialog.ShowModal() == wxID_OK )
+  {
+    wxString path = dialog.GetPath();
+    strncpy((char*)frame.album_directory,(const char*) path.mb_str(wxConvUTF8),MAX_PATH);
+  }
+
+  delete Frame;
+*/
+ return 0;
+}
+
+

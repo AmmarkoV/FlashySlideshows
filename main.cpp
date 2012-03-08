@@ -612,20 +612,13 @@ int main(int argc, char *argv[])
 
 
 
-    CountPicturesInDirectory((char*)frame.album_directory,frame.recursive);
-    fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
-    if (GetTotalViewableFilesInDirectory()==0)
-      {
-         fprintf(stderr,"Could not find any pictures to display \n");
-         return 1;
-      }
-    if (! CreateSlideshowPictureStructure(GetTotalViewableFilesInDirectory()) )
+    LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.recursive);
+    frame.total_images=GetTotalViewableFilesInDirectory();
+    if (!CreateSlideshowPictureStructure(GetTotalViewableFilesInDirectory()))
       {
           fprintf(stderr,"Unrecoverable error , could not allocate enough memory for %u Picture structure pointers..\nYou may try to re-run when more RAM will be availiable\n",GetTotalViewableFilesInDirectory());
           return 1;
       }
-    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),frame.sort_type,frame.sort_ascending,frame.recursive); /* Load Directory List */
-    frame.total_images=GetTotalViewableFilesInDirectory();
 
 
 

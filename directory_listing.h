@@ -3,8 +3,8 @@
 
 void RemoveListItem(unsigned int item_num);
 
-unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
-unsigned int GetTotalFilesInDirectory();
+unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
+unsigned int GetDirectoryList(char * thedirectory,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
 unsigned int GetTotalViewableFilesInDirectory();
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename);
 unsigned int CountPicturesInDirectory(char * thedirectory,int recursive);
@@ -35,6 +35,5 @@ struct FilenameHolder
 
 extern struct FilenameHolder * list;
 extern unsigned int list_size;
-extern unsigned int last_list_total_countNOTUSEDANYWHERE; // We dont actually care about the total count of files , only about the pictures thus NOTUSEDANYWHERE :P
-extern unsigned int last_list_total_pictures_count;
+extern unsigned int pictures_count;
 #endif // DIRECTORY_LISTING_H_INCLUDED
