@@ -23,7 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 
 
- struct SceneObject objects[MAX_SCENE_OBJECTS ]={0};
+ struct SceneObject objects[MAX_SCENE_OBJECTS]; //={0}
  unsigned int existing_objects=0;
 
 
@@ -136,7 +136,7 @@ unsigned int Delete_All3DObjectsOfShape(unsigned int shape)
 {
    if (existing_objects==0) { return 0; }
 
-   int i=0;
+   unsigned int i=0;
    while (i<existing_objects)
     {
       if (objects[i].hardcoded_shape==shape)

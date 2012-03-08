@@ -446,6 +446,7 @@ int main(int argc, char *argv[])
              if (strcmp(argv[i],"-r")==0)
                    { //Recursive Directory command
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);
+                       frame.recursive=1;
                    } else
              if (strcmp(argv[i],"-sfx")==0)
                    { //Sound Effects command
@@ -611,7 +612,7 @@ int main(int argc, char *argv[])
 
 
 
-    CountPicturesInDirectory((char*)frame.album_directory);
+    CountPicturesInDirectory((char*)frame.album_directory,frame.recursive);
     fprintf(stderr,"Album directory has %u pictures inside \n",GetTotalViewableFilesInDirectory());
     if (GetTotalViewableFilesInDirectory()==0)
       {
@@ -623,7 +624,7 @@ int main(int argc, char *argv[])
           fprintf(stderr,"Unrecoverable error , could not allocate enough memory for %u Picture structure pointers..\nYou may try to re-run when more RAM will be availiable\n",GetTotalViewableFilesInDirectory());
           return 1;
       }
-    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),frame.sort_type,frame.sort_ascending); /* Load Directory List */
+    GetDirectoryList((char*)frame.album_directory,GetTotalViewableFilesInDirectory(),frame.sort_type,frame.sort_ascending,frame.recursive); /* Load Directory List */
     frame.total_images=GetTotalViewableFilesInDirectory();
 
 

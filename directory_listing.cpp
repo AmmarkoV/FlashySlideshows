@@ -18,9 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "directory_listing.h"
-#include "slideshow.h"
-#include "visuals.h"
-#include "environment.h"
+#include "directory_sorting.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -29,7 +27,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "wx/filename.h"
 #include "wx/dirdlg.h"
 #include <wx/filefn.h>
-#include "directory_sorting.h"
 
 
 
@@ -43,7 +40,7 @@ unsigned int last_list_total_pictures_count=0;
 
 void PrintDirectoryList()
 {
-  if (!PrintPictureLoadingMsg())   { return; }
+//  if (!PrintPictureLoadingMsg())   { return; }
   unsigned int i=0;
   for (i=0; i<last_list_total_pictures_count; i++)
    {
@@ -57,7 +54,7 @@ void PrintDirectoryListItem(unsigned int item)
 {
   if (list==0) {return;}
   if (item>=last_list_total_pictures_count) {return; }
-  if (PrintPictureLoadingMsg()) fprintf(stderr,"%u - %s\n",item,list[item].filename);
+//  if (PrintPictureLoadingMsg()) fprintf(stderr,"%u - %s\n",item,list[item].filename);
 }
 
 
@@ -77,17 +74,9 @@ void AllocateDirectoryList(unsigned int requested_size)
  list = ( struct FilenameHolder * ) malloc(   sizeof(struct FilenameHolder) * (requested_size+5)  );
 
  unsigned int i=0;
- for ( i=0; i<requested_size; i++)
-  {
-    strcpy(list[i].filename,"\0");
-  }
-
+ for ( i=0; i<requested_size; i++) { strcpy(list[i].filename,"\0"); }
+ if ( list != 0 ) { fprintf(stderr,"Allocated %u records of filename_holders\n",requested_size); }
  list_size=requested_size;
-
- if ( list != 0 )
-  {
-    fprintf(stderr,"Allocated %u records of filename_holders\n",requested_size);
-  }
 }
 
 void FreeDirectoryList()
@@ -101,9 +90,24 @@ inline wxString _U2(const char String[] = "")
   return wxString(String, wxConvUTF8);
 }
 
+int ExtensionIsPicture(wxString *extension)
+{
+      unsigned int is_a_picture=0;
+      if ( extension->CmpNoCase(wxT("JPG"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("JPEG"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("PNG"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("PNM"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("BMP"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("GIF"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("PCX"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("XPM"))==0 ) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("TIF"))==0 ) {is_a_picture=1;}
+
+  return is_a_picture;
+}
 //ls -lrt sorted directory list
 
-unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc)
+unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive)
 {
   unsigned int COUNT_FILES_ONLY=0;
   unsigned int this_list_total_count=0;
@@ -139,18 +143,7 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
       extension=fname.GetExt();
       fullname=fname.GetFullName();
 
-      unsigned int is_a_picture=0;
-      if ( extension.CmpNoCase(wxT("JPG"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("JPEG"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("PNG"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("PNM"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("BMP"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("GIF"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("PCX"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("XPM"))==0 ) {is_a_picture=1;}
-      else if ( extension.CmpNoCase(wxT("TIF"))==0 ) {is_a_picture=1;}
-
-      if ( is_a_picture )
+      if ( ExtensionIsPicture(&extension) )
         {
           if (!COUNT_FILES_ONLY)
           {
@@ -199,9 +192,9 @@ unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_
 }
 
 
-unsigned int CountPicturesInDirectory(char * thedirectory)
+unsigned int CountPicturesInDirectory(char * thedirectory,int recursive)
 {
-  return GetDirectoryList(thedirectory,0,0,0); /*Calling GetDirectoryList with 0 size only counts files!*/
+  return GetDirectoryList(thedirectory,0,0,0,recursive); /*Calling GetDirectoryList with 0 size only counts files!*/
 }
 
 unsigned int GetTotalFilesInDirectory()
@@ -222,7 +215,7 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
     if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
     if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 3 parameter ? \n"); return 0; }
 
-    if (PrintPictureLoadingMsg()) fprintf(stderr,"Copying picture %u = `%s` \n",file_id,list[file_id].filename);
+//    if (PrintPictureLoadingMsg()) fprintf(stderr,"Copying picture %u = `%s` \n",file_id,list[file_id].filename);
     strcpy(filename,directory);
     strcat(filename,list[file_id].filename);
 
@@ -255,6 +248,7 @@ unsigned int GetItemDate(unsigned int file_id,unsigned int data)
 unsigned int LaunchGUI_PickDir()
 {
   return 0;
+  /*
   WxWidgetsContext* Frame = new WxWidgetsContext();
 
   //Frame->Show();
@@ -269,7 +263,7 @@ unsigned int LaunchGUI_PickDir()
   }
 
   delete Frame;
-
+*/
  return 0;
 }
 

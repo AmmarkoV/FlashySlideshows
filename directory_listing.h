@@ -3,11 +3,11 @@
 
 void RemoveListItem(unsigned int item_num);
 
-unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc);
+unsigned int GetDirectoryList(char * thedirectory,unsigned int store_results_in_space,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive);
 unsigned int GetTotalFilesInDirectory();
 unsigned int GetTotalViewableFilesInDirectory();
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename);
-unsigned int CountPicturesInDirectory(char * thedirectory);
+unsigned int CountPicturesInDirectory(char * thedirectory,int recursive);
 unsigned int LaunchGUI_PickDir();
 char * GetFilename(unsigned int file_id);
 unsigned int GetItemDate(unsigned int file_id,unsigned int data);
