@@ -1,3 +1,21 @@
+/* FancySlideShow..
+A fancy , OpenGL slideshow application !
+URLs: http://ammar.gr
+Written by Ammar Qammaz a.k.a. AmmarkoV 2010
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "directory_sorting.h"
 #include "directory_listing.h"
 #include <stdlib.h>
@@ -71,7 +89,6 @@ void RemoveListItem(unsigned int item_num)
   //Since the list is always sorted , we will have to move all items one step back
   // TODO , this could be a linked list to make things easier , typically remove list items
   // is not called in sorting so it will not have a performance impact
-
   unsigned int item_iterator=item_num+1;
   while (item_iterator<pictures_count)
    {

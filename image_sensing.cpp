@@ -67,7 +67,7 @@ int GetInterestingAreasList(struct Picture *picture)
     int i;
     for( i = 0 ; i < ( faces ? faces->total : 0 ) ; i++ )
     {
-        CvRect *r = ( CvRect* )cvGetSeqElem( faces, i );
+       // CvRect *r = ( CvRect* )cvGetSeqElem( faces, i );
 
          //  SaveRegisterPartToFile(timestamped_filename,vid_reg, r->x , r->y , r->width , r->height );
 

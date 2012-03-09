@@ -329,7 +329,7 @@ void MouseCallback( int button,int state, int x, int y)
 
 static void KeyCallback(unsigned char key, int x, int y)
 { //'q'
-  if (key==27) { EnableScreenSaver(); exit(0); }/* Closes Application on Escape Key*/
+  if (key==27) { EnableScreenSaver(); glutLeaveMainLoop(); /*exit(0);*/ }/* Closes Application on Escape Key*/
         else
   if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
 
@@ -622,7 +622,8 @@ int main(int argc, char *argv[])
     if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.recursive))
       {
           fprintf(stderr,"Could not Load pictures in directory ( %u total pictures found)\n",GetTotalViewableFilesInDirectory());
-          return 1;
+          int i=system("gdialog --title \"Flashy Slideshows\" --infobox \"\nCould not find any pictures in the directory of your selection\"");
+          return 0;
       }
     frame.total_images=GetTotalViewableFilesInDirectory();
     if (!CreateSlideshowPictureStructure(GetTotalViewableFilesInDirectory()))
@@ -644,6 +645,7 @@ int main(int argc, char *argv[])
     gettimeofday(&last_frame,0x0);
     /* Start Rendering */
     glutMainLoop();
+    fprintf(stderr,"Gracefully closing program\n");
 
     EnableScreenSaver();
     StopJoystickControl();

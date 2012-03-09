@@ -185,7 +185,9 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      }
 
     if ( ( width == 0 ) || ( height == 0 ) || ( depth == 0 ) ) {  fprintf(stderr,"PreparePictureForImage only cleared allocated memory\n"); return 1; }
-    if ( ( width < 50 ) || ( height < 50 ) ) {  fprintf(stderr,"This picture is very small (%u,%u) , skipping it\n",width,height); return 0; }
+    if ( ( width < 50 ) || ( height < 50 ) ) {  fprintf(stderr,"This picture is very small (%u,%u) , skipping it ,NEED A BETER IMPLEMENTATION TO PREVENT BLINKING\n",width,height);
+                                                 pic->marked_for_rgbdata_loading=0;  /* THIS MAY CAUSE A BLINK NO USE IN RETRYING , IT HAS FAILED*/
+                                                 return 0; }
 
     if ((pic->rgb_data==0) || (pic->rgb_data_size==0))
      {

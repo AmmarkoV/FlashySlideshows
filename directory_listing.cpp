@@ -31,8 +31,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <wx/filefn.h>
 
 
+//unsigned int MAX_RECURSION=100; // 100 levels deep is very deep :p
 unsigned int FORCE_STOP_LISTING=0; // EMERGENCY SWITCH :P
-unsigned int MAX_RECURSION=100; // 100 levels deep is very deep :p
+unsigned int DONT_ASK_USER_FOR_STOP=0; // EMERGENCY SWITCH :P
 unsigned int MAX_TIME_FOR_OPERATION_MS=2000; // 100 levels deep is very deep :p
 struct timeval start_time,current_time,difference_time;
 
@@ -46,14 +47,11 @@ unsigned int pictures_count=0;
 
 unsigned long timeval_diff2 ( struct timeval *difference, struct timeval *end_time, struct timeval *start_time )
 {
-
    struct timeval temp_diff;
 
    if(difference==0) { difference=&temp_diff; }
-
-  difference->tv_sec =end_time->tv_sec -start_time->tv_sec ;
-  difference->tv_usec=end_time->tv_usec-start_time->tv_usec;
-
+   difference->tv_sec =end_time->tv_sec -start_time->tv_sec ;
+   difference->tv_usec=end_time->tv_usec-start_time->tv_usec;
   // Using while instead of if below makes the code slightly more robust.
 
   while(difference->tv_usec<0)
@@ -61,9 +59,7 @@ unsigned long timeval_diff2 ( struct timeval *difference, struct timeval *end_ti
     difference->tv_usec+=1000000;
     difference->tv_sec -=1;
   }
-
   return 1000000LL*difference->tv_sec+ difference->tv_usec;
-
 }
 
 void PrintDirectoryList()
@@ -109,8 +105,6 @@ void ensure_ending_with_slash(char * str)
   strcat(str,"/");
 }
 
-
-
 inline wxString _U2(const char String[] = "")
 {
   return wxString(String, wxConvUTF8);
@@ -153,8 +147,6 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
             if (subdir==0) { strncpy(list[pictures_count].subdir,"\0",1024);   } else
                            { strncpy(list[pictures_count].subdir,subdir,1024); }
 
-
-
             wxDateTime mod_time=fname.GetModificationTime();
             list[pictures_count].year=mod_time.GetYear();
             list[pictures_count].month=mod_time.GetMonth();
@@ -177,25 +169,12 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
 
 int UserWantsToStop()
 {
-   /*
-  wxMessageDialog md(0,wxT("The directory listing is taking an awful lot of time , would you like to stop it ? "),wxT("Flashy Slideshows , directory listing"),wxYES_NO);
-  switch ( md.ShowModal())
-  {
-    case wxID_YES: return 1; break;
-    case wxID_NO:  return 0; break;
-  };*/
-  /*
-  if (wxNO == wxMessageBox(wxT("The directory listing is taking an awful lot of time , would you like to stop it ? "),wxT("Flashy Slideshows , directory listing"),wxNO_DEFAULT|wxYES_NO|wxICON_INFORMATION,wxGetActiveWindow()))
-  {
-   return 0;
-  }
-*/
-char command[512]={0};
-sprintf(command,"gdialog --title \"Operation taking too long\" --yesno \"Directory listing operation is taking too long (%u secs)\nWould you like to stop it , next warning at %u secs ?\"",MAX_TIME_FOR_OPERATION_MS/1000,2*MAX_TIME_FOR_OPERATION_MS/1000);
-int i=system(command);
-if (i==0) { fprintf(stderr,"User Wants to Stop script\n"); } else
-          { fprintf(stderr,"User Doesnt want to Stop script\n"); return 0; }
-
+  if (DONT_ASK_USER_FOR_STOP) { return 1; }
+  char command[512]={0};
+  sprintf(command,"gdialog --title \"Operation taking too long\" --yesno \"Directory listing operation is taking too long (%u secs)\nWould you like to stop it , next warning at %u secs ?\"",MAX_TIME_FOR_OPERATION_MS/1000,2*MAX_TIME_FOR_OPERATION_MS/1000);
+  int i=system(command);
+  if (i==0) { fprintf(stderr,"User Wants to Stop script\n"); DONT_ASK_USER_FOR_STOP=1; return 1; } else
+            { fprintf(stderr,"User Doesnt want to Stop script\n"); return 0; }
 return 1;
 }
 
@@ -209,10 +188,7 @@ unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int spac
   if (space_to_allocate==0) { count_only=1; } else
   if ((space_to_allocate!=0)&&(list==0)) { fprintf(stderr,"List not allocated for GetDirectoryList call\n"); return 0; }
 
-
-
-  //if (recursive>4) { fprintf(stderr,"Recursion has reached a depth of 4 levels , stopping it :P \n"); return 0;  } else
-  if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); return 0; } else
+  //if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); return 0; } else
   if (bottom_level) {  gettimeofday(&start_time,0x0); }
 
   wxDir dir(_U2(thedirectory));
@@ -230,7 +206,8 @@ unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int spac
 
      gettimeofday(&current_time,0x0);
      unsigned int curtime=timeval_diff2(&difference_time,&current_time,&start_time)/1000;
-     if (curtime>MAX_TIME_FOR_OPERATION_MS)
+     //If recursion is enabled , and we timed out , lets ask the user if he wants to continue
+     if ( (curtime>MAX_TIME_FOR_OPERATION_MS) && (recursive!=0) )
       {
         if (UserWantsToStop()) {
                                  /*To stop directory listing , we stop recursion here and now..! and set the force stop flag*/
@@ -264,23 +241,23 @@ if (recursive>0) //Recursion Enabled
       {//NO POINT IN RECURSING IN THE SAME (PRACTICLY) DIR :P
        ensure_ending_with_slash(dirname_cstr);
 
-       fprintf(stderr,"WAS The Directory is `%s\n` ",thedirectory);
-       fprintf(stderr,"WAS Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
-       fprintf(stderr,"WAS Subdir is `%s`\n",new_subdir);
+       //fprintf(stderr,"WAS The Directory is `%s\n` ",thedirectory);
+       //fprintf(stderr,"WAS Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
+       //fprintf(stderr,"WAS Subdir is `%s`\n",new_subdir);
 
        sprintf(recursive_dir,"%s%s",thedirectory,dirname_cstr);
 
        if ( subdir == 0 )
        { sprintf(new_subdir,"%s",dirname_cstr); } else
        {
-        ensure_ending_with_slash(subdir);
-        sprintf(new_subdir,"%s%s",subdir,dirname_cstr);
+         ensure_ending_with_slash(subdir);
+         sprintf(new_subdir,"%s%s",subdir,dirname_cstr);
        }
 
-       fprintf(stderr,"Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
-       fprintf(stderr,"Subdir is `%s`\n",new_subdir);
+       //fprintf(stderr,"Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
+       //fprintf(stderr,"Subdir is `%s`\n",new_subdir);
        unsigned int recursive_pictures_added=GetDirectoryList(recursive_dir,new_subdir,space_to_allocate,comp_func,asc_desc,recursive+1);
-       fprintf(stderr," returned %u ( %u until now ) pictures\n",recursive_pictures_added,this_list_total_pictures_count);
+       //fprintf(stderr," returned %u ( %u until now ) pictures\n",recursive_pictures_added,this_list_total_pictures_count);
 
        this_list_total_pictures_count+=recursive_pictures_added;
       }
@@ -356,7 +333,7 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
     if ( list_size <= file_id ) return 0;
     if ( list == 0 ) return 0;
     if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
-    if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 3 parameter ? \n"); return 0; }
+    if ( filename == 0 )  { fprintf(stderr,"GetViewableFilenameforFile called with wrong 3 parameter ? \n"); return 0; }
 
     strcpy(filename,directory);
     if (strlen(list[file_id].subdir)!=0) { strcat(filename,list[file_id].subdir); }
@@ -384,12 +361,12 @@ unsigned int GetItemDate(unsigned int file_id,unsigned int data)
     if ( list_size <= file_id ) return 0;
     if ( list == 0 ) return 0;
 
-    if ( data == 2 ) { return list[file_id].year; } else
+    if ( data == 2 ) { return list[file_id].year;  } else
     if ( data == 1 ) { return list[file_id].month; } else
-    if ( data == 0 ) { return list[file_id].day; } else
-    if ( data == 3 ) { return list[file_id].hour; } else
-    if ( data == 4 ) { return list[file_id].minute; } else
-    if ( data == 5 ) { return list[file_id].second; }
+    if ( data == 0 ) { return list[file_id].day;   } else
+    if ( data == 3 ) { return list[file_id].hour;  } else
+    if ( data == 4 ) { return list[file_id].minute;} else
+    if ( data == 5 ) { return list[file_id].second;}
 
     return 0;
 }
