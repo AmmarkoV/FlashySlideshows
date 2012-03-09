@@ -14,10 +14,13 @@
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="5484" topLine="152" />
+		<Cursor position="6478" topLine="165" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
-		<Cursor position="1265" topLine="0" />
+		<Cursor position="724" topLine="0" />
+	</File>
+	<File name="directory_transactions.cpp" open="1" top="0" tabpos="36">
+		<Cursor position="200" topLine="0" />
 	</File>
 	<File name="effects.cpp" open="1" top="0" tabpos="31">
 		<Cursor position="1380" topLine="30" />
@@ -56,7 +59,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="3791" topLine="110" />
+		<Cursor position="20216" topLine="380" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="56" />
@@ -98,13 +101,13 @@
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="15092" topLine="443" />
+		<Cursor position="9189" topLine="260" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="252" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
-		<Cursor position="741" topLine="7" />
+		<Cursor position="741" topLine="15" />
 	</File>
 	<File name="wxwidgets_stuff.h" open="1" top="0" tabpos="21">
 		<Cursor position="0" topLine="0" />

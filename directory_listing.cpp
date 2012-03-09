@@ -76,7 +76,6 @@ void PrintDirectoryList()
 void PrintDirectoryListItem(unsigned int item)
 {
   return ;
-
   if (list==0) {return;}
   if (item>=pictures_count) {return; }
   fprintf(stderr,"%u - %s\n",item,list[item].filename);
@@ -191,11 +190,11 @@ int UserWantsToStop()
    return 0;
   }
 */
-int i=system("gdialog --title \"Operation taking too long\" --yesno \"Directory listing operation is taking too lon , would you like to stop it ?\"");
+char command[512]={0};
+sprintf(command,"gdialog --title \"Operation taking too long\" --yesno \"Directory listing operation is taking too long (%u secs)\nWould you like to stop it , next warning at %u secs ?\"",MAX_TIME_FOR_OPERATION_MS/1000,2*MAX_TIME_FOR_OPERATION_MS/1000);
+int i=system(command);
 if (i==0) { fprintf(stderr,"User Wants to Stop script\n"); } else
-          { fprintf(stderr,"User Doesnt want to Stop script\n"); MAX_TIME_FOR_OPERATION_MS=MAX_TIME_FOR_OPERATION_MS*2; return 0; }
-
-
+          { fprintf(stderr,"User Doesnt want to Stop script\n"); return 0; }
 
 return 1;
 }
@@ -233,7 +232,17 @@ unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int spac
      unsigned int curtime=timeval_diff2(&difference_time,&current_time,&start_time)/1000;
      if (curtime>MAX_TIME_FOR_OPERATION_MS)
       {
-        if (UserWantsToStop()) { FORCE_STOP_LISTING=1; }
+        if (UserWantsToStop()) {
+                                 /*To stop directory listing , we stop recursion here and now..! and set the force stop flag*/
+                                 FORCE_STOP_LISTING=1;
+                                 recursive=0;
+                               } else
+                               {
+                                 //Compensate for the time lost waiting for user input.. :P
+                                 gettimeofday(&current_time,0x0);
+                                 curtime=(timeval_diff2(&difference_time,&current_time,&start_time)/1000 )-curtime;
+                                 MAX_TIME_FOR_OPERATION_MS=curtime+=(MAX_TIME_FOR_OPERATION_MS*2);
+                               }
       }
 
 if (recursive>0) //Recursion Enabled
@@ -349,7 +358,6 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
     if ( directory == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
     if ( filename == 0 ) { fprintf(stderr,"GetViewableFilenameforFile called with wrong 3 parameter ? \n"); return 0; }
 
-//    if (PrintPictureLoadingMsg()) fprintf(stderr,"Copying picture %u = `%s` \n",file_id,list[file_id].filename);
     strcpy(filename,directory);
     if (strlen(list[file_id].subdir)!=0) { strcat(filename,list[file_id].subdir); }
     strcat(filename,list[file_id].filename);
