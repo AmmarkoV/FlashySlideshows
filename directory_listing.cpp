@@ -99,6 +99,15 @@ void AllocateDirectoryList(unsigned int requested_size)
  pictures_count=0;
 }
 
+void ensure_ending_with_slash(char * str)
+{
+  if (str==0) { return ; }
+  unsigned int string_length = strlen(str);
+  if (string_length==0) { return ; }
+  if (str[strlen(str)-1]=='/') { return; }
+  strcat(str,"/");
+}
+
 
 
 inline wxString _U2(const char String[] = "")
@@ -126,7 +135,7 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
 {
       wxString dir_and_filename; dir_and_filename.clear();
       dir_and_filename<<_U2(thedirectory);
-      dir_and_filename<<_U2("/");
+      if (thedirectory[strlen(thedirectory)-1]!='/') { dir_and_filename<<_U2("/"); }
       dir_and_filename<<*filename;
 
       wxFileName fname(dir_and_filename);
@@ -137,6 +146,8 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
         {
           if (!count_only)
           {
+            if ( pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
+
             strncpy(list[pictures_count].filename,(const char*) fullname.mb_str(wxConvUTF8),256);
             if (subdir==0) { strncpy(list[pictures_count].subdir,"\0",1024);   } else
                            { strncpy(list[pictures_count].subdir,subdir,1024); }
@@ -155,7 +166,6 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
             wxULongLong size_long_long = fname.GetSize();
             list[pictures_count].filesize=(unsigned int) size_long_long.ToULong();
 
-            if ( pictures_count >= list_size )  { /*Our list cannot acommodate any more data error*/ return 0; }
             ++pictures_count;
           }
           return 1;
@@ -168,21 +178,21 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
 
 unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive)
 {
-  recursive=0;
-  if (recursive>4) { fprintf(stderr,"Recursion has reached a depth of 4 levels , stopping it :P \n"); return 0;  }
-  if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); return 0; }
-  if ( recursive <= 1 ) {  gettimeofday(&start_time,0x0); }
-
-  wxDir dir(_U2(thedirectory));
-  if ( !dir.IsOpened() )  { return 0; }
-
   unsigned int this_list_total_pictures_count=0;
-  unsigned int count_only=0;
-  if(space_to_allocate==0) {count_only=1;}
+  unsigned int count_only=0,bottom_level=0;
+  if ( recursive <= 1 ) { bottom_level=1; }
+  if (space_to_allocate==0) { count_only=1; } else
   if ((space_to_allocate!=0)&&(list==0)) { fprintf(stderr,"List not allocated for GetDirectoryList call\n"); return 0; }
 
-  wxString filename,extension,fullname;
-  wxString filespec = wxT("*.*");
+
+
+  //if (recursive>4) { fprintf(stderr,"Recursion has reached a depth of 4 levels , stopping it :P \n"); return 0;  } else
+  if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); return 0; } else
+  if (bottom_level) {  gettimeofday(&start_time,0x0); }
+
+  wxDir dir(_U2(thedirectory));
+  if ( !dir.IsOpened() )  {  fprintf(stderr,"Cannot open dir `%s`\n",thedirectory);  return 0; }
+  wxString dirname,filename,extension,fullname,filespec = wxT("*.*");
   int cont = dir.GetFirst(&filename,filespec,wxDIR_FILES|wxDIR_HIDDEN);
   while ( cont )
    {
@@ -191,32 +201,31 @@ unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int spac
       cont = dir.GetNext(&filename);
    }
 
-if (recursive>0)
-{ /* RECURSIVE FUNCTIONALITY */
+if (recursive>0) //Recursion Enabled
+{ /* RECURSIVE FUNCTIONALITY START*/
   filespec.clear();
   if ( recursive == 1 ) { fprintf(stderr,"Starting Recursive dir listing @ %s \n",thedirectory); }
-  char recursive_dir[1024]; recursive_dir[0]=0;
-  char new_subdir[1024]; new_subdir[0]=0;
+  char recursive_dir[1024]={0},new_subdir[1024]={0},dirname_cstr[1024]={0};
   wxDir dir2(_U2(thedirectory));
   if (dir2.IsOpened())
   {
-   int cont = dir2.GetFirst(&filename,filespec,wxDIR_DIRS);
+   int cont = dir2.GetFirst(&dirname,filespec,wxDIR_DIRS);
    while ( cont )
    {
+      strncpy(dirname_cstr,(const char*) dirname.mb_str(wxConvUTF8),1024);
+      ensure_ending_with_slash(dirname_cstr);
+
       fprintf(stderr,"WAS The Directory is `%s\n` ",thedirectory);
       fprintf(stderr,"WAS Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
       fprintf(stderr,"WAS Subdir is `%s`\n",new_subdir);
 
-
-      recursive_dir[0]=0; new_subdir[0]=0;
-      if (thedirectory[strlen(thedirectory)-1]=='/') { sprintf(recursive_dir,"%s%s",thedirectory,(const char*) filename.mb_str(wxConvUTF8)); } else
-                                                     { sprintf(recursive_dir,"%s%s/",thedirectory,(const char*) filename.mb_str(wxConvUTF8)); }
+      sprintf(recursive_dir,"%s%s",thedirectory,dirname_cstr);
 
       if ( subdir == 0 )
-      { sprintf(new_subdir,"%s/",(const char*) filename.mb_str(wxConvUTF8)); } else
+      { sprintf(new_subdir,"%s/",(const char*) dirname.mb_str(wxConvUTF8)); } else
       {
-        if (new_subdir[strlen(new_subdir)-1]=='/') { sprintf(new_subdir,"%s%s",subdir,(const char*) filename.mb_str(wxConvUTF8)); } else
-                                                   { sprintf(new_subdir,"%s/%s",subdir,(const char*) filename.mb_str(wxConvUTF8)); }
+        ensure_ending_with_slash(subdir);
+        sprintf(new_subdir,"%s%s",subdir,dirname_cstr);
       }
 
       fprintf(stderr,"Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
@@ -226,13 +235,14 @@ if (recursive>0)
 
       this_list_total_pictures_count+=recursive_pictures_added;
       /* WE CONTINUE THE LOOP UNTIL THE END!*/
-      cont = dir2.GetNext(&filename);
+      cont = dir2.GetNext(&dirname);
    }
   }
-   if ( recursive == 1 ) { fprintf(stderr,"Recursive dir listing is done\n"); }
+   if (bottom_level) { fprintf(stderr,"Recursive dir listing is done\n"); }
+  /* RECURSIVE FUNCTIONALITY END */
 }
 
-   if ( recursive <= 1 )
+   if (bottom_level)
    {
      gettimeofday(&current_time,0x0);
      last_list_time_ms=timeval_diff2(&difference_time,&current_time,&start_time);
@@ -244,7 +254,7 @@ if (recursive>0)
         return this_list_total_pictures_count;
     } else
     {
-      if ( (this_list_total_pictures_count>1)&&(recursive <= 1))
+      if ( (this_list_total_pictures_count>1)&&(bottom_level))
        {
         fprintf(stderr,"Sorting directory modification time.. ");
         SortDirectoryList(0,this_list_total_pictures_count,comp_func,asc_desc);
