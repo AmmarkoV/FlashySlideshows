@@ -2,25 +2,28 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="2346" topLine="36" />
+		<Cursor position="4565" topLine="108" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="748" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="10909" topLine="240" />
+		<Cursor position="7678" topLine="214" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="directory_listing.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="6478" topLine="165" />
+	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="7752" topLine="48" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="724" topLine="0" />
 	</File>
+	<File name="directory_sorting.cpp" open="1" top="0" tabpos="37">
+		<Cursor position="741" topLine="0" />
+	</File>
 	<File name="directory_transactions.cpp" open="1" top="0" tabpos="36">
-		<Cursor position="200" topLine="0" />
+		<Cursor position="1680" topLine="12" />
 	</File>
 	<File name="effects.cpp" open="1" top="0" tabpos="31">
 		<Cursor position="1380" topLine="30" />
@@ -29,13 +32,13 @@
 		<Cursor position="186" topLine="0" />
 	</File>
 	<File name="environment.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="1067" topLine="21" />
+		<Cursor position="1673" topLine="59" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
 		<Cursor position="324" topLine="0" />
 	</File>
 	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
-		<Cursor position="741" topLine="22" />
+		<Cursor position="2246" topLine="46" />
 	</File>
 	<File name="image_sensing.h" open="1" top="0" tabpos="26">
 		<Cursor position="236" topLine="0" />
@@ -47,7 +50,7 @@
 		<Cursor position="0" topLine="20" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="11969" topLine="315" />
+		<Cursor position="12608" topLine="326" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="1987" topLine="50" />
@@ -59,7 +62,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="20216" topLine="380" />
+		<Cursor position="7641" topLine="248" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="56" />
@@ -89,10 +92,10 @@
 		<Cursor position="7086" topLine="247" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="4724" topLine="191" />
+		<Cursor position="2063" topLine="89" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
-		<Cursor position="5245" topLine="151" />
+		<Cursor position="5103" topLine="110" />
 	</File>
 	<File name="sound.h" open="1" top="0" tabpos="30">
 		<Cursor position="192" topLine="0" />
@@ -100,11 +103,11 @@
 	<File name="transitions/basic_transition.cpp" open="1" top="0" tabpos="34">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="9189" topLine="260" />
+	<File name="visuals.cpp" open="1" top="1" tabpos="8">
+		<Cursor position="8646" topLine="232" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
-		<Cursor position="252" topLine="0" />
+		<Cursor position="207" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
 		<Cursor position="741" topLine="15" />

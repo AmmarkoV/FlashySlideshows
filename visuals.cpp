@@ -228,7 +228,7 @@ void resetPerspectiveProjection()
 
 }
 
-void DisplayHUD()
+void DisplayHUD(unsigned int view_instructions)
 {
  setOrthographicProjection();
  glEnable(GL_BLEND);
@@ -246,21 +246,29 @@ void DisplayHUD()
     glVertex2f(1024,718);	// Top Right Of The Texture and Quad
     glVertex2f(0,718);
 
+    if (view_instructions)
+    {
+      glVertex2f(100,668);	// Bottom Left Of The Texture and Quad
+      glVertex2f(924,668);	// Bottom Right Of The Texture and Quad
+      glVertex2f(924,100);	// Top Right Of The Texture and Quad
+      glVertex2f(100,100);
+    }
+
    glEnd();
  glDisable(GL_BLEND);
 
-      //glColor3f(1,0.0,0.0);
-      //glRasterPos2f(0,0);
 
-      //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "UNDER CONSTRUCTION!");
 
-       if (frame.transitions.currently_loading==1)
-       {
-        //   SoundLibrary_PlaySoundPos(0,0,0,0);
-         //glRasterPos2f(0,20);
-         //glColor3f(1.0,0.0,0.0);
-         //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "LOADING PICTURE");
-        }
+    if (view_instructions)
+    {
+      glColor3f(0.0,0.0,0.0);
+      glRasterPos2f(120,600); glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "Instructions");
+      glRasterPos2f(120,500); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Arrow keys , move from picture to picture  - W = Up , S = Down , A = Left , D = Right camera");
+      glRasterPos2f(120,450); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "M = Change transition mode , N = Cycle effects , B = change hover mode  ");
+      glRasterPos2f(120,400); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "F = Zoom out , R = Zoom in  ,Q = Rotate Counter Clockwise , E = Rotate Clockwise");
+      glRasterPos2f(120,350); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Enter/Space = Automatic Slideshow , J = Toggle Fullscreen , Escape = Quit");
+    }
+
 
       char fps_string[512]={0};
       unsigned int max_memory_used_by_gpu=(unsigned int) (frame.gpu.maxRAM/ (1024*1024));

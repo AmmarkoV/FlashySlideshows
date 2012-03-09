@@ -265,10 +265,17 @@ static void DisplayCallback(void)
 
 
    /* DRAW APPLICATION HUD */
-       if ( frame.distance_barrier_after_considered_close<frame.desired_z )
+        if (frame.show_information>0)
+        {
+           unsigned int diff_ms=time_passed_microseconds/1000;
+           if (frame.show_information>diff_ms) { frame.show_information-=diff_ms; } else
+                                               { frame.show_information=0; }
+           DisplayHUD(1);
+        }else
+        if ( frame.distance_barrier_after_considered_close<frame.desired_z )
         {
           /* Display HUD only if not zoomed */
-          DisplayHUD();
+          DisplayHUD(0);
         }
    /* -  -  -  -  -  -  -  */
 

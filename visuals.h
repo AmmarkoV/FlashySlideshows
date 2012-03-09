@@ -2,7 +2,7 @@
 #define VISUALS_H_INCLUDED
 
 int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll);
-void DisplayHUD();
+void DisplayHUD(unsigned int view_instructions);
 void MainDisplayFunction();
 void DrawBackground();
 int DrawEffects();
