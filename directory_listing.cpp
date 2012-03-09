@@ -29,7 +29,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <wx/filefn.h>
 
 
-
+unsigned int MAX_RECURSION=100; // 100 levels deep is very deep :p
 
 struct FilenameHolder * list=0;
 
@@ -41,11 +41,7 @@ void PrintDirectoryList()
 {
   return ;
   unsigned int i=0;
-  for (i=0; i<pictures_count; i++)
-   {
-     fprintf(stderr,"%u - %s\n",i,list[i].filename);
-   }
-
+  for (i=0; i<pictures_count; i++) { fprintf(stderr,"%u - %s\n",i,list[i].filename); }
 }
 
 void PrintDirectoryListItem(unsigned int item)
@@ -55,6 +51,12 @@ void PrintDirectoryListItem(unsigned int item)
   if (list==0) {return;}
   if (item>=pictures_count) {return; }
   fprintf(stderr,"%u - %s\n",item,list[item].filename);
+}
+
+void FreeDirectoryList()
+{
+  if ( list != 0 ) { fprintf(stderr,"Freeing list memory \n"); free(list); }
+  list=0;
 }
 
 void AllocateDirectoryList(unsigned int requested_size)
@@ -70,11 +72,7 @@ void AllocateDirectoryList(unsigned int requested_size)
  pictures_count=0;
 }
 
-void FreeDirectoryList()
-{
-  if ( list != 0 ) { fprintf(stderr,"Freeing list memory \n"); free(list); }
-  list=0;
-}
+
 
 inline wxString _U2(const char String[] = "")
 {
@@ -85,7 +83,7 @@ int ExtensionIsPicture(wxString *extension)
 {
       unsigned int is_a_picture=0;
       if ( extension->CmpNoCase(wxT("JPG"))==0 )       {is_a_picture=1;}
-      else if ( extension->CmpNoCase(wxT("JPEG"))==0) {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("JPEG"))==0)  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("PNG"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("PNM"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("BMP"))==0 )  {is_a_picture=1;}
@@ -96,8 +94,6 @@ int ExtensionIsPicture(wxString *extension)
 
   return is_a_picture;
 }
-//ls -lrt sorted directory list
-
 
 int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,unsigned int count_only)
 {
@@ -145,6 +141,9 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
 
 unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive)
 {
+  if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); }
+
+
   wxDir dir(_U2(thedirectory));
   if ( !dir.IsOpened() )  { return 0; }
 
@@ -232,7 +231,11 @@ unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,
 }
 
 
-
+/*
+ *  ----------------------------
+ *  Getters & Setters following
+ *  ----------------------------
+*/
 
 
 unsigned int GetTotalViewableFilesInDirectory()

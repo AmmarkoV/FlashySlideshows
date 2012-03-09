@@ -8,6 +8,7 @@
  **************************************************************/
 
 #include "FlashySlideShowStarterMain.h"
+#include "../directory_listing.h"
 #include <wx/msgdlg.h>
 #include <wx/filename.h>
 #include <wx/dc.h>
@@ -234,6 +235,10 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Connect(PathTreeCtrl->GetId(),wxEVT_COMMAND_TREE_SEL_CHANGED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnRefreshDir);
 
     ComboBoxResizeResolution->Disable();
+
+    ButtonStart->SetLabel(wxT("Click"));
+    ButtonStart->SetLabel(wxT("to"));
+    ButtonStart->SetLabel(wxT("Start!"));
 }
 
 
@@ -311,7 +316,6 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
        }
 
 
-
     wxString what_to_call;
     what_to_call.clear();
 
@@ -348,7 +352,9 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 
     //wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
     StatusBar1->SetStatusText(wxT("Starting FlashySlideshows..!!!"));
+    ButtonStart->SetLabel(wxT("Running"));
     long result=wxExecute(what_to_call,wxEXEC_SYNC);
+    ButtonStart->SetLabel(wxT("Start!"));
     StatusBar1->SetStatusText(wxT("FlashySlideshows terminated.."));
     if ( result != 0 )
       {  //Non Zero return from FlashySlideshows
@@ -361,6 +367,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
           error_message<<what_to_call;
           wxMessageBox(error_message,wxT("Execution Error"));
       }
+
 }
 
 
@@ -406,9 +413,15 @@ void FlashySlideShowStarterFrame::OnButtonQuitClick(wxCommandEvent& event)
     Close();
 }
 
-void FlashySlideShowStarterFrame::RefreshThumbnails()
+unsigned int FlashySlideShowStarterFrame::RefreshThumbnails()
 {
-   return ;
+    unsigned int recursive=0;
+    //if ( CheckBoxIncludeSubfolders->IsChecked() ) { recursive=1; }
+    char thedirectory[1024];
+    strncpy(thedirectory,(const char*) PathTextCtrl->GetValue().mb_str(wxConvUTF8),1024);
+    unsigned int total_pictures = GetDirectoryList(thedirectory,0,0,0,0,recursive);
+
+   return total_pictures;
 }
 
 
@@ -424,8 +437,6 @@ void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
 
     StatusBar1->SetStatusText(wxT("Please Wait while accessing filesystem.."));
     PictureFolder->SetPath(PathTextCtrl->GetValue());
-    StatusBar1->SetStatusText(wxT("Please Wait while thumbnails are generated.."));
-
 
     wxFileName fname(PathTextCtrl->GetValue());
     wxDateTime mod_time=fname.GetModificationTime();
@@ -434,6 +445,10 @@ void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
 
     if ( mod_time.IsEarlierThan(now_time) )
      {
+       StatusBar1->SetStatusText(wxT("Please Wait while thumbnails are generated.."));
+       unsigned int total_pictures = RefreshThumbnails();
+       StatusBar1->SetStatusText(wxT(" "));
+
        wxTimeSpan difference = now_time.Subtract(mod_time);
        wxString value;
 
@@ -472,10 +487,17 @@ void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
        value << wxT("/");
        value << mod_time.GetYear();
 
+       if (total_pictures>0)
+        {
+          value << wxT(" - ");
+          value << total_pictures;
+          value << wxT(" picture");
+          if (total_pictures>1) { value << wxT("s"); }
+        }
+
        DateText->SetLabel(value);
 
 
-       RefreshThumbnails();
 
      } else
      {

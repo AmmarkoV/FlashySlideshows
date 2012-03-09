@@ -33,7 +33,7 @@ class FlashySlideShowStarterFrame: public wxFrame
 
     private:
         void OnPaint(wxPaintEvent& event);
-        void RefreshThumbnails();
+        unsigned int RefreshThumbnails();
         //(*Handlers(FlashySlideShowStarterFrame)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);

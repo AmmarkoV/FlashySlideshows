@@ -346,7 +346,7 @@
 
 1314284222 /usr/include/wx-2.8/wx/gtk/app.h
 
-1331221393 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.h
+1331252286 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.h
 	<wx/spinctrl.h>
 	<wx/combobox.h>
 	<wx/checkbox.h>
@@ -991,7 +991,7 @@
 
 1314284222 /usr/include/wx-2.8/wx/gtk/spinctrl.h
 
-1330970937 source:/home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
+1331250951 source:/home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
 	"FlashySlideShowStarterMain.h"
 	<wx/msgdlg.h>
 	<wx/filename.h>
@@ -999,6 +999,7 @@
 	<wx/dcclient.h>
 	<wx/wx.h>
 	<wx/utils.h>
+	<wx/dir.h>
 	"EmptyThumbnail.h"
 	<wx/string.h>
 	<wx/intl.h>
@@ -1570,4 +1571,35 @@
 	"wx/generic/filedlgg.h"
 
 1330970828 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/EmptyThumbnail.h
+
+1314284221 /usr/include/wx-2.8/wx/dir.h
+	"wx/longlong.h"
+	"wx/string.h"
+
+1331249291 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+	"directory_listing.h"
+	"directory_sorting.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"wxwidgets_stuff.h"
+	"wx/dir.h"
+	"wx/filename.h"
+	"wx/dirdlg.h"
+	<wx/filefn.h>
+
+1331247771 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+
+1331224324 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
+
+1284774731 /home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.h
+	<windows.h>
+	<wx/app.h>
+
+1331238376 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.cpp
+	"directory_sorting.h"
+	"directory_listing.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
 

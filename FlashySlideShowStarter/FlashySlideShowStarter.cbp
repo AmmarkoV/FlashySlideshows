@@ -43,6 +43,10 @@
 		<Unit filename="FlashySlideShowStarterMain.cpp" />
 		<Unit filename="FlashySlideShowStarterMain.h" />
 		<Unit filename="wxsmith/FlashySlideShowStarterframe.wxs" />
+		<Unit filename="../directory_listing.cpp" />
+		<Unit filename="../directory_listing.h" />
+		<Unit filename="../directory_sorting.cpp" />
+		<Unit filename="../directory_sorting.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

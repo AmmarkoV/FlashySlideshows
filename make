@@ -7,7 +7,7 @@ g++ main.cpp environment.cpp load_images.cpp load_textures.cpp sound.cpp directo
 
 cd FlashySlideShowStarter
 
-g++ FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o bin/Release/FlashySlideShowStarter
+g++ FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../directory_listing.cpp ../directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o bin/Release/FlashySlideShowStarter
 
 cp bin/Release/FlashySlideShowStarter ../FlashySlideShowStarterApp
 
