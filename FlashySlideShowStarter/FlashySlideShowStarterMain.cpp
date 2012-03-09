@@ -452,7 +452,7 @@ void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
        wxTimeSpan difference = now_time.Subtract(mod_time);
        wxString value;
 
-       value<<wxT("Modification ");
+       value<<wxT("Modified ");
        //THIS IS KIND OF BAD CODE :P , NEEDS REVISION
        unsigned int days_difference_full = difference.GetDays();
        unsigned int days_difference_subtracted = difference.GetDays();
@@ -479,7 +479,7 @@ void FlashySlideShowStarterFrame::OnPathTextCtrlText(wxCommandEvent& event)
          }
 
 
-       if ( (years_diff>0)||(months_diff>0)||(days_diff>0) ) { value << wxT("ago at "); }
+       if ( (years_diff>0)||(months_diff>0)||(days_diff>0) ) { value << wxT("ago - "); }
 
        value << mod_time.GetDay();
        value << wxT("/");
