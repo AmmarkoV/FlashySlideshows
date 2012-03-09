@@ -329,7 +329,7 @@ void MouseCallback( int button,int state, int x, int y)
 
 static void KeyCallback(unsigned char key, int x, int y)
 { //'q'
-  if (key==27) { EnableScreenSaver(); glutLeaveMainLoop(); /*exit(0);*/ }/* Closes Application on Escape Key*/
+  if (key==27) {  glutLeaveMainLoop(); /*EnableScreenSaver(); exit(0);*/ }/* Closes Application on Escape Key*/
         else
   if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
 

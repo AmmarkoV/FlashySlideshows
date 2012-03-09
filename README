@@ -34,7 +34,11 @@ your password is required..
 
 TODO LIST - THOUGHT DUMP :P
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-*Improve code structure
+* Improve code structure
+
+* Add save functionality for remembering settings..
+
+* Fix Fullscreen (game) mode..!
 
 * Find System/GPU RAM caps to adjust resolution to fit more things in system RAM where GPU RAM is scarce   
 
