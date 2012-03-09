@@ -10,6 +10,7 @@ unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,cha
 unsigned int CountPicturesInDirectory(char * thedirectory,int recursive);
 unsigned int LaunchGUI_PickDir();
 char * GetFilename(unsigned int file_id);
+char * GetSubdir(unsigned int file_id);
 unsigned int GetItemDate(unsigned int file_id,unsigned int data);
 
 void PrintDirectoryListItem(unsigned int item);

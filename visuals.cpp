@@ -274,12 +274,13 @@ void DisplayHUD()
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
       glColor3f(0.0,0.0,0.0);
-      sprintf(fps_string,"At %u,%u %u/%u over %s created %u/%u/%u %u:%02u:%02u",
+      sprintf(fps_string,"At %u,%u %u/%u over %s%s created %u/%u/%u %u:%02u:%02u",
                           frame.active_image_x,
                           frame.active_image_y,
                           frame.active_image_place,
                           GetTotalViewableFilesInDirectory(),
 
+                          GetSubdir(frame.active_image_place),
                           GetFilename(frame.active_image_place),
 
                           GetItemDate(frame.active_image_place,0),GetItemDate(frame.active_image_place,1),GetItemDate(frame.active_image_place,2),

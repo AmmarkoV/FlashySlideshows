@@ -17,7 +17,7 @@
 
 int escape_str(char *in_str,char *out_str)
 {
-  int i=0,o=0;
+  unsigned int i=0,o=0;
     while (i<strlen(in_str))
      {
         if ( in_str[i]=='\'' ) { out_str[o]='\\'; ++o; out_str[o]='\''; } else
