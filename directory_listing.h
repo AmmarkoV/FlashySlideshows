@@ -35,6 +35,7 @@ struct FilenameHolder
 
 
 extern struct FilenameHolder * list;
+extern unsigned long last_list_time_ms;
 extern unsigned int list_size;
 extern unsigned int pictures_count;
 #endif // DIRECTORY_LISTING_H_INCLUDED

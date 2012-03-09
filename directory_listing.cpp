@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "directory_listing.h"
 #include "directory_sorting.h"
+#include <sys/time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -30,12 +31,38 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 unsigned int MAX_RECURSION=100; // 100 levels deep is very deep :p
+unsigned int MAX_TIME_FOR_OPERATION_MS=5000; // 100 levels deep is very deep :p
+struct timeval start_time,current_time,difference_time;
 
 struct FilenameHolder * list=0;
 
+unsigned long last_list_time_ms=0;
 unsigned int list_size=0;
 unsigned int pictures_count=0;
 
+
+
+unsigned long timeval_diff2 ( struct timeval *difference, struct timeval *end_time, struct timeval *start_time )
+{
+
+   struct timeval temp_diff;
+
+   if(difference==0) { difference=&temp_diff; }
+
+  difference->tv_sec =end_time->tv_sec -start_time->tv_sec ;
+  difference->tv_usec=end_time->tv_usec-start_time->tv_usec;
+
+  // Using while instead of if below makes the code slightly more robust.
+
+  while(difference->tv_usec<0)
+  {
+    difference->tv_usec+=1000000;
+    difference->tv_sec -=1;
+  }
+
+  return 1000000LL*difference->tv_sec+ difference->tv_usec;
+
+}
 
 void PrintDirectoryList()
 {
@@ -141,8 +168,10 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
 
 unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive)
 {
-  if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); }
-
+  recursive=0;
+  if (recursive>4) { fprintf(stderr,"Recursion has reached a depth of 4 levels , stopping it :P \n"); return 0;  }
+  if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); return 0; }
+  if ( recursive <= 1 ) {  gettimeofday(&start_time,0x0); }
 
   wxDir dir(_U2(thedirectory));
   if ( !dir.IsOpened() )  { return 0; }
@@ -164,32 +193,51 @@ unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int spac
 
 if (recursive>0)
 { /* RECURSIVE FUNCTIONALITY */
-  if ( recursive == 1 ) { fprintf(stderr,"Starting Recursive dir listing @ %s \n",thedirectory); }
-  char recursive_dir[1024];
-  char new_subdir[1024];
-  wxDir dir2(_U2(thedirectory));
-  if ( !dir2.IsOpened() )  { return 0; }
   filespec.clear();
-  int cont = dir2.GetFirst(&filename,filespec,wxDIR_DIRS);
-  while ( cont )
+  if ( recursive == 1 ) { fprintf(stderr,"Starting Recursive dir listing @ %s \n",thedirectory); }
+  char recursive_dir[1024]; recursive_dir[0]=0;
+  char new_subdir[1024]; new_subdir[0]=0;
+  wxDir dir2(_U2(thedirectory));
+  if (dir2.IsOpened())
+  {
+   int cont = dir2.GetFirst(&filename,filespec,wxDIR_DIRS);
+   while ( cont )
    {
-      sprintf(recursive_dir,"%s%s/",thedirectory,(const char*) filename.mb_str(wxConvUTF8));
-      if ( subdir == 0 ) { sprintf(new_subdir,"%s/",(const char*) filename.mb_str(wxConvUTF8)); } else
-                         { sprintf(new_subdir,"%s%s/",subdir,(const char*) filename.mb_str(wxConvUTF8)); }
+      fprintf(stderr,"WAS The Directory is `%s\n` ",thedirectory);
+      fprintf(stderr,"WAS Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
+      fprintf(stderr,"WAS Subdir is `%s`\n",new_subdir);
 
-      fprintf(stderr,"Running Recursive (level %u) addition to dir %s ",recursive,recursive_dir);
-      fprintf(stderr,"Subdir is %s ",new_subdir);
+
+      recursive_dir[0]=0; new_subdir[0]=0;
+      if (thedirectory[strlen(thedirectory)-1]=='/') { sprintf(recursive_dir,"%s%s",thedirectory,(const char*) filename.mb_str(wxConvUTF8)); } else
+                                                     { sprintf(recursive_dir,"%s%s/",thedirectory,(const char*) filename.mb_str(wxConvUTF8)); }
+
+      if ( subdir == 0 )
+      { sprintf(new_subdir,"%s/",(const char*) filename.mb_str(wxConvUTF8)); } else
+      {
+        if (new_subdir[strlen(new_subdir)-1]=='/') { sprintf(new_subdir,"%s%s",subdir,(const char*) filename.mb_str(wxConvUTF8)); } else
+                                                   { sprintf(new_subdir,"%s/%s",subdir,(const char*) filename.mb_str(wxConvUTF8)); }
+      }
+
+      fprintf(stderr,"Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
+      fprintf(stderr,"Subdir is `%s`\n",new_subdir);
       unsigned int recursive_pictures_added=GetDirectoryList(recursive_dir,new_subdir,space_to_allocate,comp_func,asc_desc,recursive+1);
-      fprintf(stderr," gave %u pictures\n",recursive_pictures_added);
+      fprintf(stderr," returned %u pictures\n",recursive_pictures_added);
 
       this_list_total_pictures_count+=recursive_pictures_added;
       /* WE CONTINUE THE LOOP UNTIL THE END!*/
       cont = dir2.GetNext(&filename);
    }
+  }
    if ( recursive == 1 ) { fprintf(stderr,"Recursive dir listing is done\n"); }
 }
 
-
+   if ( recursive <= 1 )
+   {
+     gettimeofday(&current_time,0x0);
+     last_list_time_ms=timeval_diff2(&difference_time,&current_time,&start_time);
+     fprintf(stderr,"Getting directory list took %u ms\n",(unsigned int) last_list_time_ms/1000);
+   }
 
   if (count_only)
     {
@@ -236,8 +284,6 @@ unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,
  *  Getters & Setters following
  *  ----------------------------
 */
-
-
 unsigned int GetTotalViewableFilesInDirectory()
 {
     return pictures_count;
