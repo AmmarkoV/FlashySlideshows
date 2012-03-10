@@ -96,7 +96,7 @@ const long FlashySlideShowStarterFrame::ID_COMBOBOX4 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX8 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
-const long FlashySlideShowStarterFrame::ID_MENUITEM1 = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuAmmarkoVWebsite = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAbout = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATUSBAR1 = wxNewId();
 //*)
@@ -193,7 +193,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu2 = new wxMenu();
     MenuItem3 = new wxMenuItem(Menu2, idMenuGithub, _("Visit Github Repository"), _("Click to open the github repository of FlashySlideshows on your browser"), wxITEM_NORMAL);
     Menu2->Append(MenuItem3);
-    MenuItem4 = new wxMenuItem(Menu2, ID_MENUITEM1, _("Visit Author\'s Website"), _("Click to open the website of the author of the program"), wxITEM_NORMAL);
+    MenuItem4 = new wxMenuItem(Menu2, idMenuAmmarkoVWebsite, _("Visit Author\'s Website"), _("Click to open the website of the author of the program"), wxITEM_NORMAL);
     Menu2->Append(MenuItem4);
     MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
     Menu2->Append(MenuItem2);
@@ -222,6 +222,9 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnAbout);
     //*)
 
+    //TA KOUMPIA TOU MENU
+    Connect(idMenuGithub,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OpenGithubSite);
+    Connect(idMenuAmmarkoVWebsite,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OpenAmmarkoVSite);
 
     default_img_thumb.SetData((unsigned char *)EmptyThumbnail.pixel_data,EmptyThumbnail.width ,EmptyThumbnail.height,true);
     default_bmp_thumb = new wxBitmap(default_img_thumb);
@@ -371,8 +374,17 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 }
 
 
+void FlashySlideShowStarterFrame::OpenAmmarkoVSite(wxCommandEvent& event)
+{
+  StatusBar1->SetStatusText(wxT("Launching http://ammar.gr/ in the default internet browser.."));
+  wxLaunchDefaultBrowser(wxT("http://ammar.gr/"));
+}
 
-
+void FlashySlideShowStarterFrame::OpenGithubSite(wxCommandEvent& event)
+{
+  StatusBar1->SetStatusText(wxT("Launching https://github.com/AmmarkoV/FlashySlideshows in the default internet browser.."));
+  wxLaunchDefaultBrowser(wxT("https://github.com/AmmarkoV/FlashySlideshows"));
+}
 
 
 

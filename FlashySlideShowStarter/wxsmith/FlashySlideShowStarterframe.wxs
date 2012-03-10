@@ -207,7 +207,7 @@
 					<label>Visit Github Repository</label>
 					<help>Click to open the github repository of FlashySlideshows on your browser</help>
 				</object>
-				<object class="wxMenuItem" name="ID_MENUITEM1" variable="MenuItem4" member="no">
+				<object class="wxMenuItem" name="idMenuAmmarkoVWebsite" variable="MenuItem4" member="no">
 					<label>Visit Author&apos;s Website</label>
 					<help>Click to open the website of the author of the program</help>
 				</object>
