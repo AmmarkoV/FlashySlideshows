@@ -636,7 +636,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
                                             }
 
 
-    float speed_multiplier = 1.0;
+    float speed_multiplier = 1.4;
     if ( microseconds_of_movement != 0 ) { speed_multiplier=(1000*1000/microseconds_of_movement); }
 
 

@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1331341231 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1331343388 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -101,7 +101,7 @@
 
 1331300714 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331342409 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1331343470 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"

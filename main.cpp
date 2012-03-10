@@ -385,7 +385,6 @@ static void IdleCallback(void)
 
 void InitGlut()
 {
-
     //glutTimerFunc(20, timerCB, 20); // draw every 50 ms
     glutReshapeFunc(ResizeCallback);
     glutMouseFunc (MouseCallback);
