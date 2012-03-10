@@ -389,6 +389,7 @@ void InitGlut()
     //glutTimerFunc(20, timerCB, 20); // draw every 50 ms
     glutReshapeFunc(ResizeCallback);
     glutMouseFunc (MouseCallback);
+    glutMotionFunc(MotionCallback); // This is needed for drag&drop functionality xD
     glutPassiveMotionFunc(MotionCallback);
     glutDisplayFunc(DisplayCallback);
     glutKeyboardFunc(KeyCallback);
@@ -640,7 +641,9 @@ int main(int argc, char *argv[])
           return 1;
       }
 
-
+    /*At this point we have initialized the picture structures and the slideshow structures
+      so lets make sure that the camera is over an existing picture..! */
+    PutCameraOverExistingPictureIfItIsOff();
 
     /* Initialize Joystick Thread (if a joystick is connected and detected )*/
     StartJoystickControl();

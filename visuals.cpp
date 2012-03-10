@@ -409,7 +409,7 @@ if ( decal_type != 0 )
          glRotated(180,0.0,0.0,1.0);
          glTranslated(-10,0,0);
          glLineWidth(3.0);
-         static GLfloat f = 1.0/100;
+         static GLfloat f = 1.0/110;
          glScalef( f, f, f );
          glutStrokeString(GLUT_STROKE_ROMAN,(const unsigned char*)text); //GLUT_STROKE_ROMAN GLUT_STROKE_MONO_ROMAN
          glScalef( 1/f, 1/f, 1/f );

@@ -307,6 +307,13 @@ void SetDestinationCenter()
 }
 
 
+void ResetCameraOrientation()
+{
+    frame.angle_x=0;
+    frame.angle_y=0;
+    frame.angle_z=180;
+}
+
 void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 {
   frame.transitions.seek_move_activated=0; //Setting Destination Over Point cancels seek move!

@@ -249,7 +249,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 48+9 : /*Number 9*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),9)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
 
 
-        case 'o': SetDestinationCenter();
+        case 'o': ResetCameraOrientation();
                   NewLabel(frame.desired_x,frame.desired_y,(char *) "Reset Camera to center..!");
                   break;
 

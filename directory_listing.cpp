@@ -31,10 +31,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <wx/filefn.h>
 
 
-//unsigned int MAX_RECURSION=100; // 100 levels deep is very deep :p
 unsigned int FORCE_STOP_LISTING=0; // EMERGENCY SWITCH :P
-unsigned int DONT_ASK_USER_FOR_STOP=0; // EMERGENCY SWITCH :P
-unsigned int MAX_TIME_FOR_OPERATION_MS=2000; // 100 levels deep is very deep :p
+unsigned int DONT_ASK_USER_FOR_STOP=0; // DONT BUG WITH QUESTIONS IF THE USER ANSWERED :P
+unsigned int MAX_TIME_FOR_OPERATION_MS=3000; // this is considered a sane amount of time for access to the file system :p
 struct timeval start_time,current_time,difference_time;
 
 struct FilenameHolder * list=0;
@@ -89,7 +88,21 @@ void AllocateDirectoryList(unsigned int requested_size)
  list = ( struct FilenameHolder * ) malloc(   sizeof(struct FilenameHolder) * (requested_size+5)  );
 
  unsigned int i=0;
- for ( i=0; i<requested_size; i++) { strcpy(list[i].filename,"\0"); }
+ for ( i=0; i<requested_size; i++)
+ {
+    list[i].year=0;
+    list[i].month=0;
+    list[i].day=0;
+    list[i].day_of_year=0;
+    list[i].hour=0;
+    list[i].minute=0;
+    list[i].second=0;
+    list[i].filesize=0;
+    strcpy(list[i].subdir,"\0");
+    strcpy(list[i].filename,"\0");
+ }
+
+
  if ( list != 0 ) { fprintf(stderr,"Allocated %u records of filename_holders\n",requested_size); }
  list_size=requested_size;
 

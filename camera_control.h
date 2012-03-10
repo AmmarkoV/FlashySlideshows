@@ -14,6 +14,7 @@ enum Directions
 
 
 void SetDestinationCenter();
+void ResetCameraOrientation();
 void MoveDestinationCenterRaw(float x,float y,float z);
 int  MoveToPicture(unsigned int direction);
 void MoveDestinationCenter(unsigned int movement_direction);

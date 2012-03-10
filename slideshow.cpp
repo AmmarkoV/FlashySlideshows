@@ -267,7 +267,7 @@ void AutomaticSlideShowControl_if_needed()
 int SetTransitionTime(unsigned int trans_time)
 {
   char msg[128]={0};
-  sprintf(msg,"Transition time set to %u\n",trans_time);
+  sprintf(msg,"Slide duration = %ums\n",trans_time);
   NewLabel(frame.desired_x,frame.desired_y,(char *) msg);
   fprintf(stderr,"%s",msg);
   frame.time_ms_between_two_transitions=trans_time;
@@ -365,6 +365,14 @@ unsigned int GetPictureDirectoryListIndex(unsigned int pic_place)
 int PicturesNeededToBeLoaded()
 {
   return 0;
+}
+
+void PutCameraOverExistingPictureIfItIsOff()
+{
+  if (frame.active_image_place>=frame.total_images)
+   {
+     SetDestinationOverPictureImmediate(0,0);
+   }
 }
 
 
