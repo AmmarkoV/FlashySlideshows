@@ -36,6 +36,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "environment.h"
 #include "scene_objects.h"
 
+#include <unistd.h>
 
 #include <sys/time.h>
 
@@ -179,7 +180,27 @@ int framerate_limiter()
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
+unsigned int GetGraphicsCardMemory()
+{
+//Found on http://www.commandlinefu.com/commands/view/6894/get-information-on-your-graphics-card-on-linux-such-as-graphics-memory-size
+//
+return 0;
+fprintf(stderr,"Trying to get max texture memory\n");
+char line[512];
+ FILE *fpipe;
+ if ( !(fpipe = (FILE*)popen("lspci -v -s `lspci | awk '/VGA/{print $1}'` | sed -n '/Memory.*, prefetchable/s/.*\\[size=\\([^]]\+\\)\\]/\\1/p'","r")) )
+   {
+       fprintf(stderr,"Error extracting GetGraphicsCardMemory \n");
+   } else
+   {      while ( fgets( line, sizeof line, fpipe))
+       {
+         fprintf(stderr,"GPU Texture size is %s \n",line);
+       }
+   }
+ pclose(fpipe);
+ return 0;
 
+}
 
 static void ResizeCallback(int width, int height)
 {
@@ -409,7 +430,12 @@ void ToggleFullscreen()
                                                       return;
                                                      }
 
-      glutGameModeString("1920x1080:32");
+      int width_x=glutGet(GLUT_SCREEN_WIDTH);
+      int width_y=glutGet(GLUT_SCREEN_HEIGHT);
+      char mode_string[128]={0};
+      sprintf(mode_string,"%ux%u:32",width_x,width_y);
+      fprintf(stderr,"Attempting fullscreen %s\n",mode_string);
+      glutGameModeString(mode_string);
       //glutGameModeString("1024x768:32");
       InitGlut();
       frame.fullscreen=1;
@@ -616,6 +642,11 @@ int main(int argc, char *argv[])
    fprintf(stderr,"Image Sizes set to %ux%u\n",GetWidthQuality(frame.quality_setting),GetHeightQuality(frame.quality_setting));
 
 
+   fprintf(stderr,"Graphics card vendor : %s\n",(const char *)glGetString(GL_VENDOR));
+   fprintf(stderr,"Renderer : %s\n",(const char *)glGetString(GL_RENDERER));
+   fprintf(stderr,"Version : %s\n",(const char *)glGetString(GL_VERSION));
+   GetGraphicsCardMemory();
+   //fprintf(stderr,"Extensions : %s\n",(const char *)glGetString(GL_EXTENSIONS));
 
     /* Initialize WxWidgets */
     WxWidgetsContext wxlibstuff;

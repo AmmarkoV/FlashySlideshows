@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1331343388 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1331490963 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -35,6 +35,7 @@
 	"joystick.h"
 	"environment.h"
 	"scene_objects.h"
+	<unistd.h>
 	<sys/time.h>
 	<GLUT/glut.h>
 	<GL/glut.h>
@@ -118,7 +119,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1331342389 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1331343563 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"
