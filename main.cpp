@@ -184,11 +184,12 @@ unsigned int GetGraphicsCardMemory()
 {
 //Found on http://www.commandlinefu.com/commands/view/6894/get-information-on-your-graphics-card-on-linux-such-as-graphics-memory-size
 //
-return 0;
 fprintf(stderr,"Trying to get max texture memory\n");
+char command[512];
+sprintf(command,"lspci -v | sed -n '/VGA/,/^$/s,.* prefetchable.*size=\\(.\\+\\)].*,\\1,p'");
 char line[512];
  FILE *fpipe;
- if ( !(fpipe = (FILE*)popen("lspci -v -s `lspci | awk '/VGA/{print $1}'` | sed -n '/Memory.*, prefetchable/s/.*\\[size=\\([^]]\+\\)\\]/\\1/p'","r")) )
+ if ( !(fpipe = (FILE*)popen(command,"r")) )
    {
        fprintf(stderr,"Error extracting GetGraphicsCardMemory \n");
    } else
