@@ -63,7 +63,7 @@ int CreatePicturesIfNeeded()
 
 
   char pictures_filename_shared_stack_mem_hyper[1024]={0};
-  while (album_traveler<MAX_album_traveler)
+  while (album_traveler<=MAX_album_traveler)
    {
 
     if (RAM_Memory_can_accomodate(frame.system.lastTexture) ) //No point trying to load if it doesnt't fit
@@ -174,7 +174,7 @@ int LoadPicturesIfNeeded()
 
 
   char pictures_filename_shared_stack_mem_hyper[1024]={0};
-  while (album_traveler<MAX_album_traveler)
+  while (album_traveler<=MAX_album_traveler)
    {
     if (RAM_Memory_can_accomodate(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
     { if ( PictureLoadingPending(album[album_traveler]) )

@@ -9,6 +9,8 @@
 
 #include "FlashySlideShowStarterMain.h"
 #include "../directory_listing.h"
+#include "../version.h"
+
 #include <wx/msgdlg.h>
 #include <wx/filename.h>
 #include <wx/dc.h>

@@ -19,6 +19,7 @@ void MoveDestinationCenterRaw(float x,float y,float z);
 int  MoveToPicture(unsigned int direction);
 void MoveDestinationCenter(unsigned int movement_direction);
 void SetDestinationOverPicture(unsigned int x,unsigned int y);
+void SetDestinationOverPictureId(unsigned int id);
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y);
 void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigned int position_start,unsigned int position_end);
 void SetDestinationOverNextPicture();

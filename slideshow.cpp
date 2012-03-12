@@ -309,7 +309,7 @@ int MinPictureThatIsVisible()
 
 int PictureOutOfBounds(unsigned int pic_place)
 {
-   if ( pic_place > frame.total_images ) { return 1; }
+   if ( pic_place >= frame.total_images ) { return 1; }
    return 0;
 }
 

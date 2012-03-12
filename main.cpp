@@ -379,8 +379,8 @@ void SpecialFunctionCallback (int key, int x, int y)
 		case GLUT_KEY_F10:    break;
 		case GLUT_KEY_F11:    break;
 		case GLUT_KEY_F12:    break;
-		//case GLUT_KEY_HOME: { Controls_Handle_Keyboard(153,x,y); break; }
-		//case GLUT_KEY_END:  { Controls_Handle_Keyboard(161,x,y); break; }
+		case GLUT_KEY_HOME: { SetDestinationOverPictureId(0); break; }
+		case GLUT_KEY_END:  { SetDestinationOverPictureId(frame.total_images-1); break; }
         default: nokey=1; break;
 	}
 
@@ -588,7 +588,7 @@ int main(int argc, char *argv[])
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE );
 
     char title[512]={0};
-    sprintf(title,"Flashy Sliseshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
+    sprintf(title,"Flashy Sliseshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,(unsigned int) AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
     glutCreateWindow(title);
 
     InitGlut();

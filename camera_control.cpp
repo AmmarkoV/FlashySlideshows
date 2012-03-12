@@ -346,9 +346,11 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
 
 
 
+
 void SetDestinationOverPicture(unsigned int x,unsigned int y)
 {
    unsigned int place = PictureXYtoID(x,y);
+   if (PictureOutOfBounds(place)) { fprintf(stderr,"SetDestinationOverPicture(%u,%u) is an invalid destination\n",x,y); return; }
 
    switch ( frame.transitions.transition_mode)
    {
@@ -366,6 +368,14 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
               break;
      default :  SetDestinationOverPicture3dSeek(x,y); ResetPictureRotation(); break;
    };
+}
+
+
+void SetDestinationOverPictureId(unsigned int id)
+{
+   unsigned int x,y;
+   PictureIDtoXY(&x,&y,id);
+   SetDestinationOverPicture(x,y);
 }
 
 

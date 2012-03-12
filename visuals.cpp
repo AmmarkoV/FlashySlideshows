@@ -332,7 +332,7 @@ void MainDisplayFunction()
    }
 
 
-          for ( album_traveler=minpicture; album_traveler<maxpicture; album_traveler++ )
+          for ( album_traveler=minpicture; album_traveler<=maxpicture; album_traveler++ )
            {
 
                DisplayPicture( album[album_traveler],
