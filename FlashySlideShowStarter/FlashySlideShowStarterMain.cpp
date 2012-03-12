@@ -17,6 +17,7 @@
 #include <wx/utils.h>
 #include <wx/dir.h>
 #include "EmptyThumbnail.h"
+#include "FlashyLogo.h"
 
 //(*InternalHeaders(FlashySlideShowStarterFrame)
 #include <wx/string.h>
@@ -27,9 +28,9 @@
 
 
 
-
-wxBitmap *default_bmp_thumb=0,*bmp_thumb1=0,*bmp_thumb2=0,*bmp_thumb3=0,*bmp_thumb4=0,*bmp_thumb5=0;
-wxImage   default_img_thumb=0,img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
+unsigned int display_logo=1;
+wxBitmap *flashy_bmp=0,*default_bmp_thumb=0,*bmp_thumb1=0,*bmp_thumb2=0,*bmp_thumb3=0,*bmp_thumb4=0,*bmp_thumb5=0;
+wxImage   flashy_img=0,default_img_thumb=0,img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
 
 //helper functions
 enum wxbuildinfoformat {
@@ -228,6 +229,9 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
 
     default_img_thumb.SetData((unsigned char *)EmptyThumbnail.pixel_data,EmptyThumbnail.width ,EmptyThumbnail.height,true);
     default_bmp_thumb = new wxBitmap(default_img_thumb);
+
+    flashy_img.SetData((unsigned char *)FlashyLogo.pixel_data,FlashyLogo.width ,FlashyLogo.height,true);
+    flashy_bmp = new wxBitmap(flashy_img);
    // free(pixel);
 
 
@@ -391,11 +395,18 @@ void FlashySlideShowStarterFrame::OpenGithubSite(wxCommandEvent& event)
 void FlashySlideShowStarterFrame::OnPaint(wxPaintEvent& event)
 {
   wxPaintDC dc(this);
-  if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),385,true); }
-  if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),385,true); }
-  if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),385,true); }
-  if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),385,true); }
-  if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),385,true); }
+
+  if (display_logo)
+  {
+      if ( flashy_bmp != 0 ) { dc.DrawBitmap(*flashy_bmp,32+0*(67+10),385,true); } else {   }
+  } else
+  {
+   if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),385,true); }
+   if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),385,true); }
+   if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),385,true); }
+   if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),385,true); }
+   if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),385,true); }
+  }
 
 }
 
@@ -427,6 +438,7 @@ void FlashySlideShowStarterFrame::OnButtonQuitClick(wxCommandEvent& event)
 
 unsigned int FlashySlideShowStarterFrame::RefreshThumbnails()
 {
+    display_logo=0;
     unsigned int recursive=0;
     //if ( CheckBoxIncludeSubfolders->IsChecked() ) { recursive=1; }
     char thedirectory[1024];

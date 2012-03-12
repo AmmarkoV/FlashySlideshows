@@ -102,7 +102,7 @@
 
 1331521410 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331343470 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1331527451 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -902,8 +902,9 @@
 1331520932 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1331519669 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1331521557 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
+	"directory_listing.h"
 	"load_images.h"
 	"load_textures.h"
 	"image_sensing.h"

@@ -222,6 +222,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
     */
    // RefreshDesiredStep_AccordingToPosition();
     /*---------------------------------------------------------------------------------------------------------------*/
+    char label[123]={0};
 
     int nokey=0;
     if (PrintDevMsg()) fprintf(stderr,"Key %u \n",key);
@@ -282,8 +283,14 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'n': if (ENABLE_WIGGLING) {ENABLE_WIGGLING=0;} else {ENABLE_WIGGLING=1;} break;
         case 'm': ToggleTransitionMode(); break;
 
-        case 153: MoveToPicture(D_UP);   MoveToPicture(D_UP);   MoveToPicture(D_UP);  break; //PAGE UP
-        case 161: MoveToPicture(D_DOWN); MoveToPicture(D_DOWN); MoveToPicture(D_DOWN); break; //PAGE DOWN
+        case 153: MoveToPicture(D_UP);   MoveToPicture(D_UP);   MoveToPicture(D_UP);  MoveToPicture(D_UP);
+                  sprintf(label," Go To %u/%u",frame.active_image_place,frame.total_images);
+                  NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                  break; //PAGE UP
+        case 161: MoveToPicture(D_DOWN); MoveToPicture(D_DOWN); MoveToPicture(D_DOWN); MoveToPicture(D_DOWN);
+                  sprintf(label," Go To %u/%u",frame.active_image_place,frame.total_images);
+                  NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                  break; //PAGE DOWN
 
         case 'b': PickHoverEffect(frame.active_image_x,frame.active_image_y); break;
 

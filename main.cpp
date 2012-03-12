@@ -35,6 +35,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "joystick.h"
 #include "environment.h"
 #include "scene_objects.h"
+#include "version.h"
 
 #include <unistd.h>
 
@@ -50,7 +51,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow v0.58";
 int STOP_APPLICATION=0;
 
  struct timeval last_frame,this_frame,difference;
@@ -587,7 +587,9 @@ int main(int argc, char *argv[])
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA | GLUT_MULTISAMPLE );
 
-    glutCreateWindow(APP_VERSION_STRING);
+    char title[512]={0};
+    sprintf(title,"Flashy Sliseshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
+    glutCreateWindow(title);
 
     InitGlut();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
