@@ -18,6 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "environment.h"
+#include "directory_listing.h"
 #include "load_images.h"
 #include "load_textures.h"
 #include "image_sensing.h"
@@ -222,3 +223,101 @@ void EnableScreenSaver()
   int i=system("gconftool-2 --set /apps/gnome-screensaver/idle_activation_enabled --type bool TRUE");
       i=system("gconftool-2 --set /apps/gnome-powermanager/idle_activation_enabled --type bool TRUE");
 }
+
+
+unsigned int GetSystemFreeMemory()
+{
+  // TODO : cat /proc/meminfo , etc
+  return 128*1024*1024;
+}
+
+
+unsigned int GetGraphicsCardMemory()
+{
+//Found on http://www.commandlinefu.com/commands/view/6894/get-information-on-your-graphics-card-on-linux-such-as-graphics-memory-size
+//
+fprintf(stderr,"Trying to get max texture memory\n");
+char line[512];
+char command[512];
+sprintf(command,"lspci -v | sed -n '/VGA/,/^$/s,.* prefetchable.*size=\\(.\\+\\)].*,\\1,p'");
+ FILE *fpipe;
+unsigned int gpu_texture_caps=64*1024*1024; //64MB Default
+
+ if ( !(fpipe = (FILE*)popen(command,"r")) )
+   {
+       fprintf(stderr,"Error extracting GetGraphicsCardMemory \n");
+   } else
+   {      while ( fgets( line, sizeof line, fpipe))
+       {
+         fprintf(stderr,"Received response for GPU Texture size is %s \n",line);
+         unsigned int str_multiplier=0;
+         if ( strlen(line)>1 )
+          {
+            if ( ( line[strlen(line)-1]==10 ) || ( line[strlen(line)-1]==13 ) ) { line[strlen(line)-1]=0; } // in case of 10 ( CR ) or 10 13 ( CR LF )
+            if ( ( line[strlen(line)-1]==10 ) || ( line[strlen(line)-1]==13 ) ) { line[strlen(line)-1]=0; } // in case of 10 13 ( CR LF )
+            if ( ( line[strlen(line)-1]==' ') ) { line[strlen(line)-1]=0; } // in case of a space..!
+            if ( ( line[strlen(line)-1]=='b') || ( line[strlen(line)-1]=='B') ) { line[strlen(line)-1]=0; } // in case string is Mb or something :P
+
+            if ( ( line[strlen(line)-1]=='M') || ( line[strlen(line)-1]=='m') ) { line[strlen(line)-1]=0; /*MB*/ str_multiplier=1024*1024; } else
+            if ( ( line[strlen(line)-1]=='G') || ( line[strlen(line)-1]=='g') ) { line[strlen(line)-1]=0; /*GB*/ str_multiplier=1024*1024*1024; } else
+                                                                                { fprintf(stderr,"Unrecognized quantity indicator , got %c=? , was expecting M=Megabyte \n",line[strlen(line)-1]); }
+
+            gpu_texture_caps=atoi(line)*str_multiplier;
+            gpu_texture_caps=gpu_texture_caps/(1024*1024); //OpenGL uses MB to count size
+            fprintf(stderr,"GPU has space for %u MB of texture \n",gpu_texture_caps);
+
+            if (gpu_texture_caps<16)   { fprintf(stderr,"GPU space seems terribly limited , or return string was wrong\n"); gpu_texture_caps=16 * 1024 * 1024; } else
+            if (gpu_texture_caps<32)   { fprintf(stderr,"GPU space is limited :S \n"); gpu_texture_caps=32 * 1024 * 1024;  } else
+            if (gpu_texture_caps>4096) { fprintf(stderr,"GPU space is enormous capping to 1GB :S \n"); gpu_texture_caps=1024 * 1024 * 1024;  } else
+                                       {
+                                          // gpu_texture_caps remains as is :)
+                                          gpu_texture_caps=gpu_texture_caps * 1024 * 1024;
+                                       }
+
+          } else
+          {
+            fprintf(stderr,"Erroneous string returned while quering for graphics card texture size\n");
+          }
+       }
+   }
+ pclose(fpipe);
+ return gpu_texture_caps;
+
+}
+
+
+
+unsigned int UploadPhotoToMyloader(char * photo)
+{
+if (photo==0) { fprintf(stderr,"Erroneous photograph in UploadPhotoToMyloader\n"); return 0; }
+fprintf(stderr,"Trying to UploadPhotoToMyloader %s \n",photo);
+char line[512];
+char command[512];
+sprintf(command,"scripts/myloader \"%s\"",photo);
+
+FILE *fpipe;
+ if ( !(fpipe = (FILE*)popen(command,"r")) )
+   {
+       fprintf(stderr,"Error UploadPhotoToMyloader\n");
+       return 0;
+   } else
+   {
+      while ( fgets( line, sizeof line, fpipe))
+       {
+         fprintf(stderr,"UploadPhotoToMyloader returned link %s \n",line);
+       }
+   }
+ return 1;
+}
+
+unsigned int UploadCurrentPhotoToMyloader()
+{
+  fprintf(stderr,"Feature deactivated :P");
+  return 0;
+
+  char photo_filename[1024];
+  GetFullFilenameforFile(frame.active_image_place,photo_filename);
+  return  UploadPhotoToMyloader(photo_filename);
+}
+
+

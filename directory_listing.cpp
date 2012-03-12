@@ -36,6 +36,7 @@ unsigned int DONT_ASK_USER_FOR_STOP=0; // DONT BUG WITH QUESTIONS IF THE USER AN
 unsigned int MAX_TIME_FOR_OPERATION_MS=3000; // this is considered a sane amount of time for access to the file system :p
 struct timeval start_time,current_time,difference_time;
 
+char root_directory[2048]={0};
 struct FilenameHolder * list=0;
 
 unsigned long last_list_time_ms=0;
@@ -202,7 +203,11 @@ unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int spac
   if ((space_to_allocate!=0)&&(list==0)) { fprintf(stderr,"List not allocated for GetDirectoryList call\n"); return 0; }
 
   //if (recursive>MAX_RECURSION) { fprintf(stderr,"Recursion has reached a depth of 100 levels , stopping it :P \n"); return 0; } else
-  if (bottom_level) {  gettimeofday(&start_time,0x0); }
+  if (bottom_level)
+   {
+     gettimeofday(&start_time,0x0);
+     strcpy(root_directory,thedirectory);
+   }
 
   wxDir dir(_U2(thedirectory));
   if ( !dir.IsOpened() )  {  fprintf(stderr,"Cannot open dir `%s`\n",thedirectory);  return 0; }
@@ -339,6 +344,20 @@ unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,
 unsigned int GetTotalViewableFilesInDirectory()
 {
     return pictures_count;
+}
+
+
+unsigned int GetFullFilenameforFile(unsigned int file_id,char *filename)
+{
+    if ( list_size <= file_id ) return 0;
+    if ( list == 0 ) return 0;
+    if ( filename == 0 )  { fprintf(stderr,"GetViewableFilenameforFile called with wrong 2 parameter ? \n"); return 0; }
+
+    strcpy(filename,root_directory);
+    if (strlen(list[file_id].subdir)!=0) { strcat(filename,list[file_id].subdir); }
+    strcat(filename,list[file_id].filename);
+
+    return 1;
 }
 
 unsigned int GetViewableFilenameforFile(unsigned int file_id,char *directory,char *filename)

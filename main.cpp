@@ -50,7 +50,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-char APP_VERSION_STRING[70]="FlashySlideShow v0.56";
+char APP_VERSION_STRING[70]="FlashySlideShow v0.58";
 int STOP_APPLICATION=0;
 
  struct timeval last_frame,this_frame,difference;
@@ -180,28 +180,7 @@ int framerate_limiter()
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-unsigned int GetGraphicsCardMemory()
-{
-//Found on http://www.commandlinefu.com/commands/view/6894/get-information-on-your-graphics-card-on-linux-such-as-graphics-memory-size
-//
-fprintf(stderr,"Trying to get max texture memory\n");
-char command[512];
-sprintf(command,"lspci -v | sed -n '/VGA/,/^$/s,.* prefetchable.*size=\\(.\\+\\)].*,\\1,p'");
-char line[512];
- FILE *fpipe;
- if ( !(fpipe = (FILE*)popen(command,"r")) )
-   {
-       fprintf(stderr,"Error extracting GetGraphicsCardMemory \n");
-   } else
-   {      while ( fgets( line, sizeof line, fpipe))
-       {
-         fprintf(stderr,"GPU Texture size is %s \n",line);
-       }
-   }
- pclose(fpipe);
- return 0;
 
-}
 
 static void ResizeCallback(int width, int height)
 {
@@ -381,12 +360,25 @@ void SpecialFunctionCallback (int key, int x, int y)
     int nokey=0;
 	switch (key)
 	{
-		case GLUT_KEY_UP:    { Controls_Handle_Keyboard(1,x,y); break; }
-		case GLUT_KEY_DOWN:  { Controls_Handle_Keyboard(2,x,y); break; }
-		case GLUT_KEY_RIGHT: { Controls_Handle_Keyboard(4,x,y); break; }
-		case GLUT_KEY_LEFT:  { Controls_Handle_Keyboard(3,x,y); break; }
-		case GLUT_KEY_PAGE_UP:    { Controls_Handle_Keyboard(153,x,y); break; }
-		case GLUT_KEY_PAGE_DOWN:  { Controls_Handle_Keyboard(161,x,y); break; }
+		case GLUT_KEY_UP:           Controls_Handle_Keyboard(1,x,y); break;
+		case GLUT_KEY_DOWN:         Controls_Handle_Keyboard(2,x,y); break;
+		case GLUT_KEY_RIGHT:        Controls_Handle_Keyboard(4,x,y); break;
+		case GLUT_KEY_LEFT:         Controls_Handle_Keyboard(3,x,y); break;
+		case GLUT_KEY_PAGE_UP:      Controls_Handle_Keyboard(153,x,y); break;
+		case GLUT_KEY_PAGE_DOWN:    Controls_Handle_Keyboard(161,x,y); break;
+		case GLUT_KEY_INSERT:       UploadCurrentPhotoToMyloader(); break;
+		case GLUT_KEY_F1:    break;
+		case GLUT_KEY_F2:    break;
+		case GLUT_KEY_F3:    break;
+		case GLUT_KEY_F4:   break;
+		case GLUT_KEY_F5:    break;
+		case GLUT_KEY_F6:    break;
+		case GLUT_KEY_F7:    break;
+		case GLUT_KEY_F8:   break;
+		case GLUT_KEY_F9:    break;
+		case GLUT_KEY_F10:    break;
+		case GLUT_KEY_F11:    break;
+		case GLUT_KEY_F12:    break;
 		//case GLUT_KEY_HOME: { Controls_Handle_Keyboard(153,x,y); break; }
 		//case GLUT_KEY_END:  { Controls_Handle_Keyboard(161,x,y); break; }
         default: nokey=1; break;
@@ -646,8 +638,11 @@ int main(int argc, char *argv[])
    fprintf(stderr,"Graphics card vendor : %s\n",(const char *)glGetString(GL_VENDOR));
    fprintf(stderr,"Renderer : %s\n",(const char *)glGetString(GL_RENDERER));
    fprintf(stderr,"Version : %s\n",(const char *)glGetString(GL_VERSION));
-   GetGraphicsCardMemory();
    //fprintf(stderr,"Extensions : %s\n",(const char *)glGetString(GL_EXTENSIONS));
+   frame.gpu.maxRAM=GetGraphicsCardMemory();
+   fprintf(stderr,"Software GPU texture limit set to %u MB\n",(unsigned int)frame.gpu.maxRAM/(1024*1024));
+   frame.system.maxRAM=GetSystemFreeMemory();
+   fprintf(stderr,"Software RAM limit set to %u MB\n",(unsigned int)frame.system.maxRAM/(1024*1024));
 
     /* Initialize WxWidgets */
     WxWidgetsContext wxlibstuff;
@@ -663,6 +658,7 @@ int main(int argc, char *argv[])
       {
           fprintf(stderr,"Could not Load pictures in directory ( %u total pictures found)\n",GetTotalViewableFilesInDirectory());
           int i=system("gdialog --title \"Flashy Slideshows\" --infobox \"\nCould not find any pictures in the directory of your selection\"");
+          if (i!=0) { fprintf(stderr,"gdialog returned an error , user may not be informed about the error :( \n"); }
           return 0;
       }
     frame.total_images=GetTotalViewableFilesInDirectory();

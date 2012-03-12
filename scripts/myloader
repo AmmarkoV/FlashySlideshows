@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#Dependences: bash, basename, curl, grep
+#You may set a second argument with an alternative server
+if [ $# -gt 1 ]
+then
+target=$2
+else
+server=http://ammar.gr
+target=$server/myloader
+fi
+echo "Uploading to $target"
+name=`basename "$1"`
+pattern="$target/file.php\?i=[a-z0-9]*-$1"
+echo "You may download $1 from here:"
+curl -s --show-error -F uploadedfile=@$1 -F rawresponse=YES -F submit="Upload File" $target/index.php | egrep -o $pattern
+exit 0

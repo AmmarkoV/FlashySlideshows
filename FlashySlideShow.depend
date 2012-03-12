@@ -16,7 +16,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1331490963 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1331520936 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -86,7 +86,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1331342227 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1331521448 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"directory_sorting.h"
 	<sys/time.h>
@@ -100,7 +100,7 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1331300714 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1331521410 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1331343470 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
@@ -139,7 +139,7 @@
 
 1331334011 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1331341723 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1331517095 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -899,10 +899,10 @@
 	"joystick.h"
 	"slideshow.h"
 
-1328862949 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
+1331520932 /home/ammar/Documents/Programming/FlashySlideShow/environment.h
 	<unistd.h>
 
-1331246175 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
+1331519669 source:/home/ammar/Documents/Programming/FlashySlideShow/environment.cpp
 	"environment.h"
 	"load_images.h"
 	"load_textures.h"
@@ -1323,4 +1323,6 @@
 1331223884 /home/ammar/Documents/Programming/FlashySlideShow/directory_transactions.h
 
 1331224324 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
+
+1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 

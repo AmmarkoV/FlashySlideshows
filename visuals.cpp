@@ -266,7 +266,8 @@ void DisplayHUD(unsigned int view_instructions)
       glRasterPos2f(120,500); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Arrow keys , move from picture to picture  - W = Up , S = Down , A = Left , D = Right camera");
       glRasterPos2f(120,450); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "M = Change transition mode , N = Cycle effects , B = change hover mode  ");
       glRasterPos2f(120,400); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "F = Zoom out , R = Zoom in  ,Q = Rotate Counter Clockwise , E = Rotate Clockwise");
-      glRasterPos2f(120,350); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Enter/Space = Automatic Slideshow , J = Toggle Fullscreen , Escape = Quit");
+      glRasterPos2f(120,350); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Enter/Space = Toggle Automatic Slideshow , J = Toggle Fullscreen ");
+      glRasterPos2f(120,300); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Escape = Quit ");
     }
 
 

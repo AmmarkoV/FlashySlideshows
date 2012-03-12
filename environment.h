@@ -14,4 +14,9 @@ int PrintDevMsg();
 void DisableScreenSaver();
 void EnableScreenSaver();
 
+unsigned int GetSystemFreeMemory();
+unsigned int GetGraphicsCardMemory();
+
+unsigned int UploadPhotoToMyloader(char * photo);
+unsigned int UploadCurrentPhotoToMyloader();
 #endif // ENVIRONMENT_H_INCLUDED
