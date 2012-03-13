@@ -18,6 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "load_images.h"
+#include "jpegexiforient_embed.h"
 #include "memory_hypervisor.h"
 #include "directory_listing.h"
 #include <stdlib.h>
@@ -223,61 +224,32 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
 
 int GetJPEGExifOrientation(char * filename,struct Picture * pic)
 {
-     //Handle orientation here..!
- FILE *fpipe;
- char command[1024]={0};
- strcpy(command,"jpegexiforient \"");
- strcat(command,filename);
- strcat(command,"\"\0");
+ unsigned int orientation = GetOrientationOfFile(filename);
+ fprintf(stderr,"Got Orientation %u \n",orientation);
+ pic->rotate=0; pic->mirror=0;
 
- pic->rotate=0;
- pic->mirror=0;
+ /*            1        2       3      4       5            6           7          8
 
- fprintf(stderr,"Executing %s \n",command);
-
- char line[256];
- if ( !(fpipe = (FILE*)popen(command,"r")) )
-   {
-       fprintf(stderr,"Error extracting orientation for %s \n",filename);
-       return 0;
-   } else
-   {
-
-       /*
-               1        2       3      4
-
-              888888  888888      88  88
+              888888  888888      88  88       8888888888  88                  88  8888888888
+              88          88      88  88       88  88      88  88          88  88      88  88
+              8888      8888    8888  8888     88          8888888888  8888888888          88
               88          88      88  88
-              8888      8888    8888  8888
-              88          88      88  88
-              88          88  888888  888888
+              88          88  888888  888888                                                        */
 
+ if (orientation==0) { return 0; } else
+ if (orientation==1) { fprintf(stderr,"Normal Orientation\n"); } else
+ if (orientation==2) { fprintf(stderr,"Inverted , but Normal Orientation\n");  pic->mirror=1;  }else
+ if (orientation==3) { fprintf(stderr,"Rotated 180 degs but Normal Orientation\n"); pic->rotate=180; pic->target_rotate=180; }else
+ if (orientation==4) { fprintf(stderr,"Rotated 180 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=180; pic->target_rotate=180; }else
+ if (orientation==5) { fprintf(stderr,"Rotated 270 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=270; pic->target_rotate=270; }else
+ if (orientation==6) { fprintf(stderr,"Rotated 270 degs but Normal Orientation\n"); pic->rotate=270; pic->target_rotate=270; }else
+ if (orientation==7) { fprintf(stderr,"Rotated 90 degs but Inverted Orientation\n"); pic->mirror=1; pic->rotate=90; pic->target_rotate=90;  }else
+ if (orientation==8) { fprintf(stderr,"Rotated 90 degs but Normal Orientation\n"); pic->rotate=90; pic->target_rotate=90; } else
+                     { return 0; }
 
-              5            6           7          8
+ pic->default_rotate=pic->rotate;
 
-              8888888888  88                  88  8888888888
-              88  88      88  88          88  88      88  88
-              88          8888888888  8888888888          88
-
-     */
-
-     while ( fgets( line, sizeof line, fpipe))
-       {
-          //fprintf(stderr,"Orientation for %s is `%s` \n",filename,line);
-          if (line[0]=='1') { fprintf(stderr,"Normal Orientation\n"); } else
-          if (line[0]=='2') { fprintf(stderr,"Inverted , but Normal Orientation\n");  pic->mirror=1;  }else
-          if (line[0]=='3') { fprintf(stderr,"Rotated 180 degs but Normal Orientation\n"); pic->rotate=180; pic->target_rotate=180; }else
-          if (line[0]=='4') { fprintf(stderr,"Rotated 180 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=180; pic->target_rotate=180; }else
-          if (line[0]=='5') { fprintf(stderr,"Rotated 270 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=270; pic->target_rotate=270; }else
-          if (line[0]=='6') { fprintf(stderr,"Rotated 270 degs but Normal Orientation\n"); pic->rotate=270; pic->target_rotate=270; }else
-          if (line[0]=='7') { fprintf(stderr,"Rotated 90 degs but Inverted Orientation\n"); pic->mirror=1; pic->rotate=90; pic->target_rotate=90;  }else
-          if (line[0]=='8') { fprintf(stderr,"Rotated 90 degs but Normal Orientation\n"); pic->rotate=90; pic->target_rotate=90; }
-       }
-
-       pic->default_rotate=pic->rotate;
-   }
- pclose(fpipe);
- return 1;
+return 1;
 }
 
 int WxLoadJPEG(char * filename,struct Picture * pic)

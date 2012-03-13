@@ -63,6 +63,8 @@
 		<Unit filename="image_sensing.h" />
 		<Unit filename="joystick.cpp" />
 		<Unit filename="joystick.h" />
+		<Unit filename="jpegexiforient_embed.cpp" />
+		<Unit filename="jpegexiforient_embed.h" />
 		<Unit filename="load_images.cpp" />
 		<Unit filename="load_images.h" />
 		<Unit filename="load_textures.cpp" />

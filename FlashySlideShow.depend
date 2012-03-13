@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1331315889 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1331603712 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
+	"jpegexiforient_embed.h"
 	"memory_hypervisor.h"
 	"directory_listing.h"
 	<stdlib.h>
@@ -1328,5 +1329,12 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1331599731 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1331604253 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+
+1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
+
+1331603197 source:/home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.cpp
+	"jpegexiforient_embed.h"
+	<stdio.h>
+	<stdlib.h>
 

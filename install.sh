@@ -1,7 +1,4 @@
 #!/bin/bash
-
-
-
 echo "Installation needs super user privileges.."
 sudo echo "..." 
 
@@ -31,20 +28,7 @@ fi
     echo "FlashySlideShow Main App could not be installed , you probably got a library missing"
     exit 1
   fi
-
-  if [ -e jpegexiforient ]
-  then
-      if [ -e /usr/bin/jpegexiforient ]
-      then
-        echo "jpegexiforient was found in the system , not overwriting it .." 
-      else
-        echo "jpegexiforient  App is OK :) , including it to system binaries .."
-        sudo cp jpegexiforient /usr/bin/jpegexiforient 
-      fi
-  else
-    echo "jpegexiforient GUI App could not be installed , you probably got a library missing"
-    exit 1
-  fi
+ 
 
 
 if [ -d "/usr/share/flashyslideshows/app_clipart" ]; then
