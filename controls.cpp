@@ -206,6 +206,7 @@ int Controls_Handle_MouseMotion(int button,int state, int x, int y)
          frame.desired_x+=difference_x/20; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
          frame.desired_y-=difference_y/12; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
 
+         CalculateActiveImage_AccordingToPosition();
        return 1;
    }
 
@@ -222,7 +223,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
     */
    // RefreshDesiredStep_AccordingToPosition();
     /*---------------------------------------------------------------------------------------------------------------*/
-    char label[123]={0};
+    char label[256]={0};
 
     int nokey=0;
     if (PrintDevMsg()) fprintf(stderr,"Key %u \n",key);

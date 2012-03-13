@@ -221,31 +221,17 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
 }
 
 
-
-
-int WxLoadJPEG(char * filename,struct Picture * pic)
+int GetJPEGExifOrientation(char * filename,struct Picture * pic)
 {
-
- wxImage new_img;
- new_img.LoadFile(_U(filename));
-
- unsigned int width = new_img.GetWidth();
- unsigned int height = new_img.GetHeight();
- unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
-
- width  = (unsigned int) (width  * rescale_ratio / 100);
- height = (unsigned int) (height * rescale_ratio / 100);
-
- new_img.Rescale(width,height);
-
-
- //Handle orientation here..!
+     //Handle orientation here..!
  FILE *fpipe;
  char command[1024]={0};
  strcpy(command,"jpegexiforient \"");
  strcat(command,filename);
  strcat(command,"\"\0");
 
+ pic->rotate=0;
+ pic->mirror=0;
 
  fprintf(stderr,"Executing %s \n",command);
 
@@ -253,6 +239,7 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
  if ( !(fpipe = (FILE*)popen(command,"r")) )
    {
        fprintf(stderr,"Error extracting orientation for %s \n",filename);
+       return 0;
    } else
    {
 
@@ -290,6 +277,31 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
        pic->default_rotate=pic->rotate;
    }
  pclose(fpipe);
+ return 1;
+}
+
+int WxLoadJPEG(char * filename,struct Picture * pic)
+{
+
+ wxImage new_img;
+ new_img.LoadFile(_U(filename));
+
+ unsigned int width = new_img.GetWidth();
+ unsigned int height = new_img.GetHeight();
+ unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
+
+ width  = (unsigned int) (width  * rescale_ratio / 100);
+ height = (unsigned int) (height * rescale_ratio / 100);
+
+ new_img.Rescale(width,height);
+
+ if (pic->is_jpeg)
+  {
+    if (!GetJPEGExifOrientation(filename,pic))
+     {
+         fprintf(stderr,"Could not get Exif orientation for file %s \n",filename);
+     }
+  }
 
 
  unsigned char * data = new_img.GetData();
@@ -348,6 +360,8 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
 
     new_picture->rgb_data=0;
     new_picture->rgb_data_size=0;
+
+    new_picture->is_jpeg=0;
 
     new_picture->failed_to_load=0;
     new_picture->marked_for_texture_loading=0;

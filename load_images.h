@@ -41,7 +41,7 @@ struct Picture
   unsigned int width;
   unsigned int depth;
 
-
+  unsigned char is_jpeg;
   unsigned int mirror;
   float default_rotate;
   float rotate;

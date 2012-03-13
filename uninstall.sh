@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ -d "/usr/share/flashyslideshows" ]; then
   echo "FlashySlideshows Installation detected , uninstalling it " 
   sudo rmdir -r /usr/share/flashyslideshows

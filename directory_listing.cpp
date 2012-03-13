@@ -124,18 +124,27 @@ inline wxString _U2(const char String[] = "")
   return wxString(String, wxConvUTF8);
 }
 
-int ExtensionIsPicture(wxString *extension)
+int ExtensionIsJPEGPicture(wxString *extension)
 {
       unsigned int is_a_picture=0;
       if ( extension->CmpNoCase(wxT("JPG"))==0 )       {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("JPEG"))==0)  {is_a_picture=1;}
-      else if ( extension->CmpNoCase(wxT("PNG"))==0 )  {is_a_picture=1;}
+
+  return is_a_picture;
+}
+
+int ExtensionIsPicture(wxString *extension)
+{
+      unsigned int is_a_picture=0;
+      if      ( extension->CmpNoCase(wxT("PNG"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("PNM"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("BMP"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("GIF"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("PCX"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("XPM"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("TIF"))==0 )  {is_a_picture=1;}
+
+      if ( ExtensionIsJPEGPicture(extension) ) { is_a_picture=1; }
 
   return is_a_picture;
 }
@@ -169,6 +178,9 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
             list[pictures_count].hour=mod_time.GetHour();
             list[pictures_count].minute=mod_time.GetMinute();
             list[pictures_count].second=mod_time.GetSecond();
+
+            if (ExtensionIsJPEGPicture(&extension)) { list[pictures_count].is_jpeg=1; } else
+                                                    { list[pictures_count].is_jpeg=0; }
 
             wxULongLong size_long_long = fname.GetSize();
             list[pictures_count].filesize=(unsigned int) size_long_long.ToULong();

@@ -31,6 +31,7 @@ struct FilenameHolder
 
      unsigned int filesize;
 
+     unsigned char is_jpeg;
      char filename[256];
      char subdir[1024];
 };

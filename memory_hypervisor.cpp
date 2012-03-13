@@ -75,6 +75,7 @@ int CreatePicturesIfNeeded()
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack_mem_hyper,0);
                if ( album[album_traveler] != 0 )
                  {
+                    album[album_traveler]->is_jpeg=list[album_traveler].is_jpeg;
                     album[album_traveler]->directory_list_index=album_traveler; // Create a link between the directory list and the picture struct
                     ++loaded_pictures_this_loop;
                  } else

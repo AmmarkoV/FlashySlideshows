@@ -26,6 +26,8 @@ void SetDestinationOverNextPicture();
 
 void PickHoverEffect(unsigned int x,unsigned int y);
 
+void CalculateActiveImage_AccordingToPosition();
+
 void CheckForTargetInBounds();
 
 
