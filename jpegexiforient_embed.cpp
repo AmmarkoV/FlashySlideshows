@@ -214,17 +214,7 @@ unsigned int GetOrientationOfFile(char * filename)
     }
     if (set_flag > 8) { return 0; }
 
-/*
-  // Write out Orientation value
-  if (n_flag)
-    printf("%c", '0' + set_flag);
-  else
-    printf("%c\n", '0' + set_flag);
 
-  char outpt[10]={0};
-  sprintf(outpt,"%c",'0' + set_flag);
-  unsigned int retres = outpt[0]-'0';
-*/
   /* All done. */
   return (unsigned int) set_flag;
 }
