@@ -320,7 +320,16 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 
   ChangeActiveImage(x,y);
 
-  float vx=0.0,vy=0.0,y_inc=12.0;
+  float vx=0.0,vy=0.0,vz=-5.0;
+
+  unsigned int pic_place=PictureXYtoID(x,y);
+  PositionPicture(album[pic_place],pic_place);
+
+  vx=album[pic_place]->position.x;
+  vy=album[pic_place]->position.y;
+  vz=album[pic_place]->position.z;
+
+/*float y_inc=12;
   if ( x==0 ) { vx= 14.0; } else
   if ( x==1 ) { vx= 0.0; } else
   if ( x==2 ) { vx=-14.0; } else
@@ -329,10 +338,12 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
               }
 
   vy=-12.0 + y_inc * y;
+*/
+
 
   frame.desired_x=vx;
   frame.desired_y=vy;
-  frame.desired_z=-0.5;
+  frame.desired_z=vz+4.5;//-0.5;
 }
 
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)

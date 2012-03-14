@@ -28,6 +28,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "environment.h"
 #include "directory_listing.h"
 
+#include "layouts/basic_layout.h"
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -281,7 +283,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'g': frame.angle_y+=0.5; break;
         case 'y': frame.angle_z-=0.5; break;
         case 'h': frame.angle_z+=0.5; break;
-        case 'n': if (ENABLE_WIGGLING) {ENABLE_WIGGLING=0;} else {ENABLE_WIGGLING=1;} break;
+        case 'n': ChangeLayout();
+                  sprintf(label," Layout set to %s (%u)",GetLayoutName(),frame.layout.layout_mode);
+                  NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                  break; //if (ENABLE_WIGGLING) {ENABLE_WIGGLING=0;} else {ENABLE_WIGGLING=1;}
         case 'm': ToggleTransitionMode(); break;
 
         case 153: MoveToPicture(D_UP);   MoveToPicture(D_UP);   MoveToPicture(D_UP);  MoveToPicture(D_UP);

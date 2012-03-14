@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1331604201 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1331687042 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"jpegexiforient_embed.h"
 	"memory_hypervisor.h"
-	"directory_listing.h"
+	"layouts/basic_layout.h"
+	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -104,7 +105,7 @@
 
 1331598588 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331598331 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1331689552 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -114,6 +115,7 @@
 	"visuals.h"
 	"environment.h"
 	"directory_listing.h"
+	"layouts/basic_layout.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
@@ -121,7 +123,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1331606308 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1331688616 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/basic_transition.h"
 	"slideshow.h"
 	"camera_control.h"
@@ -1329,7 +1331,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1331687042 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1331690546 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
@@ -1338,9 +1340,18 @@
 	<stdio.h>
 	<stdlib.h>
 
-1331686964 source:/home/ammar/Documents/Programming/FlashySlideShow/layouts/basic_layout.cpp
+1331689382 source:/home/ammar/Documents/Programming/FlashySlideShow/layouts/basic_layout.cpp
 	"basic_layout.h"
+	"expo_layout.h"
+	"../slideshow.h"
 
-1331686891 /home/ammar/Documents/Programming/FlashySlideShow/layouts/basic_layout.h
+1331690528 /home/ammar/Documents/Programming/FlashySlideShow/layouts/basic_layout.h
+	"../load_images.h"
+
+1331690008 source:/home/ammar/Documents/Programming/FlashySlideShow/layouts/expo_layout.cpp
+	"expo_layout.h"
+	"../slideshow.h"
+
+1331689082 /home/ammar/Documents/Programming/FlashySlideShow/layouts/expo_layout.h
 	"../load_images.h"
 

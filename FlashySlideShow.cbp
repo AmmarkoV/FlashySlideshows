@@ -67,6 +67,8 @@
 		<Unit filename="jpegexiforient_embed.h" />
 		<Unit filename="layouts/basic_layout.cpp" />
 		<Unit filename="layouts/basic_layout.h" />
+		<Unit filename="layouts/expo_layout.cpp" />
+		<Unit filename="layouts/expo_layout.h" />
 		<Unit filename="load_images.cpp" />
 		<Unit filename="load_images.h" />
 		<Unit filename="load_textures.cpp" />
