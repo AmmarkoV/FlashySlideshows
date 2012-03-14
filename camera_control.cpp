@@ -218,15 +218,10 @@ void CameraReachedDestination()
 }
 
 
-void CheckForTargetInBounds()
+void CameraBounced()
 {
-   unsigned int camera_safe_guard_activated=0;
-   if ( frame.desired_z<frame.distance_block_lower) { frame.desired_z=frame.distance_block_lower; camera_safe_guard_activated=1; } /* DO NOT ALLOW ANY CLOSER */
-   if ( frame.desired_z>frame.distance_block_upper) { frame.desired_z=frame.distance_block_upper; camera_safe_guard_activated=1; } /* DO NOT ALLOW ANY CLOSER */
-
-   if ( camera_safe_guard_activated ) { SoundLibrary_PlaySound(UNABLE_TO_MOVE); }
+  SoundLibrary_PlaySound(UNABLE_TO_MOVE);
 }
-
 
 void MoveDestinationCenterRaw(float x,float y,float z)
 {
@@ -285,8 +280,7 @@ void MoveDestinationCenter(unsigned int movement_direction)
       break;
     };
 
-   // If target is out of bounds fix it
-   CheckForTargetInBounds();
+
    CalculateActiveImage_AccordingToPosition(); // <- hardcode coords checking..
 }
 
@@ -321,30 +315,12 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
 
   ChangeActiveImage(x,y);
 
-  float vx=0.0,vy=0.0,vz=-5.0;
-
   unsigned int pic_place=PictureXYtoID(x,y);
   PositionPicture(album[pic_place],pic_place);
 
-  vx=album[pic_place]->position.x;
-  vy=album[pic_place]->position.y;
-  vz=album[pic_place]->position.z;
-
-/*float y_inc=12;
-  if ( x==0 ) { vx= 14.0; } else
-  if ( x==1 ) { vx= 0.0; } else
-  if ( x==2 ) { vx=-14.0; } else
-              {
-                vx=(x-1)*-14.0;
-              }
-
-  vy=-12.0 + y_inc * y;
-*/
-
-
-  frame.desired_x=vx;
-  frame.desired_y=vy;
-  frame.desired_z=vz+4.5;//-0.5;
+  frame.desired_x=album[pic_place]->position.x;
+  frame.desired_y=album[pic_place]->position.y;
+  frame.desired_z=album[pic_place]->position.z+4.5;//-0.5;
 }
 
 void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
@@ -601,7 +577,7 @@ int CameraSeesOnlyOnePicture()
   if ( abs(frame.vy-frame.desired_y)>3 ) { return 0; }
 
 
-  if ( frame.vz<=frame.distance_block_lower+2.5  )
+  if ( frame.vz<=GetLayoutMinimumZ()+2.5  )
    {
      float xcoord,ycoord,zcoord,distance;
      GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);
@@ -756,11 +732,15 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
      CAMERA SAFE GUARD!
      -------------------------------------
   */
-   if ( frame.vz<=GetLayoutMinimumZ()) { frame.vz=GetLayoutMinimumZ(); frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
-   if ( frame.vz>=GetLayoutMaximumZ()) { frame.vz=GetLayoutMaximumZ(); frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
+   if ( frame.vx<GetLayoutMinimumX())  { frame.vx=GetLayoutMinimumX(); frame.desired_x=frame.vx; CameraBounced(); } else/* DO NOT ALLOW ANY LEFTER */
+   if ( frame.vx>GetLayoutMaximumX())  { frame.vx=GetLayoutMaximumX(); frame.desired_x=frame.vx; CameraBounced(); }     /* DO NOT ALLOW ANY RIGHTER */
 
-   if ( frame.vx<=GetLayoutMinimumX())  { frame.vx=GetLayoutMinimumX();  frame.desired_x=frame.vx; } /* DO NOT ALLOW ANY LEFTER */
-   if ( frame.vx>=GetLayoutMaximumX())  { frame.vx=GetLayoutMaximumX(); frame.desired_x=frame.vx; } /* DO NOT ALLOW ANY RIGHTER */
+   if ( frame.vy<GetLayoutMinimumY())  { frame.vy=GetLayoutMinimumY(); frame.desired_y=frame.vy; CameraBounced(); } else/* DO NOT ALLOW ANY UPPER */
+   if ( frame.vy>GetLayoutMaximumY())  { frame.vy=GetLayoutMaximumY(); frame.desired_y=frame.vy; CameraBounced(); }     /* DO NOT ALLOW ANY DOWNER */
+
+   if ( frame.vz<GetLayoutMinimumZ())  { frame.vz=GetLayoutMinimumZ(); frame.desired_z=frame.vz; CameraBounced(); } else/* DO NOT ALLOW ANY CLOSER */
+   if ( frame.vz>GetLayoutMaximumZ())  { frame.vz=GetLayoutMaximumZ(); frame.desired_z=frame.vz; CameraBounced(); }     /* DO NOT ALLOW ANY FURTHER */
+
 
   /* -------------------------------------
      CAMERA ROUNDING ERROR CORRECTION

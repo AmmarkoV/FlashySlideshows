@@ -549,8 +549,8 @@ void FlashySlideShowStarterFrame::OnButtonControlsClick(wxCommandEvent& event)
     controls_text<< wxT(" Arrow Keys = Change Picture \n F = Zoom out , R = Zoom in \n");
     controls_text<< wxT(" Q = Rotate Counter Clockwise \n E = Rotate Clockwise \n");
     controls_text<< wxT("---------------------------------------------\n");
-    controls_text<< wxT(" Enter = Automatic Slideshow \n M = Change Transition Mode \n B = Change Hover Effect \n");
-    controls_text<< wxT(" N = Cycle Effects \n J = Toggle Fullscreen \n Escape = Quit \n");
+    controls_text<< wxT(" Enter = Automatic Slideshow \n M = Cycle Transition Modes \n B = Change Hover Effect \n");
+    controls_text<< wxT(" N = Cycle Layouts \n J = Toggle Fullscreen \n Escape = Quit \n");
     wxMessageBox(controls_text, _("FlashySlideShow Controls list..!"));
 
 }

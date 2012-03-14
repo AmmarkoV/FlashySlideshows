@@ -80,7 +80,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
     char escaped_filename[MAX_PATH];
     escape_str(raw_filename,escaped_filename);*/
 
-    sprintf(rescale_operation,"convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"&",
+    sprintf(rescale_operation,"nice -n 19 convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"&",
              raw_filename,
              frame.rescale_resolution_string,
              dir,
@@ -105,7 +105,7 @@ int MoveFileToDir(unsigned int file_id,char * dir)
 //    escape_str(raw_filename,escaped_filename);
 
     char move_operation[MAX_PATH]={0};
-    strcpy(move_operation,"mv \"");
+    strcpy(move_operation,"ionice -c 3 mv \"");
     strcat(move_operation,raw_filename);
     strcat(move_operation,"\" \"");
     strcat(move_operation,dir);
@@ -129,7 +129,7 @@ int CopyFileToDir(unsigned int file_id,char * dir)
 //    escape_str(raw_filename,escaped_filename);
 
     char move_operation[MAX_PATH]={0};
-    strcpy(move_operation,"cp \"");
+    strcpy(move_operation,"ionice -c 3 cp \"");
     strcat(move_operation,raw_filename);
     strcat(move_operation,"\" \"");
     strcat(move_operation,dir);

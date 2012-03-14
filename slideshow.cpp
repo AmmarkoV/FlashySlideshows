@@ -99,13 +99,6 @@ void InitSlideShow()
 
 
 
-   frame.distance_block_upper=20;
-   frame.distance_block_lower=-4.0;
-   frame.distance_block_left=-14.0*(frame.images_per_line-1)-4.0;// This has to do with images per line :P;
-   frame.distance_block_right=20;
-   frame.distance_block_up=20;
-   frame.distance_block_down=-20;
-
    frame.distance_barrier_after_considered_zoom=-2;
    frame.distance_barrier_after_considered_close=3;
    frame.distance_barrier_after_considered_far=5;
@@ -377,6 +370,7 @@ void PutCameraOverExistingPictureIfItIsOff()
      SetDestinationOverPictureImmediate(0,0);
    }
 }
+
 
 
 //SEEK MOVEMENT  =============================================

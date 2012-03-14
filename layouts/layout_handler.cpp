@@ -1,6 +1,8 @@
 #include "layout_handler.h"
 #include "expo_layout.h"
 #include "../slideshow.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /*
   This is the layout handler for albums
@@ -59,6 +61,14 @@ int ChangeLayout()
 {
   ++frame.layout.layout_mode;
   if (frame.layout.layout_mode>=TOTAL_LAYOUTS) { frame.layout.layout_mode=0; }
+
+  if ( (frame.total_images > 0)&&(album!=0) )
+   {
+     HandlePictureLayout(album[0],0);
+     HandlePictureLayout(album[frame.total_images-1],frame.total_images-1);
+   }
+
+
   return 1;
 }
 
@@ -78,7 +88,7 @@ char * GetLayoutName()
 
 float GetLayoutMinimumX()
 {
-    return -14.0*(frame.images_per_line-1)-4.0;
+    return -14.0*(frame.images_per_line-2)-4.0;
 }
 
 float GetLayoutMaximumX()
@@ -89,12 +99,14 @@ float GetLayoutMaximumX()
 
 float GetLayoutMinimumY()
 {
-    return 0;
+    if ( (frame.total_images==0)||(album==0) ) { fprintf(stderr,"Returning Failsafe GetLayoutMinimumY()\n");return -1000; }
+    return album[0]->position.y-10;
 }
 
 float GetLayoutMaximumY()
 {
-    return 0;
+    if ( (frame.total_images==0)||(album==0) ) { fprintf(stderr,"Returning Failsafe GetLayoutMaximumY()\n"); return 1000; }
+    return album[frame.total_images-1]->position.y+10;
 }
 
 

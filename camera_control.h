@@ -28,7 +28,7 @@ void PickHoverEffect(unsigned int x,unsigned int y);
 
 void CalculateActiveImage_AccordingToPosition();
 
-void CheckForTargetInBounds();
+void CameraBounced();
 
 
 int ChangeActiveImage(unsigned int place);

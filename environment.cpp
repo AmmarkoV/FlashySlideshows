@@ -68,8 +68,8 @@ long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct
 
 int FileExists(const char *fname)
 {
-    FILE *file;
-    if (file = fopen(fname, "r"))
+    FILE *file= fopen(fname, "r");
+    if (file!=0)
     {
         fclose(file);
         return 1;

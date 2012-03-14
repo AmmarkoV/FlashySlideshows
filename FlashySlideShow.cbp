@@ -86,8 +86,8 @@
 		<Unit filename="slideshow.h" />
 		<Unit filename="sound.cpp" />
 		<Unit filename="sound.h" />
-		<Unit filename="transitions/basic_transition.cpp" />
-		<Unit filename="transitions/basic_transition.h" />
+		<Unit filename="transitions/transition_handler.cpp" />
+		<Unit filename="transitions/transition_handler.h" />
 		<Unit filename="version.h" />
 		<Unit filename="visuals.cpp" />
 		<Unit filename="visuals.h" />

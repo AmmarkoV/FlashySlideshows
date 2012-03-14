@@ -133,10 +133,6 @@ struct SlideShowData
    unsigned int pictures_number;
    struct Pictures * pictures_data;
 
-  float distance_block_upper,distance_block_lower;
-  float distance_block_left,distance_block_right,distance_block_up,distance_block_down;
-
-
   float distance_barrier_after_considered_zoom,desired_step_zoom;
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
@@ -238,6 +234,7 @@ unsigned int PictureXYtoID(unsigned int x,unsigned int y);
 void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place);
 
 void PutCameraOverExistingPictureIfItIsOff();
+
 
 int Generic_HandleState_OneTime_Start_MovementToNextPicture();
 int Generic_HandleState_During_MovementToNextPicture();
