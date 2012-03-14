@@ -83,8 +83,6 @@ struct FilePicture
 
 struct TransitionState
 {
-
-
   unsigned int transition_mode;
 
   unsigned int automatic_slideshow_on;
@@ -92,7 +90,13 @@ struct TransitionState
 
   unsigned int seek_move_activated;
   unsigned int effect_move_activated;
+};
 
+struct LayoutState
+{
+  unsigned int layout_mode;
+
+  unsigned int layout_to_be_applied;
 };
 
 
@@ -111,6 +115,7 @@ struct SlideShowData
   unsigned int mipmaping;
 
   struct TransitionState transitions;
+  struct LayoutState layout;
 
   unsigned int quality_setting; //Smaller is better
   unsigned int fullscreen;

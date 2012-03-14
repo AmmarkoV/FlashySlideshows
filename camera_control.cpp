@@ -85,7 +85,7 @@ void CalculateActiveImage_AccordingToPosition()
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
 
-   unsigned int x,y,album_traveler;
+   unsigned int x=0,y=0,album_traveler=0;
    float top_left[3]={0.0,0.0,-5} , top_right[3]={0.0,0.0,-5} , bot_left[3]={0.0,0.0,-5} , bot_right[3]={0.0,0.0,-5} ;
 
 

@@ -2,22 +2,22 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="12287" topLine="327" />
+		<Cursor position="2622" topLine="743" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
-		<Cursor position="457" topLine="0" />
+		<Cursor position="803" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="12165" topLine="239" />
+		<Cursor position="7363" topLine="261" />
 	</File>
 	<File name="controls.h" open="0" top="0" tabpos="11">
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="12970" topLine="345" />
+		<Cursor position="5999" topLine="156" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
-		<Cursor position="476" topLine="0" />
+		<Cursor position="1269" topLine="0" />
 	</File>
 	<File name="directory_sorting.cpp" open="1" top="0" tabpos="37">
 		<Cursor position="741" topLine="0" />
@@ -49,11 +49,17 @@
 	<File name="joystick.h" open="1" top="0" tabpos="25">
 		<Cursor position="0" topLine="20" />
 	</File>
+	<File name="jpegexiforient_embed.cpp" open="1" top="0" tabpos="39">
+		<Cursor position="5967" topLine="0" />
+	</File>
+	<File name="jpegexiforient_embed.h" open="1" top="0" tabpos="40">
+		<Cursor position="81" topLine="0" />
+	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="14671" topLine="403" />
+		<Cursor position="9645" topLine="213" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="1987" topLine="50" />
+		<Cursor position="1102" topLine="26" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="4093" topLine="76" />
@@ -61,8 +67,8 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="19707" topLine="30" />
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="19707" topLine="201" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="56" />
@@ -70,8 +76,8 @@
 	<File name="math_3d.h" open="1" top="0" tabpos="18">
 		<Cursor position="319" topLine="0" />
 	</File>
-	<File name="memory_hypervisor.cpp" open="1" top="1" tabpos="12">
-		<Cursor position="3005" topLine="63" />
+	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="2393" topLine="38" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="100" topLine="0" />

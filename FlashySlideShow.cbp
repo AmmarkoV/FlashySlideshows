@@ -65,6 +65,8 @@
 		<Unit filename="joystick.h" />
 		<Unit filename="jpegexiforient_embed.cpp" />
 		<Unit filename="jpegexiforient_embed.h" />
+		<Unit filename="layouts/basic_layout.cpp" />
+		<Unit filename="layouts/basic_layout.h" />
 		<Unit filename="load_images.cpp" />
 		<Unit filename="load_images.h" />
 		<Unit filename="load_textures.cpp" />

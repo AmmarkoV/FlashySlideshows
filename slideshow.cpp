@@ -147,6 +147,9 @@ void InitSlideShow()
    frame.transitions.seek_move_activated=0;
    frame.transitions.effect_move_activated=0;
 
+   frame.layout.layout_mode=0;
+   frame.layout.layout_to_be_applied=0;
+
    frame.effect_start_x=00.0;
    frame.effect_start_y=00.0;
    frame.effect_start_z=00.0;

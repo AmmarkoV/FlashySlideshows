@@ -20,7 +20,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_images.h"
 #include "jpegexiforient_embed.h"
 #include "memory_hypervisor.h"
-#include "directory_listing.h"
+#include "layouts/basic_layout.h"
+#include "load_images.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -156,7 +157,7 @@ int PrintPictureData(struct Picture * picturedata)
    if (!PrintPictureLoadingMsg()) { return 0; }
    fprintf(stderr,"_____________________________________\n");
    fprintf(stderr,"Directory list index : %u \n",picturedata->directory_list_index);
-   PrintDirectoryListItem(picturedata->directory_list_index);
+//   PrintDirectoryListItem(picturedata->directory_list_index);
    fprintf(stderr,"Image size : %ux%u:%u ratio %0.2f",picturedata->width,picturedata->height,picturedata->depth,(float)picturedata->width/picturedata->height);
    fprintf(stderr," OpenGL size : %0.2fx%0.2f ratio %0.2f",picturedata->position.size_x,picturedata->position.size_y,(float)picturedata->position.size_x/picturedata->position.size_y);
 
@@ -403,28 +404,7 @@ int PositionPicture(struct Picture * pic,unsigned int place)
 {
   if (pic==0) {return 0;}
 
-  unsigned int x,y;
-  if ( frame.images_per_line == 0 ) { return 0; }
-
-
-  PictureIDtoXY(&x,&y,place);
-
-  pic->position.ok=1;
-
-  pic->position.x=(x*14);
-  pic->position.x=pic->position.x-14;
-  pic->position.x=(-1)*pic->position.x;
-
-  pic->position.y=(y*12);
-  pic->position.y=pic->position.y-12;
-
-  pic->position.z=-5;
-
-  pic->position.heading=0;
-  pic->position.yaw=0;
-  pic->position.pitch=0;
-
-  return 1;
+  return HandlePictureLayout(pic,place);
 }
 
 
