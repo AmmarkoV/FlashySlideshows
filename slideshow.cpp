@@ -25,7 +25,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "transitions/basic_transition.h"
+#include "transitions/transition_handler.h"
 
 struct SlideShowData frame;
 

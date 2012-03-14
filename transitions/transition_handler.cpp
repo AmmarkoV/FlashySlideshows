@@ -1,4 +1,4 @@
-#include "basic_transition.h"
+#include "transition_handler.h"
 
 /*
   This is a basic transition handler for using a ZxN album like

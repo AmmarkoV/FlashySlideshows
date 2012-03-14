@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1331687042 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1331693359 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"jpegexiforient_embed.h"
 	"memory_hypervisor.h"
-	"layouts/basic_layout.h"
+	"layouts/layout_handler.h"
 	"load_images.h"
 	<stdlib.h>
 	<stdio.h>
@@ -105,7 +105,7 @@
 
 1331598588 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331689552 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1331693347 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -115,7 +115,7 @@
 	"visuals.h"
 	"environment.h"
 	"directory_listing.h"
-	"layouts/basic_layout.h"
+	"layouts/layout_handler.h"
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<GL/freeglut.h>
@@ -1331,7 +1331,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1331690546 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1331693965 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
@@ -1352,6 +1352,14 @@
 	"expo_layout.h"
 	"../slideshow.h"
 
-1331689082 /home/ammar/Documents/Programming/FlashySlideShow/layouts/expo_layout.h
+1331693369 /home/ammar/Documents/Programming/FlashySlideShow/layouts/expo_layout.h
 	"../load_images.h"
+
+1331693341 /home/ammar/Documents/Programming/FlashySlideShow/layouts/layout_handler.h
+	"../load_images.h"
+
+1331693316 source:/home/ammar/Documents/Programming/FlashySlideShow/layouts/layout_handler.cpp
+	"layout_handler.h"
+	"expo_layout.h"
+	"../slideshow.h"
 

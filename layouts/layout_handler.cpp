@@ -1,10 +1,12 @@
-#include "basic_layout.h"
+#include "layout_handler.h"
 #include "expo_layout.h"
 #include "../slideshow.h"
 
 /*
-  This is a basic layout handler for using a ZxN album like
-  album outline
+  This is the layout handler for albums
+  It is one of the few cases which should probably be implemented in an object oriented paradigm :P
+  BUT! :P
+
 */
 
 int HandleBasicPictureLayout(struct Picture * pic,unsigned int place)
@@ -71,14 +73,17 @@ char * GetLayoutName()
  return (char*) "Not set";
 }
 
+
+
+
 float GetLayoutMinimumX()
 {
-    return 0;
+    return -14.0*(frame.images_per_line-1)-4.0;
 }
 
 float GetLayoutMaximumX()
 {
-    return 0;
+    return 20;
 }
 
 
@@ -95,10 +100,10 @@ float GetLayoutMaximumY()
 
 float GetLayoutMinimumZ()
 {
-    return 0;
+    return -4.0;
 }
 
 float GetLayoutMaximumZ()
 {
-    return 0;
+    return 20;
 }

@@ -5,4 +5,4 @@
 
 int HandleExpoPictureLayout(struct Picture * pic,unsigned int place);
 
-#endif // BASIC_LAYOUT_H_INCLUDED
+#endif // EXPO_LAYOUT_H_INCLUDED

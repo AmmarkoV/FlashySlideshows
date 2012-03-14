@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_images.h"
 #include "jpegexiforient_embed.h"
 #include "memory_hypervisor.h"
-#include "layouts/basic_layout.h"
+#include "layouts/layout_handler.h"
 #include "load_images.h"
 #include <stdlib.h>
 #include <stdio.h>

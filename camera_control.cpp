@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "transitions/basic_transition.h"
+#include "transitions/transition_handler.h"
+#include "layouts/layout_handler.h"
 
 #include "slideshow.h"
 #include "camera_control.h"
@@ -755,11 +756,11 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
      CAMERA SAFE GUARD!
      -------------------------------------
   */
-   if ( frame.vz<=frame.distance_block_lower) { frame.vz=frame.distance_block_lower; frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
-   if ( frame.vz>=frame.distance_block_upper) { frame.vz=frame.distance_block_upper; frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
+   if ( frame.vz<=GetLayoutMinimumZ()) { frame.vz=GetLayoutMinimumZ(); frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
+   if ( frame.vz>=GetLayoutMaximumZ()) { frame.vz=GetLayoutMaximumZ(); frame.desired_z=frame.vz; } /* DO NOT ALLOW ANY CLOSER */
 
-   if ( frame.vx<=frame.distance_block_left)  { frame.vx=frame.distance_block_left;  frame.desired_x=frame.vx; } /* DO NOT ALLOW ANY LEFTER */
-   if ( frame.vx>=frame.distance_block_right) { frame.vx=frame.distance_block_right; frame.desired_x=frame.vx; } /* DO NOT ALLOW ANY RIGHTER */
+   if ( frame.vx<=GetLayoutMinimumX())  { frame.vx=GetLayoutMinimumX();  frame.desired_x=frame.vx; } /* DO NOT ALLOW ANY LEFTER */
+   if ( frame.vx>=GetLayoutMaximumX())  { frame.vx=GetLayoutMaximumX(); frame.desired_x=frame.vx; } /* DO NOT ALLOW ANY RIGHTER */
 
   /* -------------------------------------
      CAMERA ROUNDING ERROR CORRECTION

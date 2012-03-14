@@ -1,5 +1,5 @@
-#ifndef BASIC_LAYOUT_H_INCLUDED
-#define BASIC_LAYOUT_H_INCLUDED
+#ifndef LAYOUT_HANDLER_H_INCLUDED
+#define LAYOUT_HANDLER_H_INCLUDED
 
 #include "../load_images.h"
 
@@ -26,4 +26,4 @@ float GetLayoutMinimumZ();
 float GetLayoutMaximumZ();
 
 
-#endif // BASIC_LAYOUT_H_INCLUDED
+#endif // LAYOUT_HANDLER_H_INCLUDED

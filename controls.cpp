@@ -28,7 +28,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "environment.h"
 #include "directory_listing.h"
 
-#include "layouts/basic_layout.h"
+#include "layouts/layout_handler.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
