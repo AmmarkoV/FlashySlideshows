@@ -23,7 +23,7 @@ int HandleExpoPictureLayout(struct Picture * pic,unsigned int place)
   pic->position.y=(y*12);
   pic->position.y=pic->position.y-12;
 
-  pic->position.z=-5;
+  pic->position.z=rand()%5-5;
 
   pic->position.heading=rand()%20-10;
   pic->position.roll=rand()%20-10;

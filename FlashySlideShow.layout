@@ -20,16 +20,16 @@
 		<Cursor position="1269" topLine="0" />
 	</File>
 	<File name="directory_sorting.cpp" open="1" top="0" tabpos="34">
-		<Cursor position="741" topLine="0" />
+		<Cursor position="741" topLine="78" />
 	</File>
 	<File name="directory_transactions.cpp" open="1" top="0" tabpos="33">
-		<Cursor position="2984" topLine="48" />
+		<Cursor position="2984" topLine="174" />
 	</File>
-	<File name="environment.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="1738" topLine="48" />
+	<File name="environment.cpp" open="1" top="1" tabpos="28">
+		<Cursor position="9560" topLine="252" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
-		<Cursor position="533" topLine="0" />
+		<Cursor position="466" topLine="0" />
 	</File>
 	<File name="image_sensing.cpp" open="1" top="0" tabpos="20">
 		<Cursor position="2246" topLine="0" />
@@ -44,28 +44,28 @@
 		<Cursor position="0" topLine="20" />
 	</File>
 	<File name="jpegexiforient_embed.cpp" open="1" top="0" tabpos="36">
-		<Cursor position="5967" topLine="0" />
+		<Cursor position="5967" topLine="173" />
 	</File>
 	<File name="jpegexiforient_embed.h" open="1" top="0" tabpos="37">
 		<Cursor position="81" topLine="0" />
 	</File>
 	<File name="layouts/expo_layout.cpp" open="1" top="0" tabpos="38">
-		<Cursor position="239" topLine="0" />
+		<Cursor position="522" topLine="0" />
 	</File>
 	<File name="layouts/expo_layout.h" open="1" top="0" tabpos="39">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="layouts/layout_handler.cpp" open="1" top="1" tabpos="40">
-		<Cursor position="332" topLine="86" />
+	<File name="layouts/layout_handler.cpp" open="1" top="0" tabpos="40">
+		<Cursor position="910" topLine="16" />
 	</File>
 	<File name="layouts/layout_handler.h" open="1" top="0" tabpos="41">
 		<Cursor position="503" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="865" topLine="21" />
+		<Cursor position="8034" topLine="147" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
-		<Cursor position="1310" topLine="55" />
+		<Cursor position="960" topLine="13" />
 	</File>
 	<File name="load_textures.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="4093" topLine="76" />
@@ -74,7 +74,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6211" topLine="204" />
+		<Cursor position="21862" topLine="622" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="743" topLine="57" />
@@ -89,7 +89,7 @@
 		<Cursor position="100" topLine="0" />
 	</File>
 	<File name="pictures_control.cpp" open="1" top="0" tabpos="31">
-		<Cursor position="3499" topLine="80" />
+		<Cursor position="796" topLine="0" />
 	</File>
 	<File name="pictures_control.h" open="1" top="0" tabpos="32">
 		<Cursor position="194" topLine="0" />
@@ -122,7 +122,7 @@
 		<Cursor position="851" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="2712" topLine="9" />
+		<Cursor position="3567" topLine="81" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="425" topLine="0" />
@@ -146,7 +146,7 @@
 		<Cursor position="48" topLine="0" />
 	</File>
 	<File name="visuals/picture_renderer.cpp" open="1" top="0" tabpos="50">
-		<Cursor position="1673" topLine="0" />
+		<Cursor position="1693" topLine="47" />
 	</File>
 	<File name="visuals/picture_renderer.h" open="1" top="0" tabpos="51">
 		<Cursor position="73" topLine="0" />

@@ -241,7 +241,8 @@ char line[512];
 char command[512];
 sprintf(command,"lspci -v | sed -n '/VGA/,/^$/s,.* prefetchable.*size=\\(.\\+\\)].*,\\1,p'");
  FILE *fpipe;
-unsigned int gpu_texture_caps=64*1024*1024; //64MB Default
+unsigned int gpu_texture_caps=0;
+unsigned int gpu_accepted_texture_caps=16*1024*1024; //64MB Default
 
  if ( !(fpipe = (FILE*)popen(command,"r")) )
    {
@@ -274,6 +275,8 @@ unsigned int gpu_texture_caps=64*1024*1024; //64MB Default
                                           gpu_texture_caps=gpu_texture_caps * 1024 * 1024;
                                        }
 
+            if (gpu_accepted_texture_caps<gpu_texture_caps) { gpu_accepted_texture_caps=gpu_texture_caps; }
+
           } else
           {
             fprintf(stderr,"Erroneous string returned while quering for graphics card texture size\n");
@@ -281,7 +284,8 @@ unsigned int gpu_texture_caps=64*1024*1024; //64MB Default
        }
    }
  pclose(fpipe);
- return gpu_texture_caps;
+
+ return gpu_accepted_texture_caps;
 
 }
 

@@ -226,7 +226,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
 int GetJPEGExifOrientation(char * filename,struct Picture * pic)
 {
  unsigned int orientation = GetOrientationOfFile(filename);
- fprintf(stderr,"Got Orientation %u \n",orientation);
+ fprintf(stderr,"Got Orientation %u",orientation);
  pic->rotate=0; pic->mirror=0;
 
  /*            1        2       3      4       5            6           7          8
@@ -237,18 +237,19 @@ int GetJPEGExifOrientation(char * filename,struct Picture * pic)
               88          88      88  88
               88          88  888888  888888                                                        */
 
- if (orientation==0) { return 0; } else
- if (orientation==1) { fprintf(stderr,"Normal Orientation\n"); } else
- if (orientation==2) { fprintf(stderr,"Inverted , but Normal Orientation\n");  pic->mirror=1;  }else
- if (orientation==3) { fprintf(stderr,"Rotated 180 degs but Normal Orientation\n"); pic->rotate=180; pic->target_rotate=180; }else
- if (orientation==4) { fprintf(stderr,"Rotated 180 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=180; pic->target_rotate=180; }else
- if (orientation==5) { fprintf(stderr,"Rotated 270 degs but Inverted Orientation\n");  pic->mirror=1; pic->rotate=270; pic->target_rotate=270; }else
- if (orientation==6) { fprintf(stderr,"Rotated 270 degs but Normal Orientation\n"); pic->rotate=270; pic->target_rotate=270; }else
- if (orientation==7) { fprintf(stderr,"Rotated 90 degs but Inverted Orientation\n"); pic->mirror=1; pic->rotate=90; pic->target_rotate=90;  }else
- if (orientation==8) { fprintf(stderr,"Rotated 90 degs but Normal Orientation\n"); pic->rotate=90; pic->target_rotate=90; } else
-                     { return 0; }
+ if (orientation==0) {  } else
+ if (orientation==1) { fprintf(stderr," - Normal Orientation"); } else
+ if (orientation==2) { fprintf(stderr," - Inverted , but Normal Orientation");  pic->mirror=1;  }else
+ if (orientation==3) { fprintf(stderr," - Rotated 180 degs but Normal Orientation"); pic->rotate=180; pic->target_rotate=180; }else
+ if (orientation==4) { fprintf(stderr," - Rotated 180 degs but Inverted Orientation");  pic->mirror=1; pic->rotate=180; pic->target_rotate=180; }else
+ if (orientation==5) { fprintf(stderr," - Rotated 270 degs but Inverted Orientation");  pic->mirror=1; pic->rotate=270; pic->target_rotate=270; }else
+ if (orientation==6) { fprintf(stderr," - Rotated 270 degs but Normal Orientation"); pic->rotate=270; pic->target_rotate=270; }else
+ if (orientation==7) { fprintf(stderr," - Rotated 90 degs but Inverted Orientation"); pic->mirror=1; pic->rotate=90; pic->target_rotate=90;  }else
+ if (orientation==8) { fprintf(stderr," - Rotated 90 degs but Normal Orientation"); pic->rotate=90; pic->target_rotate=90; } else
+                     {  }
 
  pic->default_rotate=pic->rotate;
+ fprintf(stderr,"\n");
 
 return 1;
 }
