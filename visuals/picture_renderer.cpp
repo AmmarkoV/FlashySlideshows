@@ -52,7 +52,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
 
  if (frame.transitions.transition_mode==2)
-    { // AYTO EDW MALLON DEN PREPEI NA EINAI EDW <______
+    { // AYTO EDW MALLON DEN PREPEI NA EINAI EDW ALLA ALLOU DEN DOULEVEI :P<______
       glColor4f(1.0,1.0,1.0,pic->transparency);
     } else
     {
@@ -62,32 +62,21 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if ( pic->position.ok == 0 ) { PositionPicture(pic,place); }
 
   if (PictureCreationPending(pic)) { pic=loading; } else
-  if (PictureLoadingPending(pic)) {    pic=loading_texture; } else
+  if (PictureLoadingPending(pic))  { pic=loading_texture; } else
   if (PictureFailed(pic)) { pic=failed; } else
-  if ( pic->height == 0 ) {
-                             //fprintf(stderr,"Zero Height on this image %u !\n",pic->directory_list_index);
-                             //PrintDirectoryListItem(pic->directory_list_index);
-                             pic=failed;
-                           }
+  if ( pic->height == 0 ) { pic=failed; }
 
 
   if ( (pic!=loading_texture) && ( pic!=failed ) && ( pic!=loading ) ) { /* NORMAL PHOTO*/  } else
                                                                        { PositionPicture(pic,place); }
-
-
-
-
 
   glPushMatrix();
   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
   glEnable(GL_CULL_FACE);
 
 
- glTranslated(x,y,z);
-
-
+  glTranslated(x,y,z);
   float tx=0,ty=0,tz=0;
-// float tx=x,ty=y,tz=z;
 
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
@@ -97,13 +86,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
 
 
-  //if (!CameraOverPicture(place))
-  //{
- /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
+  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     DisplayFrame(pic,place,tx,ty,tz,size_x,size_y,heading,pitch,roll);
-
- /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+  /* DRAW PICTURE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
 
@@ -112,13 +97,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
   //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
   //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smaller than
-
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // good quality when image bigger than texture
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // good quality when image smaller than
-
-
-
-
 
    glBegin(GL_QUADS);
     glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
@@ -127,10 +107,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
     glTexCoord2f(0.0f, 1.0f); glVertex3f(tx+size_x,ty+size_y,tz);	// Top Right Of The Texture and Quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(tx-size_x,ty+size_y,tz);
    glEnd();
-
-
-
-  //}
 
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);

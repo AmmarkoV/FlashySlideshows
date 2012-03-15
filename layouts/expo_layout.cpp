@@ -1,5 +1,8 @@
 #include "expo_layout.h"
 #include "../slideshow.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 int HandleExpoPictureLayout(struct Picture * pic,unsigned int place)
 {
@@ -22,9 +25,9 @@ int HandleExpoPictureLayout(struct Picture * pic,unsigned int place)
 
   pic->position.z=-5;
 
-  pic->position.heading=0;
-  pic->position.yaw=0;
-  pic->position.pitch=0;
+  pic->position.heading=rand()%20-10;
+  pic->position.roll=rand()%20-10;
+  pic->position.pitch=rand()%20-10;
   return 1;
 }
 

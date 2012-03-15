@@ -110,9 +110,10 @@ void MainDisplayFunction()
                                album[album_traveler]->position.z,
                                album[album_traveler]->position.size_x,
                                album[album_traveler]->position.size_y,
-                               0,
-                               0,
-                               album[album_traveler]->rotate);
+                               album[album_traveler]->position.heading,
+                               album[album_traveler]->position.pitch,
+                               album[album_traveler]->position.roll + album[album_traveler]->rotate
+                             );
            }
 
 

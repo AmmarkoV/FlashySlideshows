@@ -37,7 +37,7 @@ int HandleBasicPictureLayout(struct Picture * pic,unsigned int place)
   pic->position.z=-5;
 
   pic->position.heading=0;
-  pic->position.yaw=0;
+  pic->position.roll=0;
   pic->position.pitch=0;
   return 1;
 }

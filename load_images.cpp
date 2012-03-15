@@ -359,7 +359,7 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->position.ok=0;
     new_picture->position.size_x=6;  new_picture->position.size_y=4.5;
     new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=0.0;
-    new_picture->position.heading=0.0; new_picture->position.yaw=0.0; new_picture->position.pitch=0.0;
+    new_picture->position.heading=0.0; new_picture->position.roll=0.0; new_picture->position.pitch=0.0;
 
   new_picture->time_viewed=0;
   new_picture->times_viewed=0;

@@ -29,7 +29,7 @@ struct Position3D
 {
   char ok;
   float x,y,z;
-  float heading,yaw,pitch;
+  float heading,roll,pitch;
   float size_x,size_y;
 };
 
