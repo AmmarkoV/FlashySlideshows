@@ -1,6 +1,9 @@
 Flashy Slide Show
------------------
+--------------
 
+Videos :
+http://www.youtube.com/watch?v=QwYI-nkeCIw
+http://www.youtube.com/watch?v=zBEPWMlduAY
 
 Screenshots :
 http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot1.jpg 
@@ -9,21 +12,22 @@ http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot3.
 http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.jpg 
 
 
-to compile the project open a terminal and run
+Compilation :
+To compile the project open a terminal and run
 ./make
 This will produce the executables ( FlashySlideShowStarterApp and bin/Release/FlashySlideShow )
 you can issue 
 ./FlashySlideShowStarterApp to start the application
 
 
-
+Installation :
 if you want to install the app , run 
 ./install.sh
 your password is required.. 
 This will add a shortcut on the applications list and the binaries FlashySlideShowStarterApp and FlashySlideShow ..
 
 
-
+Uninstallation :
 if you want to uninstall the app , run 
 ./uninstall.sh
 your password is required..  
@@ -32,8 +36,8 @@ your password is required..
 
 
 
-TODO LIST - THOUGHT DUMP :P
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+TODO LIST  
+--------------
 * Improve code structure
 
 * Add save functionality for remembering settings..
@@ -50,11 +54,6 @@ TODO LIST - THOUGHT DUMP :P
 
 * Implement image_sensing.cpp
 
-* Improve sound.cpp
-
-DONE
->>>>>>>>>>>>
-
------------------
+* Improve sound.cpp 
 
 
