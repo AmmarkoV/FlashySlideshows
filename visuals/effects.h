@@ -5,7 +5,6 @@ void RenderPictureWiggling(struct Picture * pic,unsigned int place,float x,float
 void PerformWiggling();
 
 
-
 void InitEffects();
 
 #endif // EFFECTS_H_INCLUDED

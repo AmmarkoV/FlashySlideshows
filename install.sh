@@ -54,9 +54,14 @@ fi
   sudo chmod 744 /usr/share/flashyslideshows/app_clipart/*  
   sudo chmod 744 /usr/share/flashyslideshows/app_clipart/*  
   
-  TIME_STAMP=`date` 
-  sudo  touch /usr/share/flashyslideshows/install_time
-  echo "$TIME_STAMP" | sudo cat >> /usr/share/flashyslideshows/install_time
+  TIME_STAMP=`date`
+  
+  touch flashyslideshows_install_time
+  echo "$TIME_STAMP" >> flashyslideshows_install_time
+  
+  #sudo  touch /usr/share/flashyslideshows/install_time
+  #echo "$TIME_STAMP" | sudo cat >> /usr/share/flashyslideshows/install_time
+  
   #sudo echo "$TIME_STAMP" >> /usr/share/flashyslideshows/install_time
 
 

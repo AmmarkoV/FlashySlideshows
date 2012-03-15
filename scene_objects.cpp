@@ -22,9 +22,92 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <stdio.h>
 
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#include <GL/freeglut.h>
+#include <GL/glu.h>
+#endif
+
 
  struct SceneObject objects[MAX_SCENE_OBJECTS]; //={0}
  unsigned int existing_objects=0;
+
+
+void DrawObject(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type,char * text)
+{
+  glPushMatrix();
+  glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+  glEnable(GL_NORMALIZE);
+  glEnable(GL_LINE_SMOOTH);
+
+
+  glTranslated(x,y,z);
+  if ( rotation!=0 )    { glRotated(rotation,0.0,0.0,1.0); }
+
+
+if ( decal_type != 0 )
+{ //Decal type zero may only have text :P
+
+  glDisable(GL_CULL_FACE);
+  glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
+  glEnable ( GL_TEXTURE_2D );
+ /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+ glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+  if ( decal_type == 1 )  glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); else
+  if ( decal_type == 2 )  glBindTexture(GL_TEXTURE_2D, star->gl_rgb_texture ); else
+  if ( decal_type == 3 )  glBindTexture(GL_TEXTURE_2D, play_img->gl_rgb_texture ); else
+  if ( decal_type == 4 )  glBindTexture(GL_TEXTURE_2D, pause_img->gl_rgb_texture ); else
+  if ( decal_type == 5 )  glBindTexture(GL_TEXTURE_2D, label->gl_rgb_texture ); else
+                          glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); /* DEFAULT */
+   glBegin(GL_QUADS);
+    glColor3f(1.0,1.0,1.0);
+     float size_x=width,size_y=height;
+     float xmin=(-1)*size_x/2,xmax=size_x/2,ymin=(-1)*size_y/2,ymax=size_y/2;
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0+xmin,0+ymin,0/*-4.1*/);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(0+xmax,0+ymin,0/*-4.1*/);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(0+xmax,0+ymax,0/*-4.1*/);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0+xmin,0+ymax,0/*-4.1*/);
+   glEnd();
+  glDisable ( GL_TEXTURE_2D );
+  glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_CULL_FACE);
+  glDisable(GL_BLEND);
+}
+
+
+  if (text!=0)
+    {
+      glColor3f(1.0,1.0,1.0);
+      glDisable( GL_LIGHTING );
+      glRasterPos3f(width/2,0,0.1);
+      //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)text);
+        glPushMatrix();
+         glRotated(180,0.0,0.0,1.0);
+         glTranslated(-10,0,0);
+         glLineWidth(3.0);
+         static GLfloat f = 1.0/110;
+         glScalef( f, f, f );
+         glutStrokeString(GLUT_STROKE_ROMAN,(const unsigned char*)text); //GLUT_STROKE_ROMAN GLUT_STROKE_MONO_ROMAN
+         glScalef( 1/f, 1/f, 1/f );
+         glLineWidth(1.0);
+         glTranslated(0,0,0);
+         glRotated(-180,0.0,0.0,1.0);
+        glPopMatrix();
+
+      glEnable( GL_LIGHTING );
+    }
+
+
+
+  if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
+  glTranslated(-x,-y,-z);
+  glDisable(GL_LINE_SMOOTH);
+  glDisable(GL_NORMALIZE);
+  glPopMatrix();
+}
+
 
 
 unsigned int Render_3DObject(unsigned int objnum)
@@ -32,7 +115,7 @@ unsigned int Render_3DObject(unsigned int objnum)
   char * iffed_label=0;
   if ( objects[objnum].has_label!= 0 ) { iffed_label = objects[objnum].label; }
 
-  DrawDecal(
+  DrawObject(
              objects[objnum].position.x,
              objects[objnum].position.y,
              objects[objnum].position.z,
@@ -150,6 +233,47 @@ unsigned int Delete_All3DObjectsOfShape(unsigned int shape)
 
   return 1;
 }
+
+
+int CreateObjectFountain(unsigned int stock_image)
+{
+  float size,speed_x,speed_y;
+  float x=album[frame.active_image_place]->position.x;
+  float y=album[frame.active_image_place]->position.y;
+  float z=album[frame.active_image_place]->position.z+1;
+
+
+  unsigned int i=0;
+  unsigned int mem=0;
+   for (i=0; i<25; i++)
+    {
+        size=0.01;
+        size+=(float) 0.15*(rand()%20);
+        mem=Add_3DObject(x,y,z+0.25*i,size,size,stock_image,1000000);
+
+        speed_x = (float) 60-rand()%120;
+        speed_y = (float) 60-rand()%120;
+
+        objects[mem].velocity.x=0.0001*speed_x;
+        if (objects[mem].velocity.x<0) { objects[mem].velocity.x-=0.05;} else
+                                       { objects[mem].velocity.x+=0.05;}
+        objects[mem].velocity.y=0.001*speed_y;
+        if (objects[mem].velocity.y<0) { objects[mem].velocity.y-=0.05;} else
+                                       { objects[mem].velocity.y+=0.05;}
+
+
+        objects[mem].rotation_velocity.z=1+rand()%2;
+    }
+
+
+  return 1;
+}
+
+
+
+
+
+
 
 void Run3DObjects(unsigned int microseconds)
 {

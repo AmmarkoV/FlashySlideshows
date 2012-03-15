@@ -1,6 +1,7 @@
 #include "layout_handler.h"
 #include "expo_layout.h"
 #include "../slideshow.h"
+#include "../visuals/background.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -10,6 +11,11 @@
   BUT! :P
 
 */
+
+// Some layout ideas
+// http://www.youtube.com/watch?v=iDnRjOSslsg
+// http://www.youtube.com/watch?v=9gTeMcfRoAI
+// http://www.youtube.com/watch?v=cLdjn91WSM8
 
 int HandleBasicPictureLayout(struct Picture * pic,unsigned int place)
 {
@@ -37,8 +43,6 @@ int HandleBasicPictureLayout(struct Picture * pic,unsigned int place)
 }
 
 
-
-
 int HandlePictureLayout(struct Picture * pic,unsigned int place)
 {
   switch (frame.layout.layout_mode)
@@ -56,6 +60,7 @@ int HandleLayout()
 
   return 0;
 }
+
 
 int ChangeLayout()
 {
@@ -119,3 +124,10 @@ float GetLayoutMaximumZ()
 {
     return 20;
 }
+
+int DrawLayoutBackground()
+{
+  DrawSimple2DBackground();
+  return 0;
+}
+

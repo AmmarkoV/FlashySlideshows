@@ -1,7 +1,6 @@
 #ifndef VISUALS_H_INCLUDED
 #define VISUALS_H_INCLUDED
 
-int DisplayPicture(struct Picture * pic,float x,float y,float z,float heading,float pitch,float roll);
 void DisplayHUD(unsigned int view_instructions);
 void MainDisplayFunction();
 void DrawBackground();
@@ -16,7 +15,6 @@ void InitEffects();
 
 int NewLabel(float x,float y,char * text);
 
-int StaryFountain(unsigned int stock_image);
 
 extern unsigned int ENABLE_WIGGLING;
 #endif // VISUALS_H_INCLUDED

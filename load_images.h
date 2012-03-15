@@ -35,23 +35,16 @@ struct Position3D
 
 struct Picture
 {
-
-
-  unsigned int height;
-  unsigned int width;
-  unsigned int depth;
+  unsigned int height,width,depth;
 
   unsigned char is_jpeg;
-  unsigned int mirror;
-  float default_rotate;
-  float rotate;
-  float target_rotate;
+  unsigned char mirror;
 
-  float transparency; /* 0.0 -> 1.0 */
-  float target_transparency; /* 0.0 -> 1.0 */
+  float default_rotate,rotate,target_rotate;
 
-  unsigned int time_viewed;
-  unsigned int times_viewed;
+  float transparency , target_transparency; /* 0.0 -> 1.0 */
+
+  unsigned int time_viewed,times_viewed;
 
   unsigned int failed_to_load;
   unsigned char thumbnail_texture_loaded;

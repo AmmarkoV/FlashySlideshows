@@ -25,6 +25,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "pictures_control.h"
 #include "controls.h"
 #include "visuals.h"
+#include "scene_objects.h"
 #include "environment.h"
 #include "directory_listing.h"
 
@@ -257,10 +258,10 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
                   NewLabel(frame.desired_x,frame.desired_y,(char *) "Reset Camera to center..!");
                   break;
 
-        case 'u': StaryFountain(2); /*"PARTICLE" EFFECT*/ break;
-        case 'i': StaryFountain(3); /*"PARTICLE" EFFECT*/ break;
-        case 'k': StaryFountain(6); /*"PARTICLE" EFFECT*/ break;
-        case 'j': StaryFountain(5); /*"PARTICLE" EFFECT*/ break;
+        case 'u': CreateObjectFountain(2); /*"PARTICLE" EFFECT*/ break;
+        case 'i': CreateObjectFountain(3); /*"PARTICLE" EFFECT*/ break;
+        case 'k': CreateObjectFountain(6); /*"PARTICLE" EFFECT*/ break;
+        case 'j': CreateObjectFountain(5); /*"PARTICLE" EFFECT*/ break;
 
 
         case 'q': RotatePictureLeft(); break;
@@ -298,7 +299,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
                   NewLabel(frame.desired_x,frame.desired_y,(char *) label);
                   break; //PAGE DOWN
 
-        case 'b': PickHoverEffect(frame.active_image_x,frame.active_image_y); break;
+        case 'b':  break;
 
        default : nokey=1;
             break;

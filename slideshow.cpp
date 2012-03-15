@@ -31,7 +31,7 @@ struct SlideShowData frame;
 
 unsigned int time_passed_microseconds=0;
 
-unsigned int ALBUM_SIZE=10000;
+unsigned int ALBUM_SIZE=0;
 struct Picture ** album=0;
 
 struct Point3D up_left={3.6,-2.8,-3.4};

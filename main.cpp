@@ -37,6 +37,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "scene_objects.h"
 #include "version.h"
 
+#include "visuals/hud.h"
+
 #include <unistd.h>
 
 #include <sys/time.h>

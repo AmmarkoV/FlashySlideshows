@@ -429,100 +429,6 @@ int MoveToPicture(unsigned int direction)
    return 0;
 }
 
-
-void SetDestinationOverPicture_HoverEffect(unsigned int x,unsigned int y,unsigned int position_start,unsigned int position_end)
-{
-   SetDestinationOverPicture(x,y);
-
-   switch (position_start)
-   {
-        case FRAME_UP_LEFT :
-        frame.effect_start_x=up_left.x;
-        frame.effect_start_y=up_left.y;
-        frame.effect_start_z=up_left.z;
-        break;
-
-        case FRAME_UP_RIGHT :
-        frame.effect_start_x=up_right.x;
-        frame.effect_start_y=up_right.y;
-        frame.effect_start_z=up_right.z;
-        break;
-
-        case FRAME_DOWN_LEFT :
-        frame.effect_start_x=down_left.x;
-        frame.effect_start_y=down_left.y;
-        frame.effect_start_z=down_left.z;
-        break;
-
-        case FRAME_DOWN_RIGHT :
-        frame.effect_start_x=down_right.x;
-        frame.effect_start_y=down_right.y;
-        frame.effect_start_z=down_right.z;
-        break;
-
-        default :
-        fprintf(stderr,"Incorrect position :S \n");
-        frame.effect_start_x=frame.vx;
-        frame.effect_start_y=frame.vy;
-        frame.effect_start_z=frame.vz;
-        break;
-   };
-
-
-      switch (position_end)
-   {
-        case FRAME_UP_LEFT :
-        frame.effect_end_x=up_left.x;
-        frame.effect_end_y=up_left.y;
-        frame.effect_end_z=up_left.z;
-        break;
-
-        case FRAME_UP_RIGHT :
-        frame.effect_end_x=up_right.x;
-        frame.effect_end_y=up_right.y;
-        frame.effect_end_z=up_right.z;
-        break;
-
-        case FRAME_DOWN_LEFT :
-        frame.effect_end_x=down_left.x;
-        frame.effect_end_y=down_left.y;
-        frame.effect_end_z=down_left.z;
-        break;
-
-        case FRAME_DOWN_RIGHT :
-        frame.effect_end_x=down_right.x;
-        frame.effect_end_y=down_right.y;
-        frame.effect_end_z=down_right.z;
-        break;
-
-        default :
-        fprintf(stderr,"Incorrect position :S \n");
-        frame.effect_end_x=frame.vx;
-        frame.effect_end_y=frame.vy;
-        frame.effect_end_z=frame.vz;
-        break;
-   };
-
-        frame.transitions.effect_move_activated=1; /* ACTIVATE START Coords */
-
-        frame.effect_start_x=frame.desired_x+frame.effect_start_x;
-        frame.effect_start_y=frame.desired_y+frame.effect_start_y;
-        frame.effect_start_z=frame.desired_z+frame.effect_start_z;
-
-        frame.effect_end_x=frame.desired_x+frame.effect_end_x;
-        frame.effect_end_y=frame.desired_y+frame.effect_end_y;
-        frame.effect_end_z=frame.desired_z+frame.effect_end_z;
-}
-
-void PickHoverEffect(unsigned int x,unsigned int y)
-{
-  unsigned int start,end;
-  start=rand()%4;
-  end=rand()%4;
-  SetDestinationOverPicture_HoverEffect(x,y,start,end);
-}
-
-
 void SetDestinationOverNextPicture()
 {
    unsigned int new_active_picture=frame.active_image_place+1;
@@ -539,16 +445,7 @@ void SetDestinationOverNextPicture()
                                                       fprintf(stderr,"No change made after set destination over next picture\n");
                                                     } else
                                                     {
-                                                       MoveToPicture(D_RIGHT); // Reduce Code Surface
-                                                       /* The following is buggy :P
-                                                       unsigned int new_active_x;
-                                                       unsigned int new_active_y;
-                                                       PictureIDtoXY(&new_active_x,&new_active_y,new_active_picture);
-                                                       //There is a next picture :) , we`re gonna change to it
-                                                       fprintf(stderr,"New active picture is %u / %u \n ",new_active_picture, frame.total_images);
-                                                       SetDestinationOverPicture(new_active_x,new_active_y);
-                                                       fprintf(stderr,"Picture new destination %u/%u -> %u/%u \n ",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
-                                                       */
+                                                       MoveToPicture(D_RIGHT);
                                                     }
 }
 
@@ -606,7 +503,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
    /*
        THE IDEA IS THE FOLLOWING
-       We have to 3d states the desired coordinates ( desired_x , desired_y , desired_z )
+       We have the 3d states  of the desired coordinates ( desired_x , desired_y , desired_z )
        and the current render coordinates ( vx , vy , vz )
 
        We need to make a smooth transition to the desired coordinates from the current coordinates
@@ -766,17 +663,3 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
      know where we are headed*/
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
