@@ -88,7 +88,7 @@ unsigned int GetHeightQuality(unsigned int quality)
 }
 
 
-unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
+float PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height)
 {
   unsigned int best_height = GetHeightQuality(frame.quality_setting);
   unsigned int best_width = GetWidthQuality(frame.quality_setting);
@@ -97,14 +97,26 @@ unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start
        (start_height<frame.gpu.maximum_frame_dimension_size) )
           {   if ( ( start_width < best_width ) && (start_height < best_height) ) { return 100; }  }
 
-  float ratio_width=start_width/best_width;
-  float ratio_height=start_height/best_height;
+  float ratio_width=(float)start_width/best_width;
+  float ratio_height=(float)start_height/best_height;
 
-  unsigned int scale_percentage=40;
+  float scale_percentage=30;
 
   if (( ratio_width==0 ) | ( ratio_height==0 )) {  } else
-  if ( ratio_width < ratio_height ) { scale_percentage=(float) 100/ratio_width; } else
+  if ( ratio_width < ratio_height ) { scale_percentage=(float) 100/ratio_width;  } else
                                     { scale_percentage=(float) 100/ratio_height; }
+
+  if ( frame.gpu.maximum_frame_dimension_size < (start_width  * scale_percentage / 100) )
+    {
+        ratio_width=(float)start_width/(frame.gpu.maximum_frame_dimension_size-1);
+        scale_percentage=(float) 100/ratio_width;
+    }
+
+  if ( frame.gpu.maximum_frame_dimension_size < (start_height  * scale_percentage / 100) )
+    {
+        ratio_height=(float)start_height/(frame.gpu.maximum_frame_dimension_size-1);
+        scale_percentage=(float) 100/ratio_height;
+    }
   return scale_percentage;
 }
 
