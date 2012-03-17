@@ -154,8 +154,9 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxQuality->Append(_("Very Low"));
     ComboBoxQuality->Append(_("Low"));
     ComboBoxQuality->SetSelection( ComboBoxQuality->Append(_("Medium")) );
-    ComboBoxQuality->Append(_("Very High"));
+    ComboBoxQuality->Append(_("Good"));
     ComboBoxQuality->Append(_("High"));
+    ComboBoxQuality->Append(_("Very High"));
     ComboBoxQuality->Append(_("Ultra"));
     CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(456,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
     CheckBoxMipmap->SetValue(false);

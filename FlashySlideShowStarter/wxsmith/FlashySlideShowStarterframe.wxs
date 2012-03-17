@@ -111,8 +111,9 @@
 				<item>Very Low</item>
 				<item>Low</item>
 				<item>Medium</item>
-				<item>Very High</item>
+				<item>Good</item>
 				<item>High</item>
+				<item>Very High</item>
 				<item>Ultra</item>
 			</content>
 			<selection>2</selection>

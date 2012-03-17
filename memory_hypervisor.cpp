@@ -221,6 +221,11 @@ int UnLoadPicturesIfNeeded()
   fprintf(stderr,"Unload pictures 1 ");
   while (album_traveler<MAX_album_traveler)
    {
+     /*In case the other thread has moved focus , adapt on the fly --*/
+       if (MAX_album_traveler<MinPictureThatIsVisible()) { MAX_album_traveler=MinPictureThatIsVisible(); }
+     /*-----------------------------------------------------------*/
+
+
     if ((!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size) ) || ( SignalGPUFull ) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )
@@ -242,6 +247,10 @@ int UnLoadPicturesIfNeeded()
   fprintf(stderr,"Unload pictures 2 ");
   while ((album_traveler>MIN_album_traveler) && (album_traveler>0) )
    {
+     /*In case the other thread has moved focus , adapt on the fly --*/
+       if (album_traveler<=MaxPictureThatIsVisible()) { return unloaded_textures_this_loop; }
+     /*-----------------------------------------------------------*/
+
     if ( (!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size) )|| ( SignalGPUFull ) )
     {
        if ( PictureTextureLoaded(album[album_traveler]) )

@@ -122,8 +122,14 @@ int ManageCreatingTextures(int count_only)
   unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
   unsigned int album_traveler=MinPictureThatIsVisible();
 
-  for ( album_traveler=0; album_traveler<=MAX_album_traveler; album_traveler++)
+  while (album_traveler<=MAX_album_traveler)
    {
+     /*In case the other thread has moved focus , adapt on the fly --*/
+       if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
+       if (album_traveler>MaxPictureThatIsVisible()) { return count; }
+     /*-----------------------------------------------------------*/
+
+
      if ( //PictureLoadedOpenGLTexturePending(album[album_traveler]) not using this for perfromance reasons..!
           album[album_traveler]->marked_for_texture_loading
         )
@@ -148,6 +154,8 @@ int ManageCreatingTextures(int count_only)
               }
           }
         }
+
+      ++album_traveler;
    }
 
   return count;
