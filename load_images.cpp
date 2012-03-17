@@ -93,8 +93,10 @@ unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start
   unsigned int best_height = GetHeightQuality(frame.quality_setting);
   unsigned int best_width = GetWidthQuality(frame.quality_setting);
 
+  if ( (best_width<frame.gpu.maximum_frame_dimension_size) &&
+       (best_height<frame.gpu.maximum_frame_dimension_size) )
+          {   if ( ( start_width < best_width ) && (start_height < best_height) ) { return 100; }  }
 
-  if ( ( start_width < best_width ) && (start_height < best_height) ) { return 100; }
   float ratio_width=start_width/best_width;
   float ratio_height=start_height/best_height;
 
