@@ -47,6 +47,11 @@ struct GPU_Data
   unsigned long usedRAM;
   unsigned long maximum_frame_total_size;
   unsigned int  maximum_frame_dimension_size;
+
+
+  unsigned int  contiguous_block_of_textures_loaded;
+  unsigned int  contiguous_block_start;
+  unsigned int  contiguous_block_end;
 };
 
 struct System_Data

@@ -169,6 +169,9 @@ void InitSlideShow()
    frame.gpu.maxRAM=256 * 1024 * 1024;
    frame.gpu.maxTexture=1024; /* MAX TEXTURE DIMENSION , will be updated*/
    frame.gpu.lastTexture=0;
+   frame.gpu.contiguous_block_of_textures_loaded=0;
+   frame.gpu.contiguous_block_start=0;
+   frame.gpu.contiguous_block_end=0
 
    /* SYSTEM DATA */
    frame.system.usedRAM=0;

@@ -111,11 +111,12 @@ int ManageCreatingTextures(int count_only)
   /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
      FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread
   */
-  unsigned int count=0,i=0;
+  unsigned int fail_count=0,count=0,i=0;
 
    struct timeval start_creating_textures,now,difference;
 
   gettimeofday(&start_creating_textures,0x0);
+
   UnLoadPicturesIfNeeded();
   for ( i=0; i<frame.total_images; i++)
    {
@@ -127,6 +128,7 @@ int ManageCreatingTextures(int count_only)
             if ( !make_texture(album[i],frame.mipmaping) )
               {
                 //Failed making the texture , ( and picture was loaded correctly .. ! )
+                ++fail_count;
               }
           }
         }
