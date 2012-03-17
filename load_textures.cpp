@@ -156,7 +156,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);                      // GL_RGB
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
       error_num=glGetError();
-      if  ( error_num!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); printoutOGLErr(error_num); return 0; }
+      if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u",picturedata->width,picturedata->height,depth_flag); return 0; }
    } else
    {
       /* LOADING TEXTURE --WITHOUT-- MIPMAPING - IT IS LOADED RAW*/
@@ -168,7 +168,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);                       //GL_RGB
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE,(const GLvoid *) rgba_data);
       error_num=glGetError();
-      if  ( error_num!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); printoutOGLErr(error_num); return 0; }
+      if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u",picturedata->width,picturedata->height,depth_flag); return 0; }
    }
 
 /* RGBA Software conversion for debugging :p HAS A PREVIOUS PART
