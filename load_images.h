@@ -36,6 +36,7 @@ struct Position3D
 struct Picture
 {
   unsigned int height,width,depth;
+  unsigned int initial_height,initial_width;
 
   unsigned char is_jpeg;
   unsigned char mirror;

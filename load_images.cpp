@@ -68,7 +68,7 @@ unsigned int GetWidthQuality(unsigned int quality)
 
   };
 
-  if ( frame.gpu.maximum_frame_dimension_size<chosen_width )
+  if ( frame.gpu.maximum_frame_dimension_size<=chosen_width )
     {  //Make sure graphics card can take it..
         chosen_width=frame.gpu.maximum_frame_dimension_size-1;
     }
@@ -79,7 +79,7 @@ unsigned int GetWidthQuality(unsigned int quality)
 unsigned int GetHeightQuality(unsigned int quality)
 {
   unsigned int chosen_height=GetWidthQuality(quality)*3/4;
-  if ( frame.gpu.maximum_frame_dimension_size<chosen_height )
+  if ( frame.gpu.maximum_frame_dimension_size<=chosen_height )
     {  //Make sure graphics card can take it..
         chosen_height=frame.gpu.maximum_frame_dimension_size-1;
     }
@@ -93,8 +93,8 @@ unsigned int PickPictureRescaleRatio(unsigned int start_width,unsigned int start
   unsigned int best_height = GetHeightQuality(frame.quality_setting);
   unsigned int best_width = GetWidthQuality(frame.quality_setting);
 
-  if ( (best_width<frame.gpu.maximum_frame_dimension_size) &&
-       (best_height<frame.gpu.maximum_frame_dimension_size) )
+  if ( (start_width<frame.gpu.maximum_frame_dimension_size) &&
+       (start_height<frame.gpu.maximum_frame_dimension_size) )
           {   if ( ( start_width < best_width ) && (start_height < best_height) ) { return 100; }  }
 
   float ratio_width=start_width/best_width;
@@ -272,6 +272,8 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
 
  unsigned int width = new_img.GetWidth();
  unsigned int height = new_img.GetHeight();
+ pic->initial_width=width;
+ pic->initial_height=height;
  unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
 
  width  = (unsigned int) (width  * rescale_ratio / 100);
@@ -296,8 +298,10 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
        if ( PreparePictureForImage(pic,width,height,3) == 0 ) { fprintf(stderr,"PreparePictureForImage could not prepare memory! \n"); return 0; }
        /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
- memcpy(pic->rgb_data,data,width*height*3);
 
+ memcpy(pic->rgb_data,data,width*height*3);
+ pic->width=width;   // Width has been changed!
+ pic->height=height; // Height has been changed!
  return 1;
 }
 
@@ -357,6 +361,7 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->directory_list_index=0;
 
     new_picture->height=0,new_picture->width=0,new_picture->depth=0;
+    new_picture->initial_width=0,new_picture->initial_height=0;
 
     new_picture->mirror=0;
 
