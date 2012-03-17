@@ -643,6 +643,9 @@ int main(int argc, char *argv[])
    fprintf(stderr,"Renderer : %s\n",(const char *)glGetString(GL_RENDERER));
    fprintf(stderr,"Version : %s\n",(const char *)glGetString(GL_VERSION));
    //fprintf(stderr,"Extensions : %s\n",(const char *)glGetString(GL_EXTENSIONS));
+    fprintf(stderr,"Maximum Texture Dimension Size is %u\n",(unsigned int) texSize);
+    frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+
    frame.gpu.maxRAM=GetGraphicsCardMemory();
    fprintf(stderr,"Software GPU texture limit set to %u MB\n",(unsigned int)frame.gpu.maxRAM/(1024*1024));
    frame.system.maxRAM=GetSystemFreeMemory();

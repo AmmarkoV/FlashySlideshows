@@ -87,10 +87,11 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
 
     glEnable(GL_TEXTURE_2D);
-    GLint texSize=0;
-    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
-    if (PrintOpenGLDebugMsg()) fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
-    frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+
+    //GLint texSize=0;
+    //glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+    //if (PrintOpenGLDebugMsg()) fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
+    //frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
 
     PrintDirectoryListItem(picturedata->directory_list_index);
 
