@@ -84,8 +84,9 @@ void InitSlideShow()
 
    frame.quality_setting=4; // Medium Quality
    frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
-   frame.gpu.maximum_frame_total_size*=3; // <- Safety Factor
-   frame.gpu.maximum_frame_dimension_size=1024;
+   //frame.gpu.maximum_frame_total_size*=3; // <- Safety Factor
+
+   frame.gpu.maximum_frame_dimension_size=512;
 
 
    frame.enable_sound_effects=0;

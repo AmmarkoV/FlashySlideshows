@@ -54,6 +54,7 @@ struct System_Data
   unsigned long maxRAM;
   unsigned long lastTexture;
   unsigned long usedRAM;
+  unsigned long maximum_frame_total_size;
 };
 
 struct Effects_Data

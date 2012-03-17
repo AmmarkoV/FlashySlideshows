@@ -63,6 +63,8 @@ unsigned int GetWidthQuality(unsigned int quality)
     case 5: chosen_width=1152; break;
     case 6: chosen_width=1600; break;
     case 7: chosen_width=1920; break;
+    case 8: chosen_width=2048; break;
+    case 9: chosen_width=2560; break;
 
   };
 

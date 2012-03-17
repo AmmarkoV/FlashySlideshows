@@ -69,7 +69,32 @@ void software_add_alpha_channel(char * inbuf,char * outbuf,unsigned int width,un
    }
 }
 
+int printoutOGLErr(unsigned int errnum)
+{
+  switch (errnum)
+  {
+     case GL_NO_ERROR          : fprintf(stderr,"No Error\n"); break;
+     case GL_INVALID_ENUM      : fprintf(stderr,"An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag.\n");  break;
+     case GL_INVALID_VALUE     : fprintf(stderr,"A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+     case GL_INVALID_OPERATION : fprintf(stderr,"The specified operation is not allowed in the current state.The offending command is ignored and has no other side effect than to set the error flag.\n");  break;
+     case GL_STACK_OVERFLOW    : fprintf(stderr,"This command would cause a stack overflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+     case GL_STACK_UNDERFLOW   : fprintf(stderr,"This command would cause a stack underflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+     case GL_OUT_OF_MEMORY     : fprintf(stderr,"There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded. \n");  break;
+     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+  };
+  return 1;
+}
 
+
+int refresh_max_texture_dimension()
+{
+  GLint texSize=0;
+  glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+  if (PrintOpenGLDebugMsg()) fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
+  frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+
+  return frame.gpu.maximum_frame_dimension_size;
+}
 
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
@@ -88,22 +113,17 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
     glEnable(GL_TEXTURE_2D);
 
-    //GLint texSize=0;
-    //glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
-    //if (PrintOpenGLDebugMsg()) fprintf(stderr,"Maximum Texture Size is %u for ",(unsigned int) texSize);
-    //frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+     PrintDirectoryListItem(picturedata->directory_list_index);
 
-    PrintDirectoryListItem(picturedata->directory_list_index);
+     GLuint new_tex_id=0;
+     if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Generating new Texture \n");
+     glGenTextures(1,&new_tex_id);
+     if ( complain_about_errors() ) { return 0; }
 
-    GLuint new_tex_id=0;
-    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Generating new Texture \n");
-    glGenTextures(1,&new_tex_id);
-    if ( complain_about_errors() ) { return 0; }
-
-    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Binding new Texture \n");
-    glBindTexture(GL_TEXTURE_2D,new_tex_id);
-    if ( complain_about_errors() ) { return 0; }
-    glFlush();
+     if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Binding new Texture \n");
+     glBindTexture(GL_TEXTURE_2D,new_tex_id);
+     if ( complain_about_errors() ) { return 0; }
+     glFlush();
 
     picturedata->gl_rgb_texture=new_tex_id;
 
@@ -123,6 +143,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
        fprintf(stderr,"Using Alpha texture conversion\n");
       }
 */
+  unsigned int error_num=0;
 
   if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
    {
@@ -134,7 +155,8 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);                      // GL_RGB
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
-      if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
+      error_num=glGetError();
+      if  ( error_num!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); printoutOGLErr(error_num); return 0; }
    } else
    {
       /* LOADING TEXTURE --WITHOUT-- MIPMAPING - IT IS LOADED RAW*/
@@ -145,7 +167,8 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);                       //GL_RGB
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE,(const GLvoid *) rgba_data);
-      if  ( glGetError()!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); return 0; }
+      error_num=glGetError();
+      if  ( error_num!=0 ) { fprintf(stderr,"No GPU memory availiable! \n"); printoutOGLErr(error_num); return 0; }
    }
 
 /* RGBA Software conversion for debugging :p HAS A PREVIOUS PART
