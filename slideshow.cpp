@@ -83,6 +83,8 @@ void InitSlideShow()
    frame.transitions.transition_mode=0;
 
    frame.quality_setting=4; // Medium Quality
+   frame.try_for_best_render_quality=0;
+
    frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
    //frame.gpu.maximum_frame_total_size*=3; // <- Safety Factor
 
@@ -171,7 +173,7 @@ void InitSlideShow()
    frame.gpu.lastTexture=0;
    frame.gpu.contiguous_block_of_textures_loaded=0;
    frame.gpu.contiguous_block_start=0;
-   frame.gpu.contiguous_block_end=0
+   frame.gpu.contiguous_block_end=0;
 
    /* SYSTEM DATA */
    frame.system.usedRAM=0;

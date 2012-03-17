@@ -124,6 +124,7 @@ struct SlideShowData
   struct LayoutState layout;
 
   unsigned int quality_setting; //Smaller is better
+  unsigned int try_for_best_render_quality; // <-- 0/1
   unsigned int fullscreen;
 
   unsigned int allow_operation_move;

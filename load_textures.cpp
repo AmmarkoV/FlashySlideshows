@@ -43,7 +43,8 @@ int wait_before_making_textures()
 }
 
 int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
-{
+{ // PLEASE CHECK OTHER PARTS FOR picturedata->marked_for_texture_loading; THIS FUNCTION IS NOT USED IN THE TEXTURE LOADING THREAD FOR EXAMPLE
+  // SINCE IT POPPED OUT AS A "BOTTLENECK" ON THE PROFILER :P
   if ( picturedata == 0 ) return 0;
   return picturedata->marked_for_texture_loading;
 }

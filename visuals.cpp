@@ -81,13 +81,16 @@ void MainDisplayFunction()
   unsigned int album_traveler=0;
   unsigned int minpicture=MinPictureThatIsVisible(),maxpicture=MaxPictureThatIsVisible();
 
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_LINE_SMOOTH);
-    glEnable (GL_POLYGON_SMOOTH);
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.1);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); //
+   if (frame.try_for_best_render_quality)
+    {
+     glEnable(GL_NORMALIZE);
+     glEnable(GL_LINE_SMOOTH);
+     glEnable (GL_POLYGON_SMOOTH);
+     glEnable(GL_ALPHA_TEST);
+     glAlphaFunc(GL_GREATER, 0.1);
+     glEnable(GL_BLEND);
+     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    }
 
 
   if ( CameraSeesOnlyOnePicture() )

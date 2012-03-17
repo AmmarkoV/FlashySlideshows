@@ -111,38 +111,43 @@ int ManageCreatingTextures(int count_only)
   /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
      FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread
   */
-  unsigned int fail_count=0,count=0,i=0;
+  unsigned int fail_count=0,count=0;
 
    struct timeval start_creating_textures,now,difference;
 
   gettimeofday(&start_creating_textures,0x0);
 
   UnLoadPicturesIfNeeded();
-  for ( i=0; i<frame.total_images; i++)
+
+  unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
+  unsigned int album_traveler=MinPictureThatIsVisible();
+
+  for ( album_traveler=0; album_traveler<=MAX_album_traveler; album_traveler++)
    {
-     if ( PictureLoadedOpenGLTexturePending(album[i]) )
+     if ( //PictureLoadedOpenGLTexturePending(album[album_traveler]) not using this for perfromance reasons..!
+          album[album_traveler]->marked_for_texture_loading
+        )
        {
          ++count;
          if(!count_only)
           {
-            if ( !make_texture(album[i],frame.mipmaping) )
+            if ( !make_texture(album[album_traveler],frame.mipmaping) )
               {
                 //Failed making the texture , ( and picture was loaded correctly .. ! )
                 ++fail_count;
+              } else
+              {
+                // Only go in the trouble of making the "expensive" timeval call if a texture was loaded ( and thus the system used precious time anyways )
+                gettimeofday(&now,0x0);
+                unsigned int elapsed_time = timeval_diff(&difference,&now,&start_creating_textures);
+                if (elapsed_time>1000)
+                {
+                 if (PrintDevMsg()) fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
+                 return count;
+                }
               }
           }
         }
-
-     if (!count_only)
-      {
-            gettimeofday(&now,0x0);
-            unsigned int elapsed_time = timeval_diff(&difference,&now,&start_creating_textures);
-            if (elapsed_time>1000)
-             {
-                 if (PrintDevMsg()) fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
-                 return count;
-             }
-      }
    }
 
   return count;
@@ -528,6 +533,8 @@ int main(int argc, char *argv[])
                       {
                        frame.quality_setting=atoi(argv[i+1]); // Quality
                        fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
+                       if (frame.quality_setting>3) { frame.try_for_best_render_quality=1; }
+                       fprintf(stderr,"   Rendering Quality Switch %u\n",frame.try_for_best_render_quality);
                        //THIS HAS A SECOND PAYLOAD THAT HAPPENS AFTERWARDS----> to initialize frame.gpu.maximum_frame_total_size
                       }
                    } else
@@ -612,14 +619,17 @@ int main(int argc, char *argv[])
 
 
     glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
     glEnable(GL_LIGHTING);
 
-    glShadeModel(GL_SMOOTH);
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-    glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+   if (frame.try_for_best_render_quality)
+    {
+     glEnable(GL_NORMALIZE);
+     glShadeModel(GL_SMOOTH);
+     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+     glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+    }
 
     glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);

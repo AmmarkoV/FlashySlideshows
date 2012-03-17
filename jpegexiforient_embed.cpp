@@ -105,13 +105,13 @@ unsigned int GetOrientationOfFile(char * filename)
   if (exif_data[0] != 0xFF ||
       exif_data[1] != 0xD8 ||
       exif_data[2] != 0xFF ||
-      exif_data[3] != 0xE1) { return 0; }
+      exif_data[3] != 0xE1) { fclose(myfile); return 0; }
 
   /* Get the marker parameter length count */
   length = read_2_bytes();
   /* Length includes itself, so must be at least 2 */
   /* Following Exif data length must be at least 6 */
-  if (length < 8) { return 0; }
+  if (length < 8) { fclose(myfile); return 0; }
   length -= 8;
   /* Read Exif head, check for "Exif" */
   for (i = 0; i < 6; i++) { exif_data[i] = (unsigned char) read_1_byte(); }
@@ -121,48 +121,48 @@ unsigned int GetOrientationOfFile(char * filename)
       exif_data[2] != 0x69 ||
       exif_data[3] != 0x66 ||
       exif_data[4] != 0 ||
-      exif_data[5] != 0) { return 0; }
+      exif_data[5] != 0) { fclose(myfile); return 0; }
 
   /* Read Exif body */
   for (i = 0; i < length; i++) { exif_data[i] = (unsigned char) read_1_byte(); }
 
 
-  if (length < 12) { return 0; } /* Length of an IFD entry */
+  if (length < 12) { fclose(myfile); return 0; } /* Length of an IFD entry */
 
   /* Discover byte order */
   if (exif_data[0] == 0x49 && exif_data[1] == 0x49) { is_motorola = 0; } else
   if (exif_data[0] == 0x4D && exif_data[1] == 0x4D) { is_motorola = 1; } else
-                                                    { return 0; }
+                                                    { fclose(myfile); return 0; }
 
   /* Check Tag Mark */
   if (is_motorola)
   {
-    if (exif_data[2] != 0)    { return 0; }
-    if (exif_data[3] != 0x2A) { return 0; }
+    if (exif_data[2] != 0)    { fclose(myfile); return 0; }
+    if (exif_data[3] != 0x2A) { fclose(myfile); return 0; }
   } else
   {
-    if (exif_data[3] != 0)    { return 0; }
-    if (exif_data[2] != 0x2A) { return 0; }
+    if (exif_data[3] != 0)    { fclose(myfile); return 0; }
+    if (exif_data[2] != 0x2A) { fclose(myfile); return 0; }
   }
 
   /* Get first IFD offset (offset to IFD0) */
   if (is_motorola)
   {
-    if (exif_data[4] != 0) { return 0; }
-    if (exif_data[5] != 0) { return 0; }
+    if (exif_data[4] != 0) { fclose(myfile); return 0; }
+    if (exif_data[5] != 0) { fclose(myfile); return 0; }
     offset = exif_data[6];
     offset <<= 8;
     offset += exif_data[7];
   } else
   {
-    if (exif_data[7] != 0) { return 0; }
-    if (exif_data[6] != 0) { return 0; }
+    if (exif_data[7] != 0) { fclose(myfile); return 0; }
+    if (exif_data[6] != 0) { fclose(myfile); return 0; }
     offset = exif_data[5];
     offset <<= 8;
     offset += exif_data[4];
   }
 
-  if (offset > length - 2) { return 0; } /* check end of data segment */
+  if (offset > length - 2) { fclose(myfile); return 0; } /* check end of data segment */
 
   /* Get the number of directory entries contained in this IFD */
   if (is_motorola)
@@ -176,13 +176,13 @@ unsigned int GetOrientationOfFile(char * filename)
     number_of_tags <<= 8;
     number_of_tags += exif_data[offset];
   }
-  if (number_of_tags == 0) { return 0; }
+  if (number_of_tags == 0) { fclose(myfile); return 0; }
   offset += 2;
 
   /* Search for Orientation Tag in IFD0 */
   for (;;)
   {
-    if (offset > length - 12) { return 0; }/* check end of data segment */
+    if (offset > length - 12) { fclose(myfile); return 0; }/* check end of data segment */
     /* Get Tag number */
     if (is_motorola)
     {
@@ -196,7 +196,7 @@ unsigned int GetOrientationOfFile(char * filename)
       tagnum += exif_data[offset];
     }
     if (tagnum == 0x0112) break; /* found Orientation Tag */
-    if (--number_of_tags == 0) { return 0; }
+    if (--number_of_tags == 0) { fclose(myfile); return 0; }
     offset += 12;
   }
 
@@ -205,16 +205,16 @@ unsigned int GetOrientationOfFile(char * filename)
     /* Get the Orientation value */
     if (is_motorola)
     {
-      if (exif_data[offset+8] != 0) { return 0; }
+      if (exif_data[offset+8] != 0) { fclose(myfile); return 0; }
       set_flag = exif_data[offset+9];
     } else
     {
-      if (exif_data[offset+9] != 0) { return 0; }
+      if (exif_data[offset+9] != 0) { fclose(myfile); return 0; }
       set_flag = exif_data[offset+8];
     }
-    if (set_flag > 8) { return 0; }
+    if (set_flag > 8) { fclose(myfile); return 0; }
 
-
+    fclose(myfile);
   /* All done. */
   return (unsigned int) set_flag;
 }
