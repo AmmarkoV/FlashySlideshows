@@ -117,6 +117,7 @@ float PickPictureRescaleRatio(unsigned int start_width,unsigned int start_height
         ratio_height=(float)start_height/(frame.gpu.maximum_frame_dimension_size-1);
         scale_percentage=(float) 100/ratio_height;
     }
+
   return scale_percentage;
 }
 
