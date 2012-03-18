@@ -46,14 +46,14 @@ int PictureLoadedOpenGLTexturePending(struct Picture * picturedata)
 { // PLEASE CHECK OTHER PARTS FOR picturedata->marked_for_texture_loading; THIS FUNCTION IS NOT USED IN THE TEXTURE LOADING THREAD FOR EXAMPLE
   // SINCE IT POPPED OUT AS A "BOTTLENECK" ON THE PROFILER :P
   if ( picturedata == 0 ) return 0;
-  return picturedata->marked_for_texture_loading;
+  return picturedata->gpu.marked_for_texture_loading;
 }
 
 int PictureTextureLoaded(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) {return 0;}
-  if ( picturedata->texture_loaded == 1 ) {return 1;}
-  if ( picturedata->thumbnail_texture_loaded == 1 ) {return 1;}
+  if ( picturedata->gpu.texture_loaded == 1 ) {return 1;}
+  if ( picturedata->gpu.thumbnail_texture_loaded == 1 ) {return 1;}
   return 0;
 }
 
@@ -126,11 +126,11 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
      if ( complain_about_errors() ) { return 0; }
      glFlush();
 
-    picturedata->gl_rgb_texture=new_tex_id;
+    picturedata->gpu.gl_rgb_texture=new_tex_id;
 
 
     unsigned int depth_flag=GL_RGB;
-    char * rgba_data = picturedata->rgb_data;
+    char * rgba_data = picturedata->system.rgb_data;
 
 /* RGBA Software conversion for debugging :p   HAS ANOTHER PART (line 150+ ) THAT DOES THE FREE CALL
     rgba_data = (char*) malloc(picturedata->width*picturedata->height*4*sizeof(unsigned char));
@@ -187,23 +187,23 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
 
     /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN RAM MEMORY */
-      if ( picturedata->rgb_data != 0 )
+      if ( picturedata->system.rgb_data != 0 )
         {
-          frame.system.usedRAM-=picturedata->rgb_data_size;
-          free(picturedata->rgb_data);
-          picturedata->rgb_data=0;
-          picturedata->rgb_data_size=0;
+          frame.system.usedRAM-=picturedata->system.rgb_data_size;
+          free(picturedata->system.rgb_data);
+          picturedata->system.rgb_data=0;
+          picturedata->system.rgb_data_size=0;
         }
 
     frame.gpu.lastTexture=this_texture;
     frame.gpu.usedRAM+=frame.gpu.lastTexture;
 
-    picturedata->marked_for_texture_loading=0;
-    picturedata->texture_loaded=1;
+    picturedata->gpu.marked_for_texture_loading=0;
+    picturedata->gpu.texture_loaded=1;
 
     if ( complain_about_errors() ) { return 0; }
 
-    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gl_rgb_texture);
+    if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gpu.gl_rgb_texture);
 
     glFlush();
 
@@ -217,15 +217,15 @@ unsigned int clear_texture(struct Picture * picturedata)
 	                          return 0; }
 
 
-    if ( ( picturedata->gl_rgb_texture != loading->gl_rgb_texture ) && ( picturedata->gl_rgb_texture != 0) )
+    if ( ( picturedata->gpu.gl_rgb_texture != loading->gpu.gl_rgb_texture ) && ( picturedata->gpu.gl_rgb_texture != 0) )
        {
            if (PrintOpenGLDebugMsg()) fprintf(stderr,"Trying to delete texture for picture ");
            PrintDirectoryListItem(picturedata->directory_list_index);
 
-           glDeleteTextures(1,&picturedata->gl_rgb_texture);
+           glDeleteTextures(1,&picturedata->gpu.gl_rgb_texture);
            if (PrintOpenGLDebugMsg()) fprintf(stderr,"... ok\n");
 
-           picturedata->gl_rgb_texture=loading->gl_rgb_texture;
+           picturedata->gpu.gl_rgb_texture=loading->gpu.gl_rgb_texture;
 
            frame.gpu.usedRAM-= picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
        } else
@@ -246,10 +246,10 @@ unsigned int clear_texture(struct Picture * picturedata)
 
 
 
-    picturedata->marked_for_texture_removal=0;
-    picturedata->texture_loaded=0;
-    picturedata->thumbnail_texture_loaded=0;
-    picturedata->marked_for_rgbdata_loading=1;
+    picturedata->gpu.marked_for_texture_removal=0;
+    picturedata->gpu.texture_loaded=0;
+    picturedata->gpu.thumbnail_texture_loaded=0;
+    picturedata->system.marked_for_rgbdata_loading=1;
     return 1;
 }
 

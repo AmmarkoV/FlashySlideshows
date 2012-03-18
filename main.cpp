@@ -131,7 +131,7 @@ int ManageCreatingTextures(int count_only)
 
 
      if ( //PictureLoadedOpenGLTexturePending(album[album_traveler]) not using this for perfromance reasons..!
-          album[album_traveler]->marked_for_texture_loading
+          album[album_traveler]->gpu.marked_for_texture_loading
         )
        {
          ++count;

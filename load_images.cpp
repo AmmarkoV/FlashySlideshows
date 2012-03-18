@@ -164,14 +164,14 @@ int PictureLoadingPending(struct Picture * picturedata)
   /*In case picture creation is pending , picture loading is not pending ( not the next thing to do )*/
   if ( picturedata == 0 ) return 0;
   if ( picturedata == loading ) return 0;
-  return picturedata->marked_for_rgbdata_loading;
+  return picturedata->system.marked_for_rgbdata_loading;
 }
 
 int PictureFailed(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) return 1;
   if ( picturedata == loading ) return 0;
-  return picturedata->marked_for_rgbdata_loading;
+  return picturedata->system.marked_for_rgbdata_loading;
 }
 
 int PrintPictureData(struct Picture * picturedata)
@@ -187,8 +187,8 @@ int PrintPictureData(struct Picture * picturedata)
    fprintf(stderr,"\ntime_viewed : %u , times_viewed : %u , transparency : %0.2f \n",picturedata->time_viewed,picturedata->times_viewed,picturedata->transparency);
 
    fprintf(stderr," Status\n");
-   fprintf(stderr,"Failed to Load : %u , Thumbnail texture loaded : %u , Texture loaded : %u \n",picturedata->failed_to_load,picturedata->thumbnail_texture_loaded,picturedata->texture_loaded);
-   fprintf(stderr,"Mark tex load : %u , Mark tex rm : %u , Mark RGB load: %u Mark RGB rm : %u \n",picturedata->marked_for_texture_loading,picturedata->marked_for_texture_removal,picturedata->marked_for_rgbdata_loading,picturedata->marked_for_rgbdata_removal);
+   fprintf(stderr,"Failed to Load : %u , Thumbnail texture loaded : %u , Texture loaded : %u \n",picturedata->failed_to_load,picturedata->gpu.thumbnail_texture_loaded,picturedata->gpu.texture_loaded);
+   fprintf(stderr,"Mark tex load : %u , Mark tex rm : %u , Mark RGB load: %u Mark RGB rm : %u \n",picturedata->gpu.marked_for_texture_loading,picturedata->gpu.marked_for_texture_removal,picturedata->system.marked_for_rgbdata_loading,picturedata->system.marked_for_rgbdata_removal);
    fprintf(stderr,"_____________________________________\n");
  return 1;
 }
@@ -197,40 +197,41 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
 {
     if (PrintPictureLoadingMsg()) fprintf(stderr,"PreparePictureForImage , image %u x %u : %u ",width,height,depth);
 
-    if ((pic->rgb_data!=0) || (pic->rgb_data_size!=0))
+    if ((pic->system.rgb_data!=0) || (pic->system.rgb_data_size!=0))
      {
          /* CLEAR MEMORY TO ALLOCATE IT LATER*/
          fprintf(stderr,"dirty Picture struct ");
-         frame.system.usedRAM-=pic->rgb_data_size;
+         frame.system.usedRAM-=pic->system.rgb_data_size;
 
-         if ( pic->rgb_data!=0 ) { free (pic->rgb_data);
-                                   pic->rgb_data=0;
-                                 }
-         pic->rgb_data_size=0;
+         if ( pic->system.rgb_data!=0 ) {
+                                          free (pic->system.rgb_data);
+                                          pic->system.rgb_data=0;
+                                        }
+         pic->system.rgb_data_size=0;
      }
 
     if ( ( width == 0 ) || ( height == 0 ) || ( depth == 0 ) ) {  fprintf(stderr,"PreparePictureForImage only cleared allocated memory\n"); return 1; }
     if ( ( width < 50 ) || ( height < 50 ) ) {  fprintf(stderr,"This picture is very small (%u,%u) , skipping it ,NEED A BETER IMPLEMENTATION TO PREVENT BLINKING\n",width,height);
-                                                 pic->marked_for_rgbdata_loading=0;  /* THIS MAY CAUSE A BLINK NO USE IN RETRYING , IT HAS FAILED*/
+                                                 pic->system.marked_for_rgbdata_loading=0;  /* THIS MAY CAUSE A BLINK NO USE IN RETRYING , IT HAS FAILED*/
                                                  return 0; }
 
-    if ((pic->rgb_data==0) || (pic->rgb_data_size==0))
+    if ((pic->system.rgb_data==0) || (pic->system.rgb_data_size==0))
      {
          /* ALLOCATE ENOUGH MEMORY FOR THE RAW IMAGE */
-         pic->overflow_guard=OVERFLOW_GUARD_BYTES;
+         pic->system.overflow_guard=OVERFLOW_GUARD_BYTES;
          //if (frame.system.maxRAM < frame.system.usedRAM + width*height*depth ) { fprintf(stderr,"System memory bounds reached"); return 0; }
 
          frame.system.lastTexture=width*height*depth;
          if ( !RAM_Memory_can_accomodate(frame.system.lastTexture) ) { fprintf(stderr,"RAM Memory cannot accomodate %u bytes \n",(unsigned int) frame.system.lastTexture); return 0; }
 
          frame.system.usedRAM+=frame.system.lastTexture;
-         pic->rgb_data=(char *) malloc( ( width*height*depth ) + depth );
+         pic->system.rgb_data=(char *) malloc( ( width*height*depth ) + depth );
 
-         if  ( pic->rgb_data <=0 )
+         if  ( pic->system.rgb_data <=0 )
           {
             fprintf(stderr,"Error allocating memory for raw image \n");
-            pic->rgb_data=0;
-            pic->rgb_data_size=0;
+            pic->system.rgb_data=0;
+            pic->system.rgb_data_size=0;
             return 0;
           }
      }
@@ -238,8 +239,8 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
      pic->width=width;
      pic->height=height;
      pic->depth=depth;
-     pic->rgb_data_size=width*height*depth;
-     frame.system.lastTexture=pic->rgb_data_size;
+     pic->system.rgb_data_size=width*height*depth;
+     frame.system.lastTexture=pic->system.rgb_data_size;
      if (PrintPictureLoadingMsg()) fprintf(stderr,"ok\n");
 
     return 1;
@@ -312,9 +313,14 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
        /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
- memcpy(pic->rgb_data,data,width*height*3);
+ memcpy(pic->system.rgb_data,data,width*height*3);
  pic->width=width;   // Width has been changed!
  pic->height=height; // Height has been changed!
+
+ if (pic->system.overflow_guard!=OVERFLOW_GUARD_BYTES)
+   {
+     fprintf(stderr,"ERROR : Loading the picture caused an overflow!\n");
+   }
  return 1;
 }
 
@@ -326,10 +332,10 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 
 
-    if ( WxLoadJPEG(filename,pic) )       { pic->marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
+    if ( WxLoadJPEG(filename,pic) )       { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
                                      else {
                                             pic->failed_to_load=1;
-                                            pic->gl_rgb_texture=failed->gl_rgb_texture;
+                                            pic->gpu.gl_rgb_texture=failed->gpu.gl_rgb_texture;
                                             fprintf(stderr,"Failed to open and load picture \n");
                                             return 0;
                                           }
@@ -338,10 +344,10 @@ int LoadPicture(char * filename,struct Picture * pic)
   FixOpenGLPictureSize(pic);
   GetInterestingAreasList(pic);
 
-  if ( pic->overflow_guard != OVERFLOW_GUARD_BYTES ) { fprintf(stderr,"Memory Overflow at Picture structure \n "); }
+  if ( pic->system.overflow_guard != OVERFLOW_GUARD_BYTES ) { fprintf(stderr,"Memory Overflow at Picture structure \n "); }
 
-  if ( loading != 0 ) { pic->gl_rgb_texture=loading->gl_rgb_texture;
-                        pic->marked_for_texture_loading=1;
+  if ( loading != 0 ) { pic->gpu.gl_rgb_texture=loading->gpu.gl_rgb_texture;
+                        pic->gpu.marked_for_texture_loading=1;
                         /* Signal picture ready for texture creating*/
                       }
   frame.total_images_loaded++; /* ADDED HERE */
@@ -352,21 +358,26 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 void EmptyPicture(struct Picture *new_picture,unsigned int empty_textures)
 {
-    new_picture->rgb_data=0;
-    new_picture->rgb_data_size=0;
 
-    new_picture->is_jpeg=0;
+    new_picture->system.rgb_data=0;
+    new_picture->system.rgb_data_size=0;
+    new_picture->system.marked_for_rgbdata_loading=1;
+    new_picture->system.marked_for_rgbdata_removal=0;
 
     new_picture->failed_to_load=0;
-    new_picture->marked_for_rgbdata_loading=1;
-    new_picture->marked_for_rgbdata_removal=0;
+
 
     if (empty_textures)
     {
-     new_picture->marked_for_texture_loading=0;
-     new_picture->marked_for_texture_removal=0;
-     new_picture->gl_rgb_texture=0;
+     new_picture->gpu.marked_for_texture_loading=0;
+     new_picture->gpu.marked_for_texture_removal=0;
+     new_picture->gpu.gl_rgb_texture=0;
+
+     new_picture->gpu.texture_loaded=0;
+     new_picture->gpu.thumbnail_texture_loaded=0;
     }
+
+    new_picture->is_jpeg=0;
 
     new_picture->directory_list_index=0;
 
@@ -391,7 +402,7 @@ void EmptyPicture(struct Picture *new_picture,unsigned int empty_textures)
     new_picture->times_viewed=0;
 
 
-    new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
+    new_picture->system.overflow_guard=OVERFLOW_GUARD_BYTES;
 }
 
 
@@ -425,14 +436,14 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
 
 int UnLoadPicture(struct Picture * pic)
 {
-  if ( pic->rgb_data != 0 )
+  if ( pic->system.rgb_data != 0 )
   {
-   frame.system.usedRAM-=pic->rgb_data_size;
+   frame.system.usedRAM-=pic->system.rgb_data_size;
    frame.total_images_loaded--;
 
-   pic->rgb_data_size=0;
-   if ( pic->rgb_data != 0 ) { free(pic->rgb_data); pic->rgb_data=0; }
-   pic->marked_for_rgbdata_loading=1;
+   pic->system.rgb_data_size=0;
+   if ( pic->system.rgb_data != 0 ) { free(pic->system.rgb_data); pic->system.rgb_data=0; }
+   pic->system.marked_for_rgbdata_loading=1;
   }
   EmptyPicture(pic,0);
 

@@ -23,7 +23,7 @@ inline int DisplayFrame(struct Picture * pic,unsigned int place,float *x,float *
    float frame_size=0.1; // <---    FRAME SIZE SETTING
 
    if (SIMPLE_FAST_FRAME) { glDisable ( GL_TEXTURE_2D ); } else //No textures , transparencies , etc , just a white QUAD :P less is more .. :P
-                          { glBindTexture(GL_TEXTURE_2D, picture_frame->gl_rgb_texture ); }
+                          { glBindTexture(GL_TEXTURE_2D, picture_frame->gpu.gl_rgb_texture ); }
    glBegin(GL_QUADS);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(*x-*size_x-frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(*x+*size_x+frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Right Of The Texture and Quad
@@ -77,7 +77,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
 
  glEnable ( GL_TEXTURE_2D );
- glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
+ glBindTexture(GL_TEXTURE_2D, pic->gpu.gl_rgb_texture );
 
    if (frame.try_for_best_render_quality)
     {

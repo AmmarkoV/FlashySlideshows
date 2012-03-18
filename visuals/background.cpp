@@ -22,7 +22,7 @@ void DrawSimple2DBackground()
   ++times_drawn_background;
 
   glEnable ( GL_TEXTURE_2D );
-  glBindTexture(GL_TEXTURE_2D, background->gl_rgb_texture );
+  glBindTexture(GL_TEXTURE_2D, background->gpu.gl_rgb_texture );
 
    glBegin(GL_QUADS);
     glColor4f(1.0,1.0,1.0,1.0);

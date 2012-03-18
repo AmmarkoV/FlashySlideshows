@@ -33,8 +33,32 @@ struct Position3D
   float size_x,size_y;
 };
 
+
+struct System_Memory
+{
+  unsigned char marked_for_rgbdata_loading;
+  unsigned char marked_for_rgbdata_removal;
+  unsigned long rgb_data_size;
+  char * rgb_data;
+  unsigned long overflow_guard;
+};
+
+struct GPU_Memory
+{
+  unsigned char marked_for_texture_loading;
+  unsigned char marked_for_texture_removal;
+  unsigned char texture_loaded;
+  unsigned char thumbnail_texture_loaded;
+
+  GLuint gl_rgb_texture;
+  GLuint gl_rgb_thumbnail_texture;
+};
+
 struct Picture
 {
+  //char filename[MAX_PATH]; This can be acquired through the directory_list
+  unsigned int directory_list_index;
+
   unsigned int height,width,depth;
   unsigned int initial_height,initial_width;
 
@@ -45,30 +69,17 @@ struct Picture
 
   float transparency , target_transparency; /* 0.0 -> 1.0 */
 
-  unsigned int time_viewed,times_viewed;
 
   unsigned int failed_to_load;
-  unsigned char thumbnail_texture_loaded;
-  unsigned char texture_loaded;
 
- // unsigned int ready_for_texture; /* Will be replaced with marked_for_texture_loading*/
-
-  unsigned char marked_for_texture_loading;
-  unsigned char marked_for_texture_removal;
-  unsigned char marked_for_rgbdata_loading;
-  unsigned char marked_for_rgbdata_removal;
-
-  GLuint gl_rgb_texture;
-  GLuint gl_rgb_thumbnail_texture;
 
   struct Position3D position;
 
-  //char filename[MAX_PATH]; This can be acquired through the directory_list
-  unsigned int directory_list_index;
+  struct GPU_Memory gpu;
 
-  unsigned long rgb_data_size;
-  char * rgb_data;
-  unsigned long overflow_guard;
+  struct System_Memory system;
+
+  unsigned int time_viewed,times_viewed;
 
 };
 

@@ -36,7 +36,7 @@ float points[45][45][3];   // the array for the points on the grid of our "wave"
 
 void RenderPictureWiggling(struct Picture * pic,unsigned int place,float x,float y,float z,float heading,float pitch,float roll)
 {  //based on http://nehe.gamedev.net/tutorial/flag_effect_%28waving_texture%29/16002/
-    glBindTexture(GL_TEXTURE_2D, pic->gl_rgb_texture );
+    glBindTexture(GL_TEXTURE_2D, pic->gpu.gl_rgb_texture );
     glPolygonMode(GL_BACK, GL_FILL);
     glPolygonMode(GL_FRONT, GL_LINE);
 

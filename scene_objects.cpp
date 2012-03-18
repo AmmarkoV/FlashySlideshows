@@ -55,12 +55,12 @@ if ( decal_type != 0 )
   glEnable ( GL_TEXTURE_2D );
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-  if ( decal_type == 1 )  glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); else
-  if ( decal_type == 2 )  glBindTexture(GL_TEXTURE_2D, star->gl_rgb_texture ); else
-  if ( decal_type == 3 )  glBindTexture(GL_TEXTURE_2D, play_img->gl_rgb_texture ); else
-  if ( decal_type == 4 )  glBindTexture(GL_TEXTURE_2D, pause_img->gl_rgb_texture ); else
-  if ( decal_type == 5 )  glBindTexture(GL_TEXTURE_2D, label->gl_rgb_texture ); else
-                          glBindTexture(GL_TEXTURE_2D, heart->gl_rgb_texture ); /* DEFAULT */
+  if ( decal_type == 1 )  glBindTexture(GL_TEXTURE_2D, heart->gpu.gl_rgb_texture ); else
+  if ( decal_type == 2 )  glBindTexture(GL_TEXTURE_2D, star->gpu.gl_rgb_texture ); else
+  if ( decal_type == 3 )  glBindTexture(GL_TEXTURE_2D, play_img->gpu.gl_rgb_texture ); else
+  if ( decal_type == 4 )  glBindTexture(GL_TEXTURE_2D, pause_img->gpu.gl_rgb_texture ); else
+  if ( decal_type == 5 )  glBindTexture(GL_TEXTURE_2D, label->gpu.gl_rgb_texture ); else
+                          glBindTexture(GL_TEXTURE_2D, heart->gpu.gl_rgb_texture ); /* DEFAULT */
    glBegin(GL_QUADS);
     glColor3f(1.0,1.0,1.0);
      float size_x=width,size_y=height;
