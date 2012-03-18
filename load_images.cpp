@@ -425,14 +425,15 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
 
 int UnLoadPicture(struct Picture * pic)
 {
-  fprintf(stderr,"Unloading Picture\n");
-  frame.system.usedRAM-=pic->rgb_data_size;
-  frame.total_images_loaded--;
+  if ( pic->rgb_data != 0 )
+  {
+   frame.system.usedRAM-=pic->rgb_data_size;
+   frame.total_images_loaded--;
 
-  pic->rgb_data_size=0;
-  if ( pic->rgb_data != 0 ) { free(pic->rgb_data); pic->rgb_data=0; }
-  pic->marked_for_rgbdata_loading=1;
-
+   pic->rgb_data_size=0;
+   if ( pic->rgb_data != 0 ) { free(pic->rgb_data); pic->rgb_data=0; }
+   pic->marked_for_rgbdata_loading=1;
+  }
   EmptyPicture(pic,0);
 
 

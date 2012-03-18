@@ -322,6 +322,7 @@ int MaxPictureThatIsVisible()
 
   if ( frame.total_images<10 ) { return frame.total_images;  }
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
+
   unsigned int cur_place=frame.active_image_place;
   unsigned int pictures_after_current_to_go_to=frame.images_per_line * LINES_AWAY_DRAWN;
 

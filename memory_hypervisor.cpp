@@ -218,14 +218,12 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
   }
 
 
-  fprintf(stderr,"UnLoadPicturesIfNeeded startin\n");
-
   unsigned int MAX_album_traveler=MinPictureThatIsVisible();
   unsigned int album_traveler=0;
   unsigned int unloaded_textures_this_loop=0;
+  unsigned int unloaded_pictures_this_loop=0;
 
   /*SCAN THE PICTURES FROM 0 to MinVisible in order to free up some space*/
-  fprintf(stderr,"Unload pictures 1 ");
   while (album_traveler<MAX_album_traveler)
    {
      /*In case the other thread has moved focus , adapt on the fly --*/
@@ -240,22 +238,20 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
          clear_texture(album[album_traveler]);
          CheckIfSignalGPUFullAppliesAnyMore();
          ++unloaded_textures_this_loop;
-         fprintf(stderr,"%u",album_traveler);
        }
        if (clear_system_ram)
        {
          UnLoadPicture(album[album_traveler]);
+         ++unloaded_pictures_this_loop;
        }
     }
     ++album_traveler;
    }
-  fprintf(stderr,"\n");
 
   /*SCAN THE PICTURES FROM MaxVisible to END in order to free up some space*/
 
   album_traveler=frame.total_images-1;
   unsigned int MIN_album_traveler=MaxPictureThatIsVisible();
-  fprintf(stderr,"Unload pictures 2 ");
   while ((album_traveler>MIN_album_traveler) && (album_traveler>0) )
    {
      /*In case the other thread has moved focus , adapt on the fly --*/
@@ -269,18 +265,21 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
          clear_texture(album[album_traveler]);
          CheckIfSignalGPUFullAppliesAnyMore();
          ++unloaded_textures_this_loop;
-         fprintf(stderr,"%u",album_traveler);
        }
        if (clear_system_ram)
        {
          UnLoadPicture(album[album_traveler]);
+         ++unloaded_pictures_this_loop;
        }
     }
     if ( album_traveler != 0 ) { --album_traveler; } else
                                { break; }
    }
-  fprintf(stderr,"\n");
 
+  if ( (unloaded_pictures_this_loop>0)||(unloaded_textures_this_loop>0) )
+   {
+      fprintf(stderr,"Unloaded a total of %u textures and %u pictures \n",unloaded_textures_this_loop,unloaded_pictures_this_loop);
+   }
 
   return unloaded_textures_this_loop;
 }
