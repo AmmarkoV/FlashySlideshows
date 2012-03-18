@@ -117,7 +117,7 @@ int ManageCreatingTextures(int count_only)
 
   gettimeofday(&start_creating_textures,0x0);
 
-  UnLoadPicturesIfNeeded();
+  UnLoadPicturesIfNeeded(1,1);
 
   unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
   unsigned int album_traveler=MinPictureThatIsVisible();

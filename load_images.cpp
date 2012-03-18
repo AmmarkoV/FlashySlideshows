@@ -350,26 +350,23 @@ int LoadPicture(char * filename,struct Picture * pic)
 }
 
 
-
-struct Picture * CreatePicture(char * filename,unsigned int force_load)
+void EmptyPicture(struct Picture *new_picture,unsigned int empty_textures)
 {
-  struct Picture * new_picture=0;
-
-  new_picture = (struct Picture *) malloc( sizeof( struct Picture ) );
-  if (  new_picture == 0 ) { fprintf(stderr,"Could not allocate memory for picture %s \n",filename); return 0; }
-
-
     new_picture->rgb_data=0;
     new_picture->rgb_data_size=0;
 
     new_picture->is_jpeg=0;
 
     new_picture->failed_to_load=0;
-    new_picture->marked_for_texture_loading=0;
-    new_picture->marked_for_texture_removal=0;
     new_picture->marked_for_rgbdata_loading=1;
     new_picture->marked_for_rgbdata_removal=0;
-    new_picture->gl_rgb_texture=0;
+
+    if (empty_textures)
+    {
+     new_picture->marked_for_texture_loading=0;
+     new_picture->marked_for_texture_removal=0;
+     new_picture->gl_rgb_texture=0;
+    }
 
     new_picture->directory_list_index=0;
 
@@ -390,11 +387,24 @@ struct Picture * CreatePicture(char * filename,unsigned int force_load)
     new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=0.0;
     new_picture->position.heading=0.0; new_picture->position.roll=0.0; new_picture->position.pitch=0.0;
 
-  new_picture->time_viewed=0;
-  new_picture->times_viewed=0;
+    new_picture->time_viewed=0;
+    new_picture->times_viewed=0;
 
 
-  new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
+    new_picture->overflow_guard=OVERFLOW_GUARD_BYTES;
+}
+
+
+
+struct Picture * CreatePicture(char * filename,unsigned int force_load)
+{
+  struct Picture * new_picture=0;
+
+  new_picture = (struct Picture *) malloc( sizeof( struct Picture ) );
+  if (  new_picture == 0 ) { fprintf(stderr,"Could not allocate memory for picture %s \n",filename); return 0; }
+
+  EmptyPicture(new_picture,1);
+
 
   if (force_load==1)
    {
@@ -417,13 +427,17 @@ int UnLoadPicture(struct Picture * pic)
 {
   fprintf(stderr,"Unloading Picture\n");
   frame.system.usedRAM-=pic->rgb_data_size;
-  frame.gpu.usedRAM-=pic->width*pic->height*4;
   frame.total_images_loaded--;
 
   pic->rgb_data_size=0;
   if ( pic->rgb_data != 0 ) { free(pic->rgb_data); pic->rgb_data=0; }
+  pic->marked_for_rgbdata_loading=1;
 
-  glDeleteTextures(1,&pic->gl_rgb_texture);
+  EmptyPicture(pic,0);
+
+
+  //frame.gpu.usedRAM-=pic->width*pic->height*4;
+  //glDeleteTextures(1,&pic->gl_rgb_texture);
 
 
  return 1;

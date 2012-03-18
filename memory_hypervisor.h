@@ -10,7 +10,7 @@ int ManagePicturesCreationMemory();
 
 int GPU_Memory_can_accomodate(unsigned int newfile);
 int LoadPicturesIfNeeded();
-int UnLoadPicturesIfNeeded();
+int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_ram);
 int ManagePicturesLoadingMemory();
 
 

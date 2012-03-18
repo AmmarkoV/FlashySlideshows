@@ -47,9 +47,11 @@ int RAM_Memory_can_accomodate(unsigned int newfile)
        return 0;
     }*/
 
-   if (frame.system.maxRAM < frame.system.usedRAM + newfile)
+   if (frame.system.maxRAM <= frame.system.usedRAM + newfile)
     {
-       fprintf(stderr,"System memory bounds reached"); return 0;
+       fprintf(stderr,"System memory bounds reached ( while on range %u - %u [ over %u , last %u ] ) \n",MinPictureThatIsVisible(),MaxPictureThatIsVisible(),frame.active_image_place,frame.last_image_place);
+       UnLoadPicturesIfNeeded(0,1); // Clear system RAM , because it has obviously run out :P !
+       return 0;
     }
  return 1;
 }
@@ -205,12 +207,17 @@ int LoadPicturesIfNeeded()
   return loaded_pictures_this_loop;
 }
 
-int UnLoadPicturesIfNeeded()
+int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_ram)
 {
 
   if ( frame.total_images == 0 ) { return 0; }
 
-  if ((GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size))&&(!SignalGPUFull))  { /*No need to unload anything */ return 1;}
+  if ( (!clear_system_ram)&&(clear_gpu_ram) )
+  { //If we only want to clean GPU RAM and GPU RAM seems to be enough dont do anything :P
+    if ((GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size))&&(!SignalGPUFull))  { /*No need to unload anything */ return 1;}
+  }
+
+
   fprintf(stderr,"UnLoadPicturesIfNeeded startin\n");
 
   unsigned int MAX_album_traveler=MinPictureThatIsVisible();
@@ -228,12 +235,16 @@ int UnLoadPicturesIfNeeded()
 
     if ((!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size) ) || ( SignalGPUFull ) )
     {
-       if ( PictureTextureLoaded(album[album_traveler]) )
+       if ( (PictureTextureLoaded(album[album_traveler])) && (clear_gpu_ram) )
        {
          clear_texture(album[album_traveler]);
          CheckIfSignalGPUFullAppliesAnyMore();
          ++unloaded_textures_this_loop;
          fprintf(stderr,"%u",album_traveler);
+       }
+       if (clear_system_ram)
+       {
+         UnLoadPicture(album[album_traveler]);
        }
     }
     ++album_traveler;
@@ -253,12 +264,16 @@ int UnLoadPicturesIfNeeded()
 
     if ( (!GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size) )|| ( SignalGPUFull ) )
     {
-       if ( PictureTextureLoaded(album[album_traveler]) )
+       if ( (PictureTextureLoaded(album[album_traveler])) && (clear_gpu_ram) )
        {
          clear_texture(album[album_traveler]);
          CheckIfSignalGPUFullAppliesAnyMore();
          ++unloaded_textures_this_loop;
          fprintf(stderr,"%u",album_traveler);
+       }
+       if (clear_system_ram)
+       {
+         UnLoadPicture(album[album_traveler]);
        }
     }
     if ( album_traveler != 0 ) { --album_traveler; } else

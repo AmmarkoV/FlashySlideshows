@@ -105,13 +105,13 @@ float GetLayoutMaximumX()
 float GetLayoutMinimumY()
 {
     if ( (frame.total_images==0)||(album==0) ) { fprintf(stderr,"Returning Failsafe GetLayoutMinimumY()\n");return -1000; }
-    return album[0]->position.y-10;
+    return album[0]->position.y-21;
 }
 
 float GetLayoutMaximumY()
 {
     if ( (frame.total_images==0)||(album==0) ) { fprintf(stderr,"Returning Failsafe GetLayoutMaximumY()\n"); return 1000; }
-    return album[frame.total_images-1]->position.y+10;
+    return album[frame.total_images-1]->position.y+21;
 }
 
 

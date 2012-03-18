@@ -3,199 +3,202 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
- 25.51      0.25     0.25  2093695     0.00     0.00  DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float)
- 15.31      0.40     0.15  2094270     0.00     0.00  DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*)
- 15.31      0.55     0.15    16197     0.01     0.04  MainDisplayFunction()
-  5.61      0.61     0.06   424208     0.00     0.00  rayIntersectsTriangle(float*, float*, float*, float*, float*)
-  5.10      0.66     0.05    32399     0.00     0.00  ManageCreatingTextures(int)
-  4.08      0.70     0.04     2338     0.02     0.02  PictureXYtoID(unsigned int, unsigned int)
-  4.08      0.74     0.04      409     0.10     0.10  FixOpenGLPictureSize(Picture*)
-  3.06      0.77     0.03  1637673     0.00     0.00  PictureIDtoXY(unsigned int*, unsigned int*, unsigned int)
-  2.04      0.79     0.02  4359533     0.00     0.00  MinPictureThatIsVisible()
-  2.04      0.81     0.02  4350050     0.00     0.00  CameraMoving()
-  2.04      0.83     0.02  1637357     0.00     0.00  HandlePictureLayout(Picture*, unsigned int)
-  2.04      0.85     0.02    16195     0.00     0.00  DrawSimple2DBackground()
-  2.04      0.87     0.02     4473     0.00     0.00  DisplayHUD(unsigned int)
-  1.02      0.88     0.01  4520454     0.00     0.00  MaxPictureThatIsVisible()
-  1.02      0.89     0.01  1073349     0.00     0.00  HandleBasicPictureLayout(Picture*, unsigned int)
-  1.02      0.90     0.01   564210     0.00     0.00  HandleExpoPictureLayout(Picture*, unsigned int)
-  1.02      0.91     0.01    20201     0.00     0.00  SwapListItems(unsigned int, unsigned int)
-  1.02      0.92     0.01      814     0.01     0.06  LoadPicturesIfNeeded()
-  1.02      0.93     0.01        1    10.00    10.00  ToggleTransitionMode()
-  1.02      0.94     0.01                             CameraOverPicture(unsigned int)
-  1.02      0.95     0.01                             IdleCallback()
-  1.02      0.96     0.01                             ResizeCallback(int, int)
-  0.51      0.96     0.01  1637361     0.00     0.00  PositionPicture(Picture*, unsigned int)
-  0.51      0.97     0.01   217392     0.00     0.00  rayIntersectsRectangle(float*, float*, float*, float*, float*, float*)
-  0.51      0.97     0.01    16203     0.00     0.00  GetLayoutMaximumZ()
-  0.51      0.98     0.01    16189     0.00     0.00  DrawLayoutBackground()
-  0.51      0.98     0.01                             UnLoadPicture(Picture*)
-  0.00      0.98     0.00  2126839     0.00     0.00  PictureCreationPending(Picture*)
-  0.00      0.98     0.00  2104846     0.00     0.00  PictureLoadingPending(Picture*)
-  0.00      0.98     0.00   525416     0.00     0.00  PictureFailed(Picture*)
-  0.00      0.98     0.00   426718     0.00     0.00  read_1_byte()
-  0.00      0.98     0.00   311956     0.00     0.00  GPU_Memory_can_accomodate(unsigned int)
-  0.00      0.98     0.00   237047     0.00     0.00  RAM_Memory_can_accomodate(unsigned int)
-  0.00      0.98     0.00   187471     0.00     0.00  wxStringBase::GetStringData() const
-  0.00      0.98     0.00   137991     0.00     0.00  wxStringData::IsEmpty() const
-  0.00      0.98     0.00   121505     0.00     0.00  wxStringData::Unlock()
-  0.00      0.98     0.00   121502     0.00     0.00  wxString::~wxString()
-  0.00      0.98     0.00   121500     0.00     0.00  wxStringBase::~wxStringBase()
-  0.00      0.98     0.00    68914     0.00     0.00  wxStringBase::Init()
-  0.00      0.98     0.00    68912     0.00     0.00  wxStringBase::wxStringBase()
-  0.00      0.98     0.00    68912     0.00     0.00  wxString::wxString()
-  0.00      0.98     0.00    49476     0.00     0.00  wxStringBase::length() const
-  0.00      0.98     0.00    34494     0.00     0.00  DrawObject(float, float, float, float, float, float, unsigned int, char*)
-  0.00      0.98     0.00    32984     0.00     0.00  wxStringBase::ConcatSelf(unsigned long, wchar_t const*)
-  0.00      0.98     0.00    32984     0.00     0.00  wxStringBase::append(wxStringBase const&)
-  0.00      0.98     0.00    32984     0.00     0.00  wxString::append(wxString const&)
-  0.00      0.98     0.00    32984     0.00     0.00  wxString::operator<<(wxString const&)
-  0.00      0.98     0.00    32984     0.00     0.00  wxStringBase::c_str() const
-  0.00      0.98     0.00    32399     0.00     0.00  UnLoadPicturesIfNeeded()
-  0.00      0.98     0.00    31346     0.00     0.00  FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int)
-  0.00      0.98     0.00    30320     0.00     0.00  PictureTextureLoaded(Picture*)
-  0.00      0.98     0.00    29837     0.00     0.00  GetLayoutMinimumZ()
-  0.00      0.98     0.00    26837     0.00     0.00  GetItemDate(unsigned int, unsigned int)
-  0.00      0.98     0.00    22710     0.00     0.00  make_texture(Picture*, int)
-  0.00      0.98     0.00    18791     0.00     0.00  ExtensionIsJPEGPicture(wxString*)
-  0.00      0.98     0.00    17964     0.00     0.00  _U2(char const*)
-  0.00      0.98     0.00    17228     0.00     0.00  wxStringBase::clear()
-  0.00      0.98     0.00    16601     0.00     0.00  timeval_diff(timeval*, timeval*, timeval*)
-  0.00      0.98     0.00    16492     0.00     0.00  ExtensionIsPicture(wxString*)
-  0.00      0.98     0.00    16492     0.00     0.00  AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int)
-  0.00      0.98     0.00    16492     0.00     0.00  wxFileName::wxFileName(wxString const&, wxPathFormat)
-  0.00      0.98     0.00    16492     0.00     0.00  wxFileName::~wxFileName()
-  0.00      0.98     0.00    16492     0.00     0.00  wxStringBase::wxStringBase(wxStringBase const&)
-  0.00      0.98     0.00    16492     0.00     0.00  wxArrayString::wxArrayString()
-  0.00      0.98     0.00    16492     0.00     0.00  wxString::wxString(wxString const&)
-  0.00      0.98     0.00    16492     0.00     0.00  wxFileName::GetExt() const
-  0.00      0.98     0.00    16492     0.00     0.00  wxStringBase::empty() const
-  0.00      0.98     0.00    16490     0.00     0.00  wxStringData::Lock()
-  0.00      0.98     0.00    16200     0.00     0.00  DrawEffects()
-  0.00      0.98     0.00    16200     0.00     0.00  GetLayoutMinimumY()
-  0.00      0.98     0.00    16200     0.00     0.00  PerformCameraMovement(unsigned int)
-  0.00      0.98     0.00    16200     0.00     0.00  AutomaticSlideShowControl_if_needed()
-  0.00      0.98     0.00    16198     0.00     0.00  GetLayoutMaximumX()
-  0.00      0.98     0.00    16198     0.00     0.00  GetLayoutMaximumY()
-  0.00      0.98     0.00    16198     0.00     0.00  GetLayoutMinimumX()
-  0.00      0.98     0.00    16197     0.00     0.00  Render_3DObjects()
-  0.00      0.98     0.00    16196     0.00     0.00  Run3DObjects(unsigned int)
-  0.00      0.98     0.00    16196     0.00     0.00  PerformPicturesMovement(unsigned int)
-  0.00      0.98     0.00    16189     0.00     0.00  CameraSeesOnlyOnePicture()
-  0.00      0.98     0.00    16188     0.00     0.00  framerate_limiter()
-  0.00      0.98     0.00    12043     0.00     0.00  PictureOutOfBounds(unsigned int)
-  0.00      0.98     0.00    11679     0.00     0.01  CalculateActiveImage_AccordingToPosition()
-  0.00      0.98     0.00     9812     0.00     0.00  CameraReachedDestination()
-  0.00      0.98     0.00     4475     0.00     0.00  GetTotalViewableFilesInDirectory()
-  0.00      0.98     0.00     4473     0.00     0.00  setOrthographicProjection()
-  0.00      0.98     0.00     4473     0.00     0.00  resetPerspectiveProjection()
-  0.00      0.98     0.00     4472     0.00     0.00  GetFilename(unsigned int)
-  0.00      0.98     0.00     4472     0.00     0.00  GetSubdir(unsigned int)
-  0.00      0.98     0.00     3145     0.00     0.00  GetViewableFilenameforFile(unsigned int, char*, char*)
-  0.00      0.98     0.00     3065     0.00     0.00  wxCharBuffer::~wxCharBuffer()
-  0.00      0.98     0.00     3065     0.00     0.00  wxCharBuffer::operator char const*() const
-  0.00      0.98     0.00     2647     0.00     0.00  PrintPictureLoadingMsg()
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::wxDateTime()
-  0.00      0.98     0.00     2299     0.00     0.00  wxLongLongNative::wxLongLongNative()
-  0.00      0.98     0.00     2299     0.00     0.00  wxLongLongNative::wxLongLongNative(int, unsigned int)
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::GetDay(wxDateTime::TimeZone const&) const
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::GetHour(wxDateTime::TimeZone const&) const
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::GetYear(wxDateTime::TimeZone const&) const
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::GetMonth(wxDateTime::TimeZone const&) const
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::GetMinute(wxDateTime::TimeZone const&) const
-  0.00      0.98     0.00     2299     0.00     0.00  wxDateTime::GetSecond(wxDateTime::TimeZone const&) const
-  0.00      0.98     0.00     2299     0.00     0.00  wxFileName::GetModificationTime() const
-  0.00      0.98     0.00     2299     0.00     0.00  wxULongLongNative::ToULong() const
-  0.00      0.98     0.00     2268     0.00     0.00  CreatePicture(char*, unsigned int)
-  0.00      0.98     0.00     2095     0.00     0.00  Render_3DObject(unsigned int)
-  0.00      0.98     0.00     1910     0.00     0.00  PrintOpenGLDebugMsg()
-  0.00      0.98     0.00     1824     0.00     0.00  GetWidthQuality(unsigned int)
-  0.00      0.98     0.00     1817     0.00     0.00  wxObject::~wxObject()
-  0.00      0.98     0.00     1814     0.00     0.00  wxImage::~wxImage()
-  0.00      0.98     0.00     1468     0.00     0.00  PrintDevMsg()
-  0.00      0.98     0.00     1350     0.00     0.00  ensure_ending_with_slash(char*)
-  0.00      0.98     0.00     1228     0.00     0.00  complain_about_errors()
-  0.00      0.98     0.00      910     0.00     0.00  GetHeightQuality(unsigned int)
-  0.00      0.98     0.00      908     0.00     0.00  wxImage::Rescale(int, int, int)
-  0.00      0.98     0.00      906     0.00     0.00  PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int)
-  0.00      0.98     0.00      906     0.00     0.00  PickPictureRescaleRatio(unsigned int, unsigned int)
-  0.00      0.98     0.00      906     0.00     0.00  wxObject::operator=(wxObject const&)
-  0.00      0.98     0.00      905     0.00     0.00  wxImage::operator=(wxImage const&)
-  0.00      0.98     0.00      904     0.00     0.04  LoadPicture(char*, Picture*)
-  0.00      0.98     0.00      903     0.00     0.00  WxLoadJPEG(char*, Picture*)
-  0.00      0.98     0.00      903     0.00     0.00  wxImage::wxImage()
-  0.00      0.98     0.00      902     0.00     0.00  _U(char const*)
-  0.00      0.98     0.00      902     0.00     0.00  wxObject::wxObject()
-  0.00      0.98     0.00      821     0.00     0.00  DestroyPicturesIfNeeded()
-  0.00      0.98     0.00      821     0.00     0.00  ManagePicturesCreationMemory()
-  0.00      0.98     0.00      816     0.00     0.06  ManagePicturesLoadingMemory()
-  0.00      0.98     0.00      815     0.00     0.00  CreatePicturesIfNeeded()
-  0.00      0.98     0.00      765     0.00     0.00  GetOrientationOfFile(char*)
-  0.00      0.98     0.00      762     0.00     0.00  GetJPEGExifOrientation(char*, Picture*)
-  0.00      0.98     0.00      749     0.00     0.00  PrintDirectoryListItem(unsigned int)
-  0.00      0.98     0.00      738     0.00     0.00  timeval_diff2(timeval*, timeval*, timeval*)
-  0.00      0.98     0.00      736     0.00     0.00  wxStringBase::wxStringBase(wchar_t const*)
-  0.00      0.98     0.00      736     0.00     0.00  wxString::wxString(wchar_t const*)
-  0.00      0.98     0.00      642     0.00     0.08  Controls_Handle_Keyboard(unsigned char, int, int)
-  0.00      0.98     0.00      441     0.00     0.00  PrintPictureData(Picture*)
-  0.00      0.98     0.00      441     0.00     0.03  ChangeActiveImage(unsigned int, unsigned int)
-  0.00      0.98     0.00      415     0.00     0.00  SoundLibrary_PlaySound(unsigned int)
-  0.00      0.98     0.00      409     0.00     0.00  GetInterestingAreasList(Picture*)
-  0.00      0.98     0.00      366     0.00     0.00  ResetPictureRotation()
-  0.00      0.98     0.00      366     0.00     0.07  SetDestinationOverPicture(unsigned int, unsigned int)
-  0.00      0.98     0.00      366     0.00     0.05  SetDestinationOverPicture3dSeek(unsigned int, unsigned int)
-  0.00      0.98     0.00      364     0.00     0.05  SetDestinationOverPictureImmediate(unsigned int, unsigned int)
-  0.00      0.98     0.00      362     0.00     0.10  MoveToPicture(unsigned int)
-  0.00      0.98     0.00      340     0.00     0.00  clear_texture(Picture*)
-  0.00      0.98     0.00      340     0.00     0.00  CheckIfSignalGPUFullAppliesAnyMore()
-  0.00      0.98     0.00      274     0.00     0.01  MoveDestinationCenter(unsigned int)
-  0.00      0.98     0.00      274     0.00     0.00  RefreshDesiredStep_AccordingToPosition()
-  0.00      0.98     0.00      254     0.00     0.00  ChangeActiveImage(unsigned int)
-  0.00      0.98     0.00       45     0.00     0.00  read_2_bytes()
-  0.00      0.98     0.00        6     0.00     0.00  CameraBounced()
-  0.00      0.98     0.00        5     0.00     0.00  Add_3DObject(float, float, float, float, float, unsigned int, unsigned int)
-  0.00      0.98     0.00        5     0.00     0.00  Clear_3DObject(unsigned int)
-  0.00      0.98     0.00        5     0.00     0.00  Delete_3DObject(unsigned int)
-  0.00      0.98     0.00        5     0.00     0.00  Full_of_3DObjects()
-  0.00      0.98     0.00        5     0.00     0.00  Object_Out_Of_Mem(unsigned int)
-  0.00      0.98     0.00        5     0.00     0.00  Delete_All3DObjectsOfShape(unsigned int)
-  0.00      0.98     0.00        5     0.00     0.00  NewLabel(float, float, char*)
-  0.00      0.98     0.00        4     0.00     0.00  ChangeLayout()
-  0.00      0.98     0.00        4     0.00     0.00  GetLayoutName()
-  0.00      0.98     0.00        4     0.00     0.00  AddSoundBufferForLoad(char*)
-  0.00      0.98     0.00        4     0.00     0.07  SetDestinationOverPictureId(unsigned int)
-  0.00      0.98     0.00        3     0.00     0.00  FileExists(char const*)
-  0.00      0.98     0.00        2     0.00     5.00  GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int)
-  0.00      0.98     0.00        1     0.00     0.00  global constructors keyed to image
-  0.00      0.98     0.00        1     0.00     0.00  InitEffects()
-  0.00      0.98     0.00        1     0.00     0.00  InitSlideShow()
-  0.00      0.98     0.00        1     0.00     0.00  open_joystick(char*)
-  0.00      0.98     0.00        1     0.00     0.00  LoadSoundBuffers()
-  0.00      0.98     0.00        1     0.00     0.00  EnableScreenSaver()
-  0.00      0.98     0.00        1     0.00     0.00  SetListenerValues()
-  0.00      0.98     0.00        1     0.00    10.00  SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int)
-  0.00      0.98     0.00        1     0.00     0.00  StartSoundLibrary()
-  0.00      0.98     0.00        1     0.00     0.00  DisableScreenSaver()
-  0.00      0.98     0.00        1     0.00     0.00  GetSystemFreeMemory()
-  0.00      0.98     0.00        1     0.00     0.00  InitFaceRecognition(char*)
-  0.00      0.98     0.00        1     0.00     0.00  StopJoystickControl()
-  0.00      0.98     0.00        1     0.00     0.00  CloseFaceRecognition()
-  0.00      0.98     0.00        1     0.00     0.00  StartJoystickControl()
-  0.00      0.98     0.00        1     0.00     0.00  AllocateDirectoryList(unsigned int)
-  0.00      0.98     0.00        1     0.00     0.00  GetGraphicsCardMemory()
-  0.00      0.98     0.00        1     0.00    10.00  LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int)
-  0.00      0.98     0.00        1     0.00     5.00  CountPicturesInDirectory(char*, int)
-  0.00      0.98     0.00        1     0.00     0.00  LoadStockTexturesAndSounds()
-  0.00      0.98     0.00        1     0.00     0.00  UnLoadStockTexturesAndSounds()
-  0.00      0.98     0.00        1     0.00     0.00  CreateSlideshowPictureStructure(unsigned int)
-  0.00      0.98     0.00        1     0.00     0.00  DestroySlideshowPictureStructure()
-  0.00      0.98     0.00        1     0.00     0.00  PutCameraOverExistingPictureIfItIsOff()
-  0.00      0.98     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
-  0.00      0.98     0.00        1     0.00     0.00  InitGlut()
-  0.00      0.98     0.00        1     0.00     0.00  WxWidgetsContext::OnInit()
-  0.00      0.98     0.00        1     0.00     0.00  WxWidgetsContext::OnClose()
-  0.00      0.98     0.00        1     0.00     0.00  WxWidgetsContext::WxWidgetsContext()
-  0.00      0.98     0.00        1     0.00     0.00  WxWidgetsContext::~WxWidgetsContext()
+ 17.34      0.39     0.39   146279     0.00     0.01  UnLoadPicturesIfNeeded(unsigned int, unsigned int)
+ 14.22      0.71     0.32 41318693     0.00     0.00  MaxPictureThatIsVisible()
+ 13.78      1.02     0.31 47556232     0.00     0.00  PictureTextureLoaded(Picture*)
+  6.22      1.16     0.14 47883365     0.00     0.00  GPU_Memory_can_accomodate(unsigned int)
+  5.78      1.29     0.13 16539657     0.00     0.00  MinPictureThatIsVisible()
+  5.78      1.42     0.13  2506623     0.00     0.00  DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float)
+  4.89      1.53     0.11    22535     0.00     0.02  MainDisplayFunction()
+  4.00      1.62     0.09  1907743     0.00     0.00  HandleBasicPictureLayout(Picture*, unsigned int)
+  3.56      1.70     0.08                             PictureLoadedOpenGLTexturePending(Picture*)
+  3.56      1.78     0.08  2506777     0.00     0.00  DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*)
+  3.11      1.85     0.07 16534505     0.00     0.00  CameraMoving()
+  1.78      1.89     0.04    45082     0.00     0.01  ManageCreatingTextures(int)
+  1.78      1.93     0.04     5574     0.01     0.01  UnLoadPicture(Picture*)
+  1.78      1.97     0.04      687     0.06     0.06  FixOpenGLPictureSize(Picture*)
+  1.33      2.00     0.03    16895     0.00     0.00  PictureOutOfBounds(unsigned int)
+  1.33      2.03     0.03    45539     0.00     0.00  DrawObject(float, float, float, float, float, float, unsigned int, char*)
+  1.33      2.06     0.03    16851     0.00     0.00  CalculateActiveImage_AccordingToPosition()
+  0.89      2.08     0.02                             DisplayCallback()
+  0.44      2.09     0.01  1907933     0.00     0.00  PictureIDtoXY(unsigned int*, unsigned int*, unsigned int)
+  0.44      2.10     0.01  1907928     0.00     0.00  PositionPicture(Picture*, unsigned int)
+  0.44      2.11     0.01  1907790     0.00     0.00  HandlePictureLayout(Picture*, unsigned int)
+  0.44      2.12     0.01   632506     0.00     0.00  PictureFailed(Picture*)
+  0.44      2.13     0.01   182118     0.00     0.00  make_texture(Picture*, int)
+  0.44      2.14     0.01    22542     0.00     0.00  GetLayoutMinimumX()
+  0.44      2.15     0.01    16494     0.00     0.00  wxFileName::GetExt() const
+  0.44      2.16     0.01    12386     0.00     0.00  GetSubdir(unsigned int)
+  0.44      2.17     0.01    12384     0.00     0.00  DisplayHUD(unsigned int)
+  0.44      2.18     0.01     1585     0.01     0.01  PrintDevMsg()
+  0.44      2.19     0.01      773     0.01     0.63  LoadPicturesIfNeeded()
+  0.44      2.20     0.01      365     0.03     0.03  CheckIfSignalGPUFullAppliesAnyMore()
+  0.44      2.21     0.01      246     0.04     0.04  PictureXYtoID(unsigned int, unsigned int)
+  0.44      2.22     0.01                             glColorRGB(unsigned char, unsigned char, unsigned char)
+  0.44      2.23     0.01                             SlideshowLastPictureToLoad()
+  0.44      2.24     0.01                             SetDestinationOverNextPicture()
+  0.44      2.25     0.01                             main
+  0.00      2.25     0.00  2520992     0.00     0.00  PictureCreationPending(Picture*)
+  0.00      2.25     0.00  2511262     0.00     0.00  PictureLoadingPending(Picture*)
+  0.00      2.25     0.00  1399598     0.00     0.00  rayIntersectsTriangle(float*, float*, float*, float*, float*)
+  0.00      2.25     0.00   707423     0.00     0.00  rayIntersectsRectangle(float*, float*, float*, float*, float*, float*)
+  0.00      2.25     0.00   274239     0.00     0.00  read_1_byte()
+  0.00      2.25     0.00   187341     0.00     0.00  wxStringBase::GetStringData() const
+  0.00      2.25     0.00   137859     0.00     0.00  wxStringData::IsEmpty() const
+  0.00      2.25     0.00   121367     0.00     0.00  wxStringData::Unlock()
+  0.00      2.25     0.00   121365     0.00     0.00  wxStringBase::~wxStringBase()
+  0.00      2.25     0.00   121365     0.00     0.00  wxString::~wxString()
+  0.00      2.25     0.00   120742     0.00     0.01  RAM_Memory_can_accomodate(unsigned int)
+  0.00      2.25     0.00    74311     0.00     0.00  GetItemDate(unsigned int, unsigned int)
+  0.00      2.25     0.00    68922     0.00     0.00  wxStringBase::Init()
+  0.00      2.25     0.00    68920     0.00     0.00  wxStringBase::wxStringBase()
+  0.00      2.25     0.00    68920     0.00     0.00  wxString::wxString()
+  0.00      2.25     0.00    49482     0.00     0.00  wxStringBase::length() const
+  0.00      2.25     0.00    44079     0.00     0.00  GetLayoutMinimumZ()
+  0.00      2.25     0.00    32988     0.00     0.00  wxStringBase::ConcatSelf(unsigned long, wchar_t const*)
+  0.00      2.25     0.00    32988     0.00     0.00  wxStringBase::append(wxStringBase const&)
+  0.00      2.25     0.00    32988     0.00     0.00  wxString::append(wxString const&)
+  0.00      2.25     0.00    32988     0.00     0.00  wxString::operator<<(wxString const&)
+  0.00      2.25     0.00    32988     0.00     0.00  wxStringBase::c_str() const
+  0.00      2.25     0.00    28346     0.00     0.00  FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00      2.25     0.00    22914     0.00     0.00  timeval_diff(timeval*, timeval*, timeval*)
+  0.00      2.25     0.00    22561     0.00     0.00  GetLayoutMaximumY()
+  0.00      2.25     0.00    22544     0.00     0.00  GetLayoutMinimumY()
+  0.00      2.25     0.00    22543     0.00     0.00  GetLayoutMaximumX()
+  0.00      2.25     0.00    22543     0.00     0.00  PerformCameraMovement(unsigned int)
+  0.00      2.25     0.00    22543     0.00     0.00  AutomaticSlideShowControl_if_needed()
+  0.00      2.25     0.00    22542     0.00     0.00  DrawEffects()
+  0.00      2.25     0.00    22542     0.00     0.00  Render_3DObjects()
+  0.00      2.25     0.00    22542     0.00     0.00  GetLayoutMaximumZ()
+  0.00      2.25     0.00    22541     0.00     0.00  Run3DObjects(unsigned int)
+  0.00      2.25     0.00    22541     0.00     0.00  PerformPicturesMovement(unsigned int)
+  0.00      2.25     0.00    22535     0.00     0.00  CameraSeesOnlyOnePicture()
+  0.00      2.25     0.00    22533     0.00     0.00  DrawSimple2DBackground()
+  0.00      2.25     0.00    22530     0.00     0.00  DrawLayoutBackground()
+  0.00      2.25     0.00    22526     0.00     0.00  framerate_limiter()
+  0.00      2.25     0.00    18794     0.00     0.00  ExtensionIsJPEGPicture(wxString*)
+  0.00      2.25     0.00    17966     0.00     0.00  _U2(char const*)
+  0.00      2.25     0.00    17602     0.00     0.00  SwapListItems(unsigned int, unsigned int)
+  0.00      2.25     0.00    17230     0.00     0.00  wxStringBase::clear()
+  0.00      2.25     0.00    16494     0.00     0.00  ExtensionIsPicture(wxString*)
+  0.00      2.25     0.00    16494     0.00     0.00  AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int)
+  0.00      2.25     0.00    16494     0.00     0.00  wxFileName::wxFileName(wxString const&, wxPathFormat)
+  0.00      2.25     0.00    16494     0.00     0.00  wxFileName::~wxFileName()
+  0.00      2.25     0.00    16494     0.00     0.00  wxStringBase::wxStringBase(wxStringBase const&)
+  0.00      2.25     0.00    16494     0.00     0.00  wxArrayString::wxArrayString()
+  0.00      2.25     0.00    16494     0.00     0.00  wxString::wxString(wxString const&)
+  0.00      2.25     0.00    16494     0.00     0.00  wxStringBase::empty() const
+  0.00      2.25     0.00    16492     0.00     0.00  wxStringData::Lock()
+  0.00      2.25     0.00    15569     0.00     0.00  CameraReachedDestination()
+  0.00      2.25     0.00    12388     0.00     0.00  GetTotalViewableFilesInDirectory()
+  0.00      2.25     0.00    12385     0.00     0.00  GetFilename(unsigned int)
+  0.00      2.25     0.00    12385     0.00     0.00  setOrthographicProjection()
+  0.00      2.25     0.00    12384     0.00     0.00  resetPerspectiveProjection()
+  0.00      2.25     0.00     7969     0.00     0.00  EmptyPicture(Picture*, unsigned int)
+  0.00      2.25     0.00     3066     0.00     0.00  wxCharBuffer::~wxCharBuffer()
+  0.00      2.25     0.00     3066     0.00     0.00  wxCharBuffer::operator char const*() const
+  0.00      2.25     0.00     3008     0.00     0.00  GetViewableFilenameforFile(unsigned int, char*, char*)
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::wxDateTime()
+  0.00      2.25     0.00     2300     0.00     0.00  wxLongLongNative::wxLongLongNative()
+  0.00      2.25     0.00     2300     0.00     0.00  wxLongLongNative::wxLongLongNative(int, unsigned int)
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::GetDay(wxDateTime::TimeZone const&) const
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::GetHour(wxDateTime::TimeZone const&) const
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::GetYear(wxDateTime::TimeZone const&) const
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::GetMonth(wxDateTime::TimeZone const&) const
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::GetMinute(wxDateTime::TimeZone const&) const
+  0.00      2.25     0.00     2300     0.00     0.00  wxDateTime::GetSecond(wxDateTime::TimeZone const&) const
+  0.00      2.25     0.00     2300     0.00     0.00  wxFileName::GetModificationTime() const
+  0.00      2.25     0.00     2300     0.00     0.00  wxULongLongNative::ToULong() const
+  0.00      2.25     0.00     2291     0.00     0.00  CreatePicture(char*, unsigned int)
+  0.00      2.25     0.00     2229     0.00     0.00  PrintPictureLoadingMsg()
+  0.00      2.25     0.00     1868     0.00     0.00  PrintOpenGLDebugMsg()
+  0.00      2.25     0.00     1522     0.00     0.00  GetWidthQuality(unsigned int)
+  0.00      2.25     0.00     1507     0.00     0.00  wxObject::~wxObject()
+  0.00      2.25     0.00     1506     0.00     0.00  wxImage::~wxImage()
+  0.00      2.25     0.00     1350     0.00     0.00  ensure_ending_with_slash(char*)
+  0.00      2.25     0.00     1146     0.00     0.00  complain_about_errors()
+  0.00      2.25     0.00      782     0.00     0.00  DestroyPicturesIfNeeded()
+  0.00      2.25     0.00      775     0.00     0.62  ManagePicturesCreationMemory()
+  0.00      2.25     0.00      766     0.00     0.63  ManagePicturesLoadingMemory()
+  0.00      2.25     0.00      765     0.00     0.63  CreatePicturesIfNeeded()
+  0.00      2.25     0.00      757     0.00     0.00  GetHeightQuality(unsigned int)
+  0.00      2.25     0.00      754     0.00     0.00  wxImage::Rescale(int, int, int)
+  0.00      2.25     0.00      754     0.00     0.00  wxObject::operator=(wxObject const&)
+  0.00      2.25     0.00      753     0.00     0.01  PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int)
+  0.00      2.25     0.00      753     0.00     0.00  PickPictureRescaleRatio(unsigned int, unsigned int)
+  0.00      2.25     0.00      753     0.00     0.00  wxImage::operator=(wxImage const&)
+  0.00      2.25     0.00      751     0.00     0.07  LoadPicture(char*, Picture*)
+  0.00      2.25     0.00      750     0.00     0.00  PrintDirectoryListItem(unsigned int)
+  0.00      2.25     0.00      747     0.00     0.01  WxLoadJPEG(char*, Picture*)
+  0.00      2.25     0.00      747     0.00     0.00  _U(char const*)
+  0.00      2.25     0.00      747     0.00     0.00  wxObject::wxObject()
+  0.00      2.25     0.00      745     0.00     0.00  wxImage::wxImage()
+  0.00      2.25     0.00      738     0.00     0.00  timeval_diff2(timeval*, timeval*, timeval*)
+  0.00      2.25     0.00      736     0.00     0.00  wxStringBase::wxStringBase(wchar_t const*)
+  0.00      2.25     0.00      736     0.00     0.00  wxString::wxString(wchar_t const*)
+  0.00      2.25     0.00      682     0.00     0.01  GetInterestingAreasList(Picture*)
+  0.00      2.25     0.00      561     0.00     0.00  ChangeActiveImage(unsigned int)
+  0.00      2.25     0.00      455     0.00     0.00  Render_3DObject(unsigned int)
+  0.00      2.25     0.00      406     0.00     0.02  Controls_Handle_Keyboard(unsigned char, int, int)
+  0.00      2.25     0.00      403     0.00     0.00  SoundLibrary_PlaySound(unsigned int)
+  0.00      2.25     0.00      369     0.00     0.00  clear_texture(Picture*)
+  0.00      2.25     0.00      315     0.00     0.00  GetOrientationOfFile(char*)
+  0.00      2.25     0.00      313     0.00     0.00  GetJPEGExifOrientation(char*, Picture*)
+  0.00      2.25     0.00      133     0.00     0.00  RefreshDesiredStep_AccordingToPosition()
+  0.00      2.25     0.00      131     0.00     0.00  MoveDestinationCenter(unsigned int)
+  0.00      2.25     0.00       63     0.00     0.08  ChangeActiveImage(unsigned int, unsigned int)
+  0.00      2.25     0.00       59     0.00     0.00  PrintPictureData(Picture*)
+  0.00      2.25     0.00       45     0.00     0.00  ResetPictureRotation()
+  0.00      2.25     0.00       45     0.00     0.16  SetDestinationOverPicture(unsigned int, unsigned int)
+  0.00      2.25     0.00       45     0.00     0.12  SetDestinationOverPicture3dSeek(unsigned int, unsigned int)
+  0.00      2.25     0.00       45     0.00     0.12  SetDestinationOverPictureImmediate(unsigned int, unsigned int)
+  0.00      2.25     0.00       30     0.00     0.00  Controls_Handle_MouseMotion(int, int, int, int)
+  0.00      2.25     0.00       28     0.00     0.16  SetDestinationOverPictureId(unsigned int)
+  0.00      2.25     0.00       21     0.00     0.00  CameraBounced()
+  0.00      2.25     0.00       20     0.00     0.00  read_2_bytes()
+  0.00      2.25     0.00       17     0.00     0.24  MoveToPicture(unsigned int)
+  0.00      2.25     0.00        4     0.00     0.00  AddSoundBufferForLoad(char*)
+  0.00      2.25     0.00        3     0.00     0.00  FileExists(char const*)
+  0.00      2.25     0.00        2     0.00     5.00  GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00      2.25     0.00        2     0.00     0.02  Controls_Handle_MouseButtons(int, int, int, int)
+  0.00      2.25     0.00        1     0.00     0.00  global constructors keyed to image
+  0.00      2.25     0.00        1     0.00     0.00  InitEffects()
+  0.00      2.25     0.00        1     0.00     0.00  Add_3DObject(float, float, float, float, float, unsigned int, unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  InitSlideShow()
+  0.00      2.25     0.00        1     0.00     0.00  open_joystick(char*)
+  0.00      2.25     0.00        1     0.00     0.00  Clear_3DObject(unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  Delete_3DObject(unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  LoadSoundBuffers()
+  0.00      2.25     0.00        1     0.00     0.00  EnableScreenSaver()
+  0.00      2.25     0.00        1     0.00     0.00  Full_of_3DObjects()
+  0.00      2.25     0.00        1     0.00     0.00  Object_Out_Of_Mem(unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  SetListenerValues()
+  0.00      2.25     0.00        1     0.00     0.00  SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  StartSoundLibrary()
+  0.00      2.25     0.00        1     0.00     0.00  DisableScreenSaver()
+  0.00      2.25     0.00        1     0.00     0.00  GetSystemFreeMemory()
+  0.00      2.25     0.00        1     0.00     0.00  InitFaceRecognition(char*)
+  0.00      2.25     0.00        1     0.00     0.00  StopJoystickControl()
+  0.00      2.25     0.00        1     0.00     0.00  CloseFaceRecognition()
+  0.00      2.25     0.00        1     0.00     0.00  StartJoystickControl()
+  0.00      2.25     0.00        1     0.00     0.00  ToggleTransitionMode()
+  0.00      2.25     0.00        1     0.00     0.00  AllocateDirectoryList(unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  GetGraphicsCardMemory()
+  0.00      2.25     0.00        1     0.00    10.00  LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int)
+  0.00      2.25     0.00        1     0.00     5.00  CountPicturesInDirectory(char*, int)
+  0.00      2.25     0.00        1     0.00     0.00  Delete_All3DObjectsOfShape(unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  LoadStockTexturesAndSounds()
+  0.00      2.25     0.00        1     0.00     0.00  UnLoadStockTexturesAndSounds()
+  0.00      2.25     0.00        1     0.00     0.00  CreateSlideshowPictureStructure(unsigned int)
+  0.00      2.25     0.00        1     0.00     0.00  DestroySlideshowPictureStructure()
+  0.00      2.25     0.00        1     0.00     0.00  PutCameraOverExistingPictureIfItIsOff()
+  0.00      2.25     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      2.25     0.00        1     0.00     0.00  InitGlut()
+  0.00      2.25     0.00        1     0.00     0.00  NewLabel(float, float, char*)
+  0.00      2.25     0.00        1     0.00     0.00  WxWidgetsContext::OnInit()
+  0.00      2.25     0.00        1     0.00     0.00  WxWidgetsContext::OnClose()
+  0.00      2.25     0.00        1     0.00     0.00  WxWidgetsContext::WxWidgetsContext()
+  0.00      2.25     0.00        1     0.00     0.00  WxWidgetsContext::~WxWidgetsContext()
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -227,937 +230,941 @@ name       the name of the function.  This is the minor sort
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 1.02% of 0.98 seconds
+granularity: each sample hit covers 2 byte(s) for 0.44% of 2.25 seconds
 
 index % time    self  children    called     name
-                                                 <spontaneous>
-[1]     85.0    0.00    0.83                 DisplayCallback() [1]
-                0.15    0.50   16197/16197       MainDisplayFunction() [2]
-                0.05    0.05   32399/32399       ManageCreatingTextures(int) [5]
-                0.00    0.07   16200/16200       PerformCameraMovement(unsigned int) [8]
-                0.02    0.00    4473/4473        DisplayHUD(unsigned int) [30]
-                0.00    0.00   16202/16601       timeval_diff(timeval*, timeval*, timeval*) [89]
-                0.00    0.00   16200/16200       DrawEffects() [100]
-                0.00    0.00   16200/16200       AutomaticSlideShowControl_if_needed() [102]
-                0.00    0.00   16197/16197       Render_3DObjects() [106]
-                0.00    0.00   16196/16196       Run3DObjects(unsigned int) [107]
-                0.00    0.00   16196/16196       PerformPicturesMovement(unsigned int) [108]
-                0.00    0.00   16188/16188       framerate_limiter() [110]
------------------------------------------------
-                0.15    0.50   16197/16197       DisplayCallback() [1]
-[2]     66.4    0.15    0.50   16197         MainDisplayFunction() [2]
-                0.25    0.22 2093695/2093695     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-                0.01    0.02   16189/16189       DrawLayoutBackground() [25]
-                0.00    0.00   32393/4359533     MinPictureThatIsVisible() [16]
-                0.00    0.00   16195/4520454     MaxPictureThatIsVisible() [35]
-                0.00    0.00   16189/16189       CameraSeesOnlyOnePicture() [109]
------------------------------------------------
-                0.25    0.22 2093695/2093695     MainDisplayFunction() [2]
-[3]     48.5    0.25    0.22 2093695         DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-                0.15    0.00 2094270/2094270     DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*) [4]
-                0.00    0.07 1636099/1637361     PositionPicture(Picture*, unsigned int) [6]
-                0.00    0.00 2093478/2126839     PictureCreationPending(Picture*) [60]
-                0.00    0.00 2093464/2104846     PictureLoadingPending(Picture*) [61]
-                0.00    0.00  525416/525416      PictureFailed(Picture*) [62]
------------------------------------------------
-                0.15    0.00 2094270/2094270     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-[4]     15.3    0.15    0.00 2094270         DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*) [4]
------------------------------------------------
-                0.05    0.05   32399/32399       DisplayCallback() [1]
-[5]      9.9    0.05    0.05   32399         ManageCreatingTextures(int) [5]
-                0.02    0.02 4017405/4359533     MinPictureThatIsVisible() [16]
-                0.01    0.00 4018269/4520454     MaxPictureThatIsVisible() [35]
-                0.00    0.00   32399/32399       UnLoadPicturesIfNeeded() [50]
-                0.00    0.00   22700/22710       make_texture(Picture*, int) [85]
-                0.00    0.00     399/16601       timeval_diff(timeval*, timeval*, timeval*) [89]
-                0.00    0.00     128/1468        PrintDevMsg() [138]
------------------------------------------------
-                0.00    0.00     366/1637361     SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [31]
-                0.00    0.00     896/1637361     LoadPicturesIfNeeded() [14]
-                0.00    0.07 1636099/1637361     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-[6]      7.7    0.01    0.07 1637361         PositionPicture(Picture*, unsigned int) [6]
-                0.02    0.05 1637349/1637357     HandlePictureLayout(Picture*, unsigned int) [7]
------------------------------------------------
-                0.00    0.00       8/1637357     ChangeLayout() [54]
-                0.02    0.05 1637349/1637357     PositionPicture(Picture*, unsigned int) [6]
-[7]      7.1    0.02    0.05 1637357         HandlePictureLayout(Picture*, unsigned int) [7]
-                0.01    0.02 1073349/1073349     HandleBasicPictureLayout(Picture*, unsigned int) [22]
-                0.01    0.01  564210/564210      HandleExpoPictureLayout(Picture*, unsigned int) [27]
------------------------------------------------
-                0.00    0.07   16200/16200       DisplayCallback() [1]
-[8]      6.8    0.00    0.07   16200         PerformCameraMovement(unsigned int) [8]
-                0.00    0.06   11405/11679       CalculateActiveImage_AccordingToPosition() [9]
-                0.01    0.00   16203/16203       GetLayoutMaximumZ() [44]
-                0.00    0.00   16200/16200       GetLayoutMinimumY() [101]
-                0.00    0.00   16199/29837       GetLayoutMinimumZ() [83]
-                0.00    0.00   16198/16198       GetLayoutMinimumX() [105]
-                0.00    0.00   16198/16198       GetLayoutMaximumX() [103]
-                0.00    0.00   16198/16198       GetLayoutMaximumY() [104]
-                0.00    0.00    9812/9812        CameraReachedDestination() [112]
-                0.00    0.00       6/6           CameraBounced() [166]
------------------------------------------------
-                0.00    0.00     274/11679       MoveDestinationCenter(unsigned int) [49]
-                0.00    0.06   11405/11679       PerformCameraMovement(unsigned int) [8]
-[9]      6.4    0.00    0.06   11679         CalculateActiveImage_AccordingToPosition() [9]
-                0.01    0.06  217392/217392      rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [10]
-                0.00    0.00      75/441         ChangeActiveImage(unsigned int, unsigned int) [33]
-                0.00    0.00   23594/4359533     MinPictureThatIsVisible() [16]
-                0.00    0.00   23353/4520454     MaxPictureThatIsVisible() [35]
-                0.00    0.00     254/254         ChangeActiveImage(unsigned int) [55]
-                0.00    0.00   11677/12043       PictureOutOfBounds(unsigned int) [111]
------------------------------------------------
-                0.01    0.06  217392/217392      CalculateActiveImage_AccordingToPosition() [9]
-[10]     6.1    0.01    0.06  217392         rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [10]
-                0.06    0.00  424208/424208      rayIntersectsTriangle(float*, float*, float*, float*, float*) [11]
------------------------------------------------
-                0.06    0.00  424208/424208      rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [10]
-[11]     5.6    0.06    0.00  424208         rayIntersectsTriangle(float*, float*, float*, float*, float*) [11]
+                0.12    0.28   45083/146279      ManageCreatingTextures(int) [5]
+                0.27    0.64  101196/146279      RAM_Memory_can_accomodate(unsigned int) [4]
+[1]     58.2    0.39    0.92  146279         UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+                0.31    0.00 47556232/47556232     PictureTextureLoaded(Picture*) [13]
+                0.28    0.00 36291711/41318693     MaxPictureThatIsVisible() [12]
+                0.14    0.00 47700879/47883365     GPU_Memory_can_accomodate(unsigned int) [15]
+                0.09    0.05 11489520/16539657     MinPictureThatIsVisible() [14]
+                0.04    0.00    5574/5574        UnLoadPicture(Picture*) [26]
+                0.01    0.00     365/365         CheckIfSignalGPUFullAppliesAnyMore() [33]
+                0.00    0.00     369/369         clear_texture(Picture*) [159]
 -----------------------------------------------
                                                  <spontaneous>
-[12]     5.4    0.00    0.05                 ManageLoadingPicturesMemory_Thread(void*) [12]
-                0.00    0.05     816/816         ManagePicturesLoadingMemory() [13]
-                0.00    0.00     821/821         ManagePicturesCreationMemory() [47]
------------------------------------------------
-                0.00    0.05     816/816         ManageLoadingPicturesMemory_Thread(void*) [12]
-[13]     5.2    0.00    0.05     816         ManagePicturesLoadingMemory() [13]
-                0.01    0.04     814/814         LoadPicturesIfNeeded() [14]
------------------------------------------------
-                0.01    0.04     814/814         ManagePicturesLoadingMemory() [13]
-[14]     5.2    0.01    0.04     814         LoadPicturesIfNeeded() [14]
-                0.00    0.04     894/904         LoadPicture(char*, Picture*) [18]
-                0.00    0.00  121268/4359533     MinPictureThatIsVisible() [16]
-                0.00    0.00  117963/4520454     MaxPictureThatIsVisible() [35]
-                0.00    0.00     896/1637361     PositionPicture(Picture*, unsigned int) [6]
-                0.00    0.00  114715/237047      RAM_Memory_can_accomodate(unsigned int) [65]
-                0.00    0.00   11382/2104846     PictureLoadingPending(Picture*) [61]
-                0.00    0.00     888/3145        GetViewableFilenameforFile(unsigned int, char*, char*) [118]
------------------------------------------------
-                0.00    0.02     280/642         KeyCallback(unsigned char, int, int) [26]
-                0.00    0.03     362/642         SpecialFunctionCallback(int, int, int) [23]
-[15]     5.0    0.00    0.05     642         Controls_Handle_Keyboard(unsigned char, int, int) [15]
-                0.00    0.04     362/362         MoveToPicture(unsigned int) [20]
-                0.01    0.00       1/1           ToggleTransitionMode() [39]
-                0.00    0.00     274/274         MoveDestinationCenter(unsigned int) [49]
-                0.00    0.00       4/4           ChangeLayout() [54]
-                0.00    0.00     642/1468        PrintDevMsg() [138]
-                0.00    0.00       4/4           GetLayoutName() [174]
-                0.00    0.00       4/5           NewLabel(float, float, char*) [173]
------------------------------------------------
-                0.00    0.00   23594/4359533     CalculateActiveImage_AccordingToPosition() [9]
-                0.00    0.00   32393/4359533     MainDisplayFunction() [2]
-                0.00    0.00   38237/4359533     UnLoadPicturesIfNeeded() [50]
-                0.00    0.00  121268/4359533     LoadPicturesIfNeeded() [14]
-                0.00    0.00  126636/4359533     CreatePicturesIfNeeded() [48]
-                0.02    0.02 4017405/4359533     ManageCreatingTextures(int) [5]
-[16]     4.1    0.02    0.02 4359533         MinPictureThatIsVisible() [16]
-                0.02    0.00 4350050/4350050     CameraMoving() [28]
------------------------------------------------
-                0.01    0.00     366/2338        SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [31]
-                0.01    0.00     366/2338        SetDestinationOverPicture(unsigned int, unsigned int) [24]
-                0.01    0.00     724/2338        MoveToPicture(unsigned int) [20]
-                0.02    0.00     882/2338        ChangeActiveImage(unsigned int, unsigned int) [33]
-[17]     4.1    0.04    0.00    2338         PictureXYtoID(unsigned int, unsigned int) [17]
------------------------------------------------
-                0.00    0.00      10/904         CreatePicture(char*, unsigned int) [51]
-                0.00    0.04     894/904         LoadPicturesIfNeeded() [14]
-[18]     4.1    0.00    0.04     904         LoadPicture(char*, Picture*) [18]
-                0.04    0.00     409/409         FixOpenGLPictureSize(Picture*) [19]
-                0.00    0.00     903/903         WxLoadJPEG(char*, Picture*) [147]
-                0.00    0.00     895/2647        PrintPictureLoadingMsg() [121]
-                0.00    0.00     409/409         GetInterestingAreasList(Picture*) [160]
------------------------------------------------
-                0.04    0.00     409/409         LoadPicture(char*, Picture*) [18]
-[19]     4.1    0.04    0.00     409         FixOpenGLPictureSize(Picture*) [19]
------------------------------------------------
-                0.00    0.04     362/362         Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[20]     3.8    0.00    0.04     362         MoveToPicture(unsigned int) [20]
-                0.00    0.02     362/366         SetDestinationOverPicture(unsigned int, unsigned int) [24]
-                0.01    0.00     724/2338        PictureXYtoID(unsigned int, unsigned int) [17]
------------------------------------------------
-                0.00    0.00       4/1637673     SetDestinationOverPictureId(unsigned int) [52]
-                0.00    0.00       7/1637673     ChangeActiveImage(unsigned int) [55]
-                0.01    0.00  564227/1637673     HandleExpoPictureLayout(Picture*, unsigned int) [27]
-                0.02    0.00 1073435/1637673     HandleBasicPictureLayout(Picture*, unsigned int) [22]
-[21]     3.1    0.03    0.00 1637673         PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [21]
------------------------------------------------
-                0.01    0.02 1073349/1073349     HandlePictureLayout(Picture*, unsigned int) [7]
-[22]     3.0    0.01    0.02 1073349         HandleBasicPictureLayout(Picture*, unsigned int) [22]
-                0.02    0.00 1073435/1637673     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [21]
+[2]     50.8    0.02    1.12                 DisplayCallback() [2]
+                0.04    0.51   45082/45082       ManageCreatingTextures(int) [5]
+                0.11    0.34   22535/22535       MainDisplayFunction() [10]
+                0.00    0.07   22543/22543       PerformCameraMovement(unsigned int) [21]
+                0.00    0.03   22542/22542       DrawEffects() [29]
+                0.01    0.01   12384/12384       DisplayHUD(unsigned int) [31]
+                0.00    0.00   22542/22542       Render_3DObjects() [62]
+                0.00    0.00   22543/22543       AutomaticSlideShowControl_if_needed() [98]
+                0.00    0.00   22542/22914       timeval_diff(timeval*, timeval*, timeval*) [94]
+                0.00    0.00   22541/22541       PerformPicturesMovement(unsigned int) [101]
+                0.00    0.00   22541/22541       Run3DObjects(unsigned int) [100]
+                0.00    0.00   22526/22526       framerate_limiter() [105]
 -----------------------------------------------
                                                  <spontaneous>
-[23]     2.8    0.00    0.03                 SpecialFunctionCallback(int, int, int) [23]
-                0.00    0.03     362/642         Controls_Handle_Keyboard(unsigned char, int, int) [15]
-                0.00    0.00       4/4           SetDestinationOverPictureId(unsigned int) [52]
+[3]     42.8    0.00    0.96                 ManageLoadingPicturesMemory_Thread(void*) [3]
+                0.00    0.48     766/766         ManagePicturesLoadingMemory() [7]
+                0.00    0.48     775/775         ManagePicturesCreationMemory() [8]
 -----------------------------------------------
-                0.00    0.00       4/366         SetDestinationOverPictureId(unsigned int) [52]
-                0.00    0.02     362/366         MoveToPicture(unsigned int) [20]
-[24]     2.6    0.00    0.03     366         SetDestinationOverPicture(unsigned int, unsigned int) [24]
-                0.00    0.02     364/364         SetDestinationOverPictureImmediate(unsigned int, unsigned int) [32]
-                0.01    0.00     366/2338        PictureXYtoID(unsigned int, unsigned int) [17]
-                0.00    0.00       2/366         SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [31]
-                0.00    0.00     366/12043       PictureOutOfBounds(unsigned int) [111]
-                0.00    0.00     366/366         ResetPictureRotation() [161]
+                0.00    0.01     713/120742      PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [52]
+                0.00    0.42   56373/120742      LoadPicturesIfNeeded() [6]
+                0.00    0.48   63656/120742      CreatePicturesIfNeeded() [9]
+[4]     40.3    0.00    0.91  120742         RAM_Memory_can_accomodate(unsigned int) [4]
+                0.27    0.64  101196/146279      UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
 -----------------------------------------------
-                0.01    0.02   16189/16189       MainDisplayFunction() [2]
-[25]     2.6    0.01    0.02   16189         DrawLayoutBackground() [25]
-                0.02    0.00   16195/16195       DrawSimple2DBackground() [29]
+                0.04    0.51   45082/45082       DisplayCallback() [2]
+[5]     24.5    0.04    0.51   45082         ManageCreatingTextures(int) [5]
+                0.12    0.28   45083/146279      UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+                0.04    0.02 4845910/16539657     MinPictureThatIsVisible() [14]
+                0.04    0.00 4847619/41318693     MaxPictureThatIsVisible() [12]
+                0.01    0.00  182108/182118      make_texture(Picture*, int) [32]
+                0.00    0.00      88/1585        PrintDevMsg() [40]
+                0.00    0.00     372/22914       timeval_diff(timeval*, timeval*, timeval*) [94]
+-----------------------------------------------
+                0.01    0.47     773/773         ManagePicturesLoadingMemory() [7]
+[6]     21.5    0.01    0.47     773         LoadPicturesIfNeeded() [6]
+                0.00    0.42   56373/120742      RAM_Memory_can_accomodate(unsigned int) [4]
+                0.00    0.05     741/751         LoadPicture(char*, Picture*) [24]
+                0.00    0.00   59102/16539657     MinPictureThatIsVisible() [14]
+                0.00    0.00   58416/41318693     MaxPictureThatIsVisible() [12]
+                0.00    0.00     733/1907928     PositionPicture(Picture*, unsigned int) [16]
+                0.00    0.00    7405/2511262     PictureLoadingPending(Picture*) [73]
+                0.00    0.00     735/3008        GetViewableFilenameforFile(unsigned int, char*, char*) [126]
+-----------------------------------------------
+                0.00    0.48     766/766         ManageLoadingPicturesMemory_Thread(void*) [3]
+[7]     21.5    0.00    0.48     766         ManagePicturesLoadingMemory() [7]
+                0.01    0.47     773/773         LoadPicturesIfNeeded() [6]
+-----------------------------------------------
+                0.00    0.48     775/775         ManageLoadingPicturesMemory_Thread(void*) [3]
+[8]     21.3    0.00    0.48     775         ManagePicturesCreationMemory() [8]
+                0.00    0.48     765/765         CreatePicturesIfNeeded() [9]
+                0.00    0.00     782/782         DestroyPicturesIfNeeded() [145]
+-----------------------------------------------
+                0.00    0.48     765/765         ManagePicturesCreationMemory() [8]
+[9]     21.3    0.00    0.48     765         CreatePicturesIfNeeded() [9]
+                0.00    0.48   63656/120742      RAM_Memory_can_accomodate(unsigned int) [4]
+                0.00    0.00   65791/16539657     MinPictureThatIsVisible() [14]
+                0.00    0.00    2281/2291        CreatePicture(char*, unsigned int) [60]
+                0.00    0.00   64708/41318693     MaxPictureThatIsVisible() [12]
+                0.00    0.00   14856/2520992     PictureCreationPending(Picture*) [72]
+                0.00    0.00    2273/3008        GetViewableFilenameforFile(unsigned int, char*, char*) [126]
+-----------------------------------------------
+                0.11    0.34   22535/22535       DisplayCallback() [2]
+[10]    20.0    0.11    0.34   22535         MainDisplayFunction() [10]
+                0.13    0.21 2506623/2506623     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+                0.00    0.00   45071/16539657     MinPictureThatIsVisible() [14]
+                0.00    0.00   22536/41318693     MaxPictureThatIsVisible() [12]
+                0.00    0.00   22535/22535       CameraSeesOnlyOnePicture() [102]
+                0.00    0.00   22530/22530       DrawLayoutBackground() [104]
+-----------------------------------------------
+                0.13    0.21 2506623/2506623     MainDisplayFunction() [10]
+[11]    15.1    0.13    0.21 2506623         DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+                0.01    0.11 1907150/1907928     PositionPicture(Picture*, unsigned int) [16]
+                0.08    0.00 2506777/2506777     DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*) [20]
+                0.01    0.00  632506/632506      PictureFailed(Picture*) [35]
+                0.00    0.00 2506136/2520992     PictureCreationPending(Picture*) [72]
+                0.00    0.00 2503857/2511262     PictureLoadingPending(Picture*) [73]
+-----------------------------------------------
+                0.00    0.00   22536/41318693     MainDisplayFunction() [10]
+                0.00    0.00   33703/41318693     CalculateActiveImage_AccordingToPosition() [23]
+                0.00    0.00   58416/41318693     LoadPicturesIfNeeded() [6]
+                0.00    0.00   64708/41318693     CreatePicturesIfNeeded() [9]
+                0.04    0.00 4847619/41318693     ManageCreatingTextures(int) [5]
+                0.28    0.00 36291711/41318693     UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[12]    14.2    0.32    0.00 41318693         MaxPictureThatIsVisible() [12]
+-----------------------------------------------
+                0.31    0.00 47556232/47556232     UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[13]    13.8    0.31    0.00 47556232         PictureTextureLoaded(Picture*) [13]
+-----------------------------------------------
+                0.00    0.00   34263/16539657     CalculateActiveImage_AccordingToPosition() [23]
+                0.00    0.00   45071/16539657     MainDisplayFunction() [10]
+                0.00    0.00   59102/16539657     LoadPicturesIfNeeded() [6]
+                0.00    0.00   65791/16539657     CreatePicturesIfNeeded() [9]
+                0.04    0.02 4845910/16539657     ManageCreatingTextures(int) [5]
+                0.09    0.05 11489520/16539657     UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[14]     8.9    0.13    0.07 16539657         MinPictureThatIsVisible() [14]
+                0.07    0.00 16534505/16534505     CameraMoving() [22]
+-----------------------------------------------
+                0.00    0.00     368/47883365     CheckIfSignalGPUFullAppliesAnyMore() [33]
+                0.00    0.00  182118/47883365     make_texture(Picture*, int) [32]
+                0.14    0.00 47700879/47883365     UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[15]     6.2    0.14    0.00 47883365         GPU_Memory_can_accomodate(unsigned int) [15]
+-----------------------------------------------
+                0.00    0.00      45/1907928     SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [50]
+                0.00    0.00     733/1907928     LoadPicturesIfNeeded() [6]
+                0.01    0.11 1907150/1907928     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+[16]     5.3    0.01    0.11 1907928         PositionPicture(Picture*, unsigned int) [16]
+                0.01    0.10 1907790/1907790     HandlePictureLayout(Picture*, unsigned int) [17]
+-----------------------------------------------
+                0.01    0.10 1907790/1907790     PositionPicture(Picture*, unsigned int) [16]
+[17]     4.9    0.01    0.10 1907790         HandlePictureLayout(Picture*, unsigned int) [17]
+                0.09    0.01 1907743/1907743     HandleBasicPictureLayout(Picture*, unsigned int) [18]
+-----------------------------------------------
+                0.09    0.01 1907743/1907743     HandlePictureLayout(Picture*, unsigned int) [17]
+[18]     4.4    0.09    0.01 1907743         HandleBasicPictureLayout(Picture*, unsigned int) [18]
+                0.01    0.00 1907902/1907933     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [34]
 -----------------------------------------------
                                                  <spontaneous>
-[26]     2.2    0.00    0.02                 KeyCallback(unsigned char, int, int) [26]
-                0.00    0.02     280/642         Controls_Handle_Keyboard(unsigned char, int, int) [15]
-                0.00    0.00     279/1468        PrintDevMsg() [138]
+[19]     3.6    0.08    0.00                 PictureLoadedOpenGLTexturePending(Picture*) [19]
 -----------------------------------------------
-                0.01    0.01  564210/564210      HandlePictureLayout(Picture*, unsigned int) [7]
-[27]     2.1    0.01    0.01  564210         HandleExpoPictureLayout(Picture*, unsigned int) [27]
-                0.01    0.00  564227/1637673     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [21]
+                0.08    0.00 2506777/2506777     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+[20]     3.6    0.08    0.00 2506777         DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*) [20]
 -----------------------------------------------
-                0.02    0.00 4350050/4350050     MinPictureThatIsVisible() [16]
-[28]     2.0    0.02    0.00 4350050         CameraMoving() [28]
+                0.00    0.07   22543/22543       DisplayCallback() [2]
+[21]     3.2    0.00    0.07   22543         PerformCameraMovement(unsigned int) [21]
+                0.03    0.03   16720/16851       CalculateActiveImage_AccordingToPosition() [23]
+                0.01    0.00   22542/22542       GetLayoutMinimumX() [36]
+                0.00    0.00   22561/22561       GetLayoutMaximumY() [95]
+                0.00    0.00   22544/22544       GetLayoutMinimumY() [96]
+                0.00    0.00   22543/22543       GetLayoutMaximumX() [97]
+                0.00    0.00   22542/44079       GetLayoutMinimumZ() [87]
+                0.00    0.00   22542/22542       GetLayoutMaximumZ() [99]
+                0.00    0.00   15569/15569       CameraReachedDestination() [118]
+                0.00    0.00      21/21          CameraBounced() [166]
 -----------------------------------------------
-                0.02    0.00   16195/16195       DrawLayoutBackground() [25]
-[29]     2.0    0.02    0.00   16195         DrawSimple2DBackground() [29]
+                0.07    0.00 16534505/16534505     MinPictureThatIsVisible() [14]
+[22]     3.1    0.07    0.00 16534505         CameraMoving() [22]
 -----------------------------------------------
-                0.02    0.00    4473/4473        DisplayCallback() [1]
-[30]     2.0    0.02    0.00    4473         DisplayHUD(unsigned int) [30]
-                0.00    0.00   26837/26837       GetItemDate(unsigned int, unsigned int) [84]
-                0.00    0.00    4473/4473        setOrthographicProjection() [114]
-                0.00    0.00    4473/4475        GetTotalViewableFilesInDirectory() [113]
-                0.00    0.00    4473/4473        resetPerspectiveProjection() [115]
-                0.00    0.00    4472/4472        GetFilename(unsigned int) [116]
-                0.00    0.00    4472/4472        GetSubdir(unsigned int) [117]
+                0.00    0.00     131/16851       MoveDestinationCenter(unsigned int) [61]
+                0.03    0.03   16720/16851       PerformCameraMovement(unsigned int) [21]
+[23]     2.8    0.03    0.03   16851         CalculateActiveImage_AccordingToPosition() [23]
+                0.03    0.00   16850/16895       PictureOutOfBounds(unsigned int) [27]
+                0.00    0.00      18/63          ChangeActiveImage(unsigned int, unsigned int) [55]
+                0.00    0.00   34263/16539657     MinPictureThatIsVisible() [14]
+                0.00    0.00   33703/41318693     MaxPictureThatIsVisible() [12]
+                0.00    0.00     561/561         ChangeActiveImage(unsigned int) [67]
+                0.00    0.00  707423/707423      rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [75]
 -----------------------------------------------
-                0.00    0.00       2/366         SetDestinationOverPicture(unsigned int, unsigned int) [24]
-                0.00    0.02     364/366         SetDestinationOverPictureImmediate(unsigned int, unsigned int) [32]
-[31]     1.9    0.00    0.02     366         SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [31]
-                0.00    0.01     366/441         ChangeActiveImage(unsigned int, unsigned int) [33]
-                0.01    0.00     366/2338        PictureXYtoID(unsigned int, unsigned int) [17]
-                0.00    0.00     366/1637361     PositionPicture(Picture*, unsigned int) [6]
+                0.00    0.00      10/751         CreatePicture(char*, unsigned int) [60]
+                0.00    0.05     741/751         LoadPicturesIfNeeded() [6]
+[24]     2.2    0.00    0.05     751         LoadPicture(char*, Picture*) [24]
+                0.04    0.00     687/687         FixOpenGLPictureSize(Picture*) [25]
+                0.00    0.01     747/747         WxLoadJPEG(char*, Picture*) [53]
+                0.00    0.00     682/682         GetInterestingAreasList(Picture*) [58]
+                0.00    0.00     742/2229        PrintPictureLoadingMsg() [138]
 -----------------------------------------------
-                0.00    0.02     364/364         SetDestinationOverPicture(unsigned int, unsigned int) [24]
-[32]     1.9    0.00    0.02     364         SetDestinationOverPictureImmediate(unsigned int, unsigned int) [32]
-                0.00    0.02     364/366         SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [31]
+                0.04    0.00     687/687         LoadPicture(char*, Picture*) [24]
+[25]     1.8    0.04    0.00     687         FixOpenGLPictureSize(Picture*) [25]
 -----------------------------------------------
-                0.00    0.00      75/441         CalculateActiveImage_AccordingToPosition() [9]
-                0.00    0.01     366/441         SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [31]
-[33]     1.5    0.00    0.02     441         ChangeActiveImage(unsigned int, unsigned int) [33]
-                0.02    0.00     882/2338        PictureXYtoID(unsigned int, unsigned int) [17]
-                0.00    0.00     441/441         PrintPictureData(Picture*) [158]
+                0.04    0.00    5574/5574        UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[26]     1.8    0.04    0.00    5574         UnLoadPicture(Picture*) [26]
+                0.00    0.00    5681/7969        EmptyPicture(Picture*, unsigned int) [123]
+-----------------------------------------------
+                0.00    0.00      45/16895       SetDestinationOverPicture(unsigned int, unsigned int) [48]
+                0.03    0.00   16850/16895       CalculateActiveImage_AccordingToPosition() [23]
+[27]     1.3    0.03    0.00   16895         PictureOutOfBounds(unsigned int) [27]
+-----------------------------------------------
+                0.00    0.00     455/45539       Render_3DObject(unsigned int) [63]
+                0.03    0.00   45084/45539       DrawEffects() [29]
+[28]     1.3    0.03    0.00   45539         DrawObject(float, float, float, float, float, float, unsigned int, char*) [28]
+-----------------------------------------------
+                0.00    0.03   22542/22542       DisplayCallback() [2]
+[29]     1.3    0.00    0.03   22542         DrawEffects() [29]
+                0.03    0.00   45084/45539       DrawObject(float, float, float, float, float, float, unsigned int, char*) [28]
 -----------------------------------------------
                                                  <spontaneous>
-[34]     1.0    0.00    0.01                 main [34]
-                0.00    0.01       1/1           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [40]
-                0.00    0.00       1/1           LoadStockTexturesAndSounds() [53]
-                0.00    0.00       3/910         GetHeightQuality(unsigned int) [141]
-                0.00    0.00       3/1824        GetWidthQuality(unsigned int) [135]
-                0.00    0.00       2/4475        GetTotalViewableFilesInDirectory() [113]
-                0.00    0.00       1/1           DisableScreenSaver() [185]
-                0.00    0.00       1/1           InitSlideShow() [179]
-                0.00    0.00       1/1           InitGlut() [198]
+[30]     0.9    0.01    0.01                 main [30]
+                0.00    0.01       1/1           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [43]
+                0.00    0.00       1/1           LoadStockTexturesAndSounds() [66]
+                0.00    0.00       3/1522        GetWidthQuality(unsigned int) [140]
+                0.00    0.00       3/757         GetHeightQuality(unsigned int) [146]
+                0.00    0.00       2/12388       GetTotalViewableFilesInDirectory() [119]
+                0.00    0.00       1/1           DisableScreenSaver() [184]
+                0.00    0.00       1/1           InitSlideShow() [173]
+                0.00    0.00       1/1           InitGlut() [199]
                 0.00    0.00       1/1           GetGraphicsCardMemory() [192]
-                0.00    0.00       1/1           GetSystemFreeMemory() [186]
-                0.00    0.00       1/1           WxWidgetsContext::WxWidgetsContext() [201]
-                0.00    0.00       1/1           WxWidgetsContext::OnInit() [199]
-                0.00    0.00       1/1           InitEffects() [178]
-                0.00    0.00       1/1           CreateSlideshowPictureStructure(unsigned int) [194]
-                0.00    0.00       1/1           StartJoystickControl() [190]
-                0.00    0.00       1/1           PutCameraOverExistingPictureIfItIsOff() [196]
-                0.00    0.00       1/1           StopJoystickControl() [188]
-                0.00    0.00       1/1           EnableScreenSaver() [182]
-                0.00    0.00       1/1           DestroySlideshowPictureStructure() [195]
-                0.00    0.00       1/1           UnLoadStockTexturesAndSounds() [193]
-                0.00    0.00       1/1           WxWidgetsContext::OnClose() [200]
-                0.00    0.00       1/1           WxWidgetsContext::~WxWidgetsContext() [202]
+                0.00    0.00       1/1           GetSystemFreeMemory() [185]
+                0.00    0.00       1/1           WxWidgetsContext::WxWidgetsContext() [203]
+                0.00    0.00       1/1           InitEffects() [171]
+                0.00    0.00       1/1           WxWidgetsContext::OnInit() [201]
+                0.00    0.00       1/1           CreateSlideshowPictureStructure(unsigned int) [195]
+                0.00    0.00       1/1           StartJoystickControl() [189]
+                0.00    0.00       1/1           PutCameraOverExistingPictureIfItIsOff() [197]
+                0.00    0.00       1/1           StopJoystickControl() [187]
+                0.00    0.00       1/1           EnableScreenSaver() [178]
+                0.00    0.00       1/1           DestroySlideshowPictureStructure() [196]
+                0.00    0.00       1/1           UnLoadStockTexturesAndSounds() [194]
+                0.00    0.00       1/1           WxWidgetsContext::OnClose() [202]
+                0.00    0.00       1/1           WxWidgetsContext::~WxWidgetsContext() [204]
 -----------------------------------------------
-                0.00    0.00   16195/4520454     MainDisplayFunction() [2]
-                0.00    0.00   23353/4520454     CalculateActiveImage_AccordingToPosition() [9]
-                0.00    0.00  117963/4520454     LoadPicturesIfNeeded() [14]
-                0.00    0.00  123358/4520454     CreatePicturesIfNeeded() [48]
-                0.00    0.00  221316/4520454     UnLoadPicturesIfNeeded() [50]
-                0.01    0.00 4018269/4520454     ManageCreatingTextures(int) [5]
-[35]     1.0    0.01    0.00 4520454         MaxPictureThatIsVisible() [35]
+                0.01    0.01   12384/12384       DisplayCallback() [2]
+[31]     0.9    0.01    0.01   12384         DisplayHUD(unsigned int) [31]
+                0.01    0.00   12386/12386       GetSubdir(unsigned int) [39]
+                0.00    0.00   74311/74311       GetItemDate(unsigned int, unsigned int) [82]
+                0.00    0.00   12386/12388       GetTotalViewableFilesInDirectory() [119]
+                0.00    0.00   12385/12385       setOrthographicProjection() [121]
+                0.00    0.00   12385/12385       GetFilename(unsigned int) [120]
+                0.00    0.00   12384/12384       resetPerspectiveProjection() [122]
 -----------------------------------------------
-                0.01    0.00   20201/20201       SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [38]
-[36]     1.0    0.01    0.00   20201         SwapListItems(unsigned int, unsigned int) [36]
+                0.00    0.00      10/182118      LoadStockTexturesAndSounds() [66]
+                0.01    0.00  182108/182118      ManageCreatingTextures(int) [5]
+[32]     0.5    0.01    0.00  182118         make_texture(Picture*, int) [32]
+                0.00    0.00  182118/47883365     GPU_Memory_can_accomodate(unsigned int) [15]
+                0.00    0.00      10/1585        PrintDevMsg() [40]
+                0.00    0.00    1146/1146        complain_about_errors() [144]
+                0.00    0.00    1143/1868        PrintOpenGLDebugMsg() [139]
+                0.00    0.00     382/403         SoundLibrary_PlaySound(unsigned int) [158]
+                0.00    0.00     381/750         PrintDirectoryListItem(unsigned int) [151]
 -----------------------------------------------
-                                 734             GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.01       1/2           CountPicturesInDirectory(char*, int) [45]
-                0.00    0.01       1/2           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [40]
-[37]     1.0    0.00    0.01       2+734     GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.01       1/1           SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [38]
-                0.00    0.00   16492/16492       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-                0.00    0.00    5152/121502      wxString::~wxString() [69]
-                0.00    0.00    2944/68912       wxString::wxString() [73]
-                0.00    0.00    1472/17964       _U2(char const*) [87]
-                0.00    0.00    1350/1350        ensure_ending_with_slash(char*) [139]
-                0.00    0.00     766/3065        wxCharBuffer::operator char const*() const [120]
-                0.00    0.00     766/3065        wxCharBuffer::~wxCharBuffer() [119]
+                0.01    0.00     365/365         UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[33]     0.4    0.01    0.00     365         CheckIfSignalGPUFullAppliesAnyMore() [33]
+                0.00    0.00     368/47883365     GPU_Memory_can_accomodate(unsigned int) [15]
+-----------------------------------------------
+                0.00    0.00       3/1907933     ChangeActiveImage(unsigned int) [67]
+                0.00    0.00      28/1907933     SetDestinationOverPictureId(unsigned int) [57]
+                0.01    0.00 1907902/1907933     HandleBasicPictureLayout(Picture*, unsigned int) [18]
+[34]     0.4    0.01    0.00 1907933         PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [34]
+-----------------------------------------------
+                0.01    0.00  632506/632506      DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+[35]     0.4    0.01    0.00  632506         PictureFailed(Picture*) [35]
+-----------------------------------------------
+                0.01    0.00   22542/22542       PerformCameraMovement(unsigned int) [21]
+[36]     0.4    0.01    0.00   22542         GetLayoutMinimumX() [36]
+-----------------------------------------------
+                0.00    0.01   16494/16494       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+[37]     0.4    0.00    0.01   16494         AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+                0.01    0.00   16494/16494       wxFileName::GetExt() const [38]
+                0.00    0.00   65976/121365      wxString::~wxString() [81]
+                0.00    0.00   32988/32988       wxString::operator<<(wxString const&) [91]
+                0.00    0.00   16494/68920       wxString::wxString() [85]
+                0.00    0.00   16494/17230       wxStringBase::clear() [109]
+                0.00    0.00   16494/17966       _U2(char const*) [107]
+                0.00    0.00   16494/16494       wxFileName::wxFileName(wxString const&, wxPathFormat) [111]
+                0.00    0.00   16494/16494       ExtensionIsPicture(wxString*) [110]
+                0.00    0.00   16494/16494       wxFileName::~wxFileName() [112]
+                0.00    0.00    2300/3066        wxCharBuffer::operator char const*() const [125]
+                0.00    0.00    2300/3066        wxCharBuffer::~wxCharBuffer() [124]
+                0.00    0.00    2300/2300        wxFileName::GetModificationTime() const [136]
+                0.00    0.00    2300/2300        wxDateTime::GetYear(wxDateTime::TimeZone const&) const [132]
+                0.00    0.00    2300/2300        wxDateTime::GetMonth(wxDateTime::TimeZone const&) const [133]
+                0.00    0.00    2300/2300        wxDateTime::GetDay(wxDateTime::TimeZone const&) const [130]
+                0.00    0.00    2300/2300        wxDateTime::GetHour(wxDateTime::TimeZone const&) const [131]
+                0.00    0.00    2300/2300        wxDateTime::GetMinute(wxDateTime::TimeZone const&) const [134]
+                0.00    0.00    2300/2300        wxDateTime::GetSecond(wxDateTime::TimeZone const&) const [135]
+                0.00    0.00    2300/18794       ExtensionIsJPEGPicture(wxString*) [106]
+                0.00    0.00    2300/2300        wxULongLongNative::ToULong() const [137]
+-----------------------------------------------
+                0.01    0.00   16494/16494       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[38]     0.4    0.01    0.00   16494         wxFileName::GetExt() const [38]
+                0.00    0.00   16494/16494       wxString::wxString(wxString const&) [115]
+-----------------------------------------------
+                0.01    0.00   12386/12386       DisplayHUD(unsigned int) [31]
+[39]     0.4    0.01    0.00   12386         GetSubdir(unsigned int) [39]
+-----------------------------------------------
+                0.00    0.00       6/1585        Controls_Handle_MouseButtons(int, int, int, int) [64]
+                0.00    0.00      10/1585        make_texture(Picture*, int) [32]
+                0.00    0.00      88/1585        ManageCreatingTextures(int) [5]
+                0.00    0.00     388/1585        KeyCallback(unsigned char, int, int) [47]
+                0.00    0.00     406/1585        Controls_Handle_Keyboard(unsigned char, int, int) [49]
+                0.00    0.00     687/1585        GetInterestingAreasList(Picture*) [58]
+[40]     0.4    0.01    0.00    1585         PrintDevMsg() [40]
+-----------------------------------------------
+                0.00    0.00      34/246         MoveToPicture(unsigned int) [59]
+                0.00    0.00      45/246         SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [50]
+                0.00    0.00      45/246         SetDestinationOverPicture(unsigned int, unsigned int) [48]
+                0.00    0.00     122/246         ChangeActiveImage(unsigned int, unsigned int) [55]
+[41]     0.4    0.01    0.00     246         PictureXYtoID(unsigned int, unsigned int) [41]
+-----------------------------------------------
+                                 734             GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.01       1/2           CountPicturesInDirectory(char*, int) [54]
+                0.00    0.01       1/2           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [43]
+[42]     0.4    0.00    0.01       2+734     GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.01   16494/16494       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+                0.00    0.00    5152/121365      wxString::~wxString() [81]
+                0.00    0.00    2944/68920       wxString::wxString() [85]
+                0.00    0.00    1472/17966       _U2(char const*) [107]
+                0.00    0.00    1350/1350        ensure_ending_with_slash(char*) [143]
+                0.00    0.00     766/3066        wxCharBuffer::operator char const*() const [125]
+                0.00    0.00     766/3066        wxCharBuffer::~wxCharBuffer() [124]
                 0.00    0.00     738/738         timeval_diff2(timeval*, timeval*, timeval*) [155]
                 0.00    0.00     736/736         wxString::wxString(wchar_t const*) [157]
-                0.00    0.00     736/17228       wxStringBase::clear() [88]
-                                 734             GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
+                0.00    0.00     736/17230       wxStringBase::clear() [109]
+                0.00    0.00       1/1           SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [182]
+                                 734             GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
 -----------------------------------------------
-                                3066             SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [38]
-                0.00    0.01       1/1           GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-[38]     1.0    0.00    0.01       1+3066    SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [38]
-                0.01    0.00   20201/20201       SwapListItems(unsigned int, unsigned int) [36]
-                0.00    0.00   31346/31346       FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int) [81]
-                                3066             SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [38]
------------------------------------------------
-                0.01    0.00       1/1           Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[39]     1.0    0.01    0.00       1         ToggleTransitionMode() [39]
-                0.00    0.00       1/5           NewLabel(float, float, char*) [173]
------------------------------------------------
-                0.00    0.01       1/1           main [34]
-[40]     1.0    0.00    0.01       1         LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [40]
-                0.00    0.01       1/1           CountPicturesInDirectory(char*, int) [45]
-                0.00    0.01       1/2           GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
+                0.00    0.01       1/1           main [30]
+[43]     0.4    0.00    0.01       1         LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [43]
+                0.00    0.01       1/1           CountPicturesInDirectory(char*, int) [54]
+                0.00    0.01       1/2           GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
                 0.00    0.00       1/1           AllocateDirectoryList(unsigned int) [191]
 -----------------------------------------------
                                                  <spontaneous>
-[41]     1.0    0.01    0.00                 CameraOverPicture(unsigned int) [41]
+[44]     0.4    0.01    0.00                 glColorRGB(unsigned char, unsigned char, unsigned char) [44]
 -----------------------------------------------
                                                  <spontaneous>
-[42]     1.0    0.01    0.00                 IdleCallback() [42]
+[45]     0.4    0.01    0.00                 SlideshowLastPictureToLoad() [45]
 -----------------------------------------------
                                                  <spontaneous>
-[43]     1.0    0.01    0.00                 ResizeCallback(int, int) [43]
------------------------------------------------
-                0.01    0.00   16203/16203       PerformCameraMovement(unsigned int) [8]
-[44]     0.5    0.01    0.00   16203         GetLayoutMaximumZ() [44]
------------------------------------------------
-                0.00    0.01       1/1           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [40]
-[45]     0.5    0.00    0.01       1         CountPicturesInDirectory(char*, int) [45]
-                0.00    0.01       1/2           GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
+[46]     0.4    0.01    0.00                 SetDestinationOverNextPicture() [46]
 -----------------------------------------------
                                                  <spontaneous>
-[46]     0.5    0.01    0.00                 UnLoadPicture(Picture*) [46]
------------------------------------------------
-                0.00    0.00     821/821         ManageLoadingPicturesMemory_Thread(void*) [12]
-[47]     0.2    0.00    0.00     821         ManagePicturesCreationMemory() [47]
-                0.00    0.00     815/815         CreatePicturesIfNeeded() [48]
-                0.00    0.00     821/821         DestroyPicturesIfNeeded() [151]
------------------------------------------------
-                0.00    0.00     815/815         ManagePicturesCreationMemory() [47]
-[48]     0.2    0.00    0.00     815         CreatePicturesIfNeeded() [48]
-                0.00    0.00  126636/4359533     MinPictureThatIsVisible() [16]
-                0.00    0.00    2258/2268        CreatePicture(char*, unsigned int) [51]
-                0.00    0.00  123358/4520454     MaxPictureThatIsVisible() [35]
-                0.00    0.00  121493/237047      RAM_Memory_can_accomodate(unsigned int) [65]
-                0.00    0.00   33361/2126839     PictureCreationPending(Picture*) [60]
-                0.00    0.00    2257/3145        GetViewableFilenameforFile(unsigned int, char*, char*) [118]
------------------------------------------------
-                0.00    0.00     274/274         Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[49]     0.2    0.00    0.00     274         MoveDestinationCenter(unsigned int) [49]
-                0.00    0.00     274/11679       CalculateActiveImage_AccordingToPosition() [9]
-                0.00    0.00     274/274         RefreshDesiredStep_AccordingToPosition() [164]
------------------------------------------------
-                0.00    0.00   32399/32399       ManageCreatingTextures(int) [5]
-[50]     0.1    0.00    0.00   32399         UnLoadPicturesIfNeeded() [50]
-                0.00    0.00  221316/4520454     MaxPictureThatIsVisible() [35]
-                0.00    0.00   38237/4359533     MinPictureThatIsVisible() [16]
-                0.00    0.00  288961/311956      GPU_Memory_can_accomodate(unsigned int) [64]
-                0.00    0.00   30320/30320       PictureTextureLoaded(Picture*) [82]
-                0.00    0.00     340/340         CheckIfSignalGPUFullAppliesAnyMore() [163]
-                0.00    0.00     340/340         clear_texture(Picture*) [162]
------------------------------------------------
-                0.00    0.00      10/2268        LoadStockTexturesAndSounds() [53]
-                0.00    0.00    2258/2268        CreatePicturesIfNeeded() [48]
-[51]     0.0    0.00    0.00    2268         CreatePicture(char*, unsigned int) [51]
-                0.00    0.00      10/904         LoadPicture(char*, Picture*) [18]
------------------------------------------------
-                0.00    0.00       4/4           SpecialFunctionCallback(int, int, int) [23]
-[52]     0.0    0.00    0.00       4         SetDestinationOverPictureId(unsigned int) [52]
-                0.00    0.00       4/366         SetDestinationOverPicture(unsigned int, unsigned int) [24]
-                0.00    0.00       4/1637673     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [21]
------------------------------------------------
-                0.00    0.00       1/1           main [34]
-[53]     0.0    0.00    0.00       1         LoadStockTexturesAndSounds() [53]
-                0.00    0.00      10/2268        CreatePicture(char*, unsigned int) [51]
-                0.00    0.00      10/22710       make_texture(Picture*, int) [85]
-                0.00    0.00       4/4           AddSoundBufferForLoad(char*) [175]
-                0.00    0.00       3/3           FileExists(char const*) [176]
-                0.00    0.00       1/1           StartSoundLibrary() [184]
-                0.00    0.00       1/1           LoadSoundBuffers() [181]
-                0.00    0.00       1/1           InitFaceRecognition(char*) [187]
------------------------------------------------
-                0.00    0.00       4/4           Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[54]     0.0    0.00    0.00       4         ChangeLayout() [54]
-                0.00    0.00       8/1637357     HandlePictureLayout(Picture*, unsigned int) [7]
------------------------------------------------
-                0.00    0.00     254/254         CalculateActiveImage_AccordingToPosition() [9]
-[55]     0.0    0.00    0.00     254         ChangeActiveImage(unsigned int) [55]
-                0.00    0.00       7/1637673     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [21]
------------------------------------------------
-                0.00    0.00   33361/2126839     CreatePicturesIfNeeded() [48]
-                0.00    0.00 2093478/2126839     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-[60]     0.0    0.00    0.00 2126839         PictureCreationPending(Picture*) [60]
------------------------------------------------
-                0.00    0.00   11382/2104846     LoadPicturesIfNeeded() [14]
-                0.00    0.00 2093464/2104846     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-[61]     0.0    0.00    0.00 2104846         PictureLoadingPending(Picture*) [61]
------------------------------------------------
-                0.00    0.00  525416/525416      DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [3]
-[62]     0.0    0.00    0.00  525416         PictureFailed(Picture*) [62]
------------------------------------------------
-                0.00    0.00  426718/426718      GetOrientationOfFile(char*) [152]
-[63]     0.0    0.00    0.00  426718         read_1_byte() [63]
------------------------------------------------
-                0.00    0.00     283/311956      CheckIfSignalGPUFullAppliesAnyMore() [163]
-                0.00    0.00   22712/311956      make_texture(Picture*, int) [85]
-                0.00    0.00  288961/311956      UnLoadPicturesIfNeeded() [50]
-[64]     0.0    0.00    0.00  311956         GPU_Memory_can_accomodate(unsigned int) [64]
------------------------------------------------
-                0.00    0.00     839/237047      PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [143]
-                0.00    0.00  114715/237047      LoadPicturesIfNeeded() [14]
-                0.00    0.00  121493/237047      CreatePicturesIfNeeded() [48]
-[65]     0.0    0.00    0.00  237047         RAM_Memory_can_accomodate(unsigned int) [65]
------------------------------------------------
-                0.00    0.00   16490/187471      wxStringBase::wxStringBase(wxStringBase const&) [94]
-                0.00    0.00   49476/187471      wxStringBase::length() const [74]
-                0.00    0.00  121505/187471      wxStringBase::~wxStringBase() [70]
-[66]     0.0    0.00    0.00  187471         wxStringBase::GetStringData() const [66]
------------------------------------------------
-                0.00    0.00   16490/137991      wxStringData::Lock() [99]
-                0.00    0.00  121501/137991      wxStringData::Unlock() [68]
-[67]     0.0    0.00    0.00  137991         wxStringData::IsEmpty() const [67]
------------------------------------------------
-                0.00    0.00  121505/121505      wxStringBase::~wxStringBase() [70]
-[68]     0.0    0.00    0.00  121505         wxStringData::Unlock() [68]
-                0.00    0.00  121501/137991      wxStringData::IsEmpty() const [67]
------------------------------------------------
-                0.00    0.00     906/121502      WxLoadJPEG(char*, Picture*) [147]
-                0.00    0.00    5152/121502      GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.00   49476/121502      wxFileName::~wxFileName() [93]
-                0.00    0.00   65968/121502      AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[69]     0.0    0.00    0.00  121502         wxString::~wxString() [69]
-                0.00    0.00  121500/121500      wxStringBase::~wxStringBase() [70]
------------------------------------------------
-                0.00    0.00  121500/121500      wxString::~wxString() [69]
-[70]     0.0    0.00    0.00  121500         wxStringBase::~wxStringBase() [70]
-                0.00    0.00  121505/121505      wxStringData::Unlock() [68]
-                0.00    0.00  121505/187471      wxStringBase::GetStringData() const [66]
------------------------------------------------
-                0.00    0.00       2/68914       wxStringBase::wxStringBase(wxStringBase const&) [94]
-                0.00    0.00   68912/68914       wxStringBase::wxStringBase() [72]
-[71]     0.0    0.00    0.00   68914         wxStringBase::Init() [71]
------------------------------------------------
-                0.00    0.00   68912/68912       wxString::wxString() [73]
-[72]     0.0    0.00    0.00   68912         wxStringBase::wxStringBase() [72]
-                0.00    0.00   68912/68914       wxStringBase::Init() [71]
------------------------------------------------
-                0.00    0.00    2944/68912       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.00   16492/68912       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-                0.00    0.00   49476/68912       wxFileName::wxFileName(wxString const&, wxPathFormat) [92]
-[73]     0.0    0.00    0.00   68912         wxString::wxString() [73]
-                0.00    0.00   68912/68912       wxStringBase::wxStringBase() [72]
------------------------------------------------
-                0.00    0.00   16492/49476       wxStringBase::empty() const [98]
-                0.00    0.00   32984/49476       wxStringBase::append(wxStringBase const&) [77]
-[74]     0.0    0.00    0.00   49476         wxStringBase::length() const [74]
-                0.00    0.00   49476/187471      wxStringBase::GetStringData() const [66]
------------------------------------------------
-                0.00    0.00    2095/34494       Render_3DObject(unsigned int) [133]
-                0.00    0.00   32399/34494       DrawEffects() [100]
-[75]     0.0    0.00    0.00   34494         DrawObject(float, float, float, float, float, float, unsigned int, char*) [75]
------------------------------------------------
-                0.00    0.00   32984/32984       wxStringBase::append(wxStringBase const&) [77]
-[76]     0.0    0.00    0.00   32984         wxStringBase::ConcatSelf(unsigned long, wchar_t const*) [76]
------------------------------------------------
-                0.00    0.00   32984/32984       wxString::append(wxString const&) [78]
-[77]     0.0    0.00    0.00   32984         wxStringBase::append(wxStringBase const&) [77]
-                0.00    0.00   32984/32984       wxStringBase::c_str() const [80]
-                0.00    0.00   32984/49476       wxStringBase::length() const [74]
-                0.00    0.00   32984/32984       wxStringBase::ConcatSelf(unsigned long, wchar_t const*) [76]
------------------------------------------------
-                0.00    0.00   32984/32984       wxString::operator<<(wxString const&) [79]
-[78]     0.0    0.00    0.00   32984         wxString::append(wxString const&) [78]
-                0.00    0.00   32984/32984       wxStringBase::append(wxStringBase const&) [77]
------------------------------------------------
-                0.00    0.00   32984/32984       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[79]     0.0    0.00    0.00   32984         wxString::operator<<(wxString const&) [79]
-                0.00    0.00   32984/32984       wxString::append(wxString const&) [78]
------------------------------------------------
-                0.00    0.00   32984/32984       wxStringBase::append(wxStringBase const&) [77]
-[80]     0.0    0.00    0.00   32984         wxStringBase::c_str() const [80]
------------------------------------------------
-                0.00    0.00   31346/31346       SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [38]
-[81]     0.0    0.00    0.00   31346         FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int) [81]
------------------------------------------------
-                0.00    0.00   30320/30320       UnLoadPicturesIfNeeded() [50]
-[82]     0.0    0.00    0.00   30320         PictureTextureLoaded(Picture*) [82]
------------------------------------------------
-                0.00    0.00   13638/29837       CameraSeesOnlyOnePicture() [109]
-                0.00    0.00   16199/29837       PerformCameraMovement(unsigned int) [8]
-[83]     0.0    0.00    0.00   29837         GetLayoutMinimumZ() [83]
------------------------------------------------
-                0.00    0.00   26837/26837       DisplayHUD(unsigned int) [30]
-[84]     0.0    0.00    0.00   26837         GetItemDate(unsigned int, unsigned int) [84]
------------------------------------------------
-                0.00    0.00      10/22710       LoadStockTexturesAndSounds() [53]
-                0.00    0.00   22700/22710       ManageCreatingTextures(int) [5]
-[85]     0.0    0.00    0.00   22710         make_texture(Picture*, int) [85]
-                0.00    0.00   22712/311956      GPU_Memory_can_accomodate(unsigned int) [64]
-                0.00    0.00    1230/1910        PrintOpenGLDebugMsg() [134]
-                0.00    0.00    1228/1228        complain_about_errors() [140]
-                0.00    0.00     409/749         PrintDirectoryListItem(unsigned int) [154]
-                0.00    0.00     409/415         SoundLibrary_PlaySound(unsigned int) [159]
-                0.00    0.00      10/1468        PrintDevMsg() [138]
------------------------------------------------
-                0.00    0.00    2299/18791       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-                0.00    0.00   16492/18791       ExtensionIsPicture(wxString*) [90]
-[86]     0.0    0.00    0.00   18791         ExtensionIsJPEGPicture(wxString*) [86]
------------------------------------------------
-                0.00    0.00    1472/17964       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.00   16492/17964       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[87]     0.0    0.00    0.00   17964         _U2(char const*) [87]
------------------------------------------------
-                0.00    0.00     736/17228       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.00   16492/17228       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[88]     0.0    0.00    0.00   17228         wxStringBase::clear() [88]
------------------------------------------------
-                0.00    0.00     399/16601       ManageCreatingTextures(int) [5]
-                0.00    0.00   16202/16601       DisplayCallback() [1]
-[89]     0.0    0.00    0.00   16601         timeval_diff(timeval*, timeval*, timeval*) [89]
------------------------------------------------
-                0.00    0.00   16492/16492       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[90]     0.0    0.00    0.00   16492         ExtensionIsPicture(wxString*) [90]
-                0.00    0.00   16492/18791       ExtensionIsJPEGPicture(wxString*) [86]
------------------------------------------------
-                0.00    0.00   16492/16492       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-[91]     0.0    0.00    0.00   16492         AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-                0.00    0.00   65968/121502      wxString::~wxString() [69]
-                0.00    0.00   32984/32984       wxString::operator<<(wxString const&) [79]
-                0.00    0.00   16492/68912       wxString::wxString() [73]
-                0.00    0.00   16492/17228       wxStringBase::clear() [88]
-                0.00    0.00   16492/17964       _U2(char const*) [87]
-                0.00    0.00   16492/16492       wxFileName::wxFileName(wxString const&, wxPathFormat) [92]
-                0.00    0.00   16492/16492       wxFileName::GetExt() const [97]
-                0.00    0.00   16492/16492       ExtensionIsPicture(wxString*) [90]
-                0.00    0.00   16492/16492       wxFileName::~wxFileName() [93]
-                0.00    0.00    2299/3065        wxCharBuffer::operator char const*() const [120]
-                0.00    0.00    2299/3065        wxCharBuffer::~wxCharBuffer() [119]
-                0.00    0.00    2299/2299        wxFileName::GetModificationTime() const [131]
-                0.00    0.00    2299/2299        wxDateTime::GetYear(wxDateTime::TimeZone const&) const [127]
-                0.00    0.00    2299/2299        wxDateTime::GetMonth(wxDateTime::TimeZone const&) const [128]
-                0.00    0.00    2299/2299        wxDateTime::GetDay(wxDateTime::TimeZone const&) const [125]
-                0.00    0.00    2299/2299        wxDateTime::GetHour(wxDateTime::TimeZone const&) const [126]
-                0.00    0.00    2299/2299        wxDateTime::GetMinute(wxDateTime::TimeZone const&) const [129]
-                0.00    0.00    2299/2299        wxDateTime::GetSecond(wxDateTime::TimeZone const&) const [130]
-                0.00    0.00    2299/18791       ExtensionIsJPEGPicture(wxString*) [86]
-                0.00    0.00    2299/2299        wxULongLongNative::ToULong() const [132]
------------------------------------------------
-                0.00    0.00   16492/16492       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[92]     0.0    0.00    0.00   16492         wxFileName::wxFileName(wxString const&, wxPathFormat) [92]
-                0.00    0.00   49476/68912       wxString::wxString() [73]
-                0.00    0.00   16492/16492       wxArrayString::wxArrayString() [95]
------------------------------------------------
-                0.00    0.00   16492/16492       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[93]     0.0    0.00    0.00   16492         wxFileName::~wxFileName() [93]
-                0.00    0.00   49476/121502      wxString::~wxString() [69]
------------------------------------------------
-                0.00    0.00   16492/16492       wxString::wxString(wxString const&) [96]
-[94]     0.0    0.00    0.00   16492         wxStringBase::wxStringBase(wxStringBase const&) [94]
-                0.00    0.00   16492/16492       wxStringBase::empty() const [98]
-                0.00    0.00   16490/187471      wxStringBase::GetStringData() const [66]
-                0.00    0.00   16490/16490       wxStringData::Lock() [99]
-                0.00    0.00       2/68914       wxStringBase::Init() [71]
------------------------------------------------
-                0.00    0.00   16492/16492       wxFileName::wxFileName(wxString const&, wxPathFormat) [92]
-[95]     0.0    0.00    0.00   16492         wxArrayString::wxArrayString() [95]
------------------------------------------------
-                0.00    0.00   16492/16492       wxFileName::GetExt() const [97]
-[96]     0.0    0.00    0.00   16492         wxString::wxString(wxString const&) [96]
-                0.00    0.00   16492/16492       wxStringBase::wxStringBase(wxStringBase const&) [94]
------------------------------------------------
-                0.00    0.00   16492/16492       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[97]     0.0    0.00    0.00   16492         wxFileName::GetExt() const [97]
-                0.00    0.00   16492/16492       wxString::wxString(wxString const&) [96]
------------------------------------------------
-                0.00    0.00   16492/16492       wxStringBase::wxStringBase(wxStringBase const&) [94]
-[98]     0.0    0.00    0.00   16492         wxStringBase::empty() const [98]
-                0.00    0.00   16492/49476       wxStringBase::length() const [74]
------------------------------------------------
-                0.00    0.00   16490/16490       wxStringBase::wxStringBase(wxStringBase const&) [94]
-[99]     0.0    0.00    0.00   16490         wxStringData::Lock() [99]
-                0.00    0.00   16490/137991      wxStringData::IsEmpty() const [67]
------------------------------------------------
-                0.00    0.00   16200/16200       DisplayCallback() [1]
-[100]    0.0    0.00    0.00   16200         DrawEffects() [100]
-                0.00    0.00   32399/34494       DrawObject(float, float, float, float, float, float, unsigned int, char*) [75]
------------------------------------------------
-                0.00    0.00   16200/16200       PerformCameraMovement(unsigned int) [8]
-[101]    0.0    0.00    0.00   16200         GetLayoutMinimumY() [101]
------------------------------------------------
-                0.00    0.00   16200/16200       DisplayCallback() [1]
-[102]    0.0    0.00    0.00   16200         AutomaticSlideShowControl_if_needed() [102]
------------------------------------------------
-                0.00    0.00   16198/16198       PerformCameraMovement(unsigned int) [8]
-[103]    0.0    0.00    0.00   16198         GetLayoutMaximumX() [103]
------------------------------------------------
-                0.00    0.00   16198/16198       PerformCameraMovement(unsigned int) [8]
-[104]    0.0    0.00    0.00   16198         GetLayoutMaximumY() [104]
------------------------------------------------
-                0.00    0.00   16198/16198       PerformCameraMovement(unsigned int) [8]
-[105]    0.0    0.00    0.00   16198         GetLayoutMinimumX() [105]
------------------------------------------------
-                0.00    0.00   16197/16197       DisplayCallback() [1]
-[106]    0.0    0.00    0.00   16197         Render_3DObjects() [106]
-                0.00    0.00    2095/2095        Render_3DObject(unsigned int) [133]
------------------------------------------------
-                0.00    0.00   16196/16196       DisplayCallback() [1]
-[107]    0.0    0.00    0.00   16196         Run3DObjects(unsigned int) [107]
-                0.00    0.00       4/5           Delete_3DObject(unsigned int) [169]
------------------------------------------------
-                0.00    0.00   16196/16196       DisplayCallback() [1]
-[108]    0.0    0.00    0.00   16196         PerformPicturesMovement(unsigned int) [108]
------------------------------------------------
-                0.00    0.00   16189/16189       MainDisplayFunction() [2]
-[109]    0.0    0.00    0.00   16189         CameraSeesOnlyOnePicture() [109]
-                0.00    0.00   13638/29837       GetLayoutMinimumZ() [83]
------------------------------------------------
-                0.00    0.00   16188/16188       DisplayCallback() [1]
-[110]    0.0    0.00    0.00   16188         framerate_limiter() [110]
------------------------------------------------
-                0.00    0.00     366/12043       SetDestinationOverPicture(unsigned int, unsigned int) [24]
-                0.00    0.00   11677/12043       CalculateActiveImage_AccordingToPosition() [9]
-[111]    0.0    0.00    0.00   12043         PictureOutOfBounds(unsigned int) [111]
------------------------------------------------
-                0.00    0.00    9812/9812        PerformCameraMovement(unsigned int) [8]
-[112]    0.0    0.00    0.00    9812         CameraReachedDestination() [112]
------------------------------------------------
-                0.00    0.00       2/4475        main [34]
-                0.00    0.00    4473/4475        DisplayHUD(unsigned int) [30]
-[113]    0.0    0.00    0.00    4475         GetTotalViewableFilesInDirectory() [113]
------------------------------------------------
-                0.00    0.00    4473/4473        DisplayHUD(unsigned int) [30]
-[114]    0.0    0.00    0.00    4473         setOrthographicProjection() [114]
------------------------------------------------
-                0.00    0.00    4473/4473        DisplayHUD(unsigned int) [30]
-[115]    0.0    0.00    0.00    4473         resetPerspectiveProjection() [115]
------------------------------------------------
-                0.00    0.00    4472/4472        DisplayHUD(unsigned int) [30]
-[116]    0.0    0.00    0.00    4472         GetFilename(unsigned int) [116]
------------------------------------------------
-                0.00    0.00    4472/4472        DisplayHUD(unsigned int) [30]
-[117]    0.0    0.00    0.00    4472         GetSubdir(unsigned int) [117]
------------------------------------------------
-                0.00    0.00     888/3145        LoadPicturesIfNeeded() [14]
-                0.00    0.00    2257/3145        CreatePicturesIfNeeded() [48]
-[118]    0.0    0.00    0.00    3145         GetViewableFilenameforFile(unsigned int, char*, char*) [118]
------------------------------------------------
-                0.00    0.00     766/3065        GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.00    2299/3065        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[119]    0.0    0.00    0.00    3065         wxCharBuffer::~wxCharBuffer() [119]
------------------------------------------------
-                0.00    0.00     766/3065        GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-                0.00    0.00    2299/3065        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[120]    0.0    0.00    0.00    3065         wxCharBuffer::operator char const*() const [120]
------------------------------------------------
-                0.00    0.00     441/2647        PrintPictureData(Picture*) [158]
-                0.00    0.00     895/2647        LoadPicture(char*, Picture*) [18]
-                0.00    0.00    1311/2647        PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [143]
-[121]    0.0    0.00    0.00    2647         PrintPictureLoadingMsg() [121]
------------------------------------------------
-                0.00    0.00    2299/2299        wxFileName::GetModificationTime() const [131]
-[122]    0.0    0.00    0.00    2299         wxDateTime::wxDateTime() [122]
-                0.00    0.00    2299/2299        wxLongLongNative::wxLongLongNative() [123]
-                0.00    0.00    2299/2299        wxLongLongNative::wxLongLongNative(int, unsigned int) [124]
------------------------------------------------
-                0.00    0.00    2299/2299        wxDateTime::wxDateTime() [122]
-[123]    0.0    0.00    0.00    2299         wxLongLongNative::wxLongLongNative() [123]
------------------------------------------------
-                0.00    0.00    2299/2299        wxDateTime::wxDateTime() [122]
-[124]    0.0    0.00    0.00    2299         wxLongLongNative::wxLongLongNative(int, unsigned int) [124]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[125]    0.0    0.00    0.00    2299         wxDateTime::GetDay(wxDateTime::TimeZone const&) const [125]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[126]    0.0    0.00    0.00    2299         wxDateTime::GetHour(wxDateTime::TimeZone const&) const [126]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[127]    0.0    0.00    0.00    2299         wxDateTime::GetYear(wxDateTime::TimeZone const&) const [127]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[128]    0.0    0.00    0.00    2299         wxDateTime::GetMonth(wxDateTime::TimeZone const&) const [128]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[129]    0.0    0.00    0.00    2299         wxDateTime::GetMinute(wxDateTime::TimeZone const&) const [129]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[130]    0.0    0.00    0.00    2299         wxDateTime::GetSecond(wxDateTime::TimeZone const&) const [130]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[131]    0.0    0.00    0.00    2299         wxFileName::GetModificationTime() const [131]
-                0.00    0.00    2299/2299        wxDateTime::wxDateTime() [122]
------------------------------------------------
-                0.00    0.00    2299/2299        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [91]
-[132]    0.0    0.00    0.00    2299         wxULongLongNative::ToULong() const [132]
------------------------------------------------
-                0.00    0.00    2095/2095        Render_3DObjects() [106]
-[133]    0.0    0.00    0.00    2095         Render_3DObject(unsigned int) [133]
-                0.00    0.00    2095/34494       DrawObject(float, float, float, float, float, float, unsigned int, char*) [75]
------------------------------------------------
-                0.00    0.00     680/1910        clear_texture(Picture*) [162]
-                0.00    0.00    1230/1910        make_texture(Picture*, int) [85]
-[134]    0.0    0.00    0.00    1910         PrintOpenGLDebugMsg() [134]
------------------------------------------------
-                0.00    0.00       1/1824        InitSlideShow() [179]
-                0.00    0.00       3/1824        main [34]
-                0.00    0.00     909/1824        PickPictureRescaleRatio(unsigned int, unsigned int) [144]
-                0.00    0.00     911/1824        GetHeightQuality(unsigned int) [141]
-[135]    0.0    0.00    0.00    1824         GetWidthQuality(unsigned int) [135]
------------------------------------------------
-                0.00    0.00    1817/1817        wxImage::~wxImage() [137]
-[136]    0.0    0.00    0.00    1817         wxObject::~wxObject() [136]
------------------------------------------------
-                0.00    0.00     907/1814        WxLoadJPEG(char*, Picture*) [147]
-                0.00    0.00     907/1814        wxImage::Rescale(int, int, int) [142]
-[137]    0.0    0.00    0.00    1814         wxImage::~wxImage() [137]
-                0.00    0.00    1817/1817        wxObject::~wxObject() [136]
------------------------------------------------
-                0.00    0.00      10/1468        make_texture(Picture*, int) [85]
-                0.00    0.00     128/1468        ManageCreatingTextures(int) [5]
-                0.00    0.00     279/1468        KeyCallback(unsigned char, int, int) [26]
-                0.00    0.00     409/1468        GetInterestingAreasList(Picture*) [160]
-                0.00    0.00     642/1468        Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[138]    0.0    0.00    0.00    1468         PrintDevMsg() [138]
------------------------------------------------
-                0.00    0.00    1350/1350        GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
-[139]    0.0    0.00    0.00    1350         ensure_ending_with_slash(char*) [139]
------------------------------------------------
-                0.00    0.00    1228/1228        make_texture(Picture*, int) [85]
-[140]    0.0    0.00    0.00    1228         complain_about_errors() [140]
------------------------------------------------
-                0.00    0.00       1/910         InitSlideShow() [179]
-                0.00    0.00       3/910         main [34]
-                0.00    0.00     906/910         PickPictureRescaleRatio(unsigned int, unsigned int) [144]
-[141]    0.0    0.00    0.00     910         GetHeightQuality(unsigned int) [141]
-                0.00    0.00     911/1824        GetWidthQuality(unsigned int) [135]
------------------------------------------------
-                0.00    0.00     908/908         WxLoadJPEG(char*, Picture*) [147]
-[142]    0.0    0.00    0.00     908         wxImage::Rescale(int, int, int) [142]
-                0.00    0.00     907/1814        wxImage::~wxImage() [137]
-                0.00    0.00     905/905         wxImage::operator=(wxImage const&) [146]
------------------------------------------------
-                0.00    0.00     906/906         WxLoadJPEG(char*, Picture*) [147]
-[143]    0.0    0.00    0.00     906         PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [143]
-                0.00    0.00    1311/2647        PrintPictureLoadingMsg() [121]
-                0.00    0.00     839/237047      RAM_Memory_can_accomodate(unsigned int) [65]
------------------------------------------------
-                0.00    0.00     906/906         WxLoadJPEG(char*, Picture*) [147]
-[144]    0.0    0.00    0.00     906         PickPictureRescaleRatio(unsigned int, unsigned int) [144]
-                0.00    0.00     909/1824        GetWidthQuality(unsigned int) [135]
-                0.00    0.00     906/910         GetHeightQuality(unsigned int) [141]
------------------------------------------------
-                0.00    0.00     906/906         wxImage::operator=(wxImage const&) [146]
-[145]    0.0    0.00    0.00     906         wxObject::operator=(wxObject const&) [145]
------------------------------------------------
-                0.00    0.00     905/905         wxImage::Rescale(int, int, int) [142]
-[146]    0.0    0.00    0.00     905         wxImage::operator=(wxImage const&) [146]
-                0.00    0.00     906/906         wxObject::operator=(wxObject const&) [145]
------------------------------------------------
-                0.00    0.00     903/903         LoadPicture(char*, Picture*) [18]
-[147]    0.0    0.00    0.00     903         WxLoadJPEG(char*, Picture*) [147]
-                0.00    0.00     908/908         wxImage::Rescale(int, int, int) [142]
-                0.00    0.00     907/1814        wxImage::~wxImage() [137]
-                0.00    0.00     906/121502      wxString::~wxString() [69]
-                0.00    0.00     906/906         PickPictureRescaleRatio(unsigned int, unsigned int) [144]
-                0.00    0.00     906/906         PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [143]
-                0.00    0.00     903/903         wxImage::wxImage() [148]
-                0.00    0.00     902/902         _U(char const*) [149]
-                0.00    0.00     762/762         GetJPEGExifOrientation(char*, Picture*) [153]
------------------------------------------------
-                0.00    0.00     903/903         WxLoadJPEG(char*, Picture*) [147]
-[148]    0.0    0.00    0.00     903         wxImage::wxImage() [148]
-                0.00    0.00     902/902         wxObject::wxObject() [150]
------------------------------------------------
-                0.00    0.00     902/902         WxLoadJPEG(char*, Picture*) [147]
-[149]    0.0    0.00    0.00     902         _U(char const*) [149]
------------------------------------------------
-                0.00    0.00     902/902         wxImage::wxImage() [148]
-[150]    0.0    0.00    0.00     902         wxObject::wxObject() [150]
------------------------------------------------
-                0.00    0.00     821/821         ManagePicturesCreationMemory() [47]
-[151]    0.0    0.00    0.00     821         DestroyPicturesIfNeeded() [151]
------------------------------------------------
-                0.00    0.00     765/765         GetJPEGExifOrientation(char*, Picture*) [153]
-[152]    0.0    0.00    0.00     765         GetOrientationOfFile(char*) [152]
-                0.00    0.00  426718/426718      read_1_byte() [63]
-                0.00    0.00      45/45          read_2_bytes() [165]
------------------------------------------------
-                0.00    0.00     762/762         WxLoadJPEG(char*, Picture*) [147]
-[153]    0.0    0.00    0.00     762         GetJPEGExifOrientation(char*, Picture*) [153]
-                0.00    0.00     765/765         GetOrientationOfFile(char*) [152]
------------------------------------------------
-                0.00    0.00     340/749         clear_texture(Picture*) [162]
-                0.00    0.00     409/749         make_texture(Picture*, int) [85]
-[154]    0.0    0.00    0.00     749         PrintDirectoryListItem(unsigned int) [154]
------------------------------------------------
-                0.00    0.00     738/738         GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
+[47]     0.4    0.00    0.01                 KeyCallback(unsigned char, int, int) [47]
+                0.00    0.01     389/406         Controls_Handle_Keyboard(unsigned char, int, int) [49]
+                0.00    0.00     388/1585        PrintDevMsg() [40]
+-----------------------------------------------
+                0.00    0.00      17/45          MoveToPicture(unsigned int) [59]
+                0.00    0.00      28/45          SetDestinationOverPictureId(unsigned int) [57]
+[48]     0.3    0.00    0.01      45         SetDestinationOverPicture(unsigned int, unsigned int) [48]
+                0.00    0.01      45/45          SetDestinationOverPictureImmediate(unsigned int, unsigned int) [51]
+                0.00    0.00      45/246         PictureXYtoID(unsigned int, unsigned int) [41]
+                0.00    0.00      45/16895       PictureOutOfBounds(unsigned int) [27]
+                0.00    0.00      45/45          ResetPictureRotation() [164]
+-----------------------------------------------
+                0.00    0.00      17/406         SpecialFunctionCallback(int, int, int) [56]
+                0.00    0.01     389/406         KeyCallback(unsigned char, int, int) [47]
+[49]     0.3    0.00    0.01     406         Controls_Handle_Keyboard(unsigned char, int, int) [49]
+                0.00    0.00      17/17          MoveToPicture(unsigned int) [59]
+                0.00    0.00     406/1585        PrintDevMsg() [40]
+                0.00    0.00     131/131         MoveDestinationCenter(unsigned int) [61]
+                0.00    0.00       1/1           ToggleTransitionMode() [190]
+-----------------------------------------------
+                0.00    0.01      45/45          SetDestinationOverPictureImmediate(unsigned int, unsigned int) [51]
+[50]     0.2    0.00    0.01      45         SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [50]
+                0.00    0.00      45/63          ChangeActiveImage(unsigned int, unsigned int) [55]
+                0.00    0.00      45/246         PictureXYtoID(unsigned int, unsigned int) [41]
+                0.00    0.00      45/1907928     PositionPicture(Picture*, unsigned int) [16]
+-----------------------------------------------
+                0.00    0.01      45/45          SetDestinationOverPicture(unsigned int, unsigned int) [48]
+[51]     0.2    0.00    0.01      45         SetDestinationOverPictureImmediate(unsigned int, unsigned int) [51]
+                0.00    0.01      45/45          SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [50]
+-----------------------------------------------
+                0.00    0.01     753/753         WxLoadJPEG(char*, Picture*) [53]
+[52]     0.2    0.00    0.01     753         PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [52]
+                0.00    0.01     713/120742      RAM_Memory_can_accomodate(unsigned int) [4]
+                0.00    0.00    1428/2229        PrintPictureLoadingMsg() [138]
+-----------------------------------------------
+                0.00    0.01     747/747         LoadPicture(char*, Picture*) [24]
+[53]     0.2    0.00    0.01     747         WxLoadJPEG(char*, Picture*) [53]
+                0.00    0.01     753/753         PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [52]
+                0.00    0.00     755/121365      wxString::~wxString() [81]
+                0.00    0.00     754/754         wxImage::Rescale(int, int, int) [147]
+                0.00    0.00     754/1506        wxImage::~wxImage() [142]
+                0.00    0.00     753/753         PickPictureRescaleRatio(unsigned int, unsigned int) [149]
+                0.00    0.00     747/747         _U(char const*) [152]
+                0.00    0.00     745/745         wxImage::wxImage() [154]
+                0.00    0.00     313/313         GetJPEGExifOrientation(char*, Picture*) [161]
+-----------------------------------------------
+                0.00    0.01       1/1           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [43]
+[54]     0.2    0.00    0.01       1         CountPicturesInDirectory(char*, int) [54]
+                0.00    0.01       1/2           GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+-----------------------------------------------
+                0.00    0.00      18/63          CalculateActiveImage_AccordingToPosition() [23]
+                0.00    0.00      45/63          SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [50]
+[55]     0.2    0.00    0.00      63         ChangeActiveImage(unsigned int, unsigned int) [55]
+                0.00    0.00     122/246         PictureXYtoID(unsigned int, unsigned int) [41]
+                0.00    0.00      59/59          PrintPictureData(Picture*) [163]
+-----------------------------------------------
+                                                 <spontaneous>
+[56]     0.2    0.00    0.00                 SpecialFunctionCallback(int, int, int) [56]
+                0.00    0.00      28/28          SetDestinationOverPictureId(unsigned int) [57]
+                0.00    0.00      17/406         Controls_Handle_Keyboard(unsigned char, int, int) [49]
+-----------------------------------------------
+                0.00    0.00      28/28          SpecialFunctionCallback(int, int, int) [56]
+[57]     0.2    0.00    0.00      28         SetDestinationOverPictureId(unsigned int) [57]
+                0.00    0.00      28/45          SetDestinationOverPicture(unsigned int, unsigned int) [48]
+                0.00    0.00      28/1907933     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [34]
+-----------------------------------------------
+                0.00    0.00     682/682         LoadPicture(char*, Picture*) [24]
+[58]     0.2    0.00    0.00     682         GetInterestingAreasList(Picture*) [58]
+                0.00    0.00     687/1585        PrintDevMsg() [40]
+-----------------------------------------------
+                0.00    0.00      17/17          Controls_Handle_Keyboard(unsigned char, int, int) [49]
+[59]     0.2    0.00    0.00      17         MoveToPicture(unsigned int) [59]
+                0.00    0.00      17/45          SetDestinationOverPicture(unsigned int, unsigned int) [48]
+                0.00    0.00      34/246         PictureXYtoID(unsigned int, unsigned int) [41]
+-----------------------------------------------
+                0.00    0.00      10/2291        LoadStockTexturesAndSounds() [66]
+                0.00    0.00    2281/2291        CreatePicturesIfNeeded() [9]
+[60]     0.0    0.00    0.00    2291         CreatePicture(char*, unsigned int) [60]
+                0.00    0.00      10/751         LoadPicture(char*, Picture*) [24]
+                0.00    0.00    2288/7969        EmptyPicture(Picture*, unsigned int) [123]
+-----------------------------------------------
+                0.00    0.00     131/131         Controls_Handle_Keyboard(unsigned char, int, int) [49]
+[61]     0.0    0.00    0.00     131         MoveDestinationCenter(unsigned int) [61]
+                0.00    0.00     131/16851       CalculateActiveImage_AccordingToPosition() [23]
+                0.00    0.00     131/133         RefreshDesiredStep_AccordingToPosition() [162]
+-----------------------------------------------
+                0.00    0.00   22542/22542       DisplayCallback() [2]
+[62]     0.0    0.00    0.00   22542         Render_3DObjects() [62]
+                0.00    0.00     455/455         Render_3DObject(unsigned int) [63]
+-----------------------------------------------
+                0.00    0.00     455/455         Render_3DObjects() [62]
+[63]     0.0    0.00    0.00     455         Render_3DObject(unsigned int) [63]
+                0.00    0.00     455/45539       DrawObject(float, float, float, float, float, float, unsigned int, char*) [28]
+-----------------------------------------------
+                0.00    0.00       2/2           MouseCallback(int, int, int, int) [65]
+[64]     0.0    0.00    0.00       2         Controls_Handle_MouseButtons(int, int, int, int) [64]
+                0.00    0.00       6/1585        PrintDevMsg() [40]
+                0.00    0.00       2/133         RefreshDesiredStep_AccordingToPosition() [162]
+-----------------------------------------------
+                                                 <spontaneous>
+[65]     0.0    0.00    0.00                 MouseCallback(int, int, int, int) [65]
+                0.00    0.00       2/2           Controls_Handle_MouseButtons(int, int, int, int) [64]
+-----------------------------------------------
+                0.00    0.00       1/1           main [30]
+[66]     0.0    0.00    0.00       1         LoadStockTexturesAndSounds() [66]
+                0.00    0.00      10/2291        CreatePicture(char*, unsigned int) [60]
+                0.00    0.00      10/182118      make_texture(Picture*, int) [32]
+                0.00    0.00       4/4           AddSoundBufferForLoad(char*) [168]
+                0.00    0.00       3/3           FileExists(char const*) [169]
+                0.00    0.00       1/1           StartSoundLibrary() [183]
+                0.00    0.00       1/1           LoadSoundBuffers() [177]
+                0.00    0.00       1/1           InitFaceRecognition(char*) [186]
+-----------------------------------------------
+                0.00    0.00     561/561         CalculateActiveImage_AccordingToPosition() [23]
+[67]     0.0    0.00    0.00     561         ChangeActiveImage(unsigned int) [67]
+                0.00    0.00       3/1907933     PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [34]
+-----------------------------------------------
+                0.00    0.00   14856/2520992     CreatePicturesIfNeeded() [9]
+                0.00    0.00 2506136/2520992     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+[72]     0.0    0.00    0.00 2520992         PictureCreationPending(Picture*) [72]
+-----------------------------------------------
+                0.00    0.00    7405/2511262     LoadPicturesIfNeeded() [6]
+                0.00    0.00 2503857/2511262     DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [11]
+[73]     0.0    0.00    0.00 2511262         PictureLoadingPending(Picture*) [73]
+-----------------------------------------------
+                0.00    0.00 1399598/1399598     rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [75]
+[74]     0.0    0.00    0.00 1399598         rayIntersectsTriangle(float*, float*, float*, float*, float*) [74]
+-----------------------------------------------
+                0.00    0.00  707423/707423      CalculateActiveImage_AccordingToPosition() [23]
+[75]     0.0    0.00    0.00  707423         rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [75]
+                0.00    0.00 1399598/1399598     rayIntersectsTriangle(float*, float*, float*, float*, float*) [74]
+-----------------------------------------------
+                0.00    0.00  274239/274239      GetOrientationOfFile(char*) [160]
+[76]     0.0    0.00    0.00  274239         read_1_byte() [76]
+-----------------------------------------------
+                0.00    0.00   16492/187341      wxStringBase::wxStringBase(wxStringBase const&) [113]
+                0.00    0.00   49482/187341      wxStringBase::length() const [86]
+                0.00    0.00  121367/187341      wxStringBase::~wxStringBase() [80]
+[77]     0.0    0.00    0.00  187341         wxStringBase::GetStringData() const [77]
+-----------------------------------------------
+                0.00    0.00   16492/137859      wxStringData::Lock() [117]
+                0.00    0.00  121367/137859      wxStringData::Unlock() [79]
+[78]     0.0    0.00    0.00  137859         wxStringData::IsEmpty() const [78]
+-----------------------------------------------
+                0.00    0.00  121367/121367      wxStringBase::~wxStringBase() [80]
+[79]     0.0    0.00    0.00  121367         wxStringData::Unlock() [79]
+                0.00    0.00  121367/137859      wxStringData::IsEmpty() const [78]
+-----------------------------------------------
+                0.00    0.00  121365/121365      wxString::~wxString() [81]
+[80]     0.0    0.00    0.00  121365         wxStringBase::~wxStringBase() [80]
+                0.00    0.00  121367/121367      wxStringData::Unlock() [79]
+                0.00    0.00  121367/187341      wxStringBase::GetStringData() const [77]
+-----------------------------------------------
+                0.00    0.00     755/121365      WxLoadJPEG(char*, Picture*) [53]
+                0.00    0.00    5152/121365      GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.00   49482/121365      wxFileName::~wxFileName() [112]
+                0.00    0.00   65976/121365      AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[81]     0.0    0.00    0.00  121365         wxString::~wxString() [81]
+                0.00    0.00  121365/121365      wxStringBase::~wxStringBase() [80]
+-----------------------------------------------
+                0.00    0.00   74311/74311       DisplayHUD(unsigned int) [31]
+[82]     0.0    0.00    0.00   74311         GetItemDate(unsigned int, unsigned int) [82]
+-----------------------------------------------
+                0.00    0.00       2/68922       wxStringBase::wxStringBase(wxStringBase const&) [113]
+                0.00    0.00   68920/68922       wxStringBase::wxStringBase() [84]
+[83]     0.0    0.00    0.00   68922         wxStringBase::Init() [83]
+-----------------------------------------------
+                0.00    0.00   68920/68920       wxString::wxString() [85]
+[84]     0.0    0.00    0.00   68920         wxStringBase::wxStringBase() [84]
+                0.00    0.00   68920/68922       wxStringBase::Init() [83]
+-----------------------------------------------
+                0.00    0.00    2944/68920       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.00   16494/68920       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+                0.00    0.00   49482/68920       wxFileName::wxFileName(wxString const&, wxPathFormat) [111]
+[85]     0.0    0.00    0.00   68920         wxString::wxString() [85]
+                0.00    0.00   68920/68920       wxStringBase::wxStringBase() [84]
+-----------------------------------------------
+                0.00    0.00   16494/49482       wxStringBase::empty() const [116]
+                0.00    0.00   32988/49482       wxStringBase::append(wxStringBase const&) [89]
+[86]     0.0    0.00    0.00   49482         wxStringBase::length() const [86]
+                0.00    0.00   49482/187341      wxStringBase::GetStringData() const [77]
+-----------------------------------------------
+                0.00    0.00   21537/44079       CameraSeesOnlyOnePicture() [102]
+                0.00    0.00   22542/44079       PerformCameraMovement(unsigned int) [21]
+[87]     0.0    0.00    0.00   44079         GetLayoutMinimumZ() [87]
+-----------------------------------------------
+                0.00    0.00   32988/32988       wxStringBase::append(wxStringBase const&) [89]
+[88]     0.0    0.00    0.00   32988         wxStringBase::ConcatSelf(unsigned long, wchar_t const*) [88]
+-----------------------------------------------
+                0.00    0.00   32988/32988       wxString::append(wxString const&) [90]
+[89]     0.0    0.00    0.00   32988         wxStringBase::append(wxStringBase const&) [89]
+                0.00    0.00   32988/32988       wxStringBase::c_str() const [92]
+                0.00    0.00   32988/49482       wxStringBase::length() const [86]
+                0.00    0.00   32988/32988       wxStringBase::ConcatSelf(unsigned long, wchar_t const*) [88]
+-----------------------------------------------
+                0.00    0.00   32988/32988       wxString::operator<<(wxString const&) [91]
+[90]     0.0    0.00    0.00   32988         wxString::append(wxString const&) [90]
+                0.00    0.00   32988/32988       wxStringBase::append(wxStringBase const&) [89]
+-----------------------------------------------
+                0.00    0.00   32988/32988       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[91]     0.0    0.00    0.00   32988         wxString::operator<<(wxString const&) [91]
+                0.00    0.00   32988/32988       wxString::append(wxString const&) [90]
+-----------------------------------------------
+                0.00    0.00   32988/32988       wxStringBase::append(wxStringBase const&) [89]
+[92]     0.0    0.00    0.00   32988         wxStringBase::c_str() const [92]
+-----------------------------------------------
+                0.00    0.00   28346/28346       SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [182]
+[93]     0.0    0.00    0.00   28346         FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int) [93]
+-----------------------------------------------
+                0.00    0.00     372/22914       ManageCreatingTextures(int) [5]
+                0.00    0.00   22542/22914       DisplayCallback() [2]
+[94]     0.0    0.00    0.00   22914         timeval_diff(timeval*, timeval*, timeval*) [94]
+-----------------------------------------------
+                0.00    0.00   22561/22561       PerformCameraMovement(unsigned int) [21]
+[95]     0.0    0.00    0.00   22561         GetLayoutMaximumY() [95]
+-----------------------------------------------
+                0.00    0.00   22544/22544       PerformCameraMovement(unsigned int) [21]
+[96]     0.0    0.00    0.00   22544         GetLayoutMinimumY() [96]
+-----------------------------------------------
+                0.00    0.00   22543/22543       PerformCameraMovement(unsigned int) [21]
+[97]     0.0    0.00    0.00   22543         GetLayoutMaximumX() [97]
+-----------------------------------------------
+                0.00    0.00   22543/22543       DisplayCallback() [2]
+[98]     0.0    0.00    0.00   22543         AutomaticSlideShowControl_if_needed() [98]
+-----------------------------------------------
+                0.00    0.00   22542/22542       PerformCameraMovement(unsigned int) [21]
+[99]     0.0    0.00    0.00   22542         GetLayoutMaximumZ() [99]
+-----------------------------------------------
+                0.00    0.00   22541/22541       DisplayCallback() [2]
+[100]    0.0    0.00    0.00   22541         Run3DObjects(unsigned int) [100]
+                0.00    0.00       1/1           Delete_3DObject(unsigned int) [176]
+-----------------------------------------------
+                0.00    0.00   22541/22541       DisplayCallback() [2]
+[101]    0.0    0.00    0.00   22541         PerformPicturesMovement(unsigned int) [101]
+-----------------------------------------------
+                0.00    0.00   22535/22535       MainDisplayFunction() [10]
+[102]    0.0    0.00    0.00   22535         CameraSeesOnlyOnePicture() [102]
+                0.00    0.00   21537/44079       GetLayoutMinimumZ() [87]
+-----------------------------------------------
+                0.00    0.00   22533/22533       DrawLayoutBackground() [104]
+[103]    0.0    0.00    0.00   22533         DrawSimple2DBackground() [103]
+-----------------------------------------------
+                0.00    0.00   22530/22530       MainDisplayFunction() [10]
+[104]    0.0    0.00    0.00   22530         DrawLayoutBackground() [104]
+                0.00    0.00   22533/22533       DrawSimple2DBackground() [103]
+-----------------------------------------------
+                0.00    0.00   22526/22526       DisplayCallback() [2]
+[105]    0.0    0.00    0.00   22526         framerate_limiter() [105]
+-----------------------------------------------
+                0.00    0.00    2300/18794       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+                0.00    0.00   16494/18794       ExtensionIsPicture(wxString*) [110]
+[106]    0.0    0.00    0.00   18794         ExtensionIsJPEGPicture(wxString*) [106]
+-----------------------------------------------
+                0.00    0.00    1472/17966       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.00   16494/17966       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[107]    0.0    0.00    0.00   17966         _U2(char const*) [107]
+-----------------------------------------------
+                0.00    0.00   17602/17602       SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [182]
+[108]    0.0    0.00    0.00   17602         SwapListItems(unsigned int, unsigned int) [108]
+-----------------------------------------------
+                0.00    0.00     736/17230       GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.00   16494/17230       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[109]    0.0    0.00    0.00   17230         wxStringBase::clear() [109]
+-----------------------------------------------
+                0.00    0.00   16494/16494       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[110]    0.0    0.00    0.00   16494         ExtensionIsPicture(wxString*) [110]
+                0.00    0.00   16494/18794       ExtensionIsJPEGPicture(wxString*) [106]
+-----------------------------------------------
+                0.00    0.00   16494/16494       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[111]    0.0    0.00    0.00   16494         wxFileName::wxFileName(wxString const&, wxPathFormat) [111]
+                0.00    0.00   49482/68920       wxString::wxString() [85]
+                0.00    0.00   16494/16494       wxArrayString::wxArrayString() [114]
+-----------------------------------------------
+                0.00    0.00   16494/16494       AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[112]    0.0    0.00    0.00   16494         wxFileName::~wxFileName() [112]
+                0.00    0.00   49482/121365      wxString::~wxString() [81]
+-----------------------------------------------
+                0.00    0.00   16494/16494       wxString::wxString(wxString const&) [115]
+[113]    0.0    0.00    0.00   16494         wxStringBase::wxStringBase(wxStringBase const&) [113]
+                0.00    0.00   16494/16494       wxStringBase::empty() const [116]
+                0.00    0.00   16492/187341      wxStringBase::GetStringData() const [77]
+                0.00    0.00   16492/16492       wxStringData::Lock() [117]
+                0.00    0.00       2/68922       wxStringBase::Init() [83]
+-----------------------------------------------
+                0.00    0.00   16494/16494       wxFileName::wxFileName(wxString const&, wxPathFormat) [111]
+[114]    0.0    0.00    0.00   16494         wxArrayString::wxArrayString() [114]
+-----------------------------------------------
+                0.00    0.00   16494/16494       wxFileName::GetExt() const [38]
+[115]    0.0    0.00    0.00   16494         wxString::wxString(wxString const&) [115]
+                0.00    0.00   16494/16494       wxStringBase::wxStringBase(wxStringBase const&) [113]
+-----------------------------------------------
+                0.00    0.00   16494/16494       wxStringBase::wxStringBase(wxStringBase const&) [113]
+[116]    0.0    0.00    0.00   16494         wxStringBase::empty() const [116]
+                0.00    0.00   16494/49482       wxStringBase::length() const [86]
+-----------------------------------------------
+                0.00    0.00   16492/16492       wxStringBase::wxStringBase(wxStringBase const&) [113]
+[117]    0.0    0.00    0.00   16492         wxStringData::Lock() [117]
+                0.00    0.00   16492/137859      wxStringData::IsEmpty() const [78]
+-----------------------------------------------
+                0.00    0.00   15569/15569       PerformCameraMovement(unsigned int) [21]
+[118]    0.0    0.00    0.00   15569         CameraReachedDestination() [118]
+-----------------------------------------------
+                0.00    0.00       2/12388       main [30]
+                0.00    0.00   12386/12388       DisplayHUD(unsigned int) [31]
+[119]    0.0    0.00    0.00   12388         GetTotalViewableFilesInDirectory() [119]
+-----------------------------------------------
+                0.00    0.00   12385/12385       DisplayHUD(unsigned int) [31]
+[120]    0.0    0.00    0.00   12385         GetFilename(unsigned int) [120]
+-----------------------------------------------
+                0.00    0.00   12385/12385       DisplayHUD(unsigned int) [31]
+[121]    0.0    0.00    0.00   12385         setOrthographicProjection() [121]
+-----------------------------------------------
+                0.00    0.00   12384/12384       DisplayHUD(unsigned int) [31]
+[122]    0.0    0.00    0.00   12384         resetPerspectiveProjection() [122]
+-----------------------------------------------
+                0.00    0.00    2288/7969        CreatePicture(char*, unsigned int) [60]
+                0.00    0.00    5681/7969        UnLoadPicture(Picture*) [26]
+[123]    0.0    0.00    0.00    7969         EmptyPicture(Picture*, unsigned int) [123]
+-----------------------------------------------
+                0.00    0.00     766/3066        GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.00    2300/3066        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[124]    0.0    0.00    0.00    3066         wxCharBuffer::~wxCharBuffer() [124]
+-----------------------------------------------
+                0.00    0.00     766/3066        GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+                0.00    0.00    2300/3066        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[125]    0.0    0.00    0.00    3066         wxCharBuffer::operator char const*() const [125]
+-----------------------------------------------
+                0.00    0.00     735/3008        LoadPicturesIfNeeded() [6]
+                0.00    0.00    2273/3008        CreatePicturesIfNeeded() [9]
+[126]    0.0    0.00    0.00    3008         GetViewableFilenameforFile(unsigned int, char*, char*) [126]
+-----------------------------------------------
+                0.00    0.00    2300/2300        wxFileName::GetModificationTime() const [136]
+[127]    0.0    0.00    0.00    2300         wxDateTime::wxDateTime() [127]
+                0.00    0.00    2300/2300        wxLongLongNative::wxLongLongNative() [128]
+                0.00    0.00    2300/2300        wxLongLongNative::wxLongLongNative(int, unsigned int) [129]
+-----------------------------------------------
+                0.00    0.00    2300/2300        wxDateTime::wxDateTime() [127]
+[128]    0.0    0.00    0.00    2300         wxLongLongNative::wxLongLongNative() [128]
+-----------------------------------------------
+                0.00    0.00    2300/2300        wxDateTime::wxDateTime() [127]
+[129]    0.0    0.00    0.00    2300         wxLongLongNative::wxLongLongNative(int, unsigned int) [129]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[130]    0.0    0.00    0.00    2300         wxDateTime::GetDay(wxDateTime::TimeZone const&) const [130]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[131]    0.0    0.00    0.00    2300         wxDateTime::GetHour(wxDateTime::TimeZone const&) const [131]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[132]    0.0    0.00    0.00    2300         wxDateTime::GetYear(wxDateTime::TimeZone const&) const [132]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[133]    0.0    0.00    0.00    2300         wxDateTime::GetMonth(wxDateTime::TimeZone const&) const [133]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[134]    0.0    0.00    0.00    2300         wxDateTime::GetMinute(wxDateTime::TimeZone const&) const [134]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[135]    0.0    0.00    0.00    2300         wxDateTime::GetSecond(wxDateTime::TimeZone const&) const [135]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[136]    0.0    0.00    0.00    2300         wxFileName::GetModificationTime() const [136]
+                0.00    0.00    2300/2300        wxDateTime::wxDateTime() [127]
+-----------------------------------------------
+                0.00    0.00    2300/2300        AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [37]
+[137]    0.0    0.00    0.00    2300         wxULongLongNative::ToULong() const [137]
+-----------------------------------------------
+                0.00    0.00      59/2229        PrintPictureData(Picture*) [163]
+                0.00    0.00     742/2229        LoadPicture(char*, Picture*) [24]
+                0.00    0.00    1428/2229        PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [52]
+[138]    0.0    0.00    0.00    2229         PrintPictureLoadingMsg() [138]
+-----------------------------------------------
+                0.00    0.00     725/1868        clear_texture(Picture*) [159]
+                0.00    0.00    1143/1868        make_texture(Picture*, int) [32]
+[139]    0.0    0.00    0.00    1868         PrintOpenGLDebugMsg() [139]
+-----------------------------------------------
+                0.00    0.00       1/1522        InitSlideShow() [173]
+                0.00    0.00       3/1522        main [30]
+                0.00    0.00     756/1522        PickPictureRescaleRatio(unsigned int, unsigned int) [149]
+                0.00    0.00     762/1522        GetHeightQuality(unsigned int) [146]
+[140]    0.0    0.00    0.00    1522         GetWidthQuality(unsigned int) [140]
+-----------------------------------------------
+                0.00    0.00    1507/1507        wxImage::~wxImage() [142]
+[141]    0.0    0.00    0.00    1507         wxObject::~wxObject() [141]
+-----------------------------------------------
+                0.00    0.00     752/1506        wxImage::Rescale(int, int, int) [147]
+                0.00    0.00     754/1506        WxLoadJPEG(char*, Picture*) [53]
+[142]    0.0    0.00    0.00    1506         wxImage::~wxImage() [142]
+                0.00    0.00    1507/1507        wxObject::~wxObject() [141]
+-----------------------------------------------
+                0.00    0.00    1350/1350        GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+[143]    0.0    0.00    0.00    1350         ensure_ending_with_slash(char*) [143]
+-----------------------------------------------
+                0.00    0.00    1146/1146        make_texture(Picture*, int) [32]
+[144]    0.0    0.00    0.00    1146         complain_about_errors() [144]
+-----------------------------------------------
+                0.00    0.00     782/782         ManagePicturesCreationMemory() [8]
+[145]    0.0    0.00    0.00     782         DestroyPicturesIfNeeded() [145]
+-----------------------------------------------
+                0.00    0.00       1/757         InitSlideShow() [173]
+                0.00    0.00       3/757         main [30]
+                0.00    0.00     753/757         PickPictureRescaleRatio(unsigned int, unsigned int) [149]
+[146]    0.0    0.00    0.00     757         GetHeightQuality(unsigned int) [146]
+                0.00    0.00     762/1522        GetWidthQuality(unsigned int) [140]
+-----------------------------------------------
+                0.00    0.00     754/754         WxLoadJPEG(char*, Picture*) [53]
+[147]    0.0    0.00    0.00     754         wxImage::Rescale(int, int, int) [147]
+                0.00    0.00     753/753         wxImage::operator=(wxImage const&) [150]
+                0.00    0.00     752/1506        wxImage::~wxImage() [142]
+-----------------------------------------------
+                0.00    0.00     754/754         wxImage::operator=(wxImage const&) [150]
+[148]    0.0    0.00    0.00     754         wxObject::operator=(wxObject const&) [148]
+-----------------------------------------------
+                0.00    0.00     753/753         WxLoadJPEG(char*, Picture*) [53]
+[149]    0.0    0.00    0.00     753         PickPictureRescaleRatio(unsigned int, unsigned int) [149]
+                0.00    0.00     756/1522        GetWidthQuality(unsigned int) [140]
+                0.00    0.00     753/757         GetHeightQuality(unsigned int) [146]
+-----------------------------------------------
+                0.00    0.00     753/753         wxImage::Rescale(int, int, int) [147]
+[150]    0.0    0.00    0.00     753         wxImage::operator=(wxImage const&) [150]
+                0.00    0.00     754/754         wxObject::operator=(wxObject const&) [148]
+-----------------------------------------------
+                0.00    0.00     369/750         clear_texture(Picture*) [159]
+                0.00    0.00     381/750         make_texture(Picture*, int) [32]
+[151]    0.0    0.00    0.00     750         PrintDirectoryListItem(unsigned int) [151]
+-----------------------------------------------
+                0.00    0.00     747/747         WxLoadJPEG(char*, Picture*) [53]
+[152]    0.0    0.00    0.00     747         _U(char const*) [152]
+-----------------------------------------------
+                0.00    0.00     747/747         wxImage::wxImage() [154]
+[153]    0.0    0.00    0.00     747         wxObject::wxObject() [153]
+-----------------------------------------------
+                0.00    0.00     745/745         WxLoadJPEG(char*, Picture*) [53]
+[154]    0.0    0.00    0.00     745         wxImage::wxImage() [154]
+                0.00    0.00     747/747         wxObject::wxObject() [153]
+-----------------------------------------------
+                0.00    0.00     738/738         GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
 [155]    0.0    0.00    0.00     738         timeval_diff2(timeval*, timeval*, timeval*) [155]
 -----------------------------------------------
                 0.00    0.00     736/736         wxString::wxString(wchar_t const*) [157]
 [156]    0.0    0.00    0.00     736         wxStringBase::wxStringBase(wchar_t const*) [156]
 -----------------------------------------------
-                0.00    0.00     736/736         GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [37]
+                0.00    0.00     736/736         GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
 [157]    0.0    0.00    0.00     736         wxString::wxString(wchar_t const*) [157]
                 0.00    0.00     736/736         wxStringBase::wxStringBase(wchar_t const*) [156]
 -----------------------------------------------
-                0.00    0.00     441/441         ChangeActiveImage(unsigned int, unsigned int) [33]
-[158]    0.0    0.00    0.00     441         PrintPictureData(Picture*) [158]
-                0.00    0.00     441/2647        PrintPictureLoadingMsg() [121]
+                0.00    0.00      21/403         CameraBounced() [166]
+                0.00    0.00     382/403         make_texture(Picture*, int) [32]
+[158]    0.0    0.00    0.00     403         SoundLibrary_PlaySound(unsigned int) [158]
 -----------------------------------------------
-                0.00    0.00       6/415         CameraBounced() [166]
-                0.00    0.00     409/415         make_texture(Picture*, int) [85]
-[159]    0.0    0.00    0.00     415         SoundLibrary_PlaySound(unsigned int) [159]
+                0.00    0.00     369/369         UnLoadPicturesIfNeeded(unsigned int, unsigned int) [1]
+[159]    0.0    0.00    0.00     369         clear_texture(Picture*) [159]
+                0.00    0.00     725/1868        PrintOpenGLDebugMsg() [139]
+                0.00    0.00     369/750         PrintDirectoryListItem(unsigned int) [151]
 -----------------------------------------------
-                0.00    0.00     409/409         LoadPicture(char*, Picture*) [18]
-[160]    0.0    0.00    0.00     409         GetInterestingAreasList(Picture*) [160]
-                0.00    0.00     409/1468        PrintDevMsg() [138]
+                0.00    0.00     315/315         GetJPEGExifOrientation(char*, Picture*) [161]
+[160]    0.0    0.00    0.00     315         GetOrientationOfFile(char*) [160]
+                0.00    0.00  274239/274239      read_1_byte() [76]
+                0.00    0.00      20/20          read_2_bytes() [167]
 -----------------------------------------------
-                0.00    0.00     366/366         SetDestinationOverPicture(unsigned int, unsigned int) [24]
-[161]    0.0    0.00    0.00     366         ResetPictureRotation() [161]
+                0.00    0.00     313/313         WxLoadJPEG(char*, Picture*) [53]
+[161]    0.0    0.00    0.00     313         GetJPEGExifOrientation(char*, Picture*) [161]
+                0.00    0.00     315/315         GetOrientationOfFile(char*) [160]
 -----------------------------------------------
-                0.00    0.00     340/340         UnLoadPicturesIfNeeded() [50]
-[162]    0.0    0.00    0.00     340         clear_texture(Picture*) [162]
-                0.00    0.00     680/1910        PrintOpenGLDebugMsg() [134]
-                0.00    0.00     340/749         PrintDirectoryListItem(unsigned int) [154]
+                0.00    0.00       2/133         Controls_Handle_MouseButtons(int, int, int, int) [64]
+                0.00    0.00     131/133         MoveDestinationCenter(unsigned int) [61]
+[162]    0.0    0.00    0.00     133         RefreshDesiredStep_AccordingToPosition() [162]
 -----------------------------------------------
-                0.00    0.00     340/340         UnLoadPicturesIfNeeded() [50]
-[163]    0.0    0.00    0.00     340         CheckIfSignalGPUFullAppliesAnyMore() [163]
-                0.00    0.00     283/311956      GPU_Memory_can_accomodate(unsigned int) [64]
+                0.00    0.00      59/59          ChangeActiveImage(unsigned int, unsigned int) [55]
+[163]    0.0    0.00    0.00      59         PrintPictureData(Picture*) [163]
+                0.00    0.00      59/2229        PrintPictureLoadingMsg() [138]
 -----------------------------------------------
-                0.00    0.00     274/274         MoveDestinationCenter(unsigned int) [49]
-[164]    0.0    0.00    0.00     274         RefreshDesiredStep_AccordingToPosition() [164]
+                0.00    0.00      45/45          SetDestinationOverPicture(unsigned int, unsigned int) [48]
+[164]    0.0    0.00    0.00      45         ResetPictureRotation() [164]
 -----------------------------------------------
-                0.00    0.00      45/45          GetOrientationOfFile(char*) [152]
-[165]    0.0    0.00    0.00      45         read_2_bytes() [165]
+                0.00    0.00      30/30          MotionCallback(int, int) [216]
+[165]    0.0    0.00    0.00      30         Controls_Handle_MouseMotion(int, int, int, int) [165]
 -----------------------------------------------
-                0.00    0.00       6/6           PerformCameraMovement(unsigned int) [8]
-[166]    0.0    0.00    0.00       6         CameraBounced() [166]
-                0.00    0.00       6/415         SoundLibrary_PlaySound(unsigned int) [159]
+                0.00    0.00      21/21          PerformCameraMovement(unsigned int) [21]
+[166]    0.0    0.00    0.00      21         CameraBounced() [166]
+                0.00    0.00      21/403         SoundLibrary_PlaySound(unsigned int) [158]
 -----------------------------------------------
-                0.00    0.00       5/5           NewLabel(float, float, char*) [173]
-[167]    0.0    0.00    0.00       5         Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [167]
-                0.00    0.00       5/5           Full_of_3DObjects() [170]
-                0.00    0.00       5/5           Clear_3DObject(unsigned int) [168]
+                0.00    0.00      20/20          GetOrientationOfFile(char*) [160]
+[167]    0.0    0.00    0.00      20         read_2_bytes() [167]
 -----------------------------------------------
-                0.00    0.00       5/5           Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [167]
-[168]    0.0    0.00    0.00       5         Clear_3DObject(unsigned int) [168]
+                0.00    0.00       4/4           LoadStockTexturesAndSounds() [66]
+[168]    0.0    0.00    0.00       4         AddSoundBufferForLoad(char*) [168]
 -----------------------------------------------
-                0.00    0.00       1/5           Delete_All3DObjectsOfShape(unsigned int) [172]
-                0.00    0.00       4/5           Run3DObjects(unsigned int) [107]
-[169]    0.0    0.00    0.00       5         Delete_3DObject(unsigned int) [169]
-                0.00    0.00       5/5           Object_Out_Of_Mem(unsigned int) [171]
+                0.00    0.00       3/3           LoadStockTexturesAndSounds() [66]
+[169]    0.0    0.00    0.00       3         FileExists(char const*) [169]
 -----------------------------------------------
-                0.00    0.00       5/5           Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [167]
-[170]    0.0    0.00    0.00       5         Full_of_3DObjects() [170]
+                0.00    0.00       1/1           __do_global_ctors_aux [300]
+[170]    0.0    0.00    0.00       1         global constructors keyed to image [170]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [198]
 -----------------------------------------------
-                0.00    0.00       5/5           Delete_3DObject(unsigned int) [169]
-[171]    0.0    0.00    0.00       5         Object_Out_Of_Mem(unsigned int) [171]
+                0.00    0.00       1/1           main [30]
+[171]    0.0    0.00    0.00       1         InitEffects() [171]
 -----------------------------------------------
-                0.00    0.00       5/5           NewLabel(float, float, char*) [173]
-[172]    0.0    0.00    0.00       5         Delete_All3DObjectsOfShape(unsigned int) [172]
-                0.00    0.00       1/5           Delete_3DObject(unsigned int) [169]
+                0.00    0.00       1/1           NewLabel(float, float, char*) [200]
+[172]    0.0    0.00    0.00       1         Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [172]
+                0.00    0.00       1/1           Full_of_3DObjects() [179]
+                0.00    0.00       1/1           Clear_3DObject(unsigned int) [175]
 -----------------------------------------------
-                0.00    0.00       1/5           ToggleTransitionMode() [39]
-                0.00    0.00       4/5           Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[173]    0.0    0.00    0.00       5         NewLabel(float, float, char*) [173]
-                0.00    0.00       5/5           Delete_All3DObjectsOfShape(unsigned int) [172]
-                0.00    0.00       5/5           Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [167]
+                0.00    0.00       1/1           main [30]
+[173]    0.0    0.00    0.00       1         InitSlideShow() [173]
+                0.00    0.00       1/1522        GetWidthQuality(unsigned int) [140]
+                0.00    0.00       1/757         GetHeightQuality(unsigned int) [146]
 -----------------------------------------------
-                0.00    0.00       4/4           Controls_Handle_Keyboard(unsigned char, int, int) [15]
-[174]    0.0    0.00    0.00       4         GetLayoutName() [174]
+                0.00    0.00       1/1           JoystickPollingLoop(void*) [235]
+[174]    0.0    0.00    0.00       1         open_joystick(char*) [174]
 -----------------------------------------------
-                0.00    0.00       4/4           LoadStockTexturesAndSounds() [53]
-[175]    0.0    0.00    0.00       4         AddSoundBufferForLoad(char*) [175]
+                0.00    0.00       1/1           Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [172]
+[175]    0.0    0.00    0.00       1         Clear_3DObject(unsigned int) [175]
 -----------------------------------------------
-                0.00    0.00       3/3           LoadStockTexturesAndSounds() [53]
-[176]    0.0    0.00    0.00       3         FileExists(char const*) [176]
+                0.00    0.00       1/1           Run3DObjects(unsigned int) [100]
+[176]    0.0    0.00    0.00       1         Delete_3DObject(unsigned int) [176]
+                0.00    0.00       1/1           Object_Out_Of_Mem(unsigned int) [180]
 -----------------------------------------------
-                0.00    0.00       1/1           __do_global_ctors_aux [299]
-[177]    0.0    0.00    0.00       1         global constructors keyed to image [177]
-                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [197]
+                0.00    0.00       1/1           LoadStockTexturesAndSounds() [66]
+[177]    0.0    0.00    0.00       1         LoadSoundBuffers() [177]
+                0.00    0.00       1/1           SetListenerValues() [181]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[178]    0.0    0.00    0.00       1         InitEffects() [178]
+                0.00    0.00       1/1           main [30]
+[178]    0.0    0.00    0.00       1         EnableScreenSaver() [178]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[179]    0.0    0.00    0.00       1         InitSlideShow() [179]
-                0.00    0.00       1/1824        GetWidthQuality(unsigned int) [135]
-                0.00    0.00       1/910         GetHeightQuality(unsigned int) [141]
+                0.00    0.00       1/1           Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [172]
+[179]    0.0    0.00    0.00       1         Full_of_3DObjects() [179]
 -----------------------------------------------
-                0.00    0.00       1/1           JoystickPollingLoop(void*) [232]
-[180]    0.0    0.00    0.00       1         open_joystick(char*) [180]
+                0.00    0.00       1/1           Delete_3DObject(unsigned int) [176]
+[180]    0.0    0.00    0.00       1         Object_Out_Of_Mem(unsigned int) [180]
 -----------------------------------------------
-                0.00    0.00       1/1           LoadStockTexturesAndSounds() [53]
-[181]    0.0    0.00    0.00       1         LoadSoundBuffers() [181]
-                0.00    0.00       1/1           SetListenerValues() [183]
+                0.00    0.00       1/1           LoadSoundBuffers() [177]
+[181]    0.0    0.00    0.00       1         SetListenerValues() [181]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[182]    0.0    0.00    0.00       1         EnableScreenSaver() [182]
+                                3112             SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [182]
+                0.00    0.00       1/1           GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [42]
+[182]    0.0    0.00    0.00       1+3112    SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [182]
+                0.00    0.00   28346/28346       FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int) [93]
+                0.00    0.00   17602/17602       SwapListItems(unsigned int, unsigned int) [108]
+                                3112             SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [182]
 -----------------------------------------------
-                0.00    0.00       1/1           LoadSoundBuffers() [181]
-[183]    0.0    0.00    0.00       1         SetListenerValues() [183]
+                0.00    0.00       1/1           LoadStockTexturesAndSounds() [66]
+[183]    0.0    0.00    0.00       1         StartSoundLibrary() [183]
 -----------------------------------------------
-                0.00    0.00       1/1           LoadStockTexturesAndSounds() [53]
-[184]    0.0    0.00    0.00       1         StartSoundLibrary() [184]
+                0.00    0.00       1/1           main [30]
+[184]    0.0    0.00    0.00       1         DisableScreenSaver() [184]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[185]    0.0    0.00    0.00       1         DisableScreenSaver() [185]
+                0.00    0.00       1/1           main [30]
+[185]    0.0    0.00    0.00       1         GetSystemFreeMemory() [185]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[186]    0.0    0.00    0.00       1         GetSystemFreeMemory() [186]
+                0.00    0.00       1/1           LoadStockTexturesAndSounds() [66]
+[186]    0.0    0.00    0.00       1         InitFaceRecognition(char*) [186]
 -----------------------------------------------
-                0.00    0.00       1/1           LoadStockTexturesAndSounds() [53]
-[187]    0.0    0.00    0.00       1         InitFaceRecognition(char*) [187]
+                0.00    0.00       1/1           main [30]
+[187]    0.0    0.00    0.00       1         StopJoystickControl() [187]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[188]    0.0    0.00    0.00       1         StopJoystickControl() [188]
+                0.00    0.00       1/1           UnLoadStockTexturesAndSounds() [194]
+[188]    0.0    0.00    0.00       1         CloseFaceRecognition() [188]
 -----------------------------------------------
-                0.00    0.00       1/1           UnLoadStockTexturesAndSounds() [193]
-[189]    0.0    0.00    0.00       1         CloseFaceRecognition() [189]
+                0.00    0.00       1/1           main [30]
+[189]    0.0    0.00    0.00       1         StartJoystickControl() [189]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[190]    0.0    0.00    0.00       1         StartJoystickControl() [190]
+                0.00    0.00       1/1           Controls_Handle_Keyboard(unsigned char, int, int) [49]
+[190]    0.0    0.00    0.00       1         ToggleTransitionMode() [190]
+                0.00    0.00       1/1           NewLabel(float, float, char*) [200]
 -----------------------------------------------
-                0.00    0.00       1/1           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [40]
+                0.00    0.00       1/1           LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [43]
 [191]    0.0    0.00    0.00       1         AllocateDirectoryList(unsigned int) [191]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
+                0.00    0.00       1/1           main [30]
 [192]    0.0    0.00    0.00       1         GetGraphicsCardMemory() [192]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[193]    0.0    0.00    0.00       1         UnLoadStockTexturesAndSounds() [193]
-                0.00    0.00       1/1           CloseFaceRecognition() [189]
+                0.00    0.00       1/1           NewLabel(float, float, char*) [200]
+[193]    0.0    0.00    0.00       1         Delete_All3DObjectsOfShape(unsigned int) [193]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[194]    0.0    0.00    0.00       1         CreateSlideshowPictureStructure(unsigned int) [194]
+                0.00    0.00       1/1           main [30]
+[194]    0.0    0.00    0.00       1         UnLoadStockTexturesAndSounds() [194]
+                0.00    0.00       1/1           CloseFaceRecognition() [188]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[195]    0.0    0.00    0.00       1         DestroySlideshowPictureStructure() [195]
+                0.00    0.00       1/1           main [30]
+[195]    0.0    0.00    0.00       1         CreateSlideshowPictureStructure(unsigned int) [195]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[196]    0.0    0.00    0.00       1         PutCameraOverExistingPictureIfItIsOff() [196]
+                0.00    0.00       1/1           main [30]
+[196]    0.0    0.00    0.00       1         DestroySlideshowPictureStructure() [196]
 -----------------------------------------------
-                0.00    0.00       1/1           global constructors keyed to image [177]
-[197]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [197]
+                0.00    0.00       1/1           main [30]
+[197]    0.0    0.00    0.00       1         PutCameraOverExistingPictureIfItIsOff() [197]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[198]    0.0    0.00    0.00       1         InitGlut() [198]
+                0.00    0.00       1/1           global constructors keyed to image [170]
+[198]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [198]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[199]    0.0    0.00    0.00       1         WxWidgetsContext::OnInit() [199]
+                0.00    0.00       1/1           main [30]
+[199]    0.0    0.00    0.00       1         InitGlut() [199]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[200]    0.0    0.00    0.00       1         WxWidgetsContext::OnClose() [200]
+                0.00    0.00       1/1           ToggleTransitionMode() [190]
+[200]    0.0    0.00    0.00       1         NewLabel(float, float, char*) [200]
+                0.00    0.00       1/1           Delete_All3DObjectsOfShape(unsigned int) [193]
+                0.00    0.00       1/1           Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [172]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[201]    0.0    0.00    0.00       1         WxWidgetsContext::WxWidgetsContext() [201]
+                0.00    0.00       1/1           main [30]
+[201]    0.0    0.00    0.00       1         WxWidgetsContext::OnInit() [201]
 -----------------------------------------------
-                0.00    0.00       1/1           main [34]
-[202]    0.0    0.00    0.00       1         WxWidgetsContext::~WxWidgetsContext() [202]
+                0.00    0.00       1/1           main [30]
+[202]    0.0    0.00    0.00       1         WxWidgetsContext::OnClose() [202]
+-----------------------------------------------
+                0.00    0.00       1/1           main [30]
+[203]    0.0    0.00    0.00       1         WxWidgetsContext::WxWidgetsContext() [203]
+-----------------------------------------------
+                0.00    0.00       1/1           main [30]
+[204]    0.0    0.00    0.00       1         WxWidgetsContext::~WxWidgetsContext() [204]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -1245,68 +1252,69 @@ index % time    self  children    called     name
 
 Index by function name
 
- [177] global constructors keyed to image (image_sensing.cpp) [134] PrintOpenGLDebugMsg() [32] SetDestinationOverPictureImmediate(unsigned int, unsigned int)
-  [30] DisplayHUD(unsigned int) [188] StopJoystickControl() [102] AutomaticSlideShowControl_if_needed()
-  [75] DrawObject(float, float, float, float, float, float, unsigned int, char*) [189] CloseFaceRecognition() [196] PutCameraOverExistingPictureIfItIsOff()
- [176] FileExists(char const*) [25] DrawLayoutBackground() [164] RefreshDesiredStep_AccordingToPosition()
- [147] WxLoadJPEG(char*, Picture*) [19] FixOpenGLPictureSize(Picture*) [87] _U2(char const*)
- [100] DrawEffects()         [152] GetOrientationOfFile(char*) [9] CalculateActiveImage_AccordingToPosition()
- [116] GetFilename(unsigned int) [14] LoadPicturesIfNeeded() [197] __static_initialization_and_destruction_0(int, int) (image_sensing.cpp)
-  [84] GetItemDate(unsigned int, unsigned int) [82] PictureTextureLoaded(Picture*) [198] InitGlut()
- [178] InitEffects()         [161] ResetPictureRotation() [173] NewLabel(float, float, char*)
-  [18] LoadPicture(char*, Picture*) [190] StartJoystickControl() [117] GetSubdir(unsigned int)
- [138] PrintDevMsg()          [39] ToggleTransitionMode() [63] read_1_byte() (jpegexiforient_embed.cpp)
- [167] Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [91] AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [42] IdleCallback() (main.cpp)
-  [28] CameraMoving()        [175] AddSoundBufferForLoad(char*) [165] read_2_bytes() (jpegexiforient_embed.cpp)
-  [54] ChangeLayout()        [191] AllocateDirectoryList(unsigned int) [43] ResizeCallback(int, int) (main.cpp)
-   [4] DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*) [192] GetGraphicsCardMemory() [122] wxDateTime::wxDateTime()
- [107] Run3DObjects(unsigned int) [49] MoveDestinationCenter(unsigned int) [92] wxFileName::wxFileName(wxString const&, wxPathFormat)
-  [85] make_texture(Picture*, int) [8] PerformCameraMovement(unsigned int) [93] wxFileName::~wxFileName()
-  [89] timeval_diff(timeval*, timeval*, timeval*) [61] PictureLoadingPending(Picture*) [119] wxCharBuffer::~wxCharBuffer()
- [166] CameraBounced()       [140] complain_about_errors() [76] wxStringBase::ConcatSelf(unsigned long, wchar_t const*)
-  [51] CreatePicture(char*, unsigned int) [11] rayIntersectsTriangle(float*, float*, float*, float*, float*) [71] wxStringBase::Init()
- [174] GetLayoutName()        [48] CreatePicturesIfNeeded() [88] wxStringBase::clear()
- [179] InitSlideShow()        [29] DrawSimple2DBackground() [77] wxStringBase::append(wxStringBase const&)
-  [20] MoveToPicture(unsigned int) [86] ExtensionIsJPEGPicture(wxString*) [156] wxStringBase::wxStringBase(wchar_t const*)
-  [62] PictureFailed(Picture*) [153] GetJPEGExifOrientation(char*, Picture*) [94] wxStringBase::wxStringBase(wxStringBase const&)
-  [21] PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [5] ManageCreatingTextures(int) [72] wxStringBase::wxStringBase()
-  [17] PictureXYtoID(unsigned int, unsigned int) [60] PictureCreationPending(Picture*) [70] wxStringBase::~wxStringBase()
-  [36] SwapListItems(unsigned int, unsigned int) [143] PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [99] wxStringData::Lock()
-  [46] UnLoadPicture(Picture*) [154] PrintDirectoryListItem(unsigned int) [68] wxStringData::Unlock()
- [162] clear_texture(Picture*) [121] PrintPictureLoadingMsg() [95] wxArrayString::wxArrayString()
- [180] open_joystick(char*)  [159] SoundLibrary_PlaySound(unsigned int) [199] WxWidgetsContext::OnInit()
- [155] timeval_diff2(timeval*, timeval*, timeval*) [50] UnLoadPicturesIfNeeded() [200] WxWidgetsContext::OnClose()
- [168] Clear_3DObject(unsigned int) [10] rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [201] WxWidgetsContext::WxWidgetsContext()
-   [3] DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [151] DestroyPicturesIfNeeded() [202] WxWidgetsContext::~WxWidgetsContext()
- [169] Delete_3DObject(unsigned int) [160] GetInterestingAreasList(Picture*) [123] wxLongLongNative::wxLongLongNative()
- [135] GetWidthQuality(unsigned int) [27] HandleExpoPictureLayout(Picture*, unsigned int) [124] wxLongLongNative::wxLongLongNative(int, unsigned int)
-   [6] PositionPicture(Picture*, unsigned int) [40] LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [142] wxImage::Rescale(int, int, int)
- [133] Render_3DObject(unsigned int) [35] MaxPictureThatIsVisible() [148] wxImage::wxImage()
-  [37] GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [16] MinPictureThatIsVisible() [137] wxImage::~wxImage()
- [141] GetHeightQuality(unsigned int) [108] PerformPicturesMovement(unsigned int) [146] wxImage::operator=(wxImage const&)
- [181] LoadSoundBuffers()    [144] PickPictureRescaleRatio(unsigned int, unsigned int) [150] wxObject::wxObject()
- [158] PrintPictureData(Picture*) [112] CameraReachedDestination() [136] wxObject::~wxObject()
- [106] Render_3DObjects()    [109] CameraSeesOnlyOnePicture() [145] wxObject::operator=(wxObject const&)
-  [41] CameraOverPicture(unsigned int) [15] Controls_Handle_Keyboard(unsigned char, int, int) [78] wxString::append(wxString const&)
-  [55] ChangeActiveImage(unsigned int) [45] CountPicturesInDirectory(char*, int) [73] wxString::wxString()
-  [33] ChangeActiveImage(unsigned int, unsigned int) [22] HandleBasicPictureLayout(Picture*, unsigned int) [157] wxString::wxString(wchar_t const*)
- [182] EnableScreenSaver()   [139] ensure_ending_with_slash(char*) [96] wxString::wxString(wxString const&)
- [170] Full_of_3DObjects()    [64] GPU_Memory_can_accomodate(unsigned int) [69] wxString::~wxString()
- [103] GetLayoutMaximumX()    [65] RAM_Memory_can_accomodate(unsigned int) [79] wxString::operator<<(wxString const&)
- [104] GetLayoutMaximumY()    [24] SetDestinationOverPicture(unsigned int, unsigned int) [125] wxDateTime::GetDay(wxDateTime::TimeZone const&) const
-  [44] GetLayoutMaximumZ()   [114] setOrthographicProjection() [126] wxDateTime::GetHour(wxDateTime::TimeZone const&) const
- [105] GetLayoutMinimumX()   [172] Delete_All3DObjectsOfShape(unsigned int) [127] wxDateTime::GetYear(wxDateTime::TimeZone const&) const
- [101] GetLayoutMinimumY()   [118] GetViewableFilenameforFile(unsigned int, char*, char*) [128] wxDateTime::GetMonth(wxDateTime::TimeZone const&) const
-  [83] GetLayoutMinimumZ()    [53] LoadStockTexturesAndSounds() [129] wxDateTime::GetMinute(wxDateTime::TimeZone const&) const
- [171] Object_Out_Of_Mem(unsigned int) [115] resetPerspectiveProjection() [130] wxDateTime::GetSecond(wxDateTime::TimeZone const&) const
- [183] SetListenerValues()    [13] ManagePicturesLoadingMemory() [131] wxFileName::GetModificationTime() const
-  [38] SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [52] SetDestinationOverPictureId(unsigned int) [97] wxFileName::GetExt() const
- [184] StartSoundLibrary()    [47] ManagePicturesCreationMemory() [120] wxCharBuffer::operator char const*() const
- [110] framerate_limiter()   [193] UnLoadStockTexturesAndSounds() [66] wxStringBase::GetStringData() const
- [185] DisableScreenSaver()  [149] _U(char const*)        [80] wxStringBase::c_str() const
-  [90] ExtensionIsPicture(wxString*) [194] CreateSlideshowPictureStructure(unsigned int) [98] wxStringBase::empty() const
- [111] PictureOutOfBounds(unsigned int) [81] FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int) [74] wxStringBase::length() const
- [186] GetSystemFreeMemory()  [31] SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [67] wxStringData::IsEmpty() const
-   [7] HandlePictureLayout(Picture*, unsigned int) [195] DestroySlideshowPictureStructure() [132] wxULongLongNative::ToULong() const
- [187] InitFaceRecognition(char*) [113] GetTotalViewableFilesInDirectory()
-   [2] MainDisplayFunction() [163] CheckIfSignalGPUFullAppliesAnyMore()
+ [170] global constructors keyed to image (image_sensing.cpp) [188] CloseFaceRecognition() [33] CheckIfSignalGPUFullAppliesAnyMore()
+  [31] DisplayHUD(unsigned int) [104] DrawLayoutBackground() [51] SetDestinationOverPictureImmediate(unsigned int, unsigned int)
+  [28] DrawObject(float, float, float, float, float, float, unsigned int, char*) [25] FixOpenGLPictureSize(Picture*) [98] AutomaticSlideShowControl_if_needed()
+ [169] FileExists(char const*) [160] GetOrientationOfFile(char*) [197] PutCameraOverExistingPictureIfItIsOff()
+  [53] WxLoadJPEG(char*, Picture*) [6] LoadPicturesIfNeeded() [162] RefreshDesiredStep_AccordingToPosition()
+  [44] glColorRGB(unsigned char, unsigned char, unsigned char) [13] PictureTextureLoaded(Picture*) [107] _U2(char const*)
+  [29] DrawEffects()         [164] ResetPictureRotation() [23] CalculateActiveImage_AccordingToPosition()
+ [120] GetFilename(unsigned int) [189] StartJoystickControl() [198] __static_initialization_and_destruction_0(int, int) (image_sensing.cpp)
+  [82] GetItemDate(unsigned int, unsigned int) [190] ToggleTransitionMode() [199] InitGlut()
+ [171] InitEffects()          [37] AddFileIfItIsAPicture(char*, char*, wxString*, unsigned int) [200] NewLabel(float, float, char*)
+  [24] LoadPicture(char*, Picture*) [168] AddSoundBufferForLoad(char*) [39] GetSubdir(unsigned int)
+  [40] PrintDevMsg()         [191] AllocateDirectoryList(unsigned int) [76] read_1_byte() (jpegexiforient_embed.cpp)
+ [172] Add_3DObject(float, float, float, float, float, unsigned int, unsigned int) [192] GetGraphicsCardMemory() [167] read_2_bytes() (jpegexiforient_embed.cpp)
+  [22] CameraMoving()         [61] MoveDestinationCenter(unsigned int) [2] DisplayCallback() (main.cpp)
+  [20] DisplayFrame(Picture*, unsigned int, float*, float*, float*, float*, float*, float*, float*, float*) [21] PerformCameraMovement(unsigned int) [127] wxDateTime::wxDateTime()
+ [123] EmptyPicture(Picture*, unsigned int) [73] PictureLoadingPending(Picture*) [111] wxFileName::wxFileName(wxString const&, wxPathFormat)
+ [100] Run3DObjects(unsigned int) [144] complain_about_errors() [112] wxFileName::~wxFileName()
+  [32] make_texture(Picture*, int) [74] rayIntersectsTriangle(float*, float*, float*, float*, float*) [124] wxCharBuffer::~wxCharBuffer()
+  [94] timeval_diff(timeval*, timeval*, timeval*) [9] CreatePicturesIfNeeded() [88] wxStringBase::ConcatSelf(unsigned long, wchar_t const*)
+ [166] CameraBounced()       [103] DrawSimple2DBackground() [83] wxStringBase::Init()
+  [60] CreatePicture(char*, unsigned int) [106] ExtensionIsJPEGPicture(wxString*) [109] wxStringBase::clear()
+ [173] InitSlideShow()       [161] GetJPEGExifOrientation(char*, Picture*) [89] wxStringBase::append(wxStringBase const&)
+  [59] MoveToPicture(unsigned int) [5] ManageCreatingTextures(int) [156] wxStringBase::wxStringBase(wchar_t const*)
+  [35] PictureFailed(Picture*) [72] PictureCreationPending(Picture*) [113] wxStringBase::wxStringBase(wxStringBase const&)
+  [34] PictureIDtoXY(unsigned int*, unsigned int*, unsigned int) [52] PreparePictureForImage(Picture*, unsigned int, unsigned int, unsigned int) [84] wxStringBase::wxStringBase()
+  [41] PictureXYtoID(unsigned int, unsigned int) [151] PrintDirectoryListItem(unsigned int) [80] wxStringBase::~wxStringBase()
+ [108] SwapListItems(unsigned int, unsigned int) [138] PrintPictureLoadingMsg() [117] wxStringData::Lock()
+  [26] UnLoadPicture(Picture*) [158] SoundLibrary_PlaySound(unsigned int) [79] wxStringData::Unlock()
+ [159] clear_texture(Picture*) [1] UnLoadPicturesIfNeeded(unsigned int, unsigned int) [114] wxArrayString::wxArrayString()
+ [174] open_joystick(char*)   [75] rayIntersectsRectangle(float*, float*, float*, float*, float*, float*) [201] WxWidgetsContext::OnInit()
+ [155] timeval_diff2(timeval*, timeval*, timeval*) [145] DestroyPicturesIfNeeded() [202] WxWidgetsContext::OnClose()
+ [175] Clear_3DObject(unsigned int) [58] GetInterestingAreasList(Picture*) [203] WxWidgetsContext::WxWidgetsContext()
+  [11] DisplayPicture(Picture*, unsigned int, float, float, float, float, float, float, float, float) [43] LoadPicturesOfDirectory(char*, unsigned int, unsigned int, unsigned int) [204] WxWidgetsContext::~WxWidgetsContext()
+ [176] Delete_3DObject(unsigned int) [12] MaxPictureThatIsVisible() [128] wxLongLongNative::wxLongLongNative()
+ [140] GetWidthQuality(unsigned int) [14] MinPictureThatIsVisible() [129] wxLongLongNative::wxLongLongNative(int, unsigned int)
+  [16] PositionPicture(Picture*, unsigned int) [101] PerformPicturesMovement(unsigned int) [147] wxImage::Rescale(int, int, int)
+  [63] Render_3DObject(unsigned int) [149] PickPictureRescaleRatio(unsigned int, unsigned int) [154] wxImage::wxImage()
+  [42] GetDirectoryList(char*, char*, unsigned int, unsigned int, unsigned int, unsigned int) [118] CameraReachedDestination() [142] wxImage::~wxImage()
+ [146] GetHeightQuality(unsigned int) [102] CameraSeesOnlyOnePicture() [150] wxImage::operator=(wxImage const&)
+ [177] LoadSoundBuffers()     [49] Controls_Handle_Keyboard(unsigned char, int, int) [153] wxObject::wxObject()
+ [163] PrintPictureData(Picture*) [54] CountPicturesInDirectory(char*, int) [141] wxObject::~wxObject()
+  [62] Render_3DObjects()     [18] HandleBasicPictureLayout(Picture*, unsigned int) [148] wxObject::operator=(wxObject const&)
+  [67] ChangeActiveImage(unsigned int) [143] ensure_ending_with_slash(char*) [90] wxString::append(wxString const&)
+  [55] ChangeActiveImage(unsigned int, unsigned int) [15] GPU_Memory_can_accomodate(unsigned int) [85] wxString::wxString()
+ [178] EnableScreenSaver()     [4] RAM_Memory_can_accomodate(unsigned int) [157] wxString::wxString(wchar_t const*)
+ [179] Full_of_3DObjects()    [48] SetDestinationOverPicture(unsigned int, unsigned int) [115] wxString::wxString(wxString const&)
+  [97] GetLayoutMaximumX()   [121] setOrthographicProjection() [81] wxString::~wxString()
+  [95] GetLayoutMaximumY()   [193] Delete_All3DObjectsOfShape(unsigned int) [91] wxString::operator<<(wxString const&)
+  [99] GetLayoutMaximumZ()   [126] GetViewableFilenameforFile(unsigned int, char*, char*) [130] wxDateTime::GetDay(wxDateTime::TimeZone const&) const
+  [36] GetLayoutMinimumX()    [66] LoadStockTexturesAndSounds() [131] wxDateTime::GetHour(wxDateTime::TimeZone const&) const
+  [96] GetLayoutMinimumY()    [45] SlideshowLastPictureToLoad() [132] wxDateTime::GetYear(wxDateTime::TimeZone const&) const
+  [87] GetLayoutMinimumZ()   [122] resetPerspectiveProjection() [133] wxDateTime::GetMonth(wxDateTime::TimeZone const&) const
+ [180] Object_Out_Of_Mem(unsigned int) [165] Controls_Handle_MouseMotion(int, int, int, int) [134] wxDateTime::GetMinute(wxDateTime::TimeZone const&) const
+ [181] SetListenerValues()     [7] ManagePicturesLoadingMemory() [135] wxDateTime::GetSecond(wxDateTime::TimeZone const&) const
+ [182] SortDirectoryList(unsigned int, unsigned int, unsigned int, unsigned int) [57] SetDestinationOverPictureId(unsigned int) [136] wxFileName::GetModificationTime() const
+ [183] StartSoundLibrary()    [64] Controls_Handle_MouseButtons(int, int, int, int) [38] wxFileName::GetExt() const
+ [105] framerate_limiter()     [8] ManagePicturesCreationMemory() [125] wxCharBuffer::operator char const*() const
+ [184] DisableScreenSaver()  [194] UnLoadStockTexturesAndSounds() [77] wxStringBase::GetStringData() const
+ [110] ExtensionIsPicture(wxString*) [46] SetDestinationOverNextPicture() [92] wxStringBase::c_str() const
+  [27] PictureOutOfBounds(unsigned int) [152] _U(char const*) [116] wxStringBase::empty() const
+ [185] GetSystemFreeMemory() [195] CreateSlideshowPictureStructure(unsigned int) [86] wxStringBase::length() const
+  [17] HandlePictureLayout(Picture*, unsigned int) [93] FirstItemSmallerOrEqualToSecond(unsigned int, unsigned int, unsigned int, unsigned int) [78] wxStringData::IsEmpty() const
+ [186] InitFaceRecognition(char*) [50] SetDestinationOverPicture3dSeek(unsigned int, unsigned int) [137] wxULongLongNative::ToULong() const
+  [10] MainDisplayFunction() [196] DestroySlideshowPictureStructure() [30] main
+ [139] PrintOpenGLDebugMsg() [119] GetTotalViewableFilesInDirectory()
+ [187] StopJoystickControl()  [19] PictureLoadedOpenGLTexturePending(Picture*)

@@ -293,18 +293,20 @@ int MinPictureThatIsVisible()
   if ( frame.total_images<10 ) { return 0;  }
   if ( DISPLAY_ALL_PICTURES == 1 ) { return 0; }/* OVERRIDE UNTIL EVERYTHING IS READY */
 
-  if ( CameraMoving() ) { }
+  //if ( CameraMoving() ) { }
 
   unsigned int min_picture=0;
   unsigned int cur_place=frame.active_image_place;
-  if ( cur_place > frame.last_image_place ) { cur_place = frame.last_image_place; }
+  unsigned int pictures_before_current_to_go_to  = frame.images_per_line * LINES_AWAY_DRAWN;
+
+  if ( (cur_place > frame.last_image_place)&&(cur_place-frame.last_image_place<=pictures_before_current_to_go_to) ) { cur_place = frame.last_image_place; }
 
 
-  if ( cur_place  <= frame.images_per_line * LINES_AWAY_DRAWN ) {} else
-                                                                {
-                                                                  min_picture=cur_place-frame.images_per_line * LINES_AWAY_DRAWN;
+  if ( cur_place  <= pictures_before_current_to_go_to ) {} else
+                                                        {
+                                                                  min_picture=cur_place-pictures_before_current_to_go_to;
                                                                   if ( min_picture-1 >= 0 ) { min_picture-=1; }
-                                                                }
+                                                        }
   //fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
   return min_picture;
 }
@@ -321,9 +323,11 @@ int MaxPictureThatIsVisible()
   if ( frame.total_images<10 ) { return frame.total_images;  }
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
   unsigned int cur_place=frame.active_image_place;
-  if ( cur_place < frame.last_image_place ) { cur_place = frame.last_image_place; }
+  unsigned int pictures_after_current_to_go_to=frame.images_per_line * LINES_AWAY_DRAWN;
 
-  unsigned int max_picture=cur_place + (frame.images_per_line-1) + frame.images_per_line * LINES_AWAY_DRAWN;
+  if ( ( cur_place < frame.last_image_place )&&(cur_place-frame.last_image_place<=pictures_after_current_to_go_to) ) { cur_place = frame.last_image_place; }
+
+  unsigned int max_picture=cur_place + (frame.images_per_line-1) + pictures_after_current_to_go_to;
 
 
   if ( max_picture >= frame.total_images ) { max_picture=frame.total_images-1; }
@@ -352,7 +356,7 @@ unsigned int PictureXYtoID(unsigned int x,unsigned int y)
 void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place)
 {
   *x=(place%frame.images_per_line);
-  *y=place/frame.images_per_line;
+  *y=(unsigned int) place/frame.images_per_line;
 }
 
 unsigned int GetPictureDirectoryListIndex(unsigned int pic_place)
