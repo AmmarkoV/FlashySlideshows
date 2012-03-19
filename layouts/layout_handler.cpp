@@ -127,7 +127,13 @@ float GetLayoutMaximumZ()
 
 int DrawLayoutBackground()
 {
-  DrawSimple2DBackground();
+  DrawBackground();
+  return 0;
+}
+
+
+int LayoutMoving()
+{
   return 0;
 }
 

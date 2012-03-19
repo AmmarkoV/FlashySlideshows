@@ -52,7 +52,7 @@ void resetPerspectiveProjection()
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
 }

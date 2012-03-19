@@ -119,12 +119,14 @@ void MainDisplayFunction()
                              );
            }
 
-
+  if (frame.try_for_best_render_quality)
+    {
      glDisable(GL_ALPHA_TEST);
      glDisable(GL_BLEND);
      glDisable(GL_LINE_SMOOTH);
      glDisable (GL_POLYGON_SMOOTH);
      glDisable(GL_NORMALIZE);
+    }
 }
 
 

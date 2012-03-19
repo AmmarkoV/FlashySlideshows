@@ -29,6 +29,10 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
 
 
 
+   if ( album[frame.active_image_place]->transparency==album[frame.active_image_place]->target_transparency)
+      {
+         // Do Nothing..! Just skip the following
+      } else
    if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
       { album[frame.active_image_place]->transparency-=0.000001*microseconds_of_movement;
         if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
@@ -45,7 +49,10 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
          }
        }
 
-
+   if ( album[frame.active_image_place]->rotate==album[frame.active_image_place]->target_rotate)
+      {
+         // Do Nothing..! Just skip the following
+      } else
    if ( album[frame.active_image_place]->rotate>album[frame.active_image_place]->target_rotate)
       { album[frame.active_image_place]->rotate-=0.000001*microseconds_of_movement;
         if ( album[frame.active_image_place]->rotate<album[frame.active_image_place]->target_rotate)
@@ -62,16 +69,6 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
          }
        }
 
-
-  if ( album[frame.active_image_place]->rotate!=album[frame.active_image_place]->target_rotate )
-    {
-       // fprintf(stderr,"Rotation %0.5f \n",album[frame.active_image_place]->rotate);
-    }
-
-  if ( album[frame.active_image_place]->transparency!=album[frame.active_image_place]->target_transparency )
-    {
-       // fprintf(stderr,"Transparency %0.5f for pic %u \n",album[frame.active_image_place]->transparency,frame.active_image_place);
-    }
 }
 
 int ResetPictureRotation()

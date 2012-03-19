@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1332171937 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1332190219 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -59,7 +59,7 @@
 	<time.h>
 	"transitions/transition_handler.h"
 
-1332166535 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1332190187 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -125,7 +125,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1331769543 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1332186352 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 	"slideshow.h"
@@ -146,7 +146,7 @@
 
 1331768567 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
-1331995321 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
+1332186365 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals.cpp
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -188,7 +188,7 @@
 
 1327634892 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1332171797 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1332171997 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"
@@ -880,7 +880,7 @@
 1331768550 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
 	"slideshow.h"
 
-1332041060 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
+1332190263 source:/home/ammar/Documents/Programming/FlashySlideShow/scene_objects.cpp
 	"scene_objects.h"
 	"visuals.h"
 	<stdlib.h>
@@ -1316,7 +1316,7 @@
 
 1330813507 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
 
-1330974206 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
+1332187664 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
 	"pictures_control.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -1345,7 +1345,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332171997 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332191112 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
@@ -1372,10 +1372,10 @@
 1331693369 /home/ammar/Documents/Programming/FlashySlideShow/layouts/expo_layout.h
 	"../load_images.h"
 
-1331769190 /home/ammar/Documents/Programming/FlashySlideShow/layouts/layout_handler.h
+1332190865 /home/ammar/Documents/Programming/FlashySlideShow/layouts/layout_handler.h
 	"../load_images.h"
 
-1332034941 source:/home/ammar/Documents/Programming/FlashySlideShow/layouts/layout_handler.cpp
+1332187322 source:/home/ammar/Documents/Programming/FlashySlideShow/layouts/layout_handler.cpp
 	"layout_handler.h"
 	"expo_layout.h"
 	"../slideshow.h"
@@ -1388,7 +1388,7 @@
 1331769237 source:/home/ammar/Documents/Programming/FlashySlideShow/transitions/transition_handler.cpp
 	"transition_handler.h"
 
-1332041068 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/background.cpp
+1332190568 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/background.cpp
 	"background.h"
 	"../slideshow.h"
 	<stdlib.h>
@@ -1400,9 +1400,9 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1331769122 /home/ammar/Documents/Programming/FlashySlideShow/visuals/background.h
+1332187304 /home/ammar/Documents/Programming/FlashySlideShow/visuals/background.h
 
-1331767051 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/hud.cpp
+1332190590 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/hud.cpp
 	"hud.h"
 	<stdlib.h>
 	<stdio.h>
@@ -1431,7 +1431,7 @@
 1331768182 /home/ammar/Documents/Programming/FlashySlideShow/visuals/picture_renderer.h
 	"../load_images.h"
 
-1332119977 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/picture_renderer.cpp
+1332190437 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/picture_renderer.cpp
 	"picture_renderer.h"
 	"../slideshow.h"
 	<stdlib.h>

@@ -90,8 +90,9 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if ( pic == 0 ) { fprintf(stderr,"\n\n\n\nDisplayPicture called for non existing picture outputed ( %f %f %f ) \n\n\n\n",x,y,z); return 0; }
 
  // For transparency to work correctly we need to apply the color before the other OpenGL calls..!
- if (frame.transitions.transition_mode==2) { glColor4f(1.0,1.0,1.0,pic->transparency); } else
-                                           { glColor4f(1.0,1.0,1.0,1.0); }
+ //&&(frame.try_for_best_render_quality)
+ if ( frame.transitions.transition_mode==2 ) { glColor4f(1.0,1.0,1.0,pic->transparency); } else
+                                             { glColor3f(1.0,1.0,1.0); }
 
   if ( pic->position.ok == 0 ) { PositionPicture(pic,place); }
 
@@ -105,8 +106,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
                                                                        { PositionPicture(pic,place); }
 
   glPushMatrix();
-  glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-  glEnable(GL_CULL_FACE);
+  //glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+  //glEnable(GL_CULL_FACE);
 
 
   glTranslated(x,y,z);
@@ -116,7 +117,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
 
-  glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
+  //glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
 
 
 
@@ -149,7 +150,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
    glEnd();
 
   glDisable ( GL_TEXTURE_2D );
-  glEnable(GL_COLOR_MATERIAL);
+  glColor3f(1.0,1.0,1.0);
+  //glEnable(GL_COLOR_MATERIAL);
 
  //  Live picture processing :P CMY change
   /* if (frame.try_for_best_render_quality)

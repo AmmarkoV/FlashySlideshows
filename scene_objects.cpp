@@ -38,10 +38,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 void DrawObject(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type,char * text)
 {
   glPushMatrix();
-  glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-  glEnable(GL_NORMALIZE);
-  glEnable(GL_LINE_SMOOTH);
-
+  //glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+  if (frame.try_for_best_render_quality)
+    {
+     glEnable(GL_NORMALIZE);
+     glEnable(GL_LINE_SMOOTH);
+    }
 
   glTranslated(x,y,z);
   if ( rotation!=0 )    { glRotated(rotation,0.0,0.0,1.0); }
@@ -50,8 +52,8 @@ void DrawObject(float x,float y,float z,float  rotation,float width,float height
 if ( decal_type != 0 )
 { //Decal type zero may only have text :P
 
-  glDisable(GL_CULL_FACE);
-  glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
+  //glDisable(GL_CULL_FACE);
+  //glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
   glEnable ( GL_TEXTURE_2D );
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
@@ -71,16 +73,17 @@ if ( decal_type != 0 )
     glTexCoord2f(1.0f, 1.0f); glVertex3f(0+xmin,0+ymax,0/*-4.1*/);
    glEnd();
   glDisable ( GL_TEXTURE_2D );
-  glEnable(GL_COLOR_MATERIAL);
-  glEnable(GL_CULL_FACE);
+  //glEnable(GL_COLOR_MATERIAL);
+  //glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
 }
 
 
   if (text!=0)
     {
+      if (frame.lighting_enabled) { glDisable( GL_LIGHTING ); }
+
       glColor3f(1.0,1.0,1.0);
-      glDisable( GL_LIGHTING );
       glRasterPos3f(width/2,0,0.1);
       //glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)text);
         glPushMatrix();
@@ -96,15 +99,18 @@ if ( decal_type != 0 )
          glRotated(-180,0.0,0.0,1.0);
         glPopMatrix();
 
-      glEnable( GL_LIGHTING );
+      if (frame.lighting_enabled) { glEnable( GL_LIGHTING ); }
     }
 
 
 
   if ( rotation!=0 )    { glRotated(-rotation,0.0,0.0,1.0); }
   glTranslated(-x,-y,-z);
-  glDisable(GL_LINE_SMOOTH);
-  glDisable(GL_NORMALIZE);
+  if (frame.try_for_best_render_quality)
+    {
+     glDisable(GL_LINE_SMOOTH);
+     glDisable(GL_NORMALIZE);
+    }
   glPopMatrix();
 }
 

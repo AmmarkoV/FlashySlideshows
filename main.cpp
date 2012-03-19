@@ -192,14 +192,7 @@ static void DisplayCallback(void)
 	//if ( fps < 25 ) { fprintf(stderr,"Low Framerate %u fps \n",fps); }
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-
-
-    if (  frame.effects.fog_on==1 ) { glEnable(GL_FOG);	} else
-                                    { glDisable(GL_FOG);	}
-
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
-
    /* Texture binding via OpenGL , it can only be done in this thread , before actually rendering  >>>>>>>>>>>>>>>>>>>>>>*/
    /* This code only counts textures to be created , they are actually loaded on the end of this function >>>>>>>>>>>>>>>*/
    if (ManageCreatingTexturesMemory_OpenGLThread(1)>0)  { frame.transitions.currently_loading=1; } else
@@ -569,19 +562,16 @@ int main(int argc, char *argv[])
 
 
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
-    glClearColor(1,1,1,1);
+    glClearColor(0,0,0,0);
 
-     glEnable(GL_CULL_FACE);
-     glCullFace(GL_BACK);
-     glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glClearDepth(1.0);				// Enables Clearing Of The Depth Buffer
+    //glEnable(GL_DEPTH_TEST);
+    //glDepthFunc(GL_LESS);
+    //glClearDepth(1.0);				// Enables Clearing Of The Depth Buffer
 
 
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
 
    if (frame.try_for_best_render_quality)
     {
@@ -593,6 +583,13 @@ int main(int argc, char *argv[])
      glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
     }
 
+   /* LIGHTING , ENABLED ON GOOD RENDERING QUALITY ( TO ENABLE TRANSPARENCY ETC ) */
+   if (frame.try_for_best_render_quality)
+    {
+    frame.lighting_enabled=1;
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
     glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
@@ -602,6 +599,10 @@ int main(int argc, char *argv[])
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+    } else
+    {
+      frame.lighting_enabled=0;
+    }
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
    //Now that we have an OpenGL context we can query the maximum texture dimension..

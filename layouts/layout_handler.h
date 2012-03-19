@@ -26,5 +26,5 @@ float GetLayoutMinimumZ();
 float GetLayoutMaximumZ();
 
 int DrawLayoutBackground();
-
+int LayoutMoving();
 #endif // LAYOUT_HANDLER_H_INCLUDED

@@ -39,6 +39,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <GL/glu.h>
 #endif
 
+float last_calculated_position_x=0.0;
+float last_calculated_position_y=0.0;
+float last_calculated_position_z=0.0;
+
 
 int ChangeActiveImage(unsigned int place)
 {
@@ -81,8 +85,24 @@ int ChangeActiveImage(unsigned int x,unsigned int y)
   return 1;
 }
 
+void RememberThatCalculationAccordingToPositionTookPlace()
+{
+   last_calculated_position_x=frame.vx;
+   last_calculated_position_y=frame.vy;
+   last_calculated_position_z=frame.vz;
+}
+
+
 void CalculateActiveImage_AccordingToPosition()
 {
+
+    if (  (!LayoutMoving())&&
+          (frame.vx==last_calculated_position_x)&&
+          (frame.vy==last_calculated_position_y)&&
+          (frame.vz==last_calculated_position_z)
+       ) { return; /*PERFORMANCE ++ */}
+
+
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
 
@@ -121,6 +141,7 @@ void CalculateActiveImage_AccordingToPosition()
                 // CAMERA OUT OF LOADED IMAGES! DOWN
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
                 ChangeActiveImage(MaxPictureThatIsVisible());
+                RememberThatCalculationAccordingToPositionTookPlace();
               //  ChangeActiveImage((unsigned int) MaxPictureThatIsVisible()%frame.images_per_line,
               //                    (unsigned int) MaxPictureThatIsVisible()/frame.images_per_line );
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
@@ -147,6 +168,7 @@ void CalculateActiveImage_AccordingToPosition()
                              //  ChangeActiveImage((unsigned int) MinPictureThatIsVisible()%frame.images_per_line,
                              //                    (unsigned int) MinPictureThatIsVisible()/frame.images_per_line );
                   ChangeActiveImage(MinPictureThatIsVisible());
+                  RememberThatCalculationAccordingToPositionTookPlace();
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
@@ -194,10 +216,10 @@ void CalculateActiveImage_AccordingToPosition()
                 }
 
        ++album_traveler;
-       if (album_traveler > frame.total_images) { album_traveler=frame.total_images; return; }
+       if (album_traveler > frame.total_images) { album_traveler=frame.total_images; RememberThatCalculationAccordingToPositionTookPlace(); return; }
      }
     }
-
+  RememberThatCalculationAccordingToPositionTookPlace();
 }
 
 
@@ -499,18 +521,23 @@ int CameraSeesBackground()
 
 void PerformCameraMovement(unsigned int microseconds_of_movement)
 {
-
-
    /*
        THE IDEA IS THE FOLLOWING
        We have the 3d states  of the desired coordinates ( desired_x , desired_y , desired_z )
        and the current render coordinates ( vx , vy , vz )
 
        We need to make a smooth transition to the desired coordinates from the current coordinates
-
     */
 
-
+    if ( ( frame.desired_x == frame.vx ) &&
+         ( frame.desired_y == frame.vy ) &&
+         ( frame.desired_z == frame.vz )
+       )
+       {
+           // This is the case when camera is supposed to be still , so we really should avoid re calculating the same things
+           // just to find out that the camera goes nowhere :P ( PERFORMANCE ++ )
+           return ;
+       }
     /*
       -------------------------------------
       CAMERA SMOOTH ZOOM/PAN ETC
@@ -583,46 +610,6 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
                            } else { reached_target+=5; } /* + One coordinate has reached target */
 
 
- switch ( frame.transitions.effect_move_activated )
-  {
-     case 0 :
-      /* DEAD STATE :) */
-     break;
-
-     /* Start movement to start */
-     case 1 :
-      frame.desired_x=frame.effect_start_x;
-      frame.desired_y=frame.effect_start_y;
-      frame.desired_z=frame.effect_start_z;
-      frame.transitions.effect_move_activated=2;
-     break;
-
-     /* Reach start place*/
-     case 2 :
-      if ( reached_target >= 9 ) { frame.transitions.effect_move_activated=3; }
-     break;
-
-     /* Start movement to end */
-     case 3 :
-      frame.desired_x=frame.effect_end_x;
-      frame.desired_y=frame.effect_end_y;
-      frame.desired_z=frame.effect_end_z;
-      frame.transitions.effect_move_activated=4;
-     break;
-
-     /* Reach end place*/
-     case 4 :
-      if ( reached_target >= 9 ) { frame.transitions.effect_move_activated = 0; }
-     break;
-
-     default :
-      fprintf(stderr,"Erroneous state :P \n");
-      frame.transitions.effect_move_activated = 0;
-     break;
-  };
-
-
-//test floating effectframe.vz+=0.0001*microseconds_of_movement;
 
 
   /* -------------------------------------
