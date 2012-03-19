@@ -198,6 +198,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
     frame.gpu.lastTexture=this_texture;
     frame.gpu.usedRAM+=frame.gpu.lastTexture;
 
+    picturedata->gpu.texture_data_size=this_texture;
     picturedata->gpu.marked_for_texture_loading=0;
     picturedata->gpu.texture_loaded=1;
 

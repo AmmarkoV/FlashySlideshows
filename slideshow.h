@@ -62,6 +62,24 @@ struct System_Data
   unsigned long maximum_frame_total_size;
 };
 
+struct HyperVisor_Data
+{
+   unsigned int pictures_to_be_created;
+   unsigned int pictures_to_be_loaded;
+   unsigned int thumbnail_textures_to_be_loaded;
+   unsigned int textures_to_be_loaded;
+
+
+   unsigned int pictures_to_be_destroyed;
+   unsigned int pictures_to_be_unloaded;
+   unsigned int thumbnail_textures_to_be_unloaded;
+   unsigned int textures_to_be_unloaded;
+
+//   unsigned int unload_previous_start,unload_previous_end;
+//   unsigned int unload_next_start,unload_next_end;
+
+};
+
 struct Effects_Data
 {
   unsigned int fog_on;
@@ -137,9 +155,6 @@ struct SlideShowData
   unsigned int time_ms_between_two_transitions;
   unsigned int next_transition;
 
-   unsigned int pictures_number;
-   struct Pictures * pictures_data;
-
   float distance_barrier_after_considered_zoom,desired_step_zoom;
   float distance_barrier_after_considered_close,desired_step_close;
   float distance_barrier_after_considered_far,desired_step_far;
@@ -181,7 +196,7 @@ struct SlideShowData
   */
   struct GPU_Data gpu;
   struct System_Data system;
-
+  struct HyperVisor_Data hypervisor;
   /*
      SLIDESHOW EFFECTS
   */
@@ -193,6 +208,9 @@ struct SlideShowData
   unsigned char copy_directory[MAX_PATH];
   unsigned char resize_directory[MAX_PATH];
 
+
+   unsigned int pictures_number;
+   struct Pictures * pictures_data;
 
   struct FilePicture * pictures_in_folder;
 };

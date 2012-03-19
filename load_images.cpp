@@ -372,6 +372,7 @@ void EmptyPicture(struct Picture *new_picture,unsigned int empty_textures)
      new_picture->gpu.marked_for_texture_loading=0;
      new_picture->gpu.marked_for_texture_removal=0;
      new_picture->gpu.gl_rgb_texture=0;
+     new_picture->gpu.texture_data_size=0;
 
      new_picture->gpu.texture_loaded=0;
      new_picture->gpu.thumbnail_texture_loaded=0;

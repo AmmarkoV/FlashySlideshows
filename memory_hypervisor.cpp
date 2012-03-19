@@ -28,15 +28,29 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 int SignalGPUFull=0;
 
 
+inline int PictureIsLoadedInSystem(struct Picture * pic)
+{
+  return   ( pic->system.rgb_data != 0 );
+}
+
+inline int PictureIsLoadedInGPU(struct Picture * pic)
+{
+  return   ( picturedata->gpu.texture_loaded );
+}
+
+
 int MasterMemoryStrategist()
 {
+  return 0;
   /*
       Due to the complexity of the various usage scenarios instead of the current
       approach where unloadpictures for examples both contains the logic and does the picture unloading
       to be able to have a more consistent policy for loading and unloading all the operations will be decided here
       and unload pictures will only unload pictures which have been set with the appropriate flag..!
 
-
+      OUTER                                                                          OUTER
+      REGION                                                                         REGION
+   --------------                                                                --------------
       Previous                                                                        Next
       Pictures                                                                      Pictures
 
@@ -61,10 +75,88 @@ int MasterMemoryStrategist()
 
   */
 
+   // Some better mnemonic variable names for code clarity
+   unsigned int FirstPicture = 0;
+   unsigned int LastPicture  = frame.total_images-1;
+   unsigned int FirstPictureVisible = MinPictureThatIsVisible();
+   unsigned int LastPictureVisible = MaxPictureThatIsVisible();
+   unsigned int album_traveler=0;
+
+
+   // This will yield the results
+   frame.hypervisor.pictures_to_be_created=0;
+   frame.hypervisor.pictures_to_be_loaded=0;
+   frame.hypervisor.thumbnail_textures_to_be_loaded=0;
+   frame.hypervisor.textures_to_be_loaded=0;
+
+
+   frame.hypervisor.pictures_to_be_destroyed=0;
+   frame.hypervisor.pictures_to_be_unloaded=0;
+   frame.hypervisor.thumbnail_textures_to_be_unloaded=0;
+   frame.hypervisor.textures_to_be_unloaded=0;
+
+   unsigned int current_system_usedRAM=frame.system.usedRAM;
+   unsigned int after_changes_system_usedRAM=frame.system.usedRAM;
+
+
+
+  // FIRST , LETS SCAN THE OUTER REGION PREVIOUS
+  album_traveler=FirstPicture;
+  while (album_traveler<FirstPictureVisible)
+  {
+    if ( (PictureIsLoadedInSystem(album[album_traveler])) && (!album[album_traveler]->system.marked_for_rgbdata_removal) )
+     {  //If the picture is loaded and the hypervisor hasn't already marked it for rgb_data removal do it now !
+          album[album_traveler]->system.marked_for_rgbdata_removal=1;
+          after_changes_system_usedRAM-=album[album_traveler]->system.rgb_data_size;
+     }
+    if ( (PictureIsLoadedInGPU(album[album_traveler])) && (!album[album_traveler]->gpu.marked_for_texture_removal) )
+     {  //If the picture is loaded and the hypervisor hasn't already marked it for rgb_data removal do it now !
+          album[album_traveler]->gpu.marked_for_texture_removal=1;
+          after_changes_system_usedRAM-=album[album_traveler]->gpu.texture_data_size;
+     }
+    ++album_traveler;
+  }
+
+  // SECOND , LETS SCAN THE OUTER REGION FUTURE
+  album_traveler=LastPicture;
+  while (album_traveler>LastPictureVisible)
+  {
+    if ( (PictureIsLoadedInSystem(album[album_traveler])) && (!album[album_traveler]->system.marked_for_rgbdata_removal) )
+     {  //If the picture is loaded and the hypervisor hasn't already marked it for rgb_data removal do it now !
+          album[album_traveler]->system.marked_for_rgbdata_removal=1;
+          after_changes_system_usedRAM-=album[album_traveler]->system.rgb_data_size;
+     }
+    if ( (PictureIsLoadedInGPU(album[album_traveler])) && (!album[album_traveler]->gpu.marked_for_texture_removal) )
+     {  //If the picture is loaded and the hypervisor hasn't already marked it for rgb_data removal do it now !
+          album[album_traveler]->gpu.marked_for_texture_removal=1;
+          after_changes_system_usedRAM-=album[album_traveler]->gpu.texture_data_size;
+     }
+    --album_traveler;
+  }
+
+
+
+
+  // THIRD , LETS MARK THE VISIBLE PICTURES AS READY TO LOAD !
+  album_traveler=LastPicture;
+  while (album_traveler>LastPictureVisible)
+  {
+    if ( (PictureIsLoadedInSystem(album[album_traveler])) && (!album[album_traveler]->system.marked_for_rgbdata_loading) )
+     {  //If the picture is loaded and the hypervisor hasn't already marked it for rgb_data removal do it now !
+          album[album_traveler]->system.marked_for_rgbdata_loading=1;
+          after_changes_system_usedRAM+=album[album_traveler]->system.rgb_data_size;
+     }
+    --album_traveler;
+  }
+
+
+
+
+
 
   /* IMPLEMENTATION IS A STUB FOR NOW !*/
 
-  return 0;
+  return 1;
 }
 
 

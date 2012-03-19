@@ -49,6 +49,7 @@ struct GPU_Memory
   unsigned char marked_for_texture_removal;
   unsigned char texture_loaded;
   unsigned char thumbnail_texture_loaded;
+  unsigned long texture_data_size;
 
   GLuint gl_rgb_texture;
   GLuint gl_rgb_thumbnail_texture;
