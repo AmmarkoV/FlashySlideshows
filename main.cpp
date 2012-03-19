@@ -189,20 +189,18 @@ static void DisplayCallback(void)
 	 	timebase = timenow;
 		framecount = 0;
 	}
-	//if ( fps < 25 ) { fprintf(stderr,"Low Framerate %u fps \n",fps); }
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
    /* Texture binding via OpenGL , it can only be done in this thread , before actually rendering  >>>>>>>>>>>>>>>>>>>>>>*/
    /* This code only counts textures to be created , they are actually loaded on the end of this function >>>>>>>>>>>>>>>*/
-   if (ManageCreatingTexturesMemory_OpenGLThread(1)>0)  { frame.transitions.currently_loading=1; } else
-                                                        { frame.transitions.currently_loading=0; }
+ //  if (ManageCreatingTexturesMemory_OpenGLThread(1)>0)  { frame.transitions.currently_loading=1; } else
+ //                                                       { frame.transitions.currently_loading=0; }
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
 
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	  glPushMatrix();
        glMatrixMode(GL_MODELVIEW);
@@ -213,14 +211,11 @@ static void DisplayCallback(void)
           glRotatef(frame.angle_z,0,0,-1.0);
           glTranslatef(-frame.vx, -frame.vy, -frame.vz);
 
-
-
              MainDisplayFunction();
 
              Render_3DObjects();
 
              DrawEffects();
-
 
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();
@@ -243,13 +238,10 @@ static void DisplayCallback(void)
           DisplayHUD(0);
         }
    /* -  -  -  -  -  -  -  */
+   glFinish(); // Thats all the drawing
 
 
-
-
-    glutSwapBuffers();
-    glFlush();
-
+   /*STATE MANAGMENT ----------------------------------------------------*/
    AutomaticSlideShowControl_if_needed(); /* if automatic slide show is enabled it will relay commands */
 
    /*  THIS COMMAND MOVES THE CAMERA ACCORDING TO THE USER/COMPUTER INPUT*/
@@ -265,12 +257,17 @@ static void DisplayCallback(void)
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
+
+
   /* Changes on display behaviour  >>>>>>>>>>>>>>>>>>>>>>*/
   if ( !framerate_limiter() ) /* helps smoothing out framerate */
     {
       usleep(10); /*Some dead time */
     }
 
+
+    glutSwapBuffers();
+   // glFlush();
 }
 
 
@@ -542,9 +539,6 @@ int main(int argc, char *argv[])
      }
     strcat((char * ) frame.album_directory,"/");
     fprintf(stderr,"Slideshow directory is = %s \n", frame.album_directory);
-
- // exit(0);
-
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);

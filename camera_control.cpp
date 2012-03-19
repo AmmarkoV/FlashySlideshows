@@ -496,7 +496,7 @@ int CameraSeesOnlyOnePicture()
   if ( abs(frame.vy-frame.desired_y)>3 ) { return 0; }
 
 
-  if ( frame.vz<=GetLayoutMinimumZ()+2.5  )
+  if ( frame.vz<=GetLayoutMinimumZ()+1.5  )
    {
      float xcoord,ycoord,zcoord,distance;
      GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);
@@ -515,7 +515,6 @@ int CameraSeesOnlyOnePicture()
 
 int CameraSeesBackground()
 {
-    //distanceBetween3DPoints(float *x1,float*y1,float *z1,float *x2,float*y2,float *z2)
    return (!CameraSeesOnlyOnePicture());
 }
 

@@ -73,11 +73,6 @@ int NewLabel(float x,float y,char * text)
 
 void MainDisplayFunction()
 {
-  if ( frame.images_per_line == 0 ) { fprintf(stderr,"Wtf , 0 images per line ? :P \n "); return; }
-
-  unsigned int line_at=(unsigned int ) MinPictureThatIsVisible()/frame.images_per_line;
-  float y=-6;
-  y+=6 * line_at;
   unsigned int album_traveler=0;
   unsigned int minpicture=MinPictureThatIsVisible(),maxpicture=MaxPictureThatIsVisible();
 
