@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1332040945 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1332169020 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"jpegexiforient_embed.h"
 	"memory_hypervisor.h"
@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1332121980 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1332171937 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -59,13 +59,13 @@
 	<time.h>
 	"transitions/transition_handler.h"
 
-1332161745 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1332166535 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
 	<GL/glu.h>
 
-1332041037 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
+1332165886 source:/home/ammar/Documents/Programming/FlashySlideShow/load_textures.cpp
 	"load_textures.h"
 	"load_images.h"
 	"environment.h"
@@ -188,16 +188,19 @@
 
 1327634892 /home/ammar/Documents/Programming/FlashySlideShow/image_sensing.h
 
-1332161803 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
+1332171797 source:/home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.cpp
 	"memory_hypervisor.h"
 	"slideshow.h"
 	"load_images.h"
 	"load_textures.h"
 	"directory_listing.h"
+	"environment.h"
 	<stdio.h>
 	<unistd.h>
+	<pthread.h>
+	<sys/time.h>
 
-1332121412 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
+1332171694 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
 
 1328466535 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
 
@@ -1342,7 +1345,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332165875 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332171997 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 

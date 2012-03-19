@@ -22,8 +22,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_images.h"
 #include "load_textures.h"
 #include "directory_listing.h"
+#include "environment.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <pthread.h>
+#include <sys/time.h>
 
 int SignalGPUFull=0;
 
@@ -35,9 +38,29 @@ inline int PictureIsLoadedInSystem(struct Picture * pic)
 
 inline int PictureIsLoadedInGPU(struct Picture * pic)
 {
-  return   ( picturedata->gpu.texture_loaded );
+  return   pic->gpu.texture_loaded;
 }
 
+int CheckIfSignalGPUFullAppliesAnyMore()
+{
+  if (SignalGPUFull)
+   {
+     if (GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size)) { SignalGPUFull=0; }
+   }
+
+  return 1;
+}
+
+int GPU_Memory_can_accomodate(unsigned int newfile)
+{
+  if ( frame.gpu.maxRAM < newfile + frame.gpu.usedRAM )
+    {
+       //fprintf(stderr,"GPU_Memory_can_accomodate :  no free memory\n");
+       return 0;
+    }
+
+ return 1;
+}
 
 int MasterMemoryStrategist()
 {
@@ -137,14 +160,23 @@ int MasterMemoryStrategist()
 
 
 
-  // THIRD , LETS MARK THE VISIBLE PICTURES AS READY TO LOAD !
-  album_traveler=LastPicture;
-  while (album_traveler>LastPictureVisible)
+  // THIRD , LETS MARK THE VISIBLE PICTURES AS READY TO LOAD TEXTURES!
+  album_traveler=FirstPictureVisible;
+  while (album_traveler<=LastPictureVisible)
   {
-    if ( (PictureIsLoadedInSystem(album[album_traveler])) && (!album[album_traveler]->system.marked_for_rgbdata_loading) )
+
+    if (PictureCreationPending(album[album_traveler]))
+      {
+      }
+
+    if ( (!PictureIsLoadedInSystem(album[album_traveler])) && (!album[album_traveler]->system.marked_for_rgbdata_loading) )
      {  //If the picture is loaded and the hypervisor hasn't already marked it for rgb_data removal do it now !
           album[album_traveler]->system.marked_for_rgbdata_loading=1;
           after_changes_system_usedRAM+=album[album_traveler]->system.rgb_data_size;
+     } else
+     if (PictureIsLoadedInSystem(album[album_traveler]))
+     {
+
      }
     --album_traveler;
   }
@@ -161,15 +193,10 @@ int MasterMemoryStrategist()
 
 
 
-
-
-
-
-
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       Pictures are malloced structures that carry RGB data on them
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-int RAM_Memory_can_accomodate(unsigned int newfile)
+int RAM_System_Memory_can_accomodate(unsigned int newfile)
 {
   /*
   if ( frame.gpu.maxRAM < newfile + frame.gpu.usedRAM )
@@ -192,7 +219,7 @@ int CreatePicturesIfNeeded()
 {
   unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
   unsigned int album_traveler=MinPictureThatIsVisible();
-  unsigned int loaded_pictures_this_loop=0;
+  unsigned int created_pictures_this_loop=0;
 
 
   char pictures_filename_shared_stack_mem_hyper[1024]={0};
@@ -200,109 +227,40 @@ int CreatePicturesIfNeeded()
    {
      /*In case the other thread has moved focus , adapt on the fly --*/
        if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
-       if (album_traveler>MaxPictureThatIsVisible()) { return loaded_pictures_this_loop; }
+       if (album_traveler>MaxPictureThatIsVisible()) { return created_pictures_this_loop; }
      /*-----------------------------------------------------------*/
-
-    if (RAM_Memory_can_accomodate(frame.system.lastTexture) ) //No point trying to load if it doesnt't fit
-    { if (PictureCreationPending(album[album_traveler]))
-      {
-         // THIS SHOULD CREATE THE PICTURE
-         if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
+                                                        //lastTexture
+    if (!RAM_System_Memory_can_accomodate(frame.system.maximum_frame_total_size) )  { /*No point trying to load if it doesnt't fit*/ } else
+     {
+      if (PictureCreationPending(album[album_traveler])) // We need to create a picture structure , so lets do it!
+      { if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
             {
                album[album_traveler]=CreatePicture(pictures_filename_shared_stack_mem_hyper,0);
                if ( album[album_traveler] != 0 )
                  {
                     album[album_traveler]->is_jpeg=list[album_traveler].is_jpeg;
                     album[album_traveler]->directory_list_index=album_traveler; // Create a link between the directory list and the picture struct
-                    ++loaded_pictures_this_loop;
+                    ++created_pictures_this_loop;
                  } else
                  {
                      fprintf(stderr,"Failed to Create Picture TODO remove it from album and RemoveListItem\n");
                      RemoveListItem(album_traveler);
                  }
-
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
-      }
-    }
-
+       }
+     }
     ++album_traveler;
    }
 
-  return loaded_pictures_this_loop;
+  return created_pictures_this_loop;
 }
+
 
 int DestroyPicturesIfNeeded()
 {
   return 0;
 }
 
-int ManagePicturesCreationMemory()
-{
-   DestroyPicturesIfNeeded();
-   return CreatePicturesIfNeeded();
-}
-
-
-
-
-
-
-
-/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
-
-                         SYSTEM DATA /\
-
-
-
-
-                          GPU DATA   \/
-
-
-
-
-
-
-
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
-
-
-
-
-
-
-
-
-
-
-
-/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-   Textures are GPU allocated structures that carry RGB data on them
-   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-
-int CheckIfSignalGPUFullAppliesAnyMore()
-{
-  if (SignalGPUFull)
-   {
-     if (GPU_Memory_can_accomodate(frame.gpu.maximum_frame_total_size)) { SignalGPUFull=0; }
-   }
-
-  return 1;
-}
-
-int GPU_Memory_can_accomodate(unsigned int newfile)
-{
-  if ( frame.gpu.maxRAM < newfile + frame.gpu.usedRAM )
-    {
-       //fprintf(stderr,"GPU_Memory_can_accomodate :  no free memory\n");
-       return 0;
-    }
-
- return 1;
-}
 
 int LoadPicturesIfNeeded()
 {
@@ -319,7 +277,7 @@ int LoadPicturesIfNeeded()
        if (album_traveler>MaxPictureThatIsVisible()) { return loaded_pictures_this_loop; }
      /*-----------------------------------------------------------*/
 
-    if (RAM_Memory_can_accomodate(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
+    if (RAM_System_Memory_can_accomodate(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
     { if ( PictureLoadingPending(album[album_traveler]) )
       {
           // THIS SHOULD LOAD THE PICTURE
@@ -415,9 +373,85 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
   return unloaded_textures_this_loop;
 }
 
+
+
+
+
+int LoadTexturesIfNeeded(int count_only)
+{
+  /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
+     FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread
+  */
+  unsigned int fail_count=0,count=0;
+
+   struct timeval start_creating_textures,now,difference;
+
+  gettimeofday(&start_creating_textures,0x0);
+
+  UnLoadPicturesIfNeeded(1,1);
+
+  unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
+  unsigned int album_traveler=MinPictureThatIsVisible();
+
+  while (album_traveler<=MAX_album_traveler)
+   {
+     /*In case the other thread has moved focus , adapt on the fly --*/
+       if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
+       if (album_traveler>MaxPictureThatIsVisible()) { return count; }
+     /*-----------------------------------------------------------*/
+
+     if ( album[album_traveler]->gpu.marked_for_texture_loading ) //PictureLoadedOpenGLTexturePending(album[album_traveler]) not using this for perfromance reasons..!
+       {
+         ++count;
+         if(!count_only)
+          {
+            if ( !make_texture(album[album_traveler],frame.mipmaping) )
+              {
+                //Failed making the texture , ( and picture was loaded correctly .. ! )
+                ++fail_count;
+              } else
+              {
+                // Only go in the trouble of making the "expensive" timeval call if a texture was loaded ( and thus the system used precious time anyways )
+                gettimeofday(&now,0x0);
+                unsigned int elapsed_time = timeval_diff(&difference,&now,&start_creating_textures);
+                if (elapsed_time>1000)
+                {
+                 if (PrintDevMsg()) fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
+                 return count;
+                }
+              }
+          }
+        }
+
+      ++album_traveler;
+   }
+
+  return count;
+}
+
+
+/*
+    -------------------------------------------
+                  GENERIC CALLS
+     -------------------------------------------
+*/
+
+int ManagePicturesCreationMemory()
+{
+   DestroyPicturesIfNeeded();
+   return CreatePicturesIfNeeded();
+}
+
+
 int ManagePicturesLoadingMemory()
 {
   // UnLoadPicturesIfNeeded(); THIS ONLY SHOULD BE CALLED FROM THE MAIN THREAD
    return LoadPicturesIfNeeded();
 }
 
+
+int ExecuteMemoryStrategyPlanOnSystemMemory()
+{
+   ManagePicturesCreationMemory();
+   return ManagePicturesLoadingMemory();
+}

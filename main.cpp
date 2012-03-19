@@ -97,70 +97,22 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   while (!STOP_APPLICATION)
   {
     MasterMemoryStrategist();
-
-    loaded_pictures_this_loop= ManagePicturesCreationMemory();// If no pictures loaded returns 0
-    loaded_pictures_this_loop+=ManagePicturesLoadingMemory();// If no pictures adds 0
-
+    loaded_pictures_this_loop+=ExecuteMemoryStrategyPlanOnSystemMemory();
+/*
     if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
-                                          { usleep(10000);  }
+                                          { usleep(10000);  }*/
+    usleep(100000);
   }
   return 0;
 }
 
 
-int ManageCreatingTextures(int count_only)
+int ManageCreatingTexturesMemory_OpenGLThread(int count_only)
 {
   /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
      FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread
   */
-  unsigned int fail_count=0,count=0;
-
-   struct timeval start_creating_textures,now,difference;
-
-  gettimeofday(&start_creating_textures,0x0);
-
-  UnLoadPicturesIfNeeded(1,1);
-
-  unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
-  unsigned int album_traveler=MinPictureThatIsVisible();
-
-  while (album_traveler<=MAX_album_traveler)
-   {
-     /*In case the other thread has moved focus , adapt on the fly --*/
-       if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
-       if (album_traveler>MaxPictureThatIsVisible()) { return count; }
-     /*-----------------------------------------------------------*/
-
-
-     if ( //PictureLoadedOpenGLTexturePending(album[album_traveler]) not using this for perfromance reasons..!
-          album[album_traveler]->gpu.marked_for_texture_loading
-        )
-       {
-         ++count;
-         if(!count_only)
-          {
-            if ( !make_texture(album[album_traveler],frame.mipmaping) )
-              {
-                //Failed making the texture , ( and picture was loaded correctly .. ! )
-                ++fail_count;
-              } else
-              {
-                // Only go in the trouble of making the "expensive" timeval call if a texture was loaded ( and thus the system used precious time anyways )
-                gettimeofday(&now,0x0);
-                unsigned int elapsed_time = timeval_diff(&difference,&now,&start_creating_textures);
-                if (elapsed_time>1000)
-                {
-                 if (PrintDevMsg()) fprintf(stderr,"Stopping texture operation , it takes too long ( %u ) \n",elapsed_time);
-                 return count;
-                }
-              }
-          }
-        }
-
-      ++album_traveler;
-   }
-
-  return count;
+  return LoadTexturesIfNeeded(count_only);
 }
 
 
@@ -250,8 +202,8 @@ static void DisplayCallback(void)
 
    /* Texture binding via OpenGL , it can only be done in this thread , before actually rendering  >>>>>>>>>>>>>>>>>>>>>>*/
    /* This code only counts textures to be created , they are actually loaded on the end of this function >>>>>>>>>>>>>>>*/
-   if (ManageCreatingTextures(1)>0)  { frame.transitions.currently_loading=1; } else
-                                     { frame.transitions.currently_loading=0; }
+   if (ManageCreatingTexturesMemory_OpenGLThread(1)>0)  { frame.transitions.currently_loading=1; } else
+                                                        { frame.transitions.currently_loading=0; }
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
@@ -316,7 +268,7 @@ static void DisplayCallback(void)
 
    /* Texture binding via OpenGL , it can only be done in this thread , while not rendering
         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-   ManageCreatingTextures(0);
+   ManageCreatingTexturesMemory_OpenGLThread(0);
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 

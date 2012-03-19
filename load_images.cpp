@@ -222,7 +222,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          //if (frame.system.maxRAM < frame.system.usedRAM + width*height*depth ) { fprintf(stderr,"System memory bounds reached"); return 0; }
 
          frame.system.lastTexture=width*height*depth;
-         if ( !RAM_Memory_can_accomodate(frame.system.lastTexture) ) { fprintf(stderr,"RAM Memory cannot accomodate %u bytes \n",(unsigned int) frame.system.lastTexture); return 0; }
+         if ( !RAM_System_Memory_can_accomodate(frame.system.lastTexture) ) { fprintf(stderr,"RAM Memory cannot accomodate %u bytes \n",(unsigned int) frame.system.lastTexture); return 0; }
 
          frame.system.usedRAM+=frame.system.lastTexture;
          pic->system.rgb_data=(char *) malloc( ( width*height*depth ) + depth );
