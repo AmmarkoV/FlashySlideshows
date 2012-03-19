@@ -96,11 +96,13 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
   {
+    MasterMemoryStrategist();
+
     loaded_pictures_this_loop= ManagePicturesCreationMemory();// If no pictures loaded returns 0
     loaded_pictures_this_loop+=ManagePicturesLoadingMemory();// If no pictures adds 0
 
     if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
-                                          { usleep(1000);  }
+                                          { usleep(10000);  }
   }
   return 0;
 }

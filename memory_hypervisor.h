@@ -3,6 +3,8 @@
 
 extern int SignalGPUFull;
 
+int MasterMemoryStrategist();
+
 int RAM_Memory_can_accomodate(unsigned int newfile);
 int CreatePicturesIfNeeded();
 int DestroyPicturesIfNeeded();

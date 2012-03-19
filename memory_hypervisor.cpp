@@ -25,13 +25,52 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <unistd.h>
 
-/*
-
-
-
-*/
-
 int SignalGPUFull=0;
+
+
+int MasterMemoryStrategist()
+{
+  /*
+      Due to the complexity of the various usage scenarios instead of the current
+      approach where unloadpictures for examples both contains the logic and does the picture unloading
+      to be able to have a more consistent policy for loading and unloading all the operations will be decided here
+      and unload pictures will only unload pictures which have been set with the appropriate flag..!
+
+
+      Previous                                                                        Next
+      Pictures                                                                      Pictures
+
+      |-----|      |-----|      |-----|      |-----|      |-----|      |-----|      |-----|
+      |     |      | MIN |      |     |      | CUR |      |     |      | MAX |      |     |
+      |-----|      |-----|      |-----|      |-----|      |-----|      |-----|      |-----|
+
+                     /\                        /\                         /\
+                     ||                        ||                         ||
+                 Min Visible                 Current                  Max Visible
+                   Picture                   Picture                   Picture
+
+      Current Picture can move in both ways and even skip an arbitrary number of pictures so
+      it is important to always have memory provisions for a stream of new pictures on a suddent
+      movement!
+
+      The pictures that belong to the sets Previour Pictures or Next Pictures ( and according to their distance from the current picture )
+      can be marked for unloading both from gpu as well as system memory at the hypervisors discretion to ensure enough memory is saved for the visible pictures
+
+      The visible pictures on the other hand must be set to be loaded asap and according to the current picture direction of change with the best possible order
+      so that current picture will always be over a loaded picture
+
+  */
+
+
+  /* IMPLEMENTATION IS A STUB FOR NOW !*/
+
+  return 0;
+}
+
+
+
+
+
 
 
 
