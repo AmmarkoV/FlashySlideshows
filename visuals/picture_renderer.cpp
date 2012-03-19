@@ -15,6 +15,56 @@
 #include <GL/glu.h>
 #endif
 
+ /*
+float RGB2OGL(unsigned int colr)
+{
+  return (float) colr/255;
+}  */
+
+inline int CyanMagentaYellowModifyPicture(unsigned int cyan,unsigned int magenta,unsigned int yellow,
+                                          struct Picture * pic,unsigned int place,float *x,float *y,float *z,float *size_x,float *size_y,float *heading,float *pitch,float *roll)
+{
+   // cyan    is 9   73  233   =  0.0352941 0.2862745098 0.9137254
+   // magenta is 223 101 179   =  0.8745098 0.396078     0.701960
+   // yellow  is 251 243 163   =  0.984313  0.95294      0.63921
+
+   float distance=0.05;
+
+     glColor4f(0.0352941,0.2862745098,0.9137254,(float) cyan/255); // <---   CYAN
+     glBegin(GL_QUADS);
+      glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
+      glVertex3f(*x-*size_x,*y-*size_y,*z+distance);	// Bottom Left Of The Texture and Quad
+      glVertex3f(*x+*size_x,*y-*size_y,*z+distance);	// Bottom Right Of The Texture and Quad
+      glVertex3f(*x+*size_x,*y+*size_y,*z+distance);	// Top Right Of The Texture and Quad
+      glVertex3f(*x-*size_x,*y+*size_y,*z+distance);
+     glEnd();
+
+     distance+=0.05;
+
+     glColor4f(0.8745098,0.396078,0.701960,(float) magenta/255); // <---   MAGENTA
+     glBegin(GL_QUADS);
+      glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
+      glVertex3f(*x-*size_x,*y-*size_y,*z+distance);	// Bottom Left Of The Texture and Quad
+      glVertex3f(*x+*size_x,*y-*size_y,*z+distance);	// Bottom Right Of The Texture and Quad
+      glVertex3f(*x+*size_x,*y+*size_y,*z+distance);	// Top Right Of The Texture and Quad
+      glVertex3f(*x-*size_x,*y+*size_y,*z+distance);
+     glEnd();
+
+     distance+=0.05;
+
+     glColor4f(0.984313,0.95294,0.63921,(float) yellow/255); // <---   YELLOW
+     glBegin(GL_QUADS);
+      glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
+      glVertex3f(*x-*size_x,*y-*size_y,*z+distance);	// Bottom Left Of The Texture and Quad
+      glVertex3f(*x+*size_x,*y-*size_y,*z+distance);	// Bottom Right Of The Texture and Quad
+      glVertex3f(*x+*size_x,*y+*size_y,*z+distance);	// Top Right Of The Texture and Quad
+      glVertex3f(*x-*size_x,*y+*size_y,*z+distance);
+     glEnd();
+
+
+   return 1;
+}
+
 
 inline int DisplayFrame(struct Picture * pic,unsigned int place,float *x,float *y,float *z,float *size_x,float *size_y,float *heading,float *pitch,float *roll)
 {
@@ -100,6 +150,12 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
   glDisable ( GL_TEXTURE_2D );
   glEnable(GL_COLOR_MATERIAL);
+
+ //  Live picture processing :P CMY change
+  /* if (frame.try_for_best_render_quality)
+    {  //Vintage colouring
+         CyanMagentaYellowModifyPicture(17,20,59,pic,place,&tx,&ty,&tz,&size_x,&size_y,&heading,&pitch,&roll);
+    }*/
 
   glTranslated(-x,-y,-z);
 
