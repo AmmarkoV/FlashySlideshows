@@ -71,8 +71,14 @@ int ChangeActiveImage(unsigned int x,unsigned int y)
     unsigned int keep_last_place=frame.last_image_place;
     unsigned int retres=ChangeActiveImage(new_image_place);
     if ( ( frame.active_image_x!=x ) || ( frame.active_image_y!=y ) )
-      { fprintf(stderr," ERROR  should be %u,%u != but it became %u,%u\n",x,y,frame.active_image_x,frame.active_image_y); }
-    return retres;
+      {
+        fprintf(stderr,"PictureXYtoID -> %u = ((%u)+(%u*%u))\n",((x)+(y*frame.images_per_line)),x,y,frame.images_per_line);
+        fprintf(stderr,"%u= (%u %% %u)\n",(new_image_place%frame.images_per_line),new_image_place,frame.images_per_line);
+        fprintf(stderr,"%u= (%u / %u)\n",(unsigned int) new_image_place/frame.images_per_line,new_image_place,frame.images_per_line);
+        fprintf(stderr,"PictureIDtoXY -> %u,%u = (%u)\n",x,y,new_image_place);
+        fprintf(stderr," ERROR  should be %u,%u != but it became %u,%u\n",x,y,frame.active_image_x,frame.active_image_y);
+      }
+    //return retres;
     frame.last_image_x=keep_last_x;
     frame.last_image_y=keep_last_y;
     frame.last_image_place=keep_last_place;
