@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1332208276 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1332213077 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -47,7 +47,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1332210942 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1332211227 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -1346,7 +1346,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332211233 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332213079 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 

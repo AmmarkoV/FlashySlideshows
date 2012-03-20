@@ -483,7 +483,7 @@ int main(int argc, char *argv[])
                       {
                        frame.quality_setting=atoi(argv[i+1]); // Quality
                        fprintf(stderr,"%u Image Quality %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.quality_setting);
-                       if (frame.quality_setting>3) { frame.try_for_best_render_quality=1; }
+                       if (frame.quality_setting>=3) { frame.try_for_best_render_quality=1; }
                        fprintf(stderr,"   Rendering Quality Switch %u\n",frame.try_for_best_render_quality);
                        //THIS HAS A SECOND PAYLOAD THAT HAPPENS AFTERWARDS----> to initialize frame.gpu.maximum_frame_total_size
                       }
@@ -541,7 +541,13 @@ int main(int argc, char *argv[])
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
     glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE ,GLUT_ACTION_CONTINUE_EXECUTION);
-    glutInitWindowSize(1024,600);
+
+    int width_x=glutGet(GLUT_SCREEN_WIDTH);
+    int width_y=glutGet(GLUT_SCREEN_HEIGHT);
+    if (width_x>1024) { width_x=1024; }
+    if (width_y>600)  { width_y=600; }
+
+    glutInitWindowSize(width_x,width_y);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA  ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 
