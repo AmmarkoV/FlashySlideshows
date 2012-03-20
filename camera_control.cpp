@@ -44,7 +44,7 @@ float last_calculated_position_y=0.0;
 float last_calculated_position_z=0.0;
 
 
-int ChangeActiveImage(unsigned int place)
+int ChangeActiveImageMem(unsigned int place)
 {
    if ( place != frame.active_image_place )
      {
@@ -61,52 +61,6 @@ int ChangeActiveImage(unsigned int place)
 }
 
 
-int ChangeActiveImage(unsigned int x,unsigned int y)
-{
-    unsigned int new_image_place = PictureXYtoID(x,y);
-
-    //TEST TO FIND OUT WHATS WRONG -- START
-    unsigned int keep_last_x=frame.last_image_x;
-    unsigned int keep_last_y=frame.last_image_y;
-    unsigned int keep_last_place=frame.last_image_place;
-    unsigned int retres=ChangeActiveImage(new_image_place);
-    if ( ( frame.active_image_x!=x ) || ( frame.active_image_y!=y ) )
-      {
-        fprintf(stderr,"PictureXYtoID -> %u = ((%u)+(%u*%u))\n",((x)+(y*frame.images_per_line)),x,y,frame.images_per_line);
-        fprintf(stderr,"%u= (%u %% %u)\n",(new_image_place%frame.images_per_line),new_image_place,frame.images_per_line);
-        fprintf(stderr,"%u= (%u / %u)\n",(unsigned int) new_image_place/frame.images_per_line,new_image_place,frame.images_per_line);
-        fprintf(stderr,"PictureIDtoXY -> %u,%u = (%u)\n",x,y,new_image_place);
-        fprintf(stderr," ERROR  should be %u,%u != but it became %u,%u\n",x,y,frame.active_image_x,frame.active_image_y);
-      }
-    //return retres;
-    frame.last_image_x=keep_last_x;
-    frame.last_image_y=keep_last_y;
-    frame.last_image_place=keep_last_place;
-    //TEST TO FIND OUT WHATS WRONG -- END
-
-
-    if ( ( x != frame.active_image_x ) || ( y != frame.active_image_y ) || (new_image_place != frame.active_image_place) )
-    {
-     fprintf(stderr,"Active Image is now %u,%u -> %u,%u -> %u,%u (now) \n",
-             frame.last_image_x,frame.last_image_y ,
-             frame.active_image_x, frame.active_image_y,
-             x,y );
-     frame.last_image_x=frame.active_image_x;
-     frame.last_image_y=frame.active_image_y;
-     frame.last_image_place=frame.active_image_place;
-
-     frame.active_image_x=x;
-     frame.active_image_y=y;
-     frame.active_image_place=PictureXYtoID(x,y);
-
-     PrintPictureData(album[frame.active_image_place]);
-
-     // This is to signal the time the change was made to stop automatic slideshow from refiring
-     frame.time_ms_before_last_slide_change=frame.tick_count;
-    }
-
-  return 1;
-}
 
 void RememberThatCalculationAccordingToPositionTookPlace()
 {
@@ -118,7 +72,6 @@ void RememberThatCalculationAccordingToPositionTookPlace()
 
 void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 {
-
     if (  (!force_check)&&
           (!LayoutMoving())&&
           (frame.vx==last_calculated_position_x)&&
@@ -164,18 +117,16 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
-                ChangeActiveImage(MaxPictureThatIsVisible());
+                ChangeActiveImageMem(MaxPictureThatIsVisible());
                 RememberThatCalculationAccordingToPositionTookPlace();
-              //  ChangeActiveImage((unsigned int) MaxPictureThatIsVisible()%frame.images_per_line,
-              //                    (unsigned int) MaxPictureThatIsVisible()/frame.images_per_line );
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
       }
 
 
-       start_y=MinPictureThatIsVisible() /* REDUCE COMPLEXITY 0 */  / frame.images_per_line;
-       total_y=MaxPictureThatIsVisible() /* REDUCE COMPLEXITY frame.total_images*/  / frame.images_per_line;
+       start_y=MinPictureThatIsVisible()  / frame.images_per_line; // REDUCE COMPLEXITY 0  / frame.images_per_line
+       total_y=MaxPictureThatIsVisible()  / frame.images_per_line; // REDUCE COMPLEXITY frame.total_images / frame.images_per_line
        album_traveler = start_y*frame.images_per_line;
        top_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
        top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
@@ -189,9 +140,7 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
-                             //  ChangeActiveImage((unsigned int) MinPictureThatIsVisible()%frame.images_per_line,
-                             //                    (unsigned int) MinPictureThatIsVisible()/frame.images_per_line );
-                  ChangeActiveImage(MinPictureThatIsVisible());
+                  ChangeActiveImageMem(MinPictureThatIsVisible());
                   RememberThatCalculationAccordingToPositionTookPlace();
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
@@ -218,26 +167,14 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 
             if ( rayIntersectsRectangle(camera_point,camera_direction,top_left,top_right,bot_right,bot_left) )
             {
-                //fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-                   //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                   //fprintf(stderr,"RECTANGLE (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f,%f)\n",top_left[0],top_left[1],top_left[2]   ,top_right[0],top_right[1],top_right[2]   ,bot_right[0],bot_right[1],bot_right[2],bot_left[0],bot_left[1],bot_left[2]);
-
-                   //frame.active_image_y=y;
-                   //frame.active_image_x=x;
-                   //frame.active_image_place = frame.active_image_x+frame.active_image_y*frame.images_per_line;
-
                    if ((x!=frame.active_image_x)||(y!=frame.active_image_y))
                     {
                       fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
                       fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
-                      ChangeActiveImage(x,y);
+                      ChangeActiveImageMem(PictureXYtoID(x,y));
                     }
                   return;
             }
-                 else
-                {
-                  /*NOT OVER PICTURE*/
-                }
 
        ++album_traveler;
        if (album_traveler > frame.total_images) { album_traveler=frame.total_images; RememberThatCalculationAccordingToPositionTookPlace(); return; }
@@ -292,8 +229,6 @@ void MoveDestinationCenter(unsigned int movement_direction)
        case D_OUT   : axis=2; direction=1; break;
     };
 
-
-
     /*
        According to zoom factor we will use a desired_step matching it in order to have smooth movement over the image
        RefreshDesiredStep_AccordingToPosition calculates it and loads it in frame.desired_step variable
@@ -304,7 +239,6 @@ void MoveDestinationCenter(unsigned int movement_direction)
 
     /* axis ( 0 x , 1 y , 2 z ) */
     /* direction ( 0 + , 1 - ) */
-
     frame.transitions.effect_move_activated=0; /*Overriding hover*/
     frame.transitions.seek_move_activated=1; /*Setting Destination Over Point cancels seek move!*/
 
@@ -338,30 +272,23 @@ void SetDestinationCenter()
     frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
     frame.transitions.effect_move_activated=0;
 
-    frame.desired_x=0;
-    frame.desired_y=0;
-    frame.desired_z=0;
-
-    frame.angle_x=0;
-    frame.angle_y=0;
-    frame.angle_z=180;
+    frame.desired_x=0; frame.desired_y=0; frame.desired_z=0;
+    frame.angle_x=0;   frame.angle_y=0;   frame.angle_z=180;
 }
 
 
 void ResetCameraOrientation()
 {
-    frame.angle_x=0;
-    frame.angle_y=0;
-    frame.angle_z=180;
+    frame.angle_x=0; frame.angle_y=0; frame.angle_z=180;
 }
 
-void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
+void SetDestinationOverPicture3dSeek(unsigned int pic_place)
 {
   frame.transitions.seek_move_activated=0; //Setting Destination Over Point cancels seek move!
 
-  ChangeActiveImage(x,y);
+  //ChangeActiveImageXY(x,y);
+  ChangeActiveImageMem(pic_place);
 
-  unsigned int pic_place=PictureXYtoID(x,y);
   PositionPicture(album[pic_place],pic_place);
 
   frame.desired_x=album[pic_place]->position.x;
@@ -369,10 +296,10 @@ void SetDestinationOverPicture3dSeek(unsigned int x,unsigned int y)
   frame.desired_z=album[pic_place]->position.z+4.5;//-0.5;
 }
 
-void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
+void SetDestinationOverPictureImmediate(unsigned int pic_place)
 {
   //Call 3dSeek and basically set position at target :P
-  SetDestinationOverPicture3dSeek(x,y);
+  SetDestinationOverPicture3dSeek(pic_place);
   frame.vx=frame.desired_x;
   frame.vy=frame.desired_y;
   frame.vz=frame.desired_z;
@@ -381,18 +308,18 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y)
 
 
 
-void SetDestinationOverPicture(unsigned int x,unsigned int y)
+void SetDestinationOverPicture(unsigned int place)
 {
-   unsigned int place = PictureXYtoID(x,y);
-   if (PictureOutOfBounds(place)) { fprintf(stderr,"SetDestinationOverPicture(%u,%u) is an invalid destination\n",x,y); return; }
+ //  unsigned int place = PictureXYtoID(x,y);
+   if (PictureOutOfBounds(place)) { fprintf(stderr,"SetDestinationOverPicture(%u) is an invalid destination\n",place); return; }
 
    switch ( frame.transitions.transition_mode)
    {
-     case 0 : SetDestinationOverPicture3dSeek(x,y); ResetPictureRotation(); break;
-     case 1 : SetDestinationOverPictureImmediate(x,y); ResetPictureRotation(); break;
+     case 0 : SetDestinationOverPicture3dSeek(place); ResetPictureRotation(); break;
+     case 1 : SetDestinationOverPictureImmediate(place); ResetPictureRotation(); break;
      case 2 :
-               fprintf(stderr,"We want to go to %u,%u (%u) and we were at %u,%u (%u)\n",x,y,place,frame.active_image_x,frame.active_image_y,frame.active_image_place);
-               SetDestinationOverPictureImmediate(x,y);
+               fprintf(stderr,"We want to go to %u and we were at %u,%u (%u)\n",place,frame.active_image_x,frame.active_image_y,frame.active_image_place);
+               SetDestinationOverPictureImmediate(place);
                CalculateActiveImage_AccordingToPosition(1);
 
                FadeInPicture();
@@ -400,16 +327,18 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
 
                fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",frame.active_image_place,album[frame.active_image_place]->transparency,album[frame.active_image_place]->target_transparency);
               break;
-     default :  SetDestinationOverPicture3dSeek(x,y); ResetPictureRotation(); break;
+     default :  SetDestinationOverPicture3dSeek(place); ResetPictureRotation(); break;
    };
 }
 
 
 void SetDestinationOverPictureId(unsigned int id)
-{
+{/*
    unsigned int x,y;
    PictureIDtoXY(&x,&y,id);
-   SetDestinationOverPicture(x,y);
+   SetDestinationOverPicture(x,y);*/
+
+   SetDestinationOverPicture(id);
 }
 
 
@@ -417,62 +346,23 @@ int MoveToPicture(unsigned int direction)
 {
   fprintf(stderr,"Move to picture direction = %u \n",direction);
   if (frame.active_image_place!=PictureXYtoID(frame.active_image_x,frame.active_image_y)) { fprintf(stderr,"ERROR Inconsistent x,y place\n"); }
-  unsigned int last_active_picture=frame.active_image_place;
-  unsigned int last_line=0;
-  if ( frame.images_per_line>0) last_line=frame.total_images/frame.images_per_line;
 
-  fprintf(stderr,"Picture X/Y was %u / %u \n",frame.active_image_x,frame.active_image_y);
-  unsigned int image_x=frame.active_image_x,image_y=frame.active_image_y;
-    if ( direction == D_UP )
-                               {  /* UP */
-                                    fprintf(stderr,"For UP at %u,%u we got ",image_x,image_y);
-                                    if ( image_y > 0 ) {  image_y-=1; }
-                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
-                               } else
-    if ( direction == D_DOWN )
-                               {  /* DOWN */
-                                    fprintf(stderr,"For DOWN at %u,%u we got ",image_x,image_y);
-                                    if ( image_y < last_line-1 ) {  image_y+=1; }
-                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
-                               } else
-    if ( direction == D_LEFT ) {  /* LEFT */
-                                    fprintf(stderr,"For LEFT at %u,%u we got ",image_x,image_y);
-                                    if ( image_x > 0 ) {  image_x-=1; } else
-                                    { //Go to the previous row functionality :P
-                                       if ( image_y >0 )
-                                       {
-                                           image_x=frame.images_per_line-1;
-                                         --image_y;
-                                       }
-                                    }
-                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
-                               } else
-    if ( direction == D_RIGHT ) {  /* RIGHT */
-                                    fprintf(stderr,"For RIGHT at %u,%u we got ",image_x,image_y);
-                                    if ( image_x < frame.images_per_line-1 ) {  image_x+=1; } else
-                                    if ( image_y < last_line-1 )
-                                       {//Go to the next row functionality :P
-                                           image_x=0;
-                                         ++image_y;
-                                       }
-                                    fprintf(stderr,"%u,%u\n",image_x,image_y);
-                                }
+    signed int new_mem_place = (signed int ) frame.active_image_place;
 
-   unsigned int current_active_picture=PictureXYtoID(image_x,image_y);
+    if ( direction == D_UP   ) { new_mem_place-=frame.images_per_line; } else
+    if ( direction == D_DOWN ) { new_mem_place+=frame.images_per_line; } else
+    if ( direction == D_LEFT ) { --new_mem_place;                      } else
+    if ( direction == D_RIGHT) { ++new_mem_place;                      }
 
-   if ( current_active_picture!=last_active_picture )
-    {
-      frame.active_image_place=current_active_picture;
-      SetDestinationOverPicture(image_x,image_y);
-      fprintf(stderr,"Picture X/Y from %u/%u -> %u/%u \n",frame.last_image_x,frame.last_image_y,frame.active_image_x,frame.active_image_y);
-      frame.transitions.seek_move_activated=1; /*THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0
-                                     so it is important to set this right here!*/
-      return 1;
-    } else
-    {
-      fprintf(stderr,"Staying over the same picture\n");
-    }
-   return 0;
+    if (new_mem_place<0) { new_mem_place=0; } else
+    if (new_mem_place>=frame.total_images) { new_mem_place=frame.total_images-1; }
+
+    frame.active_image_place=(unsigned int) new_mem_place;
+
+    SetDestinationOverPictureId(frame.active_image_place);
+    frame.transitions.seek_move_activated=1; //THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0 so it is important to set this right here!
+
+   return 1;
 }
 
 void SetDestinationOverNextPicture()
@@ -559,6 +449,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
        {
            // This is the case when camera is supposed to be still , so we really should avoid re calculating the same things
            // just to find out that the camera goes nowhere :P ( PERFORMANCE ++ )
+           CameraReachedDestination();
            return ;
        }
     /*
@@ -637,8 +528,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
   /* -------------------------------------
      CAMERA SAFE GUARD!
-     -------------------------------------
-  */
+     ------------------------------------- */
    if ( frame.vx<GetLayoutMinimumX())  { frame.vx=GetLayoutMinimumX(); frame.desired_x=frame.vx; CameraBounced(); } else/* DO NOT ALLOW ANY LEFTER */
    if ( frame.vx>GetLayoutMaximumX())  { frame.vx=GetLayoutMaximumX(); frame.desired_x=frame.vx; CameraBounced(); }     /* DO NOT ALLOW ANY RIGHTER */
 
@@ -648,11 +538,9 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
    if ( frame.vz<GetLayoutMinimumZ())  { frame.vz=GetLayoutMinimumZ(); frame.desired_z=frame.vz; CameraBounced(); } else/* DO NOT ALLOW ANY CLOSER */
    if ( frame.vz>GetLayoutMaximumZ())  { frame.vz=GetLayoutMaximumZ(); frame.desired_z=frame.vz; CameraBounced(); }     /* DO NOT ALLOW ANY FURTHER */
 
-
   /* -------------------------------------
      CAMERA ROUNDING ERROR CORRECTION
-     -------------------------------------
-  */
+     ------------------------------------- */
   if ( ( frame.desired_x > frame.vx ) && ( frame.desired_x < frame.vx+0.005 ) ) { frame.vx = frame.desired_x; } else
   if ( ( frame.desired_x < frame.vx ) && ( frame.desired_x > frame.vx-0.005 ) ) { frame.vx = frame.desired_x; }
 
@@ -662,15 +550,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
   if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+0.005 ) ) { frame.vz = frame.desired_z; } else
   if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz-0.005 ) ) { frame.vz = frame.desired_z; }
 
-  /*
-     UPDATE ACTIVE IMAGE
-  */
 
   if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
-
-  //if ( !frame.transitions.seek_move_activated ) {  }
   CalculateActiveImage_AccordingToPosition(0);
-  /* If we are performing a seek move ( i.e. keyboard arrows ) we dont want to calculate active_image again , we
-     know where we are headed*/
-
 }

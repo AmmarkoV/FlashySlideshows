@@ -137,8 +137,8 @@ void InitSlideShow()
 
 
 
-   SetDestinationOverPicture(2,1);
-   SetDestinationOverPicture(2,1);
+   SetDestinationOverPicture(7);
+   SetDestinationOverPicture(7);
 
 
    GetLayoutCoordinatesForXY(frame.active_image_x,frame.active_image_y,&frame.vx,&frame.vy,&frame.vz);
@@ -216,7 +216,7 @@ void ToggleAutomaticSlideshow()
      if ( frame.transitions.automatic_slideshow_on==0 )
       {
           SoundLibrary_PlaySound(SLIDESHOW_START);
-          SetDestinationOverPicture(frame.active_image_x,frame.active_image_y);
+          SetDestinationOverPicture(frame.active_image_place);
           frame.time_ms_before_last_slide_change=frame.tick_count;
           frame.transitions.automatic_slideshow_on=1;
           Add_3DObject(//0,0,0,
@@ -376,7 +376,7 @@ void PutCameraOverExistingPictureIfItIsOff()
 {
   if (frame.active_image_place>=frame.total_images)
    {
-     SetDestinationOverPictureImmediate(0,0);
+     SetDestinationOverPictureImmediate(0);
    }
 }
 

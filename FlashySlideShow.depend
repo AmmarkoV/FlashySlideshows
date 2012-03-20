@@ -47,7 +47,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1332256730 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1332265646 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -126,7 +126,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1332256665 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1332265878 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 	"slideshow.h"
@@ -143,7 +143,7 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1332250024 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
+1332265684 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
 1331768567 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
@@ -1346,7 +1346,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332262967 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332269482 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
