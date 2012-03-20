@@ -24,7 +24,7 @@ void SetDestinationOverPictureImmediate(unsigned int x,unsigned int y);
 void SetDestinationOverNextPicture();
 
 
-void CalculateActiveImage_AccordingToPosition();
+void CalculateActiveImage_AccordingToPosition(unsigned char force_check);
 
 void CameraBounced();
 

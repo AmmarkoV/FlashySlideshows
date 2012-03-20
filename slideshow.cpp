@@ -357,6 +357,7 @@ void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place)
   *y=(unsigned int) place/frame.images_per_line;
 }
 
+
 unsigned int GetPictureDirectoryListIndex(unsigned int pic_place)
 {
     if (PictureOutOfBounds(pic_place)) { return 0; }

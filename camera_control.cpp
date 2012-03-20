@@ -51,10 +51,12 @@ int ChangeActiveImage(unsigned int place)
       frame.last_image_x=frame.active_image_x;
       frame.last_image_y=frame.active_image_y;
       frame.last_image_place=frame.active_image_place;
+
       frame.active_image_place=place;
       PictureIDtoXY(&frame.active_image_x,&frame.active_image_y,place);
      }
 
+    frame.time_ms_before_last_slide_change=frame.tick_count;
     return 1;
 }
 
@@ -62,6 +64,19 @@ int ChangeActiveImage(unsigned int place)
 int ChangeActiveImage(unsigned int x,unsigned int y)
 {
     unsigned int new_image_place = PictureXYtoID(x,y);
+
+    //TEST TO FIND OUT WHATS WRONG -- START
+    unsigned int keep_last_x=frame.last_image_x;
+    unsigned int keep_last_y=frame.last_image_y;
+    unsigned int keep_last_place=frame.last_image_place;
+    unsigned int retres=ChangeActiveImage(new_image_place);
+    if ( ( frame.active_image_x!=x ) || ( frame.active_image_y!=y ) ) { fprintf(stderr," ERROR %u,%u   !=    %u,%u\n",x,y,frame.active_image_x,frame.active_image_y); }
+    frame.last_image_x=keep_last_x;
+    frame.last_image_y=keep_last_y;
+    frame.last_image_place=keep_last_place;
+    //TEST TO FIND OUT WHATS WRONG -- END
+    //return retres;
+
     if ( ( x != frame.active_image_x ) || ( y != frame.active_image_y ) || (new_image_place != frame.active_image_place) )
     {
      fprintf(stderr,"Active Image is now %u,%u -> %u,%u -> %u,%u (now) \n",
@@ -93,10 +108,11 @@ void RememberThatCalculationAccordingToPositionTookPlace()
 }
 
 
-void CalculateActiveImage_AccordingToPosition()
+void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 {
 
-    if (  (!LayoutMoving())&&
+    if (  (!force_check)&&
+          (!LayoutMoving())&&
           (frame.vx==last_calculated_position_x)&&
           (frame.vy==last_calculated_position_y)&&
           (frame.vz==last_calculated_position_z)
@@ -303,7 +319,7 @@ void MoveDestinationCenter(unsigned int movement_direction)
     };
 
 
-   CalculateActiveImage_AccordingToPosition(); // <- hardcode coords checking..
+   CalculateActiveImage_AccordingToPosition(1); // <- hardcode coords checking..
 }
 
 
@@ -369,7 +385,7 @@ void SetDestinationOverPicture(unsigned int x,unsigned int y)
      case 2 :
                fprintf(stderr,"We want to go to %u,%u (%u) and we were at %u,%u (%u)\n",x,y,place,frame.active_image_x,frame.active_image_y,frame.active_image_place);
                SetDestinationOverPictureImmediate(x,y);
-               CalculateActiveImage_AccordingToPosition();
+               CalculateActiveImage_AccordingToPosition(1);
 
                FadeInPicture();
                FreeRotatePicture(15);
@@ -644,7 +660,8 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
   if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
 
-  if ( !frame.transitions.seek_move_activated ) { CalculateActiveImage_AccordingToPosition(); }
+  //if ( !frame.transitions.seek_move_activated ) {  }
+  CalculateActiveImage_AccordingToPosition(0);
   /* If we are performing a seek move ( i.e. keyboard arrows ) we dont want to calculate active_image again , we
      know where we are headed*/
 

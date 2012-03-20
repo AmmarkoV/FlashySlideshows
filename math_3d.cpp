@@ -98,7 +98,21 @@ int rayIntersectsRectangle(float *p, float *d,float *v0, float *v1, float *v2, f
    return 0;
 }
 
+//http://ilab.usc.edu/wiki/index.php/Fast_Square_Root
+inline float sqrt_fast_approximation(const float x)
+{
+  union
+  {
+    int i;
+    float x;
+  } u;
+
+  u.x = x;
+  u.i = (1<<29) + (u.i >> 1) - (1<<22);
+  return u.x;
+}
+
 float distanceBetween3DPoints(float *x1,float*y1,float *z1,float *x2,float*y2,float *z2)
 {
-  return (float) sqrt( (*x1 * *x2) + (*y1 * *y2) + (*z1* *z2) );
+  return (float) sqrt_fast_approximation( (*x1 * *x2) + (*y1 * *y2) + (*z1* *z2) );
 }

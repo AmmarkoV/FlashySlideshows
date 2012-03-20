@@ -543,7 +543,7 @@ int main(int argc, char *argv[])
     glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE ,GLUT_ACTION_CONTINUE_EXECUTION);
 
     int width_x=glutGet(GLUT_SCREEN_WIDTH);
-    int width_y=glutGet(GLUT_SCREEN_HEIGHT);
+    int width_y=glutGet(GLUT_SCREEN_HEIGHT)-50; // 50 for the lxpanel bar :P
     fprintf(stderr,"System Resolution is %ux%u\n",width_x,width_y);
     if (width_x>1024) { width_x=1024; }
     if (width_y>600)  { width_y=600; }
@@ -594,13 +594,13 @@ int main(int argc, char *argv[])
     glEnable(GL_LIGHTING);
     glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    //glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    //glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+    //glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
+    //glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
     } else
     {
       frame.lighting_enabled=0;
@@ -641,8 +641,6 @@ int main(int argc, char *argv[])
 
     LoadStockTexturesAndSounds();
     InitEffects();
-
-
 
     if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.recursive))
       {

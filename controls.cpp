@@ -209,7 +209,7 @@ int Controls_Handle_MouseMotion(int button,int state, int x, int y)
          frame.desired_x+=difference_x/20; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
          frame.desired_y-=difference_y/12; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
 
-         CalculateActiveImage_AccordingToPosition();
+         CalculateActiveImage_AccordingToPosition(1);
        return 1;
    }
 

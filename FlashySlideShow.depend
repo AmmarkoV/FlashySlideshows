@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1332213077 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1332256719 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -47,7 +47,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1332211227 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1332256730 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -60,7 +60,7 @@
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 
-1332210970 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1332256723 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -107,7 +107,7 @@
 
 1331598588 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331768592 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
+1332250002 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -126,7 +126,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1332208705 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1332256665 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 	"slideshow.h"
@@ -143,7 +143,7 @@
 	<GL/freeglut.h>
 	<GL/glu.h>
 
-1331764714 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
+1332250024 /home/ammar/Documents/Programming/FlashySlideShow/camera_control.h
 
 1331768567 /home/ammar/Documents/Programming/FlashySlideShow/visuals.h
 
@@ -205,7 +205,7 @@
 
 1328466535 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
 
-1329408113 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
+1332249304 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
 	"math_3d.h"
 	<math.h>
 
@@ -1346,7 +1346,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332213079 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332259488 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
