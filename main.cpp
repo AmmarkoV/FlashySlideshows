@@ -338,8 +338,8 @@ void SpecialFunctionCallback (int key, int x, int y)
 		case GLUT_KEY_F10:    break;
 		case GLUT_KEY_F11:    break;
 		case GLUT_KEY_F12:    break;
-		case GLUT_KEY_HOME: { SetDestinationOverPictureId(0); break; }
-		case GLUT_KEY_END:  { SetDestinationOverPictureId(frame.total_images-1); break; }
+		case GLUT_KEY_HOME: { SetDestinationOverPicture(0); break; }
+		case GLUT_KEY_END:  { SetDestinationOverPicture(frame.total_images-1); break; }
         default: nokey=1; break;
 	}
 

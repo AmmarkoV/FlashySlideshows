@@ -120,7 +120,7 @@ void InitSlideShow()
    frame.time_ms_between_two_transitions=5000;
 
    frame.active_image_x=2;  frame.active_image_y=1;
-   frame.active_image_place=4;
+   frame.active_image_place=7;
 
    frame.last_image_x=frame.active_image_x;  frame.last_image_y=frame.active_image_y;
    frame.last_image_place=frame.active_image_place;
@@ -137,8 +137,8 @@ void InitSlideShow()
 
 
 
-   SetDestinationOverPicture(7);
-   SetDestinationOverPicture(7);
+   SetDestinationOverPicture(8);
+   SetDestinationOverPicture(8);
 
 
    GetLayoutCoordinatesForXY(frame.active_image_x,frame.active_image_y,&frame.vx,&frame.vy,&frame.vz);

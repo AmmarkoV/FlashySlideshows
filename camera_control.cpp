@@ -265,7 +265,7 @@ void MoveDestinationCenter(unsigned int movement_direction)
       break;
     };
 
-   CalculateActiveImage_AccordingToPosition(1); // <- hardcode coords checking..
+   //CalculateActiveImage_AccordingToPosition(1); // <- hardcode coords checking..
 }
 
 
@@ -336,12 +336,6 @@ void SetDestinationOverPicture(unsigned int place)
 }
 
 
-void SetDestinationOverPictureId(unsigned int id)
-{
-   SetDestinationOverPicture(id);
-}
-
-
 int MoveToPicture(unsigned int direction)
 {
   fprintf(stderr,"Move to picture direction = %u \n",direction);
@@ -359,7 +353,7 @@ int MoveToPicture(unsigned int direction)
 
     frame.active_image_place=(unsigned int) new_mem_place;
 
-    SetDestinationOverPictureId(frame.active_image_place);
+    SetDestinationOverPicture(frame.active_image_place);
     frame.transitions.seek_move_activated=1; //THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0 so it is important to set this right here!
 
    return 1;
@@ -369,20 +363,11 @@ void SetDestinationOverNextPicture()
 {
    unsigned int new_active_picture=frame.active_image_place+1;
 
-
     if ( new_active_picture >= frame.total_images ) { /* WE PASSED THE LAST ACTIVE PICTURE SO THERE ACTUALY ISN`t A NEXT PICTURE! */
                                                       TriggerEndOfSlideShow();
                                                       fprintf(stderr,"No more pictures to go to after set destination over next picture\n");
                                                     } else
-    if ( new_active_picture == frame.active_image_place )
-                                                    {
-                                                      /* Weirdly no change was made to the image this is a bug ? Should stop slide show */
-                                                      TriggerEndOfSlideShow();
-                                                      fprintf(stderr,"No change made after set destination over next picture\n");
-                                                    } else
-                                                    {
-                                                       MoveToPicture(D_RIGHT);
-                                                    }
+                                                    { MoveToPicture(D_RIGHT); }
 }
 
 int CameraMoving()
@@ -448,11 +433,10 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
            CameraReachedDestination();
            return ;
        }
-    /*
-      -------------------------------------
-      CAMERA SMOOTH ZOOM/PAN ETC
-      -------------------------------------
-    */
+
+    /* -------------------------------------
+        CAMERA SMOOTH ZOOM/PAN ETC
+       ------------------------------------- */
     unsigned int reached_target=0;
 
 
@@ -479,13 +463,13 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
     if ( frame.desired_x != frame.vx )
                            {
                              if ( frame.desired_x < frame.vx )
-                                 {
-                                   /* CLOSING IN OPERATION */   frame.vx -= ( frame.vx - frame.desired_x ) * speed_rate;
+                                 { /* CLOSING IN OPERATION */
+                                   frame.vx -= ( frame.vx - frame.desired_x ) * speed_rate;
                                    if ( frame.desired_x > frame.vx ) { frame.desired_x = frame.vx; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  } else
                              if ( frame.desired_x > frame.vx )
-                                 {
-                                   /* CLOSING IN OPERATION */   frame.vx += ( frame.desired_x - frame.vx ) * speed_rate;
+                                 { /* CLOSING IN OPERATION */
+                                   frame.vx += ( frame.desired_x - frame.vx ) * speed_rate;
                                    if ( frame.desired_x < frame.vx ) { frame.desired_x = frame.vx; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
                            } else { reached_target+=1; } /* + One coordinate has reached target */
@@ -493,13 +477,13 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
     if ( frame.desired_y != frame.vy )
                           {
                              if ( frame.desired_y < frame.vy )
-                                 {
-                                   /* CLOSING IN OPERATION */   frame.vy -= ( frame.vy - frame.desired_y ) * speed_rate;
+                                 { /* CLOSING IN OPERATION */
+                                   frame.vy -= ( frame.vy - frame.desired_y ) * speed_rate;
                                    if ( frame.desired_y > frame.vy ) { frame.desired_y = frame.vy; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  } else
                              if ( frame.desired_y > frame.vy )
-                                 {
-                                   /* CLOSING IN OPERATION */   frame.vy += ( frame.desired_y - frame.vy ) * speed_rate;
+                                 { /* CLOSING IN OPERATION */
+                                   frame.vy += ( frame.desired_y - frame.vy ) * speed_rate;
                                    if ( frame.desired_y < frame.vy ) { frame.desired_y = frame.vy; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
                            } else { reached_target+=3; } /* + One coordinate has reached target */
@@ -508,31 +492,18 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
     if ( frame.desired_z != frame.vz )
                           {
                               if ( frame.desired_z < frame.vz )
-                                 {
-                                   /* CLOSING IN OPERATION */   frame.vz -= ( frame.vz - frame.desired_z ) * speed_rate;
+                                 { /* CLOSING IN OPERATION */
+                                   frame.vz -= ( frame.vz - frame.desired_z ) * speed_rate;
                                    if ( frame.desired_z > frame.vz ) { frame.desired_z = frame.vz; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  } else
                              if ( frame.desired_z > frame.vz )
-                                 {
-                                   /* CLOSING IN OPERATION */   frame.vz += ( frame.desired_z - frame.vz ) * speed_rate;
+                                 { /* CLOSING IN OPERATION */
+                                   frame.vz += ( frame.desired_z - frame.vz ) * speed_rate;
                                    if ( frame.desired_z < frame.vz ) { frame.desired_z = frame.vz; } /* MAKE SURE NO OVERFLOW HAPPENED */
                                  }
                            } else { reached_target+=5; } /* + One coordinate has reached target */
 
 
-
-
-  /* -------------------------------------
-     CAMERA SAFE GUARD!
-     ------------------------------------- */
-   if ( frame.vx<GetLayoutMinimumX())  { frame.vx=GetLayoutMinimumX(); frame.desired_x=frame.vx; CameraBounced(); } else/* DO NOT ALLOW ANY LEFTER */
-   if ( frame.vx>GetLayoutMaximumX())  { frame.vx=GetLayoutMaximumX(); frame.desired_x=frame.vx; CameraBounced(); }     /* DO NOT ALLOW ANY RIGHTER */
-
-   if ( frame.vy<GetLayoutMinimumY())  { frame.vy=GetLayoutMinimumY(); frame.desired_y=frame.vy; CameraBounced(); } else/* DO NOT ALLOW ANY UPPER */
-   if ( frame.vy>GetLayoutMaximumY())  { frame.vy=GetLayoutMaximumY(); frame.desired_y=frame.vy; CameraBounced(); }     /* DO NOT ALLOW ANY DOWNER */
-
-   if ( frame.vz<GetLayoutMinimumZ())  { frame.vz=GetLayoutMinimumZ(); frame.desired_z=frame.vz; CameraBounced(); } else/* DO NOT ALLOW ANY CLOSER */
-   if ( frame.vz>GetLayoutMaximumZ())  { frame.vz=GetLayoutMaximumZ(); frame.desired_z=frame.vz; CameraBounced(); }     /* DO NOT ALLOW ANY FURTHER */
 
   /* -------------------------------------
      CAMERA ROUNDING ERROR CORRECTION
@@ -549,4 +520,19 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
   if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
   CalculateActiveImage_AccordingToPosition(0);
+
+
+
+  /* -------------------------------------
+     CAMERA SAFE GUARD!
+     ------------------------------------- */
+   if ( frame.vx<GetLayoutMinimumX())  { frame.vx=GetLayoutMinimumX(); frame.desired_x=frame.vx; CameraBounced(); } else/* DO NOT ALLOW ANY LEFTER */
+   if ( frame.vx>GetLayoutMaximumX())  { frame.vx=GetLayoutMaximumX(); frame.desired_x=frame.vx; CameraBounced(); }     /* DO NOT ALLOW ANY RIGHTER */
+
+   //BUGGY if ( frame.vy<GetLayoutMinimumY())  { frame.vy=GetLayoutMinimumY(); frame.desired_y=frame.vy; CameraBounced(); } else/* DO NOT ALLOW ANY UPPER */
+   //if ( frame.vy>GetLayoutMaximumY())  { frame.vy=GetLayoutMaximumY(); frame.desired_y=frame.vy; CameraBounced(); }     /* DO NOT ALLOW ANY DOWNER */
+
+   if ( frame.vz<GetLayoutMinimumZ())  { frame.vz=GetLayoutMinimumZ(); frame.desired_z=frame.vz; CameraBounced(); } else/* DO NOT ALLOW ANY CLOSER */
+   if ( frame.vz>GetLayoutMaximumZ())  { frame.vz=GetLayoutMaximumZ(); frame.desired_z=frame.vz; CameraBounced(); }     /* DO NOT ALLOW ANY FURTHER */
+
 }
