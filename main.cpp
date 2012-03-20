@@ -171,6 +171,12 @@ static void DisplayCallback(void)
     /*KEEP TRACK OF TIME -----------------*/
     gettimeofday(&this_frame,0x0);
     time_passed_microseconds = timeval_diff(&difference,&this_frame,&last_frame);
+    if (time_passed_microseconds>1000000)
+     {
+      fprintf(stderr,"FRAME DELAYED %u msecs\n",time_passed_microseconds/1000);
+      fprintf(stderr,"to keep things from freaking out we will pretend We were paused and only 1 ms passed\n");
+      time_passed_microseconds=1000;
+     }
     last_frame = this_frame;
     /*---------------------------------------*/
 
@@ -306,6 +312,7 @@ static void KeyCallback(unsigned char key, int x, int y)
   {
      key=0;
      if (PrintDevMsg()) fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
+     usleep(100);
      glutPostRedisplay();
   }
 }

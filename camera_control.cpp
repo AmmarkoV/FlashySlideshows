@@ -314,7 +314,6 @@ void SetDestinationOverPictureImmediate(unsigned int pic_place)
 
 void SetDestinationOverPicture(unsigned int place)
 {
- //  unsigned int place = PictureXYtoID(x,y);
    if (PictureOutOfBounds(place)) { fprintf(stderr,"SetDestinationOverPicture(%u) is an invalid destination\n",place); return; }
 
    switch ( frame.transitions.transition_mode)
@@ -519,6 +518,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
 
   if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
+
   CalculateActiveImage_AccordingToPosition(0);
 
 

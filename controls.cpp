@@ -237,9 +237,9 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 3 : /* LEFT */  MoveToPicture(D_LEFT); break;
         case 4 : /* RIGHT */ MoveToPicture(D_RIGHT); break;
 
-        case 9 : /* TAB */   frame.show_information=550; break;
+        case 9 : /* TAB */   frame.show_information=550; /* 550 is the time !*/ break;
 
-        case 13 : /* ENTER */ ToggleAutomaticSlideshow(); break;
+        case 13  : /* ENTER */ ToggleAutomaticSlideshow(); break;
         case ' ' : /* SPACE */ ToggleAutomaticSlideshow(); break;
 
         case 48+0 : /*Number 0*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),0)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
