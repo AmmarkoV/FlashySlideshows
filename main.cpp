@@ -544,11 +544,12 @@ int main(int argc, char *argv[])
 
     int width_x=glutGet(GLUT_SCREEN_WIDTH);
     int width_y=glutGet(GLUT_SCREEN_HEIGHT);
+    fprintf(stderr,"System Resolution is %ux%u\n",width_x,width_y);
     if (width_x>1024) { width_x=1024; }
     if (width_y>600)  { width_y=600; }
-
+    fprintf(stderr,"Window Resolution is %ux%u\n",width_x,width_y);
     glutInitWindowSize(width_x,width_y);
-    glutInitWindowPosition(10,10);
+    glutInitWindowPosition(0,0);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA  ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 
     char title[512]={0};
