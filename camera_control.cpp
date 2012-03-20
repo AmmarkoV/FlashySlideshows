@@ -57,7 +57,7 @@ int ChangeActiveImageMem(unsigned int place)
      }
 
     frame.time_ms_before_last_slide_change=frame.tick_count;
-    return 1;
+   return 1;
 }
 
 
@@ -69,14 +69,20 @@ void RememberThatCalculationAccordingToPositionTookPlace()
    last_calculated_position_z=frame.vz;
 }
 
+inline int CloserThanDistance(float *x1,float *y1,float *z1,float *x2,float *y2,float *z2,float distance)
+{
+  if ( (*x1==*x2) && (*y1==*y2)&& (*z1==*z2) ) { return 1; }
+
+  if ( 2*distance >= distanceBetween3DPoints(x1,y1,z1,x2,y2,z2) ) { return 1; }
+
+  return 0;
+}
 
 void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 {
     if (  (!force_check)&&
           (!LayoutMoving())&&
-          (frame.vx==last_calculated_position_x)&&
-          (frame.vy==last_calculated_position_y)&&
-          (frame.vz==last_calculated_position_z)
+          (CloserThanDistance(&frame.vx,&frame.vy,&frame.vz,&last_calculated_position_x,&last_calculated_position_y,&last_calculated_position_z,frame.desired_step))
        ) { return; /*PERFORMANCE ++ */}
 
 
@@ -154,16 +160,14 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
     {
      top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
      bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
-     top_right[1]=top_left[1];
-     bot_right[1]=bot_left[1];
+     top_right[1]=top_left[1]; bot_right[1]=bot_left[1];
 
 
      for (x=0; x<frame.images_per_line; x++)
      {
        top_left[0]= album[album_traveler]->position.x-album[album_traveler]->position.size_x;
        top_right[0]=album[album_traveler]->position.x+album[album_traveler]->position.size_x;
-       bot_left[0]=top_left[0];
-       bot_right[0]=top_right[0];
+       bot_left[0]=top_left[0]; bot_right[0]=top_right[0];
 
             if ( rayIntersectsRectangle(camera_point,camera_direction,top_left,top_right,bot_right,bot_left) )
             {
@@ -172,6 +176,8 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
                       fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
                       fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
                       ChangeActiveImageMem(PictureXYtoID(x,y));
+                      RememberThatCalculationAccordingToPositionTookPlace();
+                      return;
                     }
                   return;
             }
@@ -236,7 +242,6 @@ void MoveDestinationCenter(unsigned int movement_direction)
     RefreshDesiredStep_AccordingToPosition();
     /*---------------------------------------------------------------------------------------------------------------*/
 
-
     /* axis ( 0 x , 1 y , 2 z ) */
     /* direction ( 0 + , 1 - ) */
     frame.transitions.effect_move_activated=0; /*Overriding hover*/
@@ -259,7 +264,6 @@ void MoveDestinationCenter(unsigned int movement_direction)
         if ( direction == 1 )  frame.desired_z-=frame.desired_step;
       break;
     };
-
 
    CalculateActiveImage_AccordingToPosition(1); // <- hardcode coords checking..
 }
@@ -333,11 +337,7 @@ void SetDestinationOverPicture(unsigned int place)
 
 
 void SetDestinationOverPictureId(unsigned int id)
-{/*
-   unsigned int x,y;
-   PictureIDtoXY(&x,&y,id);
-   SetDestinationOverPicture(x,y);*/
-
+{
    SetDestinationOverPicture(id);
 }
 
@@ -385,8 +385,6 @@ void SetDestinationOverNextPicture()
                                                     }
 }
 
-
-
 int CameraMoving()
 {
     return ( (frame.desired_x != frame.vx)||(frame.desired_y != frame.vy)||(frame.desired_z != frame.vz) );
@@ -397,12 +395,10 @@ int CameraOverPicture(unsigned int x,unsigned int y)
     return ( (frame.active_image_x==x)&&(frame.active_image_y==y) );
 }
 
-
 int CameraOverPicture(unsigned int pic_place)
 {
     return (frame.active_image_place==pic_place);
 }
-
 
 int CameraSeesOnlyOnePicture()
 {
