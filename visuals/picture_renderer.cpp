@@ -107,7 +107,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
   glPushMatrix();
   //glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-  //glEnable(GL_CULL_FACE);
+  glEnable(GL_CULL_FACE);
 
 
   glTranslated(x,y,z);
@@ -116,9 +116,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
   if ( roll!=0 )    { glRotated(roll,0.0,0.0,1.0); }
   if ( heading!=0 ) { glRotated(heading,0.0,1.0,0.0); }
   if ( pitch!=0 )   { glRotated(pitch,1.0,0.0,0.0); }
-
-  //glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
-
 
 
   /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -151,7 +148,6 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
 
   glDisable ( GL_TEXTURE_2D );
   glColor3f(1.0,1.0,1.0);
-  //glEnable(GL_COLOR_MATERIAL);
 
  //  Live picture processing :P CMY change
   /* if (frame.try_for_best_render_quality)

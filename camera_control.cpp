@@ -226,9 +226,9 @@ void CalculateActiveImage_AccordingToPosition()
 float RefreshDesiredStep_AccordingToPosition()
 {
     /* Stored int frame.desired_step */
-    if (frame.vz<frame.distance_barrier_after_considered_zoom)  frame.desired_step=frame.desired_step_zoom; else
+    if (frame.vz<frame.distance_barrier_after_considered_zoom)   frame.desired_step=frame.desired_step_zoom; else
     if (frame.vz<frame.distance_barrier_after_considered_close)  frame.desired_step=frame.desired_step_close; else
-    if (frame.vz<frame.distance_barrier_after_considered_far)  frame.desired_step=frame.desired_step_far;
+    if (frame.vz<frame.distance_barrier_after_considered_far)    frame.desired_step=frame.desired_step_far;
 
     return frame.desired_step;
 }

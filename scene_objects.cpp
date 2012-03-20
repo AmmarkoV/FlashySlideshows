@@ -51,9 +51,6 @@ void DrawObject(float x,float y,float z,float  rotation,float width,float height
 
 if ( decal_type != 0 )
 { //Decal type zero may only have text :P
-
-  //glDisable(GL_CULL_FACE);
-  //glDisable(GL_COLOR_MATERIAL); //Required for the glMaterial calls to work
   glEnable ( GL_TEXTURE_2D );
  /* DRAW FRAME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
  glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE);
@@ -73,8 +70,6 @@ if ( decal_type != 0 )
     glTexCoord2f(1.0f, 1.0f); glVertex3f(0+xmin,0+ymax,0/*-4.1*/);
    glEnd();
   glDisable ( GL_TEXTURE_2D );
-  //glEnable(GL_COLOR_MATERIAL);
-  //glEnable(GL_CULL_FACE);
   glDisable(GL_BLEND);
 }
 

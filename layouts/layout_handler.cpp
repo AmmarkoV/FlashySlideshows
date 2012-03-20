@@ -17,6 +17,19 @@
 // http://www.youtube.com/watch?v=9gTeMcfRoAI
 // http://www.youtube.com/watch?v=cLdjn91WSM8
 
+void GetLayoutCoordinatesForXY(unsigned int X,unsigned int Y,float *x,float *y,float *z)
+{
+  *x=(X*14);
+  *x=*x-14;
+  *x=(-1)* (*x);
+
+  *y=(Y*12);
+  *y= *y-12;
+
+  *z=-5;
+}
+
+
 int HandleBasicPictureLayout(struct Picture * pic,unsigned int place)
 {
   unsigned int x,y;

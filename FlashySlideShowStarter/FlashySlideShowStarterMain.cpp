@@ -153,8 +153,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxQuality = new wxComboBox(this, ID_COMBOBOX2, wxEmptyString, wxPoint(456,56), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX2"));
     ComboBoxQuality->Append(_("Very Low"));
     ComboBoxQuality->Append(_("Low"));
-    ComboBoxQuality->SetSelection( ComboBoxQuality->Append(_("Medium")) );
-    ComboBoxQuality->Append(_("Good"));
+    ComboBoxQuality->Append(_("Medium"));
+    ComboBoxQuality->SetSelection( ComboBoxQuality->Append(_("Good")) );
     ComboBoxQuality->Append(_("High"));
     ComboBoxQuality->Append(_("Very High"));
     ComboBoxQuality->Append(_("Ultra"));

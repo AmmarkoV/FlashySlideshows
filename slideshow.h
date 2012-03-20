@@ -177,9 +177,6 @@ struct SlideShowData
   float vx,vy,vz;
 
 
-  float effect_start_x,effect_start_y,effect_start_z;
-  float effect_end_x,effect_end_y,effect_end_z;
-
 
   unsigned int total_files;
 

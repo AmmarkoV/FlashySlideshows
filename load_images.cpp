@@ -396,7 +396,7 @@ void EmptyPicture(struct Picture *new_picture,unsigned int empty_textures)
 
     new_picture->position.ok=0;
     new_picture->position.size_x=6;  new_picture->position.size_y=4.5;
-    new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=0.0;
+    new_picture->position.x=0.0;  new_picture->position.y=0.0; new_picture->position.z=500.0; // Posotion off screen to make it "invisible" until positioning :P
     new_picture->position.heading=0.0; new_picture->position.roll=0.0; new_picture->position.pitch=0.0;
 
     new_picture->time_viewed=0;

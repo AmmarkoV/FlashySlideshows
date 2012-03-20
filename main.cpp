@@ -101,7 +101,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 /*
     if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
                                           { usleep(10000);  }*/
-    usleep(100000);
+    usleep(20000); // 20 ms
   }
   return 0;
 }
@@ -194,16 +194,15 @@ static void DisplayCallback(void)
     /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
    /* Texture binding via OpenGL , it can only be done in this thread , before actually rendering  >>>>>>>>>>>>>>>>>>>>>>*/
    /* This code only counts textures to be created , they are actually loaded on the end of this function >>>>>>>>>>>>>>>*/
- //  if (ManageCreatingTexturesMemory_OpenGLThread(1)>0)  { frame.transitions.currently_loading=1; } else
- //                                                       { frame.transitions.currently_loading=0; }
+
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
 
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT ); //| GL_DEPTH_BUFFER_BIT
 	  glPushMatrix();
-       glMatrixMode(GL_MODELVIEW);
+      // glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
           glRotatef(frame.angle_x,-1.0,0,0); // Peristrofi gyrw apo ton x
@@ -230,7 +229,7 @@ static void DisplayCallback(void)
            unsigned int diff_ms=time_passed_microseconds/1000;
            if (frame.show_information>diff_ms) { frame.show_information-=diff_ms; } else
                                                { frame.show_information=0; }
-           DisplayHUD(1);
+          DisplayHUD(1);
         }else
         if ( frame.distance_barrier_after_considered_close<frame.desired_z )
         {
@@ -298,8 +297,7 @@ void MouseCallback( int button,int state, int x, int y)
 
 static void KeyCallback(unsigned char key, int x, int y)
 { //'q'
-  if (key==27) {  glutLeaveMainLoop(); /*EnableScreenSaver(); exit(0);*/ }/* Closes Application on Escape Key*/
-        else
+  if (key==27) {  glutLeaveMainLoop(); /*EnableScreenSaver(); exit(0);*/ } else/* Closes Application on Escape Key*/
   if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
 
   /* The rest commands are handled in controls.cpp / controls.h */
@@ -545,7 +543,7 @@ int main(int argc, char *argv[])
     glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE ,GLUT_ACTION_CONTINUE_EXECUTION);
     glutInitWindowSize(1024,600);
     glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA ); // depth buffer and multisampling disabled for older systems..! | GLUT_DEPTH |GLUT_MULTISAMPLE
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA  ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 
     char title[512]={0};
     sprintf(title,"Flashy Sliseshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,(unsigned int) AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
@@ -575,6 +573,9 @@ int main(int argc, char *argv[])
      glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
      glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
      glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+    } else
+    {
+     glShadeModel(GL_FLAT);
     }
 
    /* LIGHTING , ENABLED ON GOOD RENDERING QUALITY ( TO ENABLE TRANSPARENCY ETC ) */

@@ -10,6 +10,7 @@ enum layout_list
    TOTAL_LAYOUTS
 };
 
+void GetLayoutCoordinatesForXY(unsigned int X,unsigned int Y,float *x,float *y,float *z);
 
 int HandleLayout();
 int HandlePictureLayout(struct Picture * pic,unsigned int place);

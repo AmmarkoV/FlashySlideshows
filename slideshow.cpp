@@ -26,6 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <time.h>
 #include "transitions/transition_handler.h"
+#include "layouts/layout_handler.h"
 
 struct SlideShowData frame;
 
@@ -42,7 +43,7 @@ struct Point3D down_right={-3.6,2.8,-3.4};
 
 
 unsigned int DISPLAY_ALL_PICTURES=0; /*DEBUG SWITCH*/
-unsigned int LINES_AWAY_DRAWN=2; /*THIS CONTROLS DRAWING TO CONSERVE GPU RESOURCES*/
+unsigned int LINES_AWAY_DRAWN=3; /*THIS CONTROLS DRAWING TO CONSERVE GPU RESOURCES*/
 
 void SetDisplayAllPictures(unsigned int newstate)
 {
@@ -98,7 +99,7 @@ void InitSlideShow()
    strcpy(frame.rescale_resolution_string,"1024x768");
    frame.gpu.usedRAM=0;
 
-   frame.images_per_line=3;
+   frame.images_per_line=5;
 
 
 
@@ -118,15 +119,13 @@ void InitSlideShow()
    frame.time_ms_before_last_slide_change=0;
    frame.time_ms_between_two_transitions=5000;
 
-   frame.active_image_x=2;  frame.active_image_y=2;
+   frame.active_image_x=2;  frame.active_image_y=1;
    frame.active_image_place=4;
 
-   frame.last_image_x=2;  frame.last_image_y=2;
-   frame.last_image_place=4;
+   frame.last_image_x=frame.active_image_x;  frame.last_image_y=frame.active_image_y;
+   frame.last_image_place=frame.active_image_place;
 
 
-   frame.desired_x=00.0; frame.desired_y=00.0; frame.desired_z=14.0;
-   frame.desired_step=1.35;
 
    frame.angle_x=0.0;
    frame.angle_y=0.0;
@@ -136,23 +135,24 @@ void InitSlideShow()
 
    frame.transitions.currently_loading=0;
 
-   frame.vx=00.0;
-   frame.vy=00.0;
-   frame.vz=00.0;
+
+
+   SetDestinationOverPicture(2,1);
+   SetDestinationOverPicture(2,1);
+
+
+   GetLayoutCoordinatesForXY(frame.active_image_x,frame.active_image_y,&frame.vx,&frame.vy,&frame.vz);
+   frame.vz=6.0;
+
+
+   frame.desired_x=frame.vx; frame.desired_y=frame.vy; frame.desired_z=GetLayoutMaximumZ()-0.5;
+   frame.desired_step=1.35;
 
    frame.transitions.seek_move_activated=0;
    frame.transitions.effect_move_activated=0;
 
    frame.layout.layout_mode=0;
    frame.layout.layout_to_be_applied=0;
-
-   frame.effect_start_x=00.0;
-   frame.effect_start_y=00.0;
-   frame.effect_start_z=00.0;
-
-   frame.effect_end_x=00.0;
-   frame.effect_end_y=00.0;
-   frame.effect_end_z=00.0;
 
    frame.recursive=0;
    frame.total_files=0;
@@ -162,9 +162,6 @@ void InitSlideShow()
    frame.force_mipmap_generation = 0;
    frame.mipmaping=0;
 
-   frame.active_image_x=1;
-   frame.active_image_y=1;
-   frame.active_image_place=4;
 
    /* GPU DATA */
    frame.gpu.usedRAM=0;
