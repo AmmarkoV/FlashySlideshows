@@ -98,6 +98,9 @@ const long FlashySlideShowStarterFrame::ID_CHECKBOX6 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX7 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_COMBOBOX4 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX8 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_SPINCTRL2 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_STATICTEXT8 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_STATICTEXT9 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAmmarkoVWebsite = wxNewId();
@@ -124,8 +127,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     wxMenu* Menu2;
 
     Create(parent, wxID_ANY, _("Flashy SlideShow Starter "), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    SetClientSize(wxSize(673,495));
-    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(216,344), 0, _T("ID_STATICBOX2"));
+    SetClientSize(wxSize(685,495));
+    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(224,344), 0, _T("ID_STATICBOX2"));
     StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(24,16), wxSize(416,312), 0, _T("ID_STATICBOX1"));
     ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,360), wxSize(216,48), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     wxFont ButtonStartFont(32,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
@@ -137,21 +140,23 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     CheckBoxSound->SetValue(true);
     CheckBoxFaceDetection = new wxCheckBox(this, ID_CHECKBOX2, _("Face Detection"), wxPoint(456,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
     CheckBoxFaceDetection->SetValue(true);
-    ComboBoxTransitions = new wxComboBox(this, ID_COMBOBOX1, wxEmptyString, wxPoint(456,102), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX1"));
-    ComboBoxTransitions->SetSelection( ComboBoxTransitions->Append(_("Random Transitions")) );
+    ComboBoxTransitions = new wxComboBox(this, ID_COMBOBOX1, wxEmptyString, wxPoint(456,102), wxSize(128,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX1"));
+    ComboBoxTransitions->SetSelection( ComboBoxTransitions->Append(_("Random")) );
     ComboBoxTransitions->Append(_("Movement"));
+    ComboBoxTransitions->Append(_("Immediate"));
+    ComboBoxTransitions->Append(_("Transparent"));
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Transitions"), wxPoint(456,86), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,256), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
     CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(456,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
     CheckBoxVisuals->SetValue(true);
-    DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("5000"), wxPoint(496,138), wxSize(88,27), 0, 100, 10000, 5000, _T("ID_SPINCTRL1"));
+    DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("5000"), wxPoint(496,138), wxSize(64,27), 0, 100, 10000, 5000, _T("ID_SPINCTRL1"));
     DelaySpinCtrl->SetValue(_T("5000"));
     StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Delay"), wxPoint(456,142), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
-    StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("ms"), wxPoint(592,142), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
+    StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("ms"), wxPoint(560,144), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
     CheckBoxIncludeSubfolders = new wxCheckBox(this, ID_CHECKBOX4, _("Include Subfolders"), wxPoint(456,216), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
     CheckBoxIncludeSubfolders->SetValue(false);
     StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Picture Quality"), wxPoint(456,40), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
-    ComboBoxQuality = new wxComboBox(this, ID_COMBOBOX2, wxEmptyString, wxPoint(456,56), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX2"));
+    ComboBoxQuality = new wxComboBox(this, ID_COMBOBOX2, wxEmptyString, wxPoint(456,56), wxSize(128,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX2"));
     ComboBoxQuality->Append(_("Very Low"));
     ComboBoxQuality->Append(_("Low"));
     ComboBoxQuality->Append(_("Medium"));
@@ -190,6 +195,10 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxResizeResolution->SetFont(ComboBoxResizeResolutionFont);
     CheckBoxFileCopy = new wxCheckBox(this, ID_CHECKBOX8, _("File Copy"), wxPoint(456,328), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX8"));
     CheckBoxFileCopy->SetValue(false);
+    ImagesPerLine = new wxSpinCtrl(this, ID_SPINCTRL2, _T("3"), wxPoint(600,102), wxSize(56,27), 0, 1, 10, 3, _T("ID_SPINCTRL2"));
+    ImagesPerLine->SetValue(_T("3"));
+    StaticText6 = new wxStaticText(this, ID_STATICTEXT8, _("Images"), wxPoint(600,56), wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+    StaticText8 = new wxStaticText(this, ID_STATICTEXT9, _("per line :"), wxPoint(600,72), wxDefaultSize, 0, _T("ID_STATICTEXT9"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -349,6 +358,8 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
                                            }
 
 
+   what_to_call<< wxT(" -images_per_line ");
+   what_to_call<<ImagesPerLine->GetValue();
 
     if ( ComboBoxQuality->GetCurrentSelection()!=1 ) { what_to_call<< wxT(" -q "); what_to_call<<ComboBoxQuality->GetCurrentSelection(); }
     if ( ComboBoxTransitions->GetCurrentSelection()!=0 ) { what_to_call<< wxT(" -t ");  what_to_call<<ComboBoxTransitions->GetCurrentSelection();  }

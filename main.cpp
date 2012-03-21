@@ -37,6 +37,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "scene_objects.h"
 #include "version.h"
 
+#include "layouts/layout_handler.h"
 #include "visuals/hud.h"
 
 #include <unistd.h>
@@ -493,6 +494,27 @@ int main(int argc, char *argv[])
                        if (frame.quality_setting>=3) { frame.try_for_best_render_quality=1; }
                        fprintf(stderr,"   Rendering Quality Switch %u\n",frame.try_for_best_render_quality);
                        //THIS HAS A SECOND PAYLOAD THAT HAPPENS AFTERWARDS----> to initialize frame.gpu.maximum_frame_total_size
+                      }
+                   } else
+             if (strcmp(argv[i],"-images_per_line")==0)
+                   { //Images per line command
+                      if (i+1<=argc)
+                      {
+                        frame.images_per_line=atoi(argv[i+1]); // Background
+                        fprintf(stderr,"%u Images per line Manually Chosen %s = %s ( %u )\n",i,argv[i],argv[i+1],frame.images_per_line);
+                        frame.active_image_x=((unsigned int) frame.images_per_line/2);
+                        frame.active_image_y=1;
+                        frame.active_image_place=PictureXYtoID(frame.active_image_x,frame.active_image_y);
+
+                        frame.last_image_x=frame.active_image_x;
+                        frame.last_image_y=frame.active_image_y;
+                        frame.last_image_place=frame.active_image_place;
+                        GetLayoutCoordinatesForXY(frame.active_image_x,frame.active_image_y,&frame.vx,&frame.vy,&frame.vz);
+                        frame.vz=8.0;
+                        frame.desired_x=frame.vx; frame.desired_y=frame.vy; frame.desired_z=GetLayoutMaximumZ()-0.5;
+
+                        fprintf(stderr,"Setting Center to %u,%u (%u) --> coords %0.2f,%0.2f,%0.2f\n",frame.active_image_x,frame.active_image_y,frame.active_image_place,frame.vx,frame.vy,frame.vz);
+
                       }
                    } else
              if (strcmp(argv[i],"-b")==0)

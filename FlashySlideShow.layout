@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
-	<File name="camera_control.cpp" open="1" top="1" tabpos="11">
-		<Cursor position="951" topLine="0" />
+	<ActiveTarget name="Release" />
+	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="954" topLine="78" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="598" topLine="0" />
@@ -74,7 +74,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="7470" topLine="229" />
+		<Cursor position="16275" topLine="475" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="89" />
@@ -100,11 +100,11 @@
 	<File name="scene_objects.h" open="1" top="0" tabpos="24">
 		<Cursor position="1345" topLine="10" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="10065" topLine="328" />
+	<File name="slideshow.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="3435" topLine="112" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="5980" topLine="223" />
+		<Cursor position="5848" topLine="225" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="5735" topLine="152" />

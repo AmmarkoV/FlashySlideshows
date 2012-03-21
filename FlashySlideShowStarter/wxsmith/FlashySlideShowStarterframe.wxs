@@ -2,12 +2,12 @@
 <wxsmith>
 	<object class="wxFrame" name="FlashySlideShowStarterFrame">
 		<title>Flashy SlideShow Starter </title>
-		<size>673,495</size>
+		<size>685,495</size>
 		<id_arg>0</id_arg>
 		<object class="wxStaticBox" name="ID_STATICBOX2" variable="StaticBox2" member="yes">
 			<label>Slideshow Options</label>
 			<pos>448,16</pos>
-			<size>216,344</size>
+			<size>224,344</size>
 		</object>
 		<object class="wxStaticBox" name="ID_STATICBOX1" variable="StaticBox1" member="yes">
 			<label>Folder Preview</label>
@@ -59,12 +59,14 @@
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX1" variable="ComboBoxTransitions" member="yes">
 			<content>
-				<item>Random Transitions</item>
+				<item>Random</item>
 				<item>Movement</item>
+				<item>Immediate</item>
+				<item>Transparent</item>
 			</content>
 			<selection>0</selection>
 			<pos>456,102</pos>
-			<size>176,29</size>
+			<size>128,29</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
 			<label>Transitions</label>
@@ -87,7 +89,7 @@
 			<min>100</min>
 			<max>10000</max>
 			<pos>496,138</pos>
-			<size>88,27</size>
+			<size>64,27</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
 			<label>Delay</label>
@@ -95,7 +97,7 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
 			<label>ms</label>
-			<pos>592,142</pos>
+			<pos>560,144</pos>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX4" variable="CheckBoxIncludeSubfolders" member="yes">
 			<label>Include Subfolders</label>
@@ -118,7 +120,7 @@
 			</content>
 			<selection>3</selection>
 			<pos>456,56</pos>
-			<size>176,29</size>
+			<size>128,29</size>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX5" variable="CheckBoxMipmap" member="yes">
 			<label>Use Mipmaping</label>
@@ -191,6 +193,21 @@
 			<label>File Copy</label>
 			<pos>456,328</pos>
 			<handler function="OnCheckBoxFileCopyClick" entry="EVT_CHECKBOX" />
+		</object>
+		<object class="wxSpinCtrl" name="ID_SPINCTRL2" variable="ImagesPerLine" member="yes">
+			<value>3</value>
+			<min>1</min>
+			<max>10</max>
+			<pos>600,102</pos>
+			<size>56,27</size>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText6" member="yes">
+			<label>Images</label>
+			<pos>600,56</pos>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT9" variable="StaticText8" member="yes">
+			<label>per line :</label>
+			<pos>600,72</pos>
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

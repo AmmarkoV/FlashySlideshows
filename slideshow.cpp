@@ -119,8 +119,9 @@ void InitSlideShow()
    frame.time_ms_before_last_slide_change=0;
    frame.time_ms_between_two_transitions=5000;
 
-   frame.active_image_x=2;  frame.active_image_y=1;
-   frame.active_image_place=7;
+   frame.active_image_x=((unsigned int) frame.images_per_line/2);
+   frame.active_image_y=1;
+   frame.active_image_place=PictureXYtoID(frame.active_image_x,frame.active_image_y);
 
    frame.last_image_x=frame.active_image_x;  frame.last_image_y=frame.active_image_y;
    frame.last_image_place=frame.active_image_place;
@@ -137,12 +138,9 @@ void InitSlideShow()
 
 
 
-   SetDestinationOverPicture(8);
-   SetDestinationOverPicture(8);
-
 
    GetLayoutCoordinatesForXY(frame.active_image_x,frame.active_image_y,&frame.vx,&frame.vy,&frame.vz);
-   frame.vz=6.0;
+   frame.vz=8.0;
 
 
    frame.desired_x=frame.vx; frame.desired_y=frame.vy; frame.desired_z=GetLayoutMaximumZ()-0.5;
