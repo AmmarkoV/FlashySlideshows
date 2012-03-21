@@ -73,8 +73,9 @@ inline int CloserThanDistance(float *x1,float *y1,float *z1,float *x2,float *y2,
 {
   if ( (*x1==*x2) && (*y1==*y2)&& (*z1==*z2) ) { return 1; }
 
-  if ( 2*distance >= distanceBetween3DPoints(x1,y1,z1,x2,y2,z2) ) { return 1; }
-
+  if ( distance*distance >= SquareddistanceBetween3DPoints(x1,y1,z1,x2,y2,z2) ) { return 1; }
+  //fprintf(stderr,"Points %0.2f,%0.2f,%0.2f and %0.2f,%0.2f,%0.2f \n",*x1,*y1,*z1,*x2,*y2,*z2);
+  //fprintf(stderr,"Failed with distance %0.2f < distance %0.2f \n",distanceBetween3DPoints(x1,y1,z1,x2,y2,z2),distance);
   return 0;
 }
 
@@ -82,9 +83,11 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 {
     if (  (!force_check)&&
           (!LayoutMoving())&&
-          (CloserThanDistance(&frame.vx,&frame.vy,&frame.vz,&last_calculated_position_x,&last_calculated_position_y,&last_calculated_position_z,frame.desired_step))
+          (CloserThanDistance(&frame.vx,&frame.vy,&frame.vz,&last_calculated_position_x,&last_calculated_position_y,&last_calculated_position_z,2.0))
        ) { return; /*PERFORMANCE ++ */}
 
+   ++frame.total_position_calculations;
+   RememberThatCalculationAccordingToPositionTookPlace(); // calculations taking place so! NOTE IT!
 
    float camera_point[3]={frame.vx,frame.vy,frame.vz};
    float camera_direction[3]={0.0,0.0,-1.0};
@@ -100,8 +103,9 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 
    // ECONOMY :P
    start_y=(unsigned int) MinPictureThatIsVisible()  / frame.images_per_line;
+   if (start_y>=2) { start_y-=2; }
    total_y=(unsigned int) MaxPictureThatIsVisible()  / frame.images_per_line;
-   //total_y+=3;
+   total_y+=3;
 
 
 
@@ -124,7 +128,6 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
                 // CAMERA OUT OF LOADED IMAGES! DOWN
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
                 ChangeActiveImageMem(MaxPictureThatIsVisible());
-                RememberThatCalculationAccordingToPositionTookPlace();
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
@@ -147,7 +150,6 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
                 // CAMERA OUT OF LOADED IMAGES! UP
                 //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
                   ChangeActiveImageMem(MinPictureThatIsVisible());
-                  RememberThatCalculationAccordingToPositionTookPlace();
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
             }
@@ -173,20 +175,19 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
             {
                    if ((x!=frame.active_image_x)||(y!=frame.active_image_y))
                     {
-                      fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
-                      fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
+                      //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                      //fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
                       ChangeActiveImageMem(PictureXYtoID(x,y));
-                      RememberThatCalculationAccordingToPositionTookPlace();
                       return;
                     }
                   return;
             }
 
        ++album_traveler;
-       if (album_traveler > frame.total_images) { album_traveler=frame.total_images; RememberThatCalculationAccordingToPositionTookPlace(); return; }
+       if (album_traveler > frame.total_images) { album_traveler=frame.total_images; return; }
      }
     }
-  RememberThatCalculationAccordingToPositionTookPlace();
+   return ;
 }
 
 
@@ -390,7 +391,7 @@ int CameraSeesOnlyOnePicture()
   if ( abs(frame.vy-frame.desired_y)>3 ) { return 0; }
 
 
-  if ( frame.vz<=GetLayoutMinimumZ()+1.5  )
+  if ( frame.vz<=GetLayoutMinimumZ()+1.9  )
    {
      float xcoord,ycoord,zcoord,distance;
      GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);
@@ -452,7 +453,7 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
 
 
     float speed_multiplier = 1.4;
-    if ( microseconds_of_movement != 0 ) { speed_multiplier=(1000*1000/microseconds_of_movement); }
+    if ( microseconds_of_movement != 0 ) { speed_multiplier=(float) 1000000/microseconds_of_movement; }
 
 
     float speed_rate = 1/(speed * speed_factor * speed_multiplier);

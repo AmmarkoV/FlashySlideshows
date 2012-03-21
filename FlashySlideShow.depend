@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1332280995 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1332284039 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -47,7 +47,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1332283672 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1332290433 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -60,7 +60,7 @@
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 
-1332282082 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
+1332290412 /home/ammar/Documents/Programming/FlashySlideShow/slideshow.h
 	"load_images.h"
 
 1285288623 /home/ammar/Documents/Programming/FlashySlideShow/load_textures.h
@@ -126,7 +126,7 @@
 
 1283130445 /home/ammar/Documents/Programming/FlashySlideShow/controls.h
 
-1332280998 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
+1332291624 source:/home/ammar/Documents/Programming/FlashySlideShow/camera_control.cpp
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 	"slideshow.h"
@@ -203,9 +203,9 @@
 
 1332171694 /home/ammar/Documents/Programming/FlashySlideShow/memory_hypervisor.h
 
-1328466535 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
+1332292241 /home/ammar/Documents/Programming/FlashySlideShow/math_3d.h
 
-1332249304 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
+1332292234 source:/home/ammar/Documents/Programming/FlashySlideShow/math_3d.cpp
 	"math_3d.h"
 	<math.h>
 
@@ -1317,7 +1317,7 @@
 
 1330813507 /home/ammar/Documents/Programming/FlashySlideShow/pictures_control.h
 
-1332187664 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
+1332284757 source:/home/ammar/Documents/Programming/FlashySlideShow/pictures_control.cpp
 	"pictures_control.h"
 	"slideshow.h"
 	<stdlib.h>
@@ -1346,7 +1346,7 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332283617 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332292433 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
@@ -1403,7 +1403,7 @@
 
 1332187304 /home/ammar/Documents/Programming/FlashySlideShow/visuals/background.h
 
-1332190590 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/hud.cpp
+1332290572 source:/home/ammar/Documents/Programming/FlashySlideShow/visuals/hud.cpp
 	"hud.h"
 	<stdlib.h>
 	<stdio.h>

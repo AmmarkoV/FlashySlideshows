@@ -163,6 +163,8 @@ struct SlideShowData
   unsigned int sort_type; //0 = name , 1=date , 2=size
 
   unsigned int total_images_loaded;
+  unsigned int total_position_calculations;
+
   unsigned int recursive;
   unsigned int total_images;
   unsigned int images_per_line;

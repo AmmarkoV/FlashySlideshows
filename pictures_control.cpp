@@ -28,13 +28,14 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
 /* PICTURE CONTROL */
 
 
+   float movement_rate = 0.000001*microseconds_of_movement;
 
    if ( album[frame.active_image_place]->transparency==album[frame.active_image_place]->target_transparency)
       {
          // Do Nothing..! Just skip the following
       } else
    if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
-      { album[frame.active_image_place]->transparency-=0.000001*microseconds_of_movement;
+      { album[frame.active_image_place]->transparency-=movement_rate;
         if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
          {
             album[frame.active_image_place]->transparency=album[frame.active_image_place]->target_transparency;
@@ -42,7 +43,7 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
        }
          else
    if ( album[frame.active_image_place]->transparency<album[frame.active_image_place]->target_transparency)
-      { album[frame.active_image_place]->transparency+=0.000001*microseconds_of_movement;
+      { album[frame.active_image_place]->transparency+=movement_rate;
         if ( album[frame.active_image_place]->transparency>album[frame.active_image_place]->target_transparency)
          {
             album[frame.active_image_place]->transparency=album[frame.active_image_place]->target_transparency;
@@ -54,7 +55,7 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
          // Do Nothing..! Just skip the following
       } else
    if ( album[frame.active_image_place]->rotate>album[frame.active_image_place]->target_rotate)
-      { album[frame.active_image_place]->rotate-=0.000001*microseconds_of_movement;
+      { album[frame.active_image_place]->rotate-=movement_rate;
         if ( album[frame.active_image_place]->rotate<album[frame.active_image_place]->target_rotate)
          {
             album[frame.active_image_place]->rotate=album[frame.active_image_place]->target_rotate;
@@ -62,7 +63,7 @@ void PerformPicturesMovement(unsigned int microseconds_of_movement)
        }
          else
    if ( album[frame.active_image_place]->rotate<album[frame.active_image_place]->target_rotate)
-      { album[frame.active_image_place]->rotate+=0.000001*microseconds_of_movement;
+      { album[frame.active_image_place]->rotate+=movement_rate;
         if ( album[frame.active_image_place]->rotate>album[frame.active_image_place]->target_rotate)
          {
             album[frame.active_image_place]->rotate=album[frame.active_image_place]->target_rotate;

@@ -106,7 +106,7 @@ void DisplayHUD(unsigned int view_instructions)
 
       unsigned int max_memory=(unsigned int) (frame.system.maxRAM/ (1024*1024));
       unsigned int total_memory=(unsigned int) (frame.system.usedRAM/ (1024*1024));
-      sprintf(fps_string,"Rendering Speed : %u fps - %u/%u pics loaded - GPU %u/%u MB - RAM %u/%u MB",frame.fps,frame.total_images_loaded,frame.total_images,total_memory_used_by_gpu,max_memory_used_by_gpu,total_memory,max_memory);
+      sprintf(fps_string,"Rendering Speed : %u fps - %u Pic loads - %u Pos Calcs - GPU %u/%u MB - RAM %u/%u MB",frame.fps,frame.total_images_loaded,frame.total_position_calculations,total_memory_used_by_gpu,max_memory_used_by_gpu,total_memory,max_memory);
       glColor3f(1.0,0.0,0.0);
       glRasterPos2f(0,10);
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);

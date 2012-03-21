@@ -156,6 +156,7 @@ void InitSlideShow()
 
    frame.recursive=0;
    frame.total_files=0;
+   frame.total_position_calculations=0;
    frame.total_images_loaded=0;
    frame.total_images=0;
    frame.fullscreen=0;

@@ -114,5 +114,23 @@ inline float sqrt_fast_approximation(const float x)
 
 float distanceBetween3DPoints(float *x1,float*y1,float *z1,float *x2,float*y2,float *z2)
 {
-  return (float) sqrt_fast_approximation( (*x1 * *x2) + (*y1 * *y2) + (*z1* *z2) );
+    //sqrt_fast_approximation
+  float dx,dy,dz;
+
+  if (*x1>=*x2) { dx=*x1-*x2; } else { dx=*x2-*x1; }
+  if (*y1>=*y2) { dy=*y1-*y2; } else { dy=*y2-*y1; }
+  if (*z1>=*z2) { dz=*z1-*z2; } else { dz=*z2-*z1; }
+
+  return (float) sqrt_fast_approximation( (dx * dx) + (dy * dy) + (dz * dz) );
+}
+
+float SquareddistanceBetween3DPoints(float *x1,float*y1,float *z1,float *x2,float*y2,float *z2)
+{
+  float dx,dy,dz;
+
+  if (*x1>=*x2) { dx=*x1-*x2; } else { dx=*x2-*x1; }
+  if (*y1>=*y2) { dy=*y1-*y2; } else { dy=*y2-*y1; }
+  if (*z1>=*z2) { dz=*z1-*z2; } else { dz=*z2-*z1; }
+
+  return (float)  (dx * dx) + (dy * dy) + (dz * dz) ;
 }
