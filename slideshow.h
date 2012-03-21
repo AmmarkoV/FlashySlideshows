@@ -256,6 +256,8 @@ int MinPictureThatIsVisible();
 
 unsigned int PictureXYtoID(unsigned int x,unsigned int y);
 void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place);
+unsigned int PictureIDtoX(unsigned int place);
+unsigned int PictureIDtoY(unsigned int place);
 
 void PutCameraOverExistingPictureIfItIsOff();
 

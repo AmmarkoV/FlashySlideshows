@@ -354,8 +354,18 @@ unsigned int PictureXYtoID(unsigned int x,unsigned int y)
 
 void PictureIDtoXY(unsigned int * x,unsigned int * y,unsigned int place)
 {
-  *x=(place%frame.images_per_line);
+  *x=(unsigned int) place%frame.images_per_line;
   *y=(unsigned int) place/frame.images_per_line;
+}
+
+unsigned int PictureIDtoX(unsigned int place)
+{
+  return (unsigned int) place%frame.images_per_line;
+}
+
+unsigned int PictureIDtoY(unsigned int place)
+{
+  return (unsigned int) place/frame.images_per_line;
 }
 
 

@@ -24,6 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "camera_control.h"
 #include "load_images.h"
 #include "pictures_control.h"
+#include "environment.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -46,14 +47,17 @@ float last_calculated_position_z=0.0;
 
 int ChangeActiveImageMem(unsigned int place)
 {
+  //fprintf(stderr,"ChangeActiveImageMem(%u)\n",place);
    if ( place != frame.active_image_place )
      {
       frame.last_image_x=frame.active_image_x;
       frame.last_image_y=frame.active_image_y;
       frame.last_image_place=frame.active_image_place;
 
+      //PictureIDtoXY(&frame.active_image_x,&frame.active_image_y,place);
+      frame.active_image_x=PictureIDtoX(place);
+      frame.active_image_y=PictureIDtoY(place);
       frame.active_image_place=place;
-      PictureIDtoXY(&frame.active_image_x,&frame.active_image_y,place);
      }
 
     frame.time_ms_before_last_slide_change=frame.tick_count;
@@ -81,6 +85,7 @@ inline int CloserThanDistance(float *x1,float *y1,float *z1,float *x2,float *y2,
 
 void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 {
+    if (frame.transitions.seek_move_activated) { return; }
     if (  (!force_check)&&
           (!LayoutMoving())&&
           (CloserThanDistance(&frame.vx,&frame.vy,&frame.vz,&last_calculated_position_x,&last_calculated_position_y,&last_calculated_position_z,2.0))
@@ -154,7 +159,7 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
                 return;
             }
 
-
+   if (PrintDevMsg()) { fprintf(stderr,"The Following code should be improved i think it is buggy :P\n"); }
    album_traveler=start_y * frame.images_per_line;
    if (album_traveler > frame.total_images) { album_traveler=frame.total_images; }
 
@@ -175,9 +180,9 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
             {
                    if ((x!=frame.active_image_x)||(y!=frame.active_image_y))
                     {
-                      //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u ",frame.vx,frame.vy,frame.vz,x,y);
+                      //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u -> %u ",frame.vx,frame.vy,frame.vz,x,y,album_traveler);
                       //fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
-                      ChangeActiveImageMem(PictureXYtoID(x,y));
+                      ChangeActiveImageMem(album_traveler); //PictureXYtoID(x,y)
                       return;
                     }
                   return;
@@ -215,6 +220,7 @@ void CameraBounced()
 
 void MoveDestinationCenterRaw(float x,float y,float z)
 {
+    frame.transitions.seek_move_activated=0;
     frame.desired_x+=x;
     frame.desired_y+=y;
     frame.desired_z+=z;
@@ -245,8 +251,8 @@ void MoveDestinationCenter(unsigned int movement_direction)
 
     /* axis ( 0 x , 1 y , 2 z ) */
     /* direction ( 0 + , 1 - ) */
-    frame.transitions.effect_move_activated=0; /*Overriding hover*/
-    frame.transitions.seek_move_activated=1; /*Setting Destination Over Point cancels seek move!*/
+    //frame.transitions.effect_move_activated=0; /*Overriding hover*/
+    frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
 
     switch ( axis )
     {
@@ -274,8 +280,8 @@ void MoveDestinationCenter(unsigned int movement_direction)
 
 void SetDestinationCenter()
 {
-    frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
-    frame.transitions.effect_move_activated=0;
+    //frame.transitions.seek_move_activated=0; /*Setting Destination Over Point cancels seek move!*/
+    //frame.transitions.effect_move_activated=0;
 
     frame.desired_x=0; frame.desired_y=0; frame.desired_z=0;
     frame.angle_x=0;   frame.angle_y=0;   frame.angle_z=180;
@@ -289,7 +295,7 @@ void ResetCameraOrientation()
 
 void SetDestinationOverPicture3dSeek(unsigned int pic_place)
 {
-  frame.transitions.seek_move_activated=0; //Setting Destination Over Point cancels seek move!
+  //frame.transitions.seek_move_activated=0; //Setting Destination Over Point cancels seek move!
 
   //ChangeActiveImageXY(x,y);
   ChangeActiveImageMem(pic_place);
@@ -316,6 +322,9 @@ void SetDestinationOverPictureImmediate(unsigned int pic_place)
 void SetDestinationOverPicture(unsigned int place)
 {
    if (PictureOutOfBounds(place)) { fprintf(stderr,"SetDestinationOverPicture(%u) is an invalid destination\n",place); return; }
+
+   //fprintf(stderr,"SetDestinationOverPicture(%u) called from %u \n",place,frame.active_image_place);
+
 
    switch ( frame.transitions.transition_mode)
    {
@@ -351,9 +360,7 @@ int MoveToPicture(unsigned int direction)
     if (new_mem_place<0) { new_mem_place=0; } else
     if (new_mem_place>=frame.total_images) { new_mem_place=frame.total_images-1; }
 
-    frame.active_image_place=(unsigned int) new_mem_place;
-
-    SetDestinationOverPicture(frame.active_image_place);
+    SetDestinationOverPicture(new_mem_place);
     frame.transitions.seek_move_activated=1; //THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0 so it is important to set this right here!
 
    return 1;
