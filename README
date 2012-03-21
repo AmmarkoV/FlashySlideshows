@@ -1,5 +1,12 @@
 Flashy Slide Show
---------------
+----------------------
+
+21/3/2012
+This project is now approximately 4.5k loc and has taken me 2+ months of development time..!
+Since it meets my "photography" needs as it is and the community doesn't seem to find it very useful (or else I would get more feedback on the videos , here , forums , debian mentors , etc..! ) I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable ( except some minor camera glitches ) , useful and I have done a good job profiling code and taken performance seriously while building it... 
+If someone wants a particular feature or has a bug fix , etc , you are welcome to contact me so that it will be added or fixed.. I still believe this is a very interesting project , but feels bad for me to spend so much energy somewhere where it is not appreciated..!
+
+AmmarkoV
 
 Videos :
 http://www.youtube.com/watch?v=QwYI-nkeCIw
@@ -32,9 +39,7 @@ if you want to uninstall the app , run
 ./uninstall.sh
 your password is required..  
 
- 
-
-
+  
 
 TODO LIST  
 --------------
@@ -44,9 +49,7 @@ TODO LIST
 
 * Fix Fullscreen (game) mode..!
 
-* Find System/GPU RAM caps to adjust resolution to fit more things in system RAM where GPU RAM is scarce   
-
-* Implement a "plugin" system for effects , each picture position , next / last picture changed according to plugin layout
+* Fix Ken Burns effect and connect it to the output of OpenCV face detection which is currently disabled..!
 
 * Add effects ( shiny floor ) to images  ,  transparency , particles  are done
 
