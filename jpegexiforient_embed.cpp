@@ -54,8 +54,8 @@ read_1_byte (void)
   int c;
 
   c = NEXTBYTE();
-  if (c == EOF)
-    ERREXIT("Premature EOF in JPEG file");
+  if (c == EOF) { return 0; }
+                //ERREXIT("Premature EOF in JPEG file");
   return c;
 }
 
@@ -67,11 +67,11 @@ read_2_bytes (void)
   int c1, c2;
 
   c1 = NEXTBYTE();
-  if (c1 == EOF)
-    ERREXIT("Premature EOF in JPEG file");
+  if (c1 == EOF)  { return 0; }
+                  //ERREXIT("Premature EOF in JPEG file");
   c2 = NEXTBYTE();
-  if (c2 == EOF)
-    ERREXIT("Premature EOF in JPEG file");
+  if (c2 == EOF)  { return 0; }
+                  //ERREXIT("Premature EOF in JPEG file");
   return (((unsigned int) c1) << 8) + ((unsigned int) c2);
 }
 
@@ -82,6 +82,7 @@ read_2_bytes (void)
 
 unsigned int GetOrientationOfFile(char * filename)
 {
+  myfile=0;
   int n_flag=0 , set_flag=0;
   unsigned int length=0, i=0;
   int is_motorola=0; /* Flag for byte order */
@@ -92,8 +93,8 @@ unsigned int GetOrientationOfFile(char * filename)
   n_flag = 0; set_flag = 0;
 
   i = 1;
-
-    if ((myfile = fopen(filename, "rb")) == NULL)
+  myfile = fopen(filename, "rb");
+    if ( myfile == 0)
     {
       fprintf(stderr, " Can't open %s\n", filename);
       return 0;

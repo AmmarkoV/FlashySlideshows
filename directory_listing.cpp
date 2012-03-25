@@ -135,6 +135,8 @@ int ExtensionIsJPEGPicture(wxString *extension)
 
 int ExtensionIsPicture(wxString *extension)
 {
+      if ( extension->Length()<=2 )  { return 0; } //No way it is a picture extension :P
+
       unsigned int is_a_picture=0;
       if      ( extension->CmpNoCase(wxT("PNG"))==0 )  {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("PNM"))==0 )  {is_a_picture=1;}
@@ -151,6 +153,8 @@ int ExtensionIsPicture(wxString *extension)
 
 int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,unsigned int count_only)
 {
+      if (filename->Length()<=4) { fprintf(stderr,"Filenames must be bigger than .jpg for example\n"); return 0; }
+
       wxString dir_and_filename; dir_and_filename.clear();
       dir_and_filename<<_U2(thedirectory);
       if (thedirectory[strlen(thedirectory)-1]!='/') { dir_and_filename<<_U2("/"); }
@@ -160,6 +164,10 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
       wxString extension=fname.GetExt();
       wxString fullname =fname.GetFullName();
 
+      if (!fname.FileExists( )) { fprintf(stderr,"Not a file ..!\n"); }
+          else
+     // if (fname.DirExists( )) { fprintf(stderr," Not a directory ..!\n"); }
+     //     else
       if ( ExtensionIsPicture(&extension) )
         {
           if (!count_only)

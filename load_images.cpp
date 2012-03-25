@@ -249,8 +249,9 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
 
 int GetJPEGExifOrientation(char * filename,struct Picture * pic)
 {
+ fprintf(stderr,"Getting Orientation for `%s` ",filename);
  unsigned int orientation = GetOrientationOfFile(filename);
- fprintf(stderr,"Got Orientation %u",orientation);
+ fprintf(stderr,"= %u",orientation);
  pic->rotate=0; pic->mirror=0;
 
  /*            1        2       3      4       5            6           7          8

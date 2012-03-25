@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1332208382 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
+1332691376 source:/home/ammar/Documents/Programming/FlashySlideShow/load_images.cpp
 	"load_images.h"
 	"jpegexiforient_embed.h"
 	"memory_hypervisor.h"
@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1332370472 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1332691044 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -48,7 +48,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1332370061 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1332370524 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -92,7 +92,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1331598800 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1332692467 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"directory_sorting.h"
 	<sys/time.h>
@@ -1348,11 +1348,11 @@
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1332370525 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1332692459 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 
-1331996853 source:/home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.cpp
+1332691504 source:/home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.cpp
 	"jpegexiforient_embed.h"
 	<stdio.h>
 	<stdlib.h>

@@ -207,9 +207,9 @@ static void DisplayCallback(void)
 
 
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-    glClear(GL_COLOR_BUFFER_BIT ); //| GL_DEPTH_BUFFER_BIT
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); //| GL_DEPTH_BUFFER_BIT
 	  glPushMatrix();
-      // glMatrixMode(GL_MODELVIEW);
+       //glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
           glRotatef(frame.angle_x,-1.0,0,0); // Peristrofi gyrw apo ton x
@@ -424,7 +424,7 @@ int main(int argc, char *argv[])
     DisableScreenSaver();
 
 
-    strcpy((char * ) frame.album_directory,"album");
+    strcpy((char * ) frame.album_directory,"album"); //test_
     strcpy((char * ) frame.copy_directory,"Copied");
     strcpy((char * ) frame.move_directory,"Moved");
     strcpy((char * ) frame.resize_directory,"Resized");
@@ -579,7 +579,7 @@ int main(int argc, char *argv[])
     fprintf(stderr,"Window Resolution is %ux%u\n",width_x,width_y);
     glutInitWindowSize(width_x,width_y);
     glutInitWindowPosition(0,0);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA  ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 
     char title[512]={0};
     sprintf(title,"Flashy Sliseshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,(unsigned int) AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
