@@ -39,6 +39,7 @@
 #include <stdlib.h>
 
 static FILE * myfile;		/* My JPEG file */
+static int read_byte_error_while_reading=0;		/* My JPEG file */
 static unsigned char exif_data[65536L];
 
 /* Return next input byte, or EOF if no more */
@@ -54,7 +55,7 @@ read_1_byte (void)
   int c;
 
   c = NEXTBYTE();
-  if (c == EOF) { return 0; }
+  if (c == EOF) { read_byte_error_while_reading=1; return 0; }
                 //ERREXIT("Premature EOF in JPEG file");
   return c;
 }
@@ -67,10 +68,10 @@ read_2_bytes (void)
   int c1, c2;
 
   c1 = NEXTBYTE();
-  if (c1 == EOF)  { return 0; }
+  if (c1 == EOF)  { read_byte_error_while_reading=1; return 0; }
                   //ERREXIT("Premature EOF in JPEG file");
   c2 = NEXTBYTE();
-  if (c2 == EOF)  { return 0; }
+  if (c2 == EOF)  { read_byte_error_while_reading=1; return 0; }
                   //ERREXIT("Premature EOF in JPEG file");
   return (((unsigned int) c1) << 8) + ((unsigned int) c2);
 }
@@ -82,6 +83,7 @@ read_2_bytes (void)
 
 unsigned int GetOrientationOfFile(char * filename)
 {
+  read_byte_error_while_reading=0;
   myfile=0;
   int n_flag=0 , set_flag=0;
   unsigned int length=0, i=0;

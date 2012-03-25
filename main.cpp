@@ -424,7 +424,7 @@ int main(int argc, char *argv[])
     DisableScreenSaver();
 
 
-    strcpy((char * ) frame.album_directory,"test_album"); //
+    strcpy((char * ) frame.album_directory,"album"); // test_album for debugging..
     strcpy((char * ) frame.copy_directory,"Copied");
     strcpy((char * ) frame.move_directory,"Moved");
     strcpy((char * ) frame.resize_directory,"Resized");
