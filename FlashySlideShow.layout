@@ -14,7 +14,7 @@
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="11710" topLine="285" />
+		<Cursor position="4922" topLine="135" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="1269" topLine="0" />
@@ -62,7 +62,7 @@
 		<Cursor position="181" topLine="0" />
 	</File>
 	<File name="load_images.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="9131" topLine="245" />
+		<Cursor position="9131" topLine="341" />
 	</File>
 	<File name="load_images.h" open="1" top="0" tabpos="3">
 		<Cursor position="1192" topLine="49" />
@@ -73,8 +73,8 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="12488" topLine="395" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="24826" topLine="658" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="86" />
@@ -83,7 +83,7 @@
 		<Cursor position="355" topLine="0" />
 	</File>
 	<File name="memory_hypervisor.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="10793" topLine="85" />
+		<Cursor position="8360" topLine="214" />
 	</File>
 	<File name="memory_hypervisor.h" open="1" top="0" tabpos="13">
 		<Cursor position="431" topLine="0" />
@@ -100,8 +100,8 @@
 	<File name="scene_objects.h" open="1" top="0" tabpos="24">
 		<Cursor position="1345" topLine="9" />
 	</File>
-	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="10376" topLine="243" />
+	<File name="slideshow.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="10375" topLine="343" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
 		<Cursor position="5848" topLine="222" />

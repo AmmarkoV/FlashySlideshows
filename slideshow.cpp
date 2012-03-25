@@ -315,8 +315,7 @@ int PictureOutOfBounds(unsigned int pic_place)
 
 int MaxPictureThatIsVisible()
 {
-
-  if ( frame.total_images<10 ) { return frame.total_images;  }
+  if ( frame.total_images<10 ) { return frame.total_images-1;  }
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int cur_place=frame.active_image_place;

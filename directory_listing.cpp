@@ -155,6 +155,10 @@ int AddFileIfItIsAPicture(char *thedirectory,char *subdir,wxString *filename,uns
 {
       if (filename->Length()<=4) { fprintf(stderr,"Filenames must be bigger than .jpg for example\n"); return 0; }
 
+       //char filename_str[1024];
+       //strncpy(filename_str,(const char*) filename->mb_str(wxConvUTF8),1024);
+       //fprintf(stderr,"AddFileIfItIsAPicture called for %s , %s , %s \n",thedirectory,subdir,filename_str);
+
       wxString dir_and_filename; dir_and_filename.clear();
       dir_and_filename<<_U2(thedirectory);
       if (thedirectory[strlen(thedirectory)-1]!='/') { dir_and_filename<<_U2("/"); }
