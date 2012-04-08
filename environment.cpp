@@ -228,7 +228,7 @@ void EnableScreenSaver()
 unsigned int GetSystemFreeMemory()
 {
   // TODO : cat /proc/meminfo , etc
-  return 128*1024*1024;
+  return 256*1024*1024;
 }
 
 

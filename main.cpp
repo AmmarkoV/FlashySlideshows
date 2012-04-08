@@ -424,7 +424,7 @@ int main(int argc, char *argv[])
     DisableScreenSaver();
 
 
-    strcpy((char * ) frame.album_directory,"album"); // test_album for debugging..
+    strcpy((char * ) frame.album_directory,"album"); // album or test_album for debugging..
     strcpy((char * ) frame.copy_directory,"Copied");
     strcpy((char * ) frame.move_directory,"Moved");
     strcpy((char * ) frame.resize_directory,"Resized");
@@ -653,7 +653,7 @@ int main(int argc, char *argv[])
    //fprintf(stderr,"Extensions : %s\n",(const char *)glGetString(GL_EXTENSIONS));
    fprintf(stderr,"Maximum Texture Dimension Size is %u\n",(unsigned int) texSize);
    frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
-   fprintf(stderr,"Texture Sizes set to %ux%u\n",GetWidthQuality(frame.quality_setting),GetHeightQuality(frame.quality_setting));
+   fprintf(stderr,"Texture Sizes set to quality %u = %ux%u\n",frame.quality_setting,GetWidthQuality(frame.quality_setting),GetHeightQuality(frame.quality_setting));
 
 
 

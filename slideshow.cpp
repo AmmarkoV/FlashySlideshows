@@ -173,7 +173,7 @@ void InitSlideShow()
 
    /* SYSTEM DATA */
    frame.system.usedRAM=0;
-   frame.system.maxRAM=128 * 1024 * 1024;
+   frame.system.maxRAM=256 * 1024 * 1024;
    frame.system.lastTexture=0;
 
    /* EFFECTS */

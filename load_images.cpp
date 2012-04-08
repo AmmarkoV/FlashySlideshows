@@ -60,17 +60,26 @@ unsigned int GetWidthQuality(unsigned int quality)
     case 1: chosen_width=640; break;
     case 2: chosen_width=800; break;
     case 3: chosen_width=1024; break;
-    case 4: chosen_width=1152; break;
-    case 5: chosen_width=1600; break;
-    case 6: chosen_width=1920; break;
-    case 7: chosen_width=2048; break;
-    case 8: chosen_width=2560; break;
+    case 4: chosen_width=1560; break;
+    case 5: chosen_width=2048; break;
+    case 6: chosen_width=frame.gpu.maximum_frame_dimension_size;  break;
+    case 7: chosen_width=frame.gpu.maximum_frame_dimension_size;  break;
+    case 8: chosen_width=frame.gpu.maximum_frame_dimension_size;  break;
+    //case 6: chosen_width=1920; break;
+    //case 7: chosen_width=2048; break;
+    //case 8: chosen_width=2560; break;
 
   };
 
   if ( frame.gpu.maximum_frame_dimension_size<=chosen_width )
     {  //Make sure graphics card can take it..
-        chosen_width=frame.gpu.maximum_frame_dimension_size-1;
+        chosen_width=frame.gpu.maximum_frame_dimension_size-2;
+    }
+
+
+  if ( 4096<=chosen_width )
+    {  //Make sure graphics card can take it..
+        chosen_width=4096;
     }
 
   return chosen_width;
