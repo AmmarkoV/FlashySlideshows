@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <time.h>
 
 unsigned int FirstItemSmallerOrEqualToSecond(unsigned int item_a,unsigned int item_b,unsigned int comp_func,unsigned int asc_desc)
 {
@@ -123,26 +123,18 @@ void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func,
 }
 
 
-void RandomizeDirectoryListSorting(unsigned int beg,unsigned int end,unsigned int comp_func,unsigned int asc_desc)
+void RandomizeDirectoryListSorting(unsigned int beg,unsigned int end)
 {
   if (end > beg + 1)
   {
-    unsigned int piv=beg, l = beg + 1, r = end;
-    while (l < r)
+    srand(time(0));
+    unsigned int total=end-beg , piv=0 , swap_pos=0;
+    while (piv<end)
     {
-      if ( FirstItemSmallerOrEqualToSecond(l,piv,comp_func,asc_desc) )
-        {
-          l++;
-        }
-      else
-        {
-          SwapListItems(l,--r);
-        }
+      swap_pos = rand()%total;
+      SwapListItems(piv,swap_pos);
+      ++piv;
     }
-    SwapListItems(--l,beg);
-
-    SortDirectoryList(beg,l,comp_func,asc_desc);
-    SortDirectoryList(r,end,comp_func,asc_desc);
   }
 }
 

@@ -18,7 +18,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1333904071 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
+1336427185 source:/home/ammar/Documents/Programming/FlashySlideShow/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -48,7 +48,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1333904438 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
+1336426266 source:/home/ammar/Documents/Programming/FlashySlideShow/slideshow.cpp
 	"slideshow.h"
 	"camera_control.h"
 	"sound.h"
@@ -92,7 +92,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/sound.h
 
-1332702126 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1336427126 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"directory_sorting.h"
 	<sys/time.h>
@@ -106,7 +106,7 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1331598588 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1336427089 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
 1332296513 source:/home/ammar/Documents/Programming/FlashySlideShow/controls.cpp
 	<stdlib.h>
@@ -1325,12 +1325,13 @@
 	<stdlib.h>
 	<stdio.h>
 
-1336426046 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.cpp
+1336427163 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.cpp
 	"directory_sorting.h"
 	"directory_listing.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
+	<time.h>
 
 1331696810 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_transactions.cpp
 	"directory_transactions.h"
@@ -1344,11 +1345,11 @@
 
 1331223884 /home/ammar/Documents/Programming/FlashySlideShow/directory_transactions.h
 
-1336426067 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
+1336426760 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
 
 1331519678 /home/ammar/Documents/Programming/FlashySlideShow/system_tools.h
 
-1336426071 /home/ammar/Documents/Programming/FlashySlideShow/version.h
+1336427223 /home/ammar/Documents/Programming/FlashySlideShow/version.h
 
 1331603765 /home/ammar/Documents/Programming/FlashySlideShow/jpegexiforient_embed.h
 

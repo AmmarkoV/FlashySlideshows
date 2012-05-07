@@ -672,7 +672,7 @@ int main(int argc, char *argv[])
     LoadStockTexturesAndSounds();
     InitEffects();
 
-    if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.recursive))
+    if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.sort_randomization,frame.recursive))
       {
           fprintf(stderr,"Could not Load pictures in directory ( %u total pictures found)\n",GetTotalViewableFilesInDirectory());
           int i=system("gdialog --title \"Flashy Slideshows\" --infobox \"\nCould not find any pictures in the directory of your selection\"");

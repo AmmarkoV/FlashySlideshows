@@ -216,7 +216,7 @@ int UserWantsToStop()
 return 1;
 }
 
-unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive)
+unsigned int GetDirectoryList(char * thedirectory,char *subdir,unsigned int space_to_allocate,unsigned int comp_func,unsigned int asc_desc,unsigned int randomized,unsigned int recursive)
 {
   if (FORCE_STOP_LISTING) { fprintf(stderr,"Emergency stop listing\n"); return 0; }
 
@@ -298,7 +298,7 @@ if (recursive>0) //Recursion Enabled
 
        //fprintf(stderr,"Running Recursive (level %u) addition to dir `%s`\n",recursive,recursive_dir);
        //fprintf(stderr,"Subdir is `%s`\n",new_subdir);
-       unsigned int recursive_pictures_added=GetDirectoryList(recursive_dir,new_subdir,space_to_allocate,comp_func,asc_desc,recursive+1);
+       unsigned int recursive_pictures_added=GetDirectoryList(recursive_dir,new_subdir,space_to_allocate,comp_func,asc_desc,randomized,recursive+1);
        //fprintf(stderr," returned %u ( %u until now ) pictures\n",recursive_pictures_added,this_list_total_pictures_count);
 
        this_list_total_pictures_count+=recursive_pictures_added;
@@ -325,9 +325,17 @@ if (recursive>0) //Recursion Enabled
     {
       if ( (this_list_total_pictures_count>1)&&(bottom_level))
        {
-        fprintf(stderr,"Sorting directory modification time.. ");
-        SortDirectoryList(0,this_list_total_pictures_count,comp_func,asc_desc);
-        fprintf(stderr,"done\n");
+         if (randomized)
+          {
+             fprintf(stderr,"Randomizing directory list.. ");
+             RandomizeDirectoryListSorting(0,this_list_total_pictures_count);
+          }   else
+          {
+             fprintf(stderr,"Sorting directory modification time.. ");
+             SortDirectoryList(0,this_list_total_pictures_count,comp_func,asc_desc);
+          }
+         fprintf(stderr,"done\n");
+
         //PrintDirectoryList();
        }
     }
@@ -338,11 +346,11 @@ if (recursive>0) //Recursion Enabled
 unsigned int CountPicturesInDirectory(char * thedirectory,int recursive)
 {
   FORCE_STOP_LISTING=0;
-  return GetDirectoryList(thedirectory,0,0,0,0,recursive); /*Calling GetDirectoryList with 0 size only counts files!*/
+  return GetDirectoryList(thedirectory,0,0,0,0,0,recursive); /*Calling GetDirectoryList with 0 size only counts files!*/
 }
 
 
-unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,unsigned int asc_desc,unsigned int recursive)
+unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,unsigned int asc_desc,unsigned int randomize,unsigned int recursive)
 {
     unsigned int total_pictures_in_dir=CountPicturesInDirectory(thedirectory,recursive);
 
@@ -355,7 +363,7 @@ unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,
       }
 
     FORCE_STOP_LISTING=0;
-    total_pictures_in_dir=GetDirectoryList((char*)thedirectory,0,total_pictures_in_dir,comp_func,asc_desc,recursive); /* Load Directory List */
+    total_pictures_in_dir=GetDirectoryList((char*)thedirectory,0,total_pictures_in_dir,comp_func,asc_desc,randomize,recursive); /* Load Directory List */
  return 1;
 }
 

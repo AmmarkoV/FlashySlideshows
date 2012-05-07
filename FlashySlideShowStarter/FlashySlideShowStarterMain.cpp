@@ -176,6 +176,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxSort->Append(_("Names Descending"));
     ComboBoxSort->Append(_("Dates Descending"));
     ComboBoxSort->Append(_("Sizes Descending"));
+    ComboBoxSort->Append(_("Random"));
     CheckBoxFileMove = new wxCheckBox(this, ID_CHECKBOX6, _("File Move"), wxPoint(456,296), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX6"));
     CheckBoxFileMove->SetValue(false);
     CheckBoxFileMove->SetToolTip(_("Selecting this option will make the buttons 1,2,3,4,5,6,7,8,9,0 move thecurrently viewed picture inside the Moved/CategoryX/ folder where X is the number pressed"));
@@ -366,7 +367,11 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     if ( DelaySpinCtrl->GetValue()!=100 ) { what_to_call<< wxT(" -d ");  what_to_call<<DelaySpinCtrl->GetValue(); }
 
     if ( ComboBoxSort->GetCurrentSelection()!=0 )
-       { what_to_call<< wxT(" -s "); what_to_call<<ComboBoxSort->GetCurrentSelection(); }
+    {
+      if ( ComboBoxSort->GetCurrentSelection()==6 )
+        { what_to_call<< wxT(" -s r"); /*RANDOM SORTING*/  } else
+        { what_to_call<< wxT(" -s "); what_to_call<<ComboBoxSort->GetCurrentSelection(); }
+    }
 
     what_to_call<< wxT(" \"");
     what_to_call<< path;
