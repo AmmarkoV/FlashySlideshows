@@ -114,6 +114,7 @@ void InitSlideShow()
 
    frame.sort_ascending=1; //1=ascending by default
    frame.sort_type=0;
+   frame.sort_randomization=0;  // Randomization disabled by default
 
    frame.transitions.automatic_slideshow_on=0;
    frame.time_ms_before_last_slide_change=0;

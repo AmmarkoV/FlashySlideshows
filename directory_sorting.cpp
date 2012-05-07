@@ -123,3 +123,27 @@ void SortDirectoryList(unsigned int beg,unsigned int end,unsigned int comp_func,
 }
 
 
+void RandomizeDirectoryListSorting(unsigned int beg,unsigned int end,unsigned int comp_func,unsigned int asc_desc)
+{
+  if (end > beg + 1)
+  {
+    unsigned int piv=beg, l = beg + 1, r = end;
+    while (l < r)
+    {
+      if ( FirstItemSmallerOrEqualToSecond(l,piv,comp_func,asc_desc) )
+        {
+          l++;
+        }
+      else
+        {
+          SwapListItems(l,--r);
+        }
+    }
+    SwapListItems(--l,beg);
+
+    SortDirectoryList(beg,l,comp_func,asc_desc);
+    SortDirectoryList(r,end,comp_func,asc_desc);
+  }
+}
+
+
