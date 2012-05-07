@@ -128,13 +128,9 @@ void RandomizeDirectoryListSorting(unsigned int beg,unsigned int end)
   if (end > beg + 1)
   {
     srand(time(0));
-    unsigned int total=end-beg , piv=0 , swap_pos=0;
-    while (piv<end)
-    {
-      swap_pos = rand()%total;
-      SwapListItems(piv,swap_pos);
-      ++piv;
-    }
+    unsigned int total=end-beg , piv=0;
+    //Crude randomizer :P
+    while (piv<end) {  SwapListItems(piv++,rand()%total);  }
   }
 }
 
