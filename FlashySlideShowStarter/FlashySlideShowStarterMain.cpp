@@ -141,10 +141,9 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     CheckBoxFaceDetection = new wxCheckBox(this, ID_CHECKBOX2, _("Face Detection"), wxPoint(456,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
     CheckBoxFaceDetection->SetValue(true);
     ComboBoxTransitions = new wxComboBox(this, ID_COMBOBOX1, wxEmptyString, wxPoint(456,102), wxSize(128,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX1"));
-    ComboBoxTransitions->SetSelection( ComboBoxTransitions->Append(_("Random")) );
-    ComboBoxTransitions->Append(_("Movement"));
+    ComboBoxTransitions->SetSelection( ComboBoxTransitions->Append(_("3D Seek")) );
     ComboBoxTransitions->Append(_("Immediate"));
-    ComboBoxTransitions->Append(_("Transparent"));
+    ComboBoxTransitions->Append(_("Transparency"));
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Transitions"), wxPoint(456,86), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,256), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
     CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(456,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
@@ -463,7 +462,7 @@ unsigned int FlashySlideShowStarterFrame::RefreshThumbnails()
     //if ( CheckBoxIncludeSubfolders->IsChecked() ) { recursive=1; }
     char thedirectory[1024];
     strncpy(thedirectory,(const char*) PathTextCtrl->GetValue().mb_str(wxConvUTF8),1024);
-    unsigned int total_pictures = GetDirectoryList(thedirectory,0,0,0,0,recursive);
+    unsigned int total_pictures = GetDirectoryList(thedirectory,0,0,0,0,0,recursive);
 
    return total_pictures;
 }

@@ -59,10 +59,9 @@
 		</object>
 		<object class="wxComboBox" name="ID_COMBOBOX1" variable="ComboBoxTransitions" member="yes">
 			<content>
-				<item>Random</item>
-				<item>Movement</item>
+				<item>3D Seek</item>
 				<item>Immediate</item>
-				<item>Transparent</item>
+				<item>Transparency</item>
 			</content>
 			<selection>0</selection>
 			<pos>456,102</pos>

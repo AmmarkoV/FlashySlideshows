@@ -538,6 +538,10 @@ int main(int argc, char *argv[])
                       if (i+1<=argc)
                       {
                        fprintf(stderr,"%u Transition Type %s=%s\n",i,argv[i],argv[i+1]);
+                       if  ( *argv[i+1]=='0' ) { fprintf(stderr,"3D Seek\n");      frame.transitions.transition_mode=0; } else
+                       if  ( *argv[i+1]=='1' ) { fprintf(stderr,"Immediate\n");    frame.transitions.transition_mode=1; } else
+                       if  ( *argv[i+1]=='2' ) { fprintf(stderr,"Transparency\n"); frame.transitions.transition_mode=2; }  else
+                                               { fprintf(stderr,"Incorrect Transition Type..\n"); }
                       }
                    } else
              if (strcmp(argv[i],"-s")==0)
@@ -551,7 +555,8 @@ int main(int argc, char *argv[])
                        if  ( *argv[i+1]=='3' ) { fprintf(stderr,"Descending Name\n"); frame.sort_type=0; frame.sort_ascending=0; frame.sort_randomization=0; } else
                        if  ( *argv[i+1]=='4' ) { fprintf(stderr,"Descending Date\n"); frame.sort_type=1; frame.sort_ascending=0; frame.sort_randomization=0; } else
                        if  ( *argv[i+1]=='5' ) { fprintf(stderr,"Descending Size\n"); frame.sort_type=2; frame.sort_ascending=0; frame.sort_randomization=0; } else
-                       if  ( *argv[i+1]=='r' ) { fprintf(stderr,"Randomized\n"); frame.sort_randomization=1; }
+                       if  ( *argv[i+1]=='r' ) { fprintf(stderr,"Randomized\n"); frame.sort_randomization=1; }  else
+                                               { fprintf(stderr,"Incorrect Sorting Type..\n"); }
                       }
                    }
 
