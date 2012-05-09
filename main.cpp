@@ -54,9 +54,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-int STOP_APPLICATION=0;
+unsigned int STOP_APPLICATION=0;
+unsigned int STOP_IDLE_CALLBACK=0;
 
- struct timeval last_frame,this_frame,difference;
+struct timeval last_frame,this_frame,difference;
 
 char pictures_filename_shared_stack[1024]={0};
 unsigned int framecount=0,timenow=0,timebase=0,fps=0;
@@ -360,6 +361,7 @@ void SpecialFunctionCallback (int key, int x, int y)
 
 static void IdleCallback(void)
 {
+    if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
     glutPostRedisplay();
 }
 
@@ -378,12 +380,27 @@ void InitGlut()
 
 }
 
+unsigned int WaitForVariableToTakeValue(unsigned int *var,unsigned int value , unsigned int maxloops)
+{
+  unsigned int loops=0;
+  while ( ( *var!=value ) && ( loops<maxloops) )
+       {
+           usleep(100);
+           ++loops;
+       }
+  if (*var!=value) { return 0; }
+  return 1;
+}
+
+
 void ToggleFullscreen()
 {
    //fprintf(stderr,"Fullscreen toggling not implemented , skipping command for safety \n");
    //return;
+
    if ( frame.fullscreen == 0 )
     {
+      STOP_IDLE_CALLBACK=1;
       int width_x=glutGet(GLUT_SCREEN_WIDTH);
       int width_y=glutGet(GLUT_SCREEN_HEIGHT);
       char mode_string[128]={0};
@@ -397,8 +414,9 @@ void ToggleFullscreen()
                                                         glutEnterGameMode();
                                                      } else
                                                      {
-                                                      fprintf(stderr,"Cannot enter fullscreen\n");
-                                                      return;
+                                                       fprintf(stderr,"Cannot enter fullscreen\n");
+                                                       STOP_IDLE_CALLBACK=0;
+                                                       return;
                                                      }
 
       InitGlut();
@@ -407,6 +425,9 @@ void ToggleFullscreen()
     } else
    if ( frame.fullscreen == 1 )
     {
+      glutIdleFunc(0);
+      STOP_IDLE_CALLBACK=1;
+      WaitForVariableToTakeValue(&STOP_IDLE_CALLBACK,2,1000);
       glutLeaveGameMode();
       frame.fullscreen=0;
     }
@@ -419,6 +440,7 @@ void ToggleFullscreen()
 			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_PIXEL_DEPTH)   );
 
 
+    STOP_IDLE_CALLBACK=0;
 
 }
 
