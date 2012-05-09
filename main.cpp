@@ -380,16 +380,10 @@ void InitGlut()
 
 void ToggleFullscreen()
 {
-   fprintf(stderr,"Fullscreen toggling not implemented , skipping command for safety \n");
-   return;
+   //fprintf(stderr,"Fullscreen toggling not implemented , skipping command for safety \n");
+   //return;
    if ( frame.fullscreen == 0 )
     {
-      if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  glutEnterGameMode(); else
-                                                     {
-                                                      fprintf(stderr,"Cannot enter fullscreen\n");
-                                                      return;
-                                                     }
-
       int width_x=glutGet(GLUT_SCREEN_WIDTH);
       int width_y=glutGet(GLUT_SCREEN_HEIGHT);
       char mode_string[128]={0};
@@ -397,11 +391,18 @@ void ToggleFullscreen()
       fprintf(stderr,"Attempting fullscreen %s\n",mode_string);
       glutGameModeString(mode_string);
       //glutGameModeString("1024x768:32");
+
+
+      if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  {
+                                                        glutEnterGameMode();
+                                                     } else
+                                                     {
+                                                      fprintf(stderr,"Cannot enter fullscreen\n");
+                                                      return;
+                                                     }
+
       InitGlut();
       frame.fullscreen=1;
-
-      /* TODO : ADD STATE RELOADING HERE */
-
       glutMainLoop();
     } else
    if ( frame.fullscreen == 1 )
@@ -409,6 +410,15 @@ void ToggleFullscreen()
       glutLeaveGameMode();
       frame.fullscreen=0;
     }
+
+
+   	if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE) == 0) fprintf(stderr,"Current Mode: Window"); else
+		                                             fprintf(stderr,"Current Mode: Game Mode %dx%d at %d hertz, %d bpp",glutGameModeGet(GLUT_GAME_MODE_WIDTH),
+			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_HEIGHT),
+			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_REFRESH_RATE),
+			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_PIXEL_DEPTH)   );
+
+
 
 }
 

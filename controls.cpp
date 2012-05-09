@@ -262,7 +262,8 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 'u': CreateObjectFountain(2); /*"PARTICLE" EFFECT*/ break;
         case 'i': CreateObjectFountain(3); /*"PARTICLE" EFFECT*/ break;
         case 'k': CreateObjectFountain(6); /*"PARTICLE" EFFECT*/ break;
-        case 'j': CreateObjectFountain(5); /*"PARTICLE" EFFECT*/ break;
+        case 'j': return 1; /*This key is reserved for fullscreen*/ break;
+        //case 'j': CreateObjectFountain(5); /*"PARTICLE" EFFECT*/ break;
 
 
         case 'q': RotatePictureLeft(); break;
