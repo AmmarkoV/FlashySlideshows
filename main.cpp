@@ -54,10 +54,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
+
+
 unsigned int STOP_APPLICATION=0;
 unsigned int STOP_IDLE_CALLBACK=0;
 
 struct timeval last_frame,this_frame,difference;
+int originalWindow = 0, currentWindow;
 
 char pictures_filename_shared_stack[1024]={0};
 unsigned int framecount=0,timenow=0,timebase=0,fps=0;
@@ -124,7 +127,7 @@ int ManageCreatingTexturesMemory_OpenGLThread(int count_only)
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 void timerCB(int millisec)
 {
- glutPostRedisplay();
+ glutPostWindowRedisplay(currentWindow);
  glutTimerFunc(millisec, timerCB, millisec);
 }
 
@@ -361,9 +364,25 @@ void SpecialFunctionCallback (int key, int x, int y)
 
 static void IdleCallback(void)
 {
-    if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
+  //  if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
+    glutPostWindowRedisplay(currentWindow);
+}
+
+static void IdleCallbackFS(void)
+{
+  //  if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
     glutPostRedisplay();
 }
+
+
+static void VisibilityCallback(int vis)
+{
+  //if (vis == GLUT_VISIBLE) { glutIdleFunc(IdleCallback); }
+  //                  else { glutIdleFunc(0);}
+}
+
+
+
 
 
 void InitGlut()
@@ -373,10 +392,13 @@ void InitGlut()
     glutMouseFunc (MouseCallback);
     glutMotionFunc(MotionCallback); // This is needed for drag&drop functionality xD
     glutPassiveMotionFunc(MotionCallback);
+    glutVisibilityFunc(VisibilityCallback);
     glutDisplayFunc(DisplayCallback);
     glutKeyboardFunc(KeyCallback);
     glutSpecialFunc(SpecialFunctionCallback);
     glutIdleFunc(IdleCallback);
+
+    currentWindow = glutGetWindow();
 
 }
 
@@ -407,9 +429,6 @@ void ToggleFullscreen()
       sprintf(mode_string,"%ux%u:32",width_x,width_y);
       fprintf(stderr,"Attempting fullscreen %s\n",mode_string);
       glutGameModeString(mode_string);
-      //glutGameModeString("1024x768:32");
-
-
       if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  {
                                                         glutEnterGameMode();
                                                      } else
@@ -419,17 +438,28 @@ void ToggleFullscreen()
                                                        return;
                                                      }
 
+      gettimeofday(&last_frame,0x0); // Avoid the unaccounted time passed make movement glitchy
       InitGlut();
+      glutIdleFunc(IdleCallbackFS);
       frame.fullscreen=1;
+      STOP_IDLE_CALLBACK=0;
       glutMainLoop();
     } else
    if ( frame.fullscreen == 1 )
     {
-      glutIdleFunc(0);
-      STOP_IDLE_CALLBACK=1;
-      WaitForVariableToTakeValue(&STOP_IDLE_CALLBACK,2,1000);
-      glutLeaveGameMode();
-      frame.fullscreen=0;
+      if (originalWindow != 0 && currentWindow != originalWindow)
+      {
+       glutIdleFunc(0);
+       STOP_IDLE_CALLBACK=1;
+       WaitForVariableToTakeValue(&STOP_IDLE_CALLBACK,2,1000);
+       glutLeaveGameMode();
+       frame.fullscreen=0;
+       STOP_IDLE_CALLBACK=0;
+       gettimeofday(&last_frame,0x0); // Avoid the unaccounted time passed make movement glitchy
+       glutIdleFunc(IdleCallback);
+       currentWindow = originalWindow;
+      }
+
     }
 
 
@@ -440,7 +470,6 @@ void ToggleFullscreen()
 			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_PIXEL_DEPTH)   );
 
 
-    STOP_IDLE_CALLBACK=0;
 
 }
 
@@ -621,7 +650,7 @@ int main(int argc, char *argv[])
 
     char title[512]={0};
     sprintf(title,"Flashy Sliseshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,(unsigned int) AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
-    glutCreateWindow(title);
+    originalWindow = glutCreateWindow(title);
 
     InitGlut();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
