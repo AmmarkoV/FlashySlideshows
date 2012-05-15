@@ -339,8 +339,9 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     wxString what_to_call;
     what_to_call.clear();
 
-    if ( FileExists("bin/Release/FlashySlideShow")) { /*Dev Build*/ what_to_call<< wxT("bin/Release/FlashySlideShow "); } else
-    if ( FileExists("/usr/bin/FlashySlideShow"))    { /*Normal Deployment */what_to_call<< wxT("/usr/bin/FlashySlideShow "); } else
+    if ( FileExists("flashyslideshows")) { /*Dev Build*/ what_to_call<< wxT("./flashyslideshows "); } else
+    if ( FileExists("bin/Release/flashyslideshows")) { /*Dev Build*/ what_to_call<< wxT("bin/Release/flashyslideshows "); } else
+    if ( FileExists("/usr/bin/flashyslideshows"))    { /*Normal Deployment */what_to_call<< wxT("/usr/bin/flashyslideshows "); } else
                                                     { /*Bad installation ? Weird System ? */
                                                       ComplainAboutInstallation();
                                                       return;

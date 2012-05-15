@@ -1,0 +1,16 @@
+Source: flashyslideshows
+Section: unknown
+Priority: extra
+Maintainer: Ammar Qammaz <ammarkov@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~) , g++ , wx-common , libwxgtk2.8-0 , libwxgtk2.8-dev , libalut0 , libalut-dev , freeglut3 , freeglut3-dev , libxxf86vm-dev , libcv-dev , libcvaux-dev , libhighgui-dev , sed , imagemagick
+Standards-Version: 3.9.1
+Homepage: http://ammar.gr
+Vcs-Git: git://github.com/AmmarkoV/FlashySlideshows.git
+Vcs-Browser: https://github.com/AmmarkoV/FlashySlideshows
+
+Package: flashyslideshows
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A GPLv3 slideshow application for OpenGL hardware accelerated slideshows , with zoom/pan effects , that looks like the PS3 Slideshow 
+This project uses OpenGL acceleration to achieve fluid slideshows taking advantage of modern 3D graphics hardware instead of the usual approaches on this kind of applications. It is written with fast performance in mind and is compatible with JPEG , PNG , PNM , GIF ( not animated ) , BMP , XPM and TIF decoding. The Application comes with a full GUI for starting the app which is written with wxWidgets and it is really easy to use. For feature requests , bug reports and more informations check out the repository of the project..
+https://github.com/AmmarkoV/FlashySlideshows/

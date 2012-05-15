@@ -1,28 +1,26 @@
 #!/bin/bash
 if [ -d "/usr/share/flashyslideshows" ]; then
   echo "FlashySlideshows Installation detected , uninstalling it " 
-  sudo rmdir -r /usr/share/flashyslideshows
-  sudo rmdir /usr/share/flashyslideshows
+  sudo rm -rf /usr/share/flashyslideshows 
   sudo rm /usr/share/applications/FlashySlideshows.desktop
   sudo rm /usr/share/icons/flashyicon.png
 else 
-   #nothing to do :P
+  echo "No Installed Program Resources found"
 fi 
 
-  if [ -e /usr/bin/FlashySlideShowStarterApp  ]
+  if [ -e /usr/bin/flashyslideshowsgui ]
   then
-    sudo rm  /usr/bin/FlashySlideShowStarterApp 
+    sudo rm  /usr/bin/flashyslideshowsgui 
   else  
-   #nothing to do :P
+    echo "No Flashy Slideshows GUI detected "
   fi
 
-  if [ -e bin/Release/FlashySlideShow ]
+  if [ -e /usr/bin/flashyslideshows ]
   then
-    sudo rm  /usr/bin/FlashySlideShow 
+    sudo rm  /usr/bin/flashyslideshows 
   else 
-   #nothing to do :P
+   echo "No Flashy Slideshows Binary detected"
   fi
-
  
   echo "Done" 
 exit 0

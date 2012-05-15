@@ -1578,7 +1578,7 @@
 	"wx/longlong.h"
 	"wx/string.h"
 
-1331598800 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
+1336427126 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_listing.cpp
 	"directory_listing.h"
 	"directory_sorting.h"
 	<sys/time.h>
@@ -1592,20 +1592,72 @@
 	"wx/dirdlg.h"
 	<wx/filefn.h>
 
-1331598588 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
+1336427089 /home/ammar/Documents/Programming/FlashySlideShow/directory_listing.h
 
-1331224324 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
+1336426760 /home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.h
 
 1284774731 /home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.h
 	<windows.h>
 	<wx/app.h>
 
-1331312129 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.cpp
+1336427447 source:/home/ammar/Documents/Programming/FlashySlideShow/directory_sorting.cpp
 	"directory_sorting.h"
 	"directory_listing.h"
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
+	<time.h>
 
 1331565407 /home/ammar/Documents/Programming/FlashySlideShow/FlashySlideShowStarter/FlashyLogo.h
+
+1327375406 source:/home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/FlashySlideShowStarterApp.cpp
+	"FlashySlideShowStarterApp.h"
+	"FlashySlideShowStarterMain.h"
+	<wx/image.h>
+
+1327375406 /home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/FlashySlideShowStarterApp.h
+	<wx/app.h>
+
+1332368914 /home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/FlashySlideShowStarterMain.h
+	<wx/spinctrl.h>
+	<wx/combobox.h>
+	<wx/checkbox.h>
+	<wx/button.h>
+	<wx/menu.h>
+	<wx/statusbr.h>
+	<wx/statbox.h>
+	<wx/frame.h>
+	<wx/dirctrl.h>
+	<wx/stattext.h>
+	<wx/textctrl.h>
+
+1336427126 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_listing.cpp
+	"directory_listing.h"
+	"directory_sorting.h"
+	<sys/time.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<wx/msgdlg.h>
+	"wxwidgets_stuff.h"
+	"wx/dir.h"
+	"wx/filename.h"
+	"wx/dirdlg.h"
+	<wx/filefn.h>
+
+1336427089 /home/ammar/Documents/Programming/FlashySlideShow/src/directory_listing.h
+
+1336426760 /home/ammar/Documents/Programming/FlashySlideShow/src/directory_sorting.h
+
+1284774731 /home/ammar/Documents/Programming/FlashySlideShow/src/wxwidgets_stuff.h
+	<windows.h>
+	<wx/app.h>
+
+1336427447 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_sorting.cpp
+	"directory_sorting.h"
+	"directory_listing.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
 
