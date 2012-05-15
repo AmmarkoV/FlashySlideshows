@@ -19,22 +19,30 @@ http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot3.
 http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.jpg 
 
 
-Compilation :
+--------------- Library Dependencies ---------------
+You can use the apt-get-dependencies.sh to apt-get the required packages..!
+
+
+--------------- Compilation ---------------
 To compile the project open a terminal and run
 ./make
-This will produce the executables ( FlashySlideShowStarterApp and bin/Release/FlashySlideShow )
+This will produce the executables ( flashyslideshows and flashyslideshowsgui )
 you can issue 
-./FlashySlideShowStarterApp to start the application
+./flashyslideshowsgui
 
 
-Installation :
+--------------- Installation of current version---------------
 if you want to install the app , run 
 ./install.sh
 your password is required.. 
-This will add a shortcut on the applications list and the binaries FlashySlideShowStarterApp and FlashySlideShow ..
+This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
+
+--------------- Installation of latest version --------------- 
+./update_from_git.sh will download the latest version of the software from the master repository on github and then run the install.sh script
+your password is required..  
 
 
-Uninstallation :
+--------------- Uninstallation of current version---------------
 if you want to uninstall the app , run 
 ./uninstall.sh
 your password is required..  
