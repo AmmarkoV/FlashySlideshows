@@ -235,6 +235,13 @@ static void DisplayCallback(void)
 
 
    /* DRAW APPLICATION HUD */
+        if (frame.show_time>0)
+        {
+           unsigned int diff_ms=time_passed_microseconds/1000;
+           if (frame.show_time>diff_ms) { frame.show_time-=diff_ms; } else
+                                        { frame.show_time=0; }
+          DisplayHUD(2);
+        }else
         if (frame.show_information>0)
         {
            unsigned int diff_ms=time_passed_microseconds/1000;

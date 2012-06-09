@@ -60,10 +60,52 @@ void resetPerspectiveProjection()
 void DisplayHUD(unsigned int view_instructions)
 {
  setOrthographicProjection();
+
+ if (view_instructions==2)
+   {
+     glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+       glBegin(GL_QUADS);
+        glColor4f(0.8,0.8,0.8,0.8);
+
+        glVertex2f(400,50);	// Bottom Left Of The Texture and Quad
+        glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
+        glVertex2f(1024,0);	// Top Right Of The Texture and Quad
+        glVertex2f(400,0);
+       glEnd();
+     glDisable(GL_BLEND);
+     glColor3f(0.8,0.0,0.0);
+     glRasterPos2f(450,15);
+
+     char time_string[512]={0};
+
+     unsigned int seconds_passed=frame.tick_count/1000;
+     unsigned int minutes_passed = seconds_passed/60;
+     seconds_passed-=minutes_passed*60;
+     unsigned int hours_passed = minutes_passed /60;
+     minutes_passed-=hours_passed*60;
+
+     unsigned int est_hours=0 , est_minutes=0 , est_secs=0;
+     if (frame.active_image_place!=0)
+     {
+      est_secs=(unsigned int ) (seconds_passed*GetTotalViewableFilesInDirectory())/frame.active_image_place;
+      est_minutes = est_secs/60;
+      est_secs-=est_minutes*60;
+      unsigned int est_hours = est_minutes /60;
+      est_minutes-=est_hours*60;
+     }
+     sprintf(time_string,"Time %02u:%02u:%02u for %u/%u est for all %02u:%02u:%02u",hours_passed,minutes_passed,seconds_passed,frame.active_image_place,GetTotalViewableFilesInDirectory(),est_hours,est_minutes,est_secs);
+     glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) time_string);
+
+     glColor4f(1.0,1.0,1.0,1.0);
+     resetPerspectiveProjection();
+     return;
+   }
+
  glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
    glBegin(GL_QUADS);
-    glColor4f(0.9,0.9,0.9,0.9);
+    glColor4f(0.8,0.8,0.8,0.8);
 
     glVertex2f(0,50);	// Bottom Left Of The Texture and Quad
     glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
@@ -75,7 +117,7 @@ void DisplayHUD(unsigned int view_instructions)
     glVertex2f(1024,718);	// Top Right Of The Texture and Quad
     glVertex2f(0,718);
 
-    if (view_instructions)
+    if (view_instructions==1)
     {
       glVertex2f(100,668);	// Bottom Left Of The Texture and Quad
       glVertex2f(924,668);	// Bottom Right Of The Texture and Quad
@@ -88,7 +130,7 @@ void DisplayHUD(unsigned int view_instructions)
 
 
 
-    if (view_instructions)
+    if (view_instructions==1)
     {
       glColor3f(0.0,0.0,0.0);
       glRasterPos2f(120,600); glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "Instructions");

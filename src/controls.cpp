@@ -239,6 +239,7 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 4 : /* RIGHT */ MoveToPicture(D_RIGHT); break;
 
         case 9 : /* TAB */   frame.show_information=550; /* 550 is the time !*/ break;
+        case '`' : /*Tilda button*/ frame.show_time=550; break;
 
         case 13  : /* ENTER */ ToggleAutomaticSlideshow(); break;
         case ' ' : /* SPACE */ ToggleAutomaticSlideshow(); break;

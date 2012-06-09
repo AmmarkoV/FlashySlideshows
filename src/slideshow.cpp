@@ -163,6 +163,9 @@ void InitSlideShow()
    frame.mipmaping=0;
 
 
+   frame.show_information=0;
+   frame.show_time=0;
+
    /* GPU DATA */
    frame.gpu.usedRAM=0;
    frame.gpu.maxRAM=256 * 1024 * 1024;

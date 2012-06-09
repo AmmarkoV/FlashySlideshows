@@ -130,6 +130,7 @@ struct SlideShowData
   unsigned int enable_sound_effects;
 
   unsigned int show_information;
+  unsigned int show_time;
 
   unsigned int tick_count;
   unsigned int fps;

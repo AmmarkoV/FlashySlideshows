@@ -211,7 +211,7 @@
 	"math_3d.h"
 	<math.h>
 
-1314284222 /usr/include/wx-2.8/wx/image.h
+1329067346 /usr/include/wx-2.8/wx/image.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/string.h"
@@ -230,7 +230,7 @@
 	"wx/imagxpm.h"
 	"wx/imagiff.h"
 
-1314284221 /usr/include/wx-2.8/wx/defs.h
+1329067344 /usr/include/wx-2.8/wx/defs.h
 	"wx/platform.h"
 	"wx/features.h"
 	"wx/version.h"
@@ -241,7 +241,7 @@
 	<unistd.h>
 	"wx/msw/winundef.h"
 
-1314284221 /usr/include/wx-2.8/wx/platform.h
+1329067344 /usr/include/wx-2.8/wx/platform.h
 	<stddef.h>
 	<AvailabilityMacros.h>
 	<unistd.h>
@@ -255,7 +255,7 @@
 
 1314284221 /usr/lib/wx/include/gtk2-unicode-release-2.8/wx/setup.h
 
-1314284221 /usr/include/wx-2.8/wx/chkconf.h
+1329067344 /usr/include/wx-2.8/wx/chkconf.h
 	"wx/palmos/chkconf.h"
 	"wx/msw/wince/chkconf.h"
 	"wx/msw/chkconf.h"
@@ -267,21 +267,21 @@
 	"wx/x11/chkconf.h"
 	"wx/univ/chkconf.h"
 
-1314284221 /usr/include/wx-2.8/wx/features.h
+1329067344 /usr/include/wx-2.8/wx/features.h
 
-1314284221 /usr/include/wx-2.8/wx/version.h
+1329067345 /usr/include/wx-2.8/wx/version.h
 	"wx/cpp.h"
 
-1314284221 /usr/include/wx-2.8/wx/cpp.h
+1329067344 /usr/include/wx-2.8/wx/cpp.h
 
-1314284221 /usr/include/wx-2.8/wx/dlimpexp.h
+1329067344 /usr/include/wx-2.8/wx/dlimpexp.h
 
-1314284221 /usr/include/wx-2.8/wx/debug.h
+1329067344 /usr/include/wx-2.8/wx/debug.h
 	<assert.h>
 	<limits.h>
 	"wx/wxchar.h"
 
-1314284221 /usr/include/wx-2.8/wx/wxchar.h
+1329067345 /usr/include/wx-2.8/wx/wxchar.h
 	"wx/platform.h"
 	"wx/dlimpexp.h"
 	<stdio.h>
@@ -311,18 +311,18 @@
 	<time.h>
 	<string.h>
 
-1314284221 /usr/include/wx-2.8/wx/object.h
+1329067344 /usr/include/wx-2.8/wx/object.h
 	"wx/memory.h"
 	"wx/xti.h"
 	"wx/msw/msvcrt.h"
 
-1314284221 /usr/include/wx-2.8/wx/memory.h
+1329067344 /usr/include/wx-2.8/wx/memory.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/msgout.h"
 	<stddef.h>
 
-1314284221 /usr/include/wx-2.8/wx/string.h
+1329067345 /usr/include/wx-2.8/wx/string.h
 	"wx/defs.h"
 	<ctype.h>
 	<stdio.h>
@@ -345,11 +345,11 @@
 	"wx/arrstr.h"
 	"wx/iosfwrap.h"
 
-1314284221 /usr/include/wx-2.8/wx/buffer.h
+1329067344 /usr/include/wx-2.8/wx/buffer.h
 	"wx/wxchar.h"
 	<stdlib.h>
 
-1314284221 /usr/include/wx-2.8/wx/strconv.h
+1329067345 /usr/include/wx-2.8/wx/strconv.h
 	"wx/defs.h"
 	"wx/wxchar.h"
 	"wx/buffer.h"
@@ -357,35 +357,35 @@
 	<stdlib.h>
 	"wx/fontenc.h"
 
-1314284221 /usr/include/wx-2.8/wx/fontenc.h
+1329067344 /usr/include/wx-2.8/wx/fontenc.h
 
-1314284221 /usr/include/wx-2.8/wx/beforestd.h
+1329067344 /usr/include/wx-2.8/wx/beforestd.h
 
-1314284221 /usr/include/wx-2.8/wx/afterstd.h
+1329067344 /usr/include/wx-2.8/wx/afterstd.h
 	"wx/msw/winundef.h"
 
-1314284221 /usr/include/wx-2.8/wx/arrstr.h
+1329067344 /usr/include/wx-2.8/wx/arrstr.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/dynarray.h"
 
-1314284221 /usr/include/wx-2.8/wx/dynarray.h
+1329067344 /usr/include/wx-2.8/wx/dynarray.h
 	"wx/defs.h"
 	"wx/beforestd.h"
 	<vector>
 	<algorithm>
 	"wx/afterstd.h"
 
-1314284221 /usr/include/wx-2.8/wx/iosfwrap.h
+1329067344 /usr/include/wx-2.8/wx/iosfwrap.h
 	<iostream.h>
 	<iosfwd>
 	"wx/msw/winundef.h"
 
-1314284221 /usr/include/wx-2.8/wx/msgout.h
+1329067344 /usr/include/wx-2.8/wx/msgout.h
 	"wx/defs.h"
 	"wx/wxchar.h"
 
-1314284221 /usr/include/wx-2.8/wx/xti.h
+1329067345 /usr/include/wx-2.8/wx/xti.h
 	"wx/defs.h"
 	"wx/memory.h"
 	"wx/flags.h"
@@ -397,7 +397,7 @@
 	<typeinfo>
 	"wx/dynarray.h"
 
-1314284221 /usr/include/wx-2.8/wx/hashmap.h
+1329067344 /usr/include/wx-2.8/wx/hashmap.h
 	"wx/string.h"
 	<unordered_map>
 	<tr1/unordered_map>
@@ -405,7 +405,7 @@
 	<hash_map>
 	<stddef.h>
 
-1314284221 /usr/include/wx-2.8/wx/log.h
+1329067344 /usr/include/wx-2.8/wx/log.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/arrstr.h"
@@ -415,14 +415,14 @@
 	"wx/generic/logg.h"
 	"wx/cocoa/log.h"
 
-1314284222 /usr/include/wx-2.8/wx/generic/logg.h
+1329067345 /usr/include/wx-2.8/wx/generic/logg.h
 
-1314284221 /usr/include/wx-2.8/wx/intl.h
+1329067344 /usr/include/wx-2.8/wx/intl.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/fontenc.h"
 
-1314284222 /usr/include/wx-2.8/wx/gdicmn.h
+1329067345 /usr/include/wx-2.8/wx/gdicmn.h
 	"wx/defs.h"
 	"wx/list.h"
 	"wx/string.h"
@@ -430,7 +430,7 @@
 	"wx/hashmap.h"
 	"wx/math.h"
 
-1314284221 /usr/include/wx-2.8/wx/list.h
+1329067344 /usr/include/wx-2.8/wx/list.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/string.h"
@@ -440,19 +440,19 @@
 	<list>
 	"wx/afterstd.h"
 
-1314284221 /usr/include/wx-2.8/wx/math.h
+1329067344 /usr/include/wx-2.8/wx/math.h
 	"wx/defs.h"
 	<math.h>
 	<float.h>
 
-1314284221 /usr/include/wx-2.8/wx/stream.h
+1329067345 /usr/include/wx-2.8/wx/stream.h
 	"wx/defs.h"
 	<stdio.h>
 	"wx/object.h"
 	"wx/string.h"
 	"wx/filefn.h"
 
-1314284221 /usr/include/wx-2.8/wx/filefn.h
+1329067344 /usr/include/wx-2.8/wx/filefn.h
 	"wx/list.h"
 	"wx/arrstr.h"
 	"wx/msw/wince/time.h"
@@ -488,7 +488,7 @@
 	<fcntl.h>
 	<sys/types.h>
 
-1314284221 /usr/include/wx-2.8/wx/variant.h
+1329067345 /usr/include/wx-2.8/wx/variant.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/string.h"
@@ -499,7 +499,7 @@
 	"wx/db.h"
 	"wx/iosfwrap.h"
 
-1314284221 /usr/include/wx-2.8/wx/datetime.h
+1329067344 /usr/include/wx-2.8/wx/datetime.h
 	"wx/defs.h"
 	<time.h>
 	"wx/msw/wince/time.h"
@@ -507,13 +507,13 @@
 	"wx/longlong.h"
 	"wx/dynarray.h"
 
-1314284221 /usr/include/wx-2.8/wx/longlong.h
+1329067344 /usr/include/wx-2.8/wx/longlong.h
 	"wx/defs.h"
 	"wx/string.h"
 	<limits.h>
 	"wx/iosfwrap.h"
 
-1314284221 /usr/include/wx-2.8/wx/db.h
+1329067345 /usr/include/wx-2.8/wx/db.h
 	"wx/defs.h"
 	"wx/string.h"
 	<afxwin.h>
@@ -530,49 +530,49 @@
 	<sqlext.h>
 	"wx/object.h"
 
-1314284221 /usr/include/wx-2.8/wx/isql.h
+1329067344 /usr/include/wx-2.8/wx/isql.h
 
-1314284221 /usr/include/wx-2.8/wx/isqlext.h
+1329067344 /usr/include/wx-2.8/wx/isqlext.h
 	"wx/isql.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagbmp.h
+1329067346 /usr/include/wx-2.8/wx/imagbmp.h
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagpng.h
+1329067346 /usr/include/wx-2.8/wx/imagpng.h
 	"wx/defs.h"
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imaggif.h
+1329067346 /usr/include/wx-2.8/wx/imaggif.h
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagpcx.h
+1329067346 /usr/include/wx-2.8/wx/imagpcx.h
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagjpeg.h
+1329067346 /usr/include/wx-2.8/wx/imagjpeg.h
 	"wx/defs.h"
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagtga.h
+1329067346 /usr/include/wx-2.8/wx/imagtga.h
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagtiff.h
+1329067346 /usr/include/wx-2.8/wx/imagtiff.h
 	"wx/defs.h"
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagpnm.h
+1329067346 /usr/include/wx-2.8/wx/imagpnm.h
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagxpm.h
+1329067346 /usr/include/wx-2.8/wx/imagxpm.h
 	"wx/image.h"
 
-1314284222 /usr/include/wx-2.8/wx/imagiff.h
+1329067346 /usr/include/wx-2.8/wx/imagiff.h
 	"wx/image.h"
 
 1284774731 /home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.h
 	<windows.h>
 	<wx/app.h>
 
-1314284221 /usr/include/wx-2.8/wx/app.h
+1329067344 /usr/include/wx-2.8/wx/app.h
 	"wx/event.h"
 	"wx/build.h"
 	"wx/init.h"
@@ -590,7 +590,7 @@
 	"wx/os2/app.h"
 	"wx/univ/theme.h"
 
-1314284221 /usr/include/wx-2.8/wx/event.h
+1329067344 /usr/include/wx-2.8/wx/event.h
 	"wx/defs.h"
 	"wx/cpp.h"
 	"wx/object.h"
@@ -600,16 +600,16 @@
 	"wx/thread.h"
 	"wx/dynarray.h"
 
-1314284221 /usr/include/wx-2.8/wx/clntdata.h
+1329067344 /usr/include/wx-2.8/wx/clntdata.h
 	"wx/defs.h"
 	"wx/string.h"
 	"wx/hashmap.h"
 	"wx/vector.h"
 
-1314284221 /usr/include/wx-2.8/wx/vector.h
+1329067345 /usr/include/wx-2.8/wx/vector.h
 	"wx/defs.h"
 
-1314284222 /usr/include/wx-2.8/wx/cursor.h
+1329067345 /usr/include/wx-2.8/wx/cursor.h
 	"wx/defs.h"
 	"wx/palmos/cursor.h"
 	"wx/msw/cursor.h"
@@ -624,10 +624,10 @@
 	"wx/os2/cursor.h"
 	"wx/utils.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/cursor.h
+1329067346 /usr/include/wx-2.8/wx/gtk/cursor.h
 	"wx/object.h"
 
-1314284221 /usr/include/wx-2.8/wx/utils.h
+1329067345 /usr/include/wx-2.8/wx/utils.h
 	"wx/object.h"
 	"wx/list.h"
 	"wx/filefn.h"
@@ -639,20 +639,20 @@
 	<unistd.h>
 	<stdio.h>
 
-1314284221 /usr/include/wx-2.8/wx/platinfo.h
+1329067344 /usr/include/wx-2.8/wx/platinfo.h
 	"wx/string.h"
 
-1314284221 /usr/include/wx-2.8/wx/thread.h
+1329067345 /usr/include/wx-2.8/wx/thread.h
 	"wx/defs.h"
 
-1314284221 /usr/include/wx-2.8/wx/build.h
+1329067344 /usr/include/wx-2.8/wx/build.h
 	"wx/version.h"
 
-1314284221 /usr/include/wx-2.8/wx/init.h
+1329067344 /usr/include/wx-2.8/wx/init.h
 	"wx/defs.h"
 	"wx/wxchar.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/app.h
+1329067346 /usr/include/wx-2.8/wx/gtk/app.h
 
 1331238408 source:/home/ammar/Documents/Programming/FlashySlideShow/wxwidgets_stuff.cpp
 	<wx/msgdlg.h>
@@ -660,7 +660,7 @@
 	"wxwidgets_stuff.h"
 	<wx/image.h>
 
-1314284222 /usr/include/wx-2.8/wx/msgdlg.h
+1329067345 /usr/include/wx-2.8/wx/msgdlg.h
 	"wx/defs.h"
 	"wx/generic/msgdlgg.h"
 	"wx/generic/msgdlgg.h"
@@ -674,11 +674,11 @@
 	"wx/cocoa/msgdlg.h"
 	"wx/os2/msgdlg.h"
 
-1314284222 /usr/include/wx-2.8/wx/generic/msgdlgg.h
+1329067345 /usr/include/wx-2.8/wx/generic/msgdlgg.h
 	"wx/defs.h"
 	"wx/dialog.h"
 
-1314284222 /usr/include/wx-2.8/wx/dialog.h
+1329067345 /usr/include/wx-2.8/wx/dialog.h
 	"wx/defs.h"
 	"wx/containr.h"
 	"wx/toplevel.h"
@@ -692,9 +692,9 @@
 	"wx/cocoa/dialog.h"
 	"wx/os2/dialog.h"
 
-1314284221 /usr/include/wx-2.8/wx/containr.h
+1329067344 /usr/include/wx-2.8/wx/containr.h
 
-1314284222 /usr/include/wx-2.8/wx/toplevel.h
+1329067346 /usr/include/wx-2.8/wx/toplevel.h
 	"wx/window.h"
 	"wx/iconbndl.h"
 	"wx/palmos/toplevel.h"
@@ -710,7 +710,7 @@
 	"wx/motif/toplevel.h"
 	"wx/univ/toplevel.h"
 
-1314284222 /usr/include/wx-2.8/wx/window.h
+1329067346 /usr/include/wx-2.8/wx/window.h
 	"wx/event.h"
 	"wx/list.h"
 	"wx/cursor.h"
@@ -736,7 +736,7 @@
 	"wx/os2/window.h"
 	"wx/univ/window.h"
 
-1314284222 /usr/include/wx-2.8/wx/font.h
+1329067346 /usr/include/wx-2.8/wx/font.h
 	"wx/defs.h"
 	"wx/fontenc.h"
 	"wx/gdiobj.h"
@@ -752,12 +752,12 @@
 	"wx/cocoa/font.h"
 	"wx/os2/font.h"
 
-1314284222 /usr/include/wx-2.8/wx/gdiobj.h
+1329067346 /usr/include/wx-2.8/wx/gdiobj.h
 	"wx/object.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/font.h
+1329067346 /usr/include/wx-2.8/wx/gtk/font.h
 
-1314284222 /usr/include/wx-2.8/wx/colour.h
+1329067346 /usr/include/wx-2.8/wx/colour.h
 	"wx/defs.h"
 	"wx/gdiobj.h"
 	"wx/variant.h"
@@ -773,9 +773,9 @@
 	"wx/cocoa/colour.h"
 	"wx/os2/colour.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/colour.h
+1329067346 /usr/include/wx-2.8/wx/gtk/colour.h
 
-1314284222 /usr/include/wx-2.8/wx/region.h
+1329067346 /usr/include/wx-2.8/wx/region.h
 	"wx/gdiobj.h"
 	"wx/gdicmn.h"
 	"wx/palmos/region.h"
@@ -789,13 +789,13 @@
 	"wx/cocoa/region.h"
 	"wx/os2/region.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/region.h
+1329067346 /usr/include/wx-2.8/wx/gtk/region.h
 
-1314284222 /usr/include/wx-2.8/wx/validate.h
+1329067346 /usr/include/wx-2.8/wx/validate.h
 	"wx/defs.h"
 	"wx/event.h"
 
-1314284222 /usr/include/wx-2.8/wx/palette.h
+1329067345 /usr/include/wx-2.8/wx/palette.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/gdiobj.h"
@@ -808,13 +808,13 @@
 	"wx/mac/palette.h"
 	"wx/os2/palette.h"
 
-1314284222 /usr/include/wx-2.8/wx/generic/paletteg.h
+1329067346 /usr/include/wx-2.8/wx/generic/paletteg.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/gdiobj.h"
 	"wx/gdicmn.h"
 
-1314284222 /usr/include/wx-2.8/wx/accel.h
+1329067346 /usr/include/wx-2.8/wx/accel.h
 	"wx/defs.h"
 	"wx/object.h"
 	"wx/generic/accel.h"
@@ -826,43 +826,43 @@
 	"wx/generic/accel.h"
 	"wx/os2/accel.h"
 
-1314284222 /usr/include/wx-2.8/wx/generic/accel.h
+1329067345 /usr/include/wx-2.8/wx/generic/accel.h
 
-1314284222 /usr/include/wx-2.8/wx/gtk/accel.h
+1329067347 /usr/include/wx-2.8/wx/gtk/accel.h
 	"wx/generic/accel.h"
 
-1314284222 /usr/include/wx-2.8/wx/access.h
+1329067346 /usr/include/wx-2.8/wx/access.h
 	"wx/defs.h"
 	"wx/variant.h"
 	"wx/msw/ole/access.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/window.h
+1329067346 /usr/include/wx-2.8/wx/gtk/window.h
 	"wx/dynarray.h"
 
-1314284222 /usr/include/wx-2.8/wx/iconbndl.h
+1329067346 /usr/include/wx-2.8/wx/iconbndl.h
 	"wx/dynarray.h"
 	"wx/gdicmn.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/toplevel.h
+1329067346 /usr/include/wx-2.8/wx/gtk/toplevel.h
 
-1314284222 /usr/include/wx-2.8/wx/gtk/dialog.h
+1329067347 /usr/include/wx-2.8/wx/gtk/dialog.h
 	"wx/defs.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/msgdlg.h
+1329067347 /usr/include/wx-2.8/wx/gtk/msgdlg.h
 	"wx/defs.h"
 	"wx/dialog.h"
 
-1314284221 /usr/include/wx-2.8/wx/dir.h
+1329067344 /usr/include/wx-2.8/wx/dir.h
 	"wx/longlong.h"
 	"wx/string.h"
 
-1314284221 /usr/include/wx-2.8/wx/filename.h
+1329067344 /usr/include/wx-2.8/wx/filename.h
 	"wx/arrstr.h"
 	"wx/filefn.h"
 	"wx/datetime.h"
 	"wx/intl.h"
 
-1314284222 /usr/include/wx-2.8/wx/dirdlg.h
+1329067345 /usr/include/wx-2.8/wx/dirdlg.h
 	"wx/dialog.h"
 	"wx/generic/dirdlgg.h"
 	"wx/generic/dirdlgg.h"
@@ -874,10 +874,10 @@
 	"wx/cocoa/dirdlg.h"
 	"wx/generic/dirdlgg.h"
 
-1314284222 /usr/include/wx-2.8/wx/generic/dirdlgg.h
+1329067346 /usr/include/wx-2.8/wx/generic/dirdlgg.h
 	"wx/dialog.h"
 
-1314284222 /usr/include/wx-2.8/wx/gtk/dirdlg.h
+1329067347 /usr/include/wx-2.8/wx/gtk/dirdlg.h
 	"wx/generic/dirdlgg.h"
 
 1331768550 /home/ammar/Documents/Programming/FlashySlideShow/scene_objects.h
@@ -1446,4 +1446,387 @@
 	<GL/glut.h>
 	<GL/freeglut.h>
 	<GL/glu.h>
+
+1332296676 source:/home/ammar/Documents/Programming/FlashySlideShow/src/camera_control.cpp
+	"transitions/transition_handler.h"
+	"layouts/layout_handler.h"
+	"slideshow.h"
+	"camera_control.h"
+	"load_images.h"
+	"pictures_control.h"
+	"environment.h"
+	<stdlib.h>
+	<stdio.h>
+	<math.h>
+	"math_3d.h"
+	"sound.h"
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1331693954 /home/ammar/Documents/Programming/FlashySlideShow/src/transitions/transition_handler.h
+
+1332209192 /home/ammar/Documents/Programming/FlashySlideShow/src/layouts/layout_handler.h
+	"../load_images.h"
+
+1332165806 /home/ammar/Documents/Programming/FlashySlideShow/src/load_images.h
+	<GL/glu.h>
+	"slideshow.h"
+
+1339256889 /home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.h
+	"load_images.h"
+
+1332265684 /home/ammar/Documents/Programming/FlashySlideShow/src/camera_control.h
+
+1330813507 /home/ammar/Documents/Programming/FlashySlideShow/src/pictures_control.h
+
+1331819114 /home/ammar/Documents/Programming/FlashySlideShow/src/environment.h
+	<unistd.h>
+
+1332292241 /home/ammar/Documents/Programming/FlashySlideShow/src/math_3d.h
+
+1327625347 /home/ammar/Documents/Programming/FlashySlideShow/src/sound.h
+
+1339256874 source:/home/ammar/Documents/Programming/FlashySlideShow/src/controls.cpp
+	<stdlib.h>
+	<stdio.h>
+	"slideshow.h"
+	"camera_control.h"
+	"pictures_control.h"
+	"controls.h"
+	"visuals.h"
+	"scene_objects.h"
+	"environment.h"
+	"directory_listing.h"
+	"layouts/layout_handler.h"
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1283130445 /home/ammar/Documents/Programming/FlashySlideShow/src/controls.h
+
+1331768567 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals.h
+
+1331768550 /home/ammar/Documents/Programming/FlashySlideShow/src/scene_objects.h
+	"slideshow.h"
+
+1336427089 /home/ammar/Documents/Programming/FlashySlideShow/src/directory_listing.h
+
+1336427126 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_listing.cpp
+	"directory_listing.h"
+	"directory_sorting.h"
+	<sys/time.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<wx/msgdlg.h>
+	"wxwidgets_stuff.h"
+	"wx/dir.h"
+	"wx/filename.h"
+	"wx/dirdlg.h"
+	<wx/filefn.h>
+
+1336426760 /home/ammar/Documents/Programming/FlashySlideShow/src/directory_sorting.h
+
+1329067344 /usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-release-2.8/wx/setup.h
+
+1284774731 /home/ammar/Documents/Programming/FlashySlideShow/src/wxwidgets_stuff.h
+	<windows.h>
+	<wx/app.h>
+
+1336427447 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_sorting.cpp
+	"directory_sorting.h"
+	"directory_listing.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
+
+1331696810 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_transactions.cpp
+	"directory_transactions.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<sys/stat.h>
+	"slideshow.h"
+	"visuals.h"
+	"directory_listing.h"
+
+1331223884 /home/ammar/Documents/Programming/FlashySlideShow/src/directory_transactions.h
+
+1333904500 source:/home/ammar/Documents/Programming/FlashySlideShow/src/environment.cpp
+	"environment.h"
+	"directory_listing.h"
+	"load_images.h"
+	"load_textures.h"
+	"image_sensing.h"
+	"sound.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
+
+1285288623 /home/ammar/Documents/Programming/FlashySlideShow/src/load_textures.h
+	<GL/glu.h>
+
+1327634892 /home/ammar/Documents/Programming/FlashySlideShow/src/image_sensing.h
+
+1331315176 source:/home/ammar/Documents/Programming/FlashySlideShow/src/image_sensing.cpp
+	"image_sensing.h"
+	<stdlib.h>
+	<stdio.h>
+	<cv.h>
+	<cxcore.h>
+	"load_images.h"
+	"environment.h"
+
+1303997574 /usr/include/opencv/cv.h
+	"opencv2/core/core_c.h"
+	"opencv2/core/core.hpp"
+	"opencv2/imgproc/imgproc_c.h"
+	"opencv2/imgproc/imgproc.hpp"
+	"opencv2/video/tracking.hpp"
+	"opencv2/features2d/features2d.hpp"
+	"opencv2/flann/flann.hpp"
+	"opencv2/calib3d/calib3d.hpp"
+	"opencv2/objdetect/objdetect.hpp"
+	"opencv2/legacy/compat.hpp"
+	"opencv2/core/internal.hpp"
+
+1303997574 /usr/include/opencv/cxcore.h
+	"opencv2/core/core_c.h"
+	"opencv2/core/core.hpp"
+
+1329408076 source:/home/ammar/Documents/Programming/FlashySlideShow/src/joystick.cpp
+	<stdio.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<stdlib.h>
+	<string.h>
+	<pthread.h>
+	"camera_control.h"
+	"joystick.h"
+	"slideshow.h"
+
+1324782500 /home/ammar/Documents/Programming/FlashySlideShow/src/joystick.h
+	<stdio.h>
+
+1332704091 source:/home/ammar/Documents/Programming/FlashySlideShow/src/jpegexiforient_embed.cpp
+	"jpegexiforient_embed.h"
+	<stdio.h>
+	<stdlib.h>
+
+1331603765 /home/ammar/Documents/Programming/FlashySlideShow/src/jpegexiforient_embed.h
+
+1331814937 source:/home/ammar/Documents/Programming/FlashySlideShow/src/layouts/expo_layout.cpp
+	"expo_layout.h"
+	"../slideshow.h"
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+
+1331693369 /home/ammar/Documents/Programming/FlashySlideShow/src/layouts/expo_layout.h
+	"../load_images.h"
+
+1332209118 source:/home/ammar/Documents/Programming/FlashySlideShow/src/layouts/layout_handler.cpp
+	"layout_handler.h"
+	"expo_layout.h"
+	"../slideshow.h"
+	"../visuals/background.h"
+	<stdlib.h>
+	<stdio.h>
+
+1332187304 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals/background.h
+
+1333904564 source:/home/ammar/Documents/Programming/FlashySlideShow/src/load_images.cpp
+	"load_images.h"
+	"jpegexiforient_embed.h"
+	"memory_hypervisor.h"
+	"layouts/layout_handler.h"
+	"load_images.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<wx/image.h>
+	"load_textures.h"
+	"image_sensing.h"
+	"environment.h"
+
+1332171694 /home/ammar/Documents/Programming/FlashySlideShow/src/memory_hypervisor.h
+
+1332165886 source:/home/ammar/Documents/Programming/FlashySlideShow/src/load_textures.cpp
+	"load_textures.h"
+	"load_images.h"
+	"environment.h"
+	"directory_listing.h"
+	"slideshow.h"
+	"sound.h"
+	"memory_hypervisor.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+
+1339256833 source:/home/ammar/Documents/Programming/FlashySlideShow/src/main.cpp
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<pthread.h>
+	"slideshow.h"
+	"visuals.h"
+	"directory_listing.h"
+	"camera_control.h"
+	"pictures_control.h"
+	"controls.h"
+	"load_images.h"
+	"load_textures.h"
+	"sound.h"
+	"memory_hypervisor.h"
+	"wxwidgets_stuff.h"
+	"joystick.h"
+	"environment.h"
+	"scene_objects.h"
+	"version.h"
+	"layouts/layout_handler.h"
+	"visuals/hud.h"
+	<unistd.h>
+	<sys/time.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1339257210 /home/ammar/Documents/Programming/FlashySlideShow/src/version.h
+
+1331766905 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals/hud.h
+
+1332292234 source:/home/ammar/Documents/Programming/FlashySlideShow/src/math_3d.cpp
+	"math_3d.h"
+	<math.h>
+
+1332171997 source:/home/ammar/Documents/Programming/FlashySlideShow/src/memory_hypervisor.cpp
+	"memory_hypervisor.h"
+	"slideshow.h"
+	"load_images.h"
+	"load_textures.h"
+	"directory_listing.h"
+	"environment.h"
+	<stdio.h>
+	<unistd.h>
+	<pthread.h>
+	<sys/time.h>
+
+1337104020 source:/home/ammar/Documents/Programming/FlashySlideShow/src/pictures_control.cpp
+	"pictures_control.h"
+	"slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+
+1332203007 source:/home/ammar/Documents/Programming/FlashySlideShow/src/scene_objects.cpp
+	"scene_objects.h"
+	"visuals.h"
+	<stdlib.h>
+	<stdio.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1339256925 source:/home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.cpp
+	"slideshow.h"
+	"camera_control.h"
+	"sound.h"
+	"visuals.h"
+	"scene_objects.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	"transitions/transition_handler.h"
+	"layouts/layout_handler.h"
+
+1329408151 source:/home/ammar/Documents/Programming/FlashySlideShow/src/sound.cpp
+	"sound.h"
+	"slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<AL/al.h>
+	<AL/alc.h>
+	<AL/alut.h>
+
+1331769237 source:/home/ammar/Documents/Programming/FlashySlideShow/src/transitions/transition_handler.cpp
+	"transition_handler.h"
+
+1332192175 source:/home/ammar/Documents/Programming/FlashySlideShow/src/visuals.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"visuals.h"
+	"slideshow.h"
+	"load_images.h"
+	"directory_listing.h"
+	"scene_objects.h"
+	"sound.h"
+	<math.h>
+	"camera_control.h"
+	"layouts/layout_handler.h"
+	"visuals/effects.h"
+	"visuals/hud.h"
+	"visuals/background.h"
+	"visuals/picture_renderer.h"
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1331767319 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals/effects.h
+
+1331768182 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals/picture_renderer.h
+	"../load_images.h"
+
+1332190568 source:/home/ammar/Documents/Programming/FlashySlideShow/src/visuals/background.cpp
+	"background.h"
+	"../slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1332041074 source:/home/ammar/Documents/Programming/FlashySlideShow/src/visuals/effects.cpp
+	"effects.h"
+	"../load_images.h"
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1332205006 source:/home/ammar/Documents/Programming/FlashySlideShow/src/visuals/picture_renderer.cpp
+	"picture_renderer.h"
+	"../slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1331238408 source:/home/ammar/Documents/Programming/FlashySlideShow/src/wxwidgets_stuff.cpp
+	<wx/msgdlg.h>
+	<wx/utils.h>
+	"wxwidgets_stuff.h"
+	<wx/image.h>
 
