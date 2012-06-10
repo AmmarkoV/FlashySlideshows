@@ -57,29 +57,31 @@ void resetPerspectiveProjection()
 
 }
 
-void DisplayHUD(unsigned int view_instructions)
-{
- setOrthographicProjection();
 
- if (view_instructions==2)
-   {
+void ShowClock()
+{
+   setOrthographicProjection();
      glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE);
        glBegin(GL_QUADS);
         glColor4f(0.8,0.8,0.8,0.8);
 
-        glVertex2f(400,50);	// Bottom Left Of The Texture and Quad
+        glVertex2f(300,50);	// Bottom Left Of The Texture and Quad
         glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
         glVertex2f(1024,0);	// Top Right Of The Texture and Quad
-        glVertex2f(400,0);
+        glVertex2f(300,0);
        glEnd();
      glDisable(GL_BLEND);
      glColor3f(0.8,0.0,0.0);
-     glRasterPos2f(450,15);
+     glRasterPos2f(335,15);
 
      char time_string[512]={0};
 
-     unsigned int seconds_passed=frame.tick_count/1000;
+
+      /*This is a pretty badly written part of the hud :P */
+     unsigned int tot_secs=frame.tick_count/1000 , tot_minutes=0 , tot_hours=0;
+
+     unsigned int seconds_passed=tot_secs;
      unsigned int minutes_passed = seconds_passed/60;
      seconds_passed-=minutes_passed*60;
      unsigned int hours_passed = minutes_passed /60;
@@ -88,19 +90,40 @@ void DisplayHUD(unsigned int view_instructions)
      unsigned int est_hours=0 , est_minutes=0 , est_secs=0;
      if (frame.active_image_place!=0)
      {
-      est_secs=(unsigned int ) (seconds_passed*GetTotalViewableFilesInDirectory())/frame.active_image_place;
+      est_secs=(unsigned int ) (tot_secs*GetTotalViewableFilesInDirectory())/frame.active_image_place;
+      tot_secs+=est_secs;
       est_minutes = est_secs/60;
       est_secs-=est_minutes*60;
-      unsigned int est_hours = est_minutes /60;
+      est_hours = est_minutes /60;
       est_minutes-=est_hours*60;
+
+      tot_minutes = tot_secs/60;
+      tot_secs-=tot_minutes*60;
+      tot_hours = tot_minutes /60;
+      tot_minutes-=tot_hours*60;
+     } else
+     {
+       tot_secs=0;
      }
-     sprintf(time_string,"Time %02u:%02u:%02u for %u/%u est for all %02u:%02u:%02u",hours_passed,minutes_passed,seconds_passed,frame.active_image_place,GetTotalViewableFilesInDirectory(),est_hours,est_minutes,est_secs);
+      /*This is a pretty badly written part of the hud :P */
+     sprintf(time_string,"Time %02u:%02u:%02u for %u/%u est remaining %02u:%02u:%02u est total %02u:%02u:%02u",hours_passed,minutes_passed,seconds_passed,
+                                                                                               frame.active_image_place+1,GetTotalViewableFilesInDirectory(),
+                                                                                               est_hours,est_minutes,est_secs,
+                                                                                               tot_hours,tot_minutes,tot_secs
+                                                                                               );
      glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) time_string);
 
      glColor4f(1.0,1.0,1.0,1.0);
      resetPerspectiveProjection();
      return;
-   }
+}
+
+
+void DisplayHUD(unsigned int view_instructions)
+{
+ if (view_instructions==2) { ShowClock(); return; }
+
+ setOrthographicProjection();
 
  glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
