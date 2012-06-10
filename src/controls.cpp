@@ -127,9 +127,12 @@ if (button==GLUT_RIGHT_BUTTON)
        if (state == GLUT_DOWN )
        {
          if (PrintDevMsg()) fprintf(stderr,"Right mouse button DOWN \n");
+
        } else
        if (state == GLUT_UP )
        {
+         frame.show_time=550; // <- show timer
+
          if (PrintDevMsg()) fprintf(stderr,"Right mouse button UP \n");
             if ( frame.mouse.left_pressed==1 ) {  } else /* RELEASING DRAG AND DROP */
            {

@@ -1488,7 +1488,7 @@
 
 1327625347 /home/ammar/Documents/Programming/FlashySlideShow/src/sound.h
 
-1339256874 source:/home/ammar/Documents/Programming/FlashySlideShow/src/controls.cpp
+1339364907 source:/home/ammar/Documents/Programming/FlashySlideShow/src/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
@@ -1702,7 +1702,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1339357624 /home/ammar/Documents/Programming/FlashySlideShow/src/version.h
+1339364909 /home/ammar/Documents/Programming/FlashySlideShow/src/version.h
 
 1331766905 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals/hud.h
 
@@ -1829,4 +1829,17 @@
 	<wx/utils.h>
 	"wxwidgets_stuff.h"
 	<wx/image.h>
+
+1339358366 source:/home/ammar/Documents/Programming/FlashySlideShow/src/visuals/hud.cpp
+	"hud.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+	"../slideshow.h"
+	"../directory_listing.h"
 
