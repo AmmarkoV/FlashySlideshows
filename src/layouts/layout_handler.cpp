@@ -130,7 +130,7 @@ float GetLayoutMaximumY()
 
 float GetLayoutMinimumZ()
 {
-    return -4.0;
+    return -3.0;
 }
 
 float GetLayoutMaximumZ()
