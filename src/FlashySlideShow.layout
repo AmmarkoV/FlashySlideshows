@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="camera_control.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="1810" topLine="319" />
+		<Cursor position="21595" topLine="495" />
 	</File>
 	<File name="camera_control.h" open="1" top="0" tabpos="22">
 		<Cursor position="598" topLine="0" />
@@ -19,7 +19,7 @@
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="269" topLine="0" />
 	</File>
-	<File name="directory_sorting.cpp" open="1" top="1" tabpos="34">
+	<File name="directory_sorting.cpp" open="1" top="0" tabpos="34">
 		<Cursor position="3694" topLine="86" />
 	</File>
 	<File name="directory_sorting.h" open="1" top="0" tabpos="52">
@@ -29,7 +29,7 @@
 		<Cursor position="2984" topLine="169" />
 	</File>
 	<File name="environment.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="877" topLine="0" />
+		<Cursor position="6114" topLine="191" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
 		<Cursor position="394" topLine="0" />
@@ -58,8 +58,8 @@
 	<File name="layouts/expo_layout.h" open="1" top="0" tabpos="39">
 		<Cursor position="180" topLine="0" />
 	</File>
-	<File name="layouts/layout_handler.cpp" open="1" top="0" tabpos="40">
-		<Cursor position="2468" topLine="100" />
+	<File name="layouts/layout_handler.cpp" open="1" top="1" tabpos="40">
+		<Cursor position="2714" topLine="100" />
 	</File>
 	<File name="layouts/layout_handler.h" open="1" top="0" tabpos="41">
 		<Cursor position="181" topLine="0" />
@@ -77,7 +77,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="15409" topLine="735" />
+		<Cursor position="4494" topLine="142" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="84" />
@@ -104,10 +104,10 @@
 		<Cursor position="1345" topLine="7" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="4552" topLine="132" />
+		<Cursor position="4552" topLine="186" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="2884" topLine="115" />
+		<Cursor position="2884" topLine="223" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="5267" topLine="148" />
@@ -125,7 +125,7 @@
 		<Cursor position="851" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="2158" topLine="51" />
+		<Cursor position="2158" topLine="72" />
 	</File>
 	<File name="visuals.h" open="1" top="0" tabpos="10">
 		<Cursor position="298" topLine="0" />
