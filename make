@@ -3,8 +3,12 @@ echo "Making FlashySlideshows.."
 
 OpenCVStuff="`pkg-config --cflags opencv` `pkg-config --libs opencv`"
 
+
 Optimizations="-s -O3 -fexpensive-optimizations"
-CPU="-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
+CPU=" "
+
+#If we are on an 64bit intel card we might want to uncomment the line that follows for better performance 
+#CPU="-mfpmath=sse -mtune=core2 -msse -msse2 -msse3"
 
 LAYOUTS="layouts/layout_handler.cpp layouts/expo_layout.cpp"
 VISUALS="visuals/hud.cpp visuals/background.cpp visuals/effects.cpp visuals/picture_renderer.cpp"
