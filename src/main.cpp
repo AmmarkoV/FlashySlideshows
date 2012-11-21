@@ -535,6 +535,16 @@ int main(int argc, char *argv[])
                          strcpy(frame.rescale_resolution_string,argv[i+1]);
                         }
                    } else
+             if (strcmp(argv[i],"-no_hud")==0)
+                   { //File Copy command
+                       fprintf(stderr,"Hud Disabled..",i,argv[i]);
+                       frame.disable_hud=1;
+                   } else
+             if (strcmp(argv[i],"-no_background")==0)
+                   { //File Copy command
+                       fprintf(stderr,"Background Disabled..",i,argv[i]);
+                       frame.plain_background_no_image=1;
+                   } else
              if (strcmp(argv[i],"-file_copy")==0)
                    { //File Copy command
                        fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);

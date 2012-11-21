@@ -101,6 +101,8 @@ const long FlashySlideShowStarterFrame::ID_CHECKBOX8 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_SPINCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATICTEXT8 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATICTEXT9 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_STATICTEXT10 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAmmarkoVWebsite = wxNewId();
@@ -127,15 +129,15 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     wxMenu* Menu2;
 
     Create(parent, wxID_ANY, _("Flashy SlideShow Starter "), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    SetClientSize(wxSize(685,495));
-    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(224,344), 0, _T("ID_STATICBOX2"));
-    StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(24,16), wxSize(416,312), 0, _T("ID_STATICBOX1"));
-    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,360), wxSize(216,48), 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    SetClientSize(wxSize(685,529));
+    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(224,368), 0, _T("ID_STATICBOX2"));
+    StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(32,16), wxSize(408,344), 0, _T("ID_STATICBOX1"));
+    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,392), wxSize(216,48), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     wxFont ButtonStartFont(32,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
     ButtonStart->SetFont(ButtonStartFont);
-    ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(604,408), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
-    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,334), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-    PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,330), wxSize(336,27), wxTE_PROCESS_ENTER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(600,448), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,372), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+    PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,368), wxSize(336,27), wxTE_PROCESS_ENTER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     CheckBoxSound = new wxCheckBox(this, ID_CHECKBOX1, _("Sound Effects"), wxPoint(456,280), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
     CheckBoxSound->SetValue(true);
     CheckBoxFaceDetection = new wxCheckBox(this, ID_CHECKBOX2, _("Face Detection"), wxPoint(456,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
@@ -145,7 +147,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxTransitions->Append(_("Immediate"));
     ComboBoxTransitions->Append(_("Transparency"));
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Transitions"), wxPoint(456,86), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,256), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
+    PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,304), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
     CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(456,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
     CheckBoxVisuals->SetValue(true);
     DelaySpinCtrl = new wxSpinCtrl(this, ID_SPINCTRL1, _T("5000"), wxPoint(496,138), wxSize(64,27), 0, 100, 10000, 5000, _T("ID_SPINCTRL1"));
@@ -165,8 +167,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxQuality->Append(_("Ultra"));
     CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(456,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
     CheckBoxMipmap->SetValue(false);
-    DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,360), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-    ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,408), wxSize(144,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,400), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+    ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,448), wxSize(144,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
     StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Sort Pictures By"), wxPoint(456,168), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
     ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,186), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
     ComboBoxSort->SetSelection( ComboBoxSort->Append(_("Names Ascending")) );
@@ -199,6 +201,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ImagesPerLine->SetValue(_T("3"));
     StaticText6 = new wxStaticText(this, ID_STATICTEXT8, _("Images"), wxPoint(600,56), wxDefaultSize, 0, _T("ID_STATICTEXT8"));
     StaticText8 = new wxStaticText(this, ID_STATICTEXT9, _("per line :"), wxPoint(600,72), wxDefaultSize, 0, _T("ID_STATICTEXT9"));
+    StaticText9 = new wxStaticText(this, ID_STATICTEXT10, _("Custom Args :"), wxPoint(460,350), wxDefaultSize, 0, _T("ID_STATICTEXT10"));
+    Arguments = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxPoint(552,348), wxSize(104,23), 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -373,6 +377,12 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
         { what_to_call<< wxT(" -s "); what_to_call<<ComboBoxSort->GetCurrentSelection(); }
     }
 
+    what_to_call<< wxT(" ");
+    what_to_call<< Arguments->GetValue();
+    what_to_call<< wxT(" ");
+
+
+
     what_to_call<< wxT(" \"");
     what_to_call<< path;
     what_to_call<< wxT("\"");
@@ -416,16 +426,18 @@ void FlashySlideShowStarterFrame::OnPaint(wxPaintEvent& event)
 {
   wxPaintDC dc(this);
 
+  int height = 424;
+
   if ((display_logo)||(ONLY_DISPLAY_LOGO))
   {
-      if ( flashy_bmp != 0 ) { dc.DrawBitmap(*flashy_bmp,32+0*(67+10),385,true); } else {   }
+      if ( flashy_bmp != 0 ) { dc.DrawBitmap(*flashy_bmp,32+0*(67+10),height,true); } else {   }
   } else
   {
-   if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),385,true); }
-   if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),385,true); }
-   if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),385,true); }
-   if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),385,true); }
-   if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),385,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),385,true); }
+   if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),height,true); }
+   if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),height,true); }
+   if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),height,true); }
+   if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),height,true); }
+   if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),height,true); }
   }
 
 }

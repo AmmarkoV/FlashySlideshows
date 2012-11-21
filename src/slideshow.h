@@ -126,6 +126,7 @@ struct LayoutState
 
 struct SlideShowData
 {
+  unsigned int plain_background_no_image;
   unsigned int background_number;
   unsigned int enable_sound_effects;
 
@@ -140,6 +141,9 @@ struct SlideShowData
 
   struct TransitionState transitions;
   struct LayoutState layout;
+
+
+  unsigned int disable_hud;  // 0, 1
 
   unsigned int quality_setting; //Smaller is better
   unsigned int try_for_best_render_quality; // <-- 0/1

@@ -50,7 +50,7 @@ void DrawTextured2DBackground()
 
 void DrawBackground()
 {
-  if (frame.try_for_best_render_quality)
+  if ( (frame.try_for_best_render_quality)&&(!frame.plain_background_no_image) )
     {
       DrawTextured2DBackground();
     } else

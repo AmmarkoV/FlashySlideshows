@@ -121,6 +121,8 @@ void ShowClock()
 
 void DisplayHUD(unsigned int view_instructions)
 {
+  if (frame.disable_hud) { return; }
+
  if (view_instructions==2) { ShowClock(); return; }
 
  setOrthographicProjection();

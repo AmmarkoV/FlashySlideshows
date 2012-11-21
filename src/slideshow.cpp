@@ -83,6 +83,8 @@ void InitSlideShow()
 
    frame.transitions.transition_mode=0;
 
+   frame.plain_background_no_image=0;
+   frame.disable_hud=0;
    frame.quality_setting=4; // Medium Quality
    frame.try_for_best_render_quality=0;
 
