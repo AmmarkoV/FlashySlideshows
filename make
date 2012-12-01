@@ -69,7 +69,7 @@ echo "Done.."
         echo "FlashySlideshows FAILED"
    fi
 
-  if [ -e src/FlashySlideShowStarter/bin/Release/flashyslideshows ] 
+  if [ -e src/FlashySlideShowStarter/bin/Release/flashyslideshowsgui ] 
    then
         echo "FlashySlideshowsStarter SUCCESS"
      else  
