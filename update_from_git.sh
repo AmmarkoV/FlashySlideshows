@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Reminder , to get a single file out of the repo use  "git checkout -- path/to/file.c"
+git reset --hard HEAD
+git pull 
+
  # Since we want to update from git , this is the chance  to clone  a fresh verion of AmmarServer :) 
 # First lets see if we already got a cloned version 
   if [ -e src/AmmarServer/src/main.c ] 
@@ -16,8 +20,7 @@
     cd ..
    fi
 
-#Reminder , to get a single file out of the repo use  "git checkout -- path/to/file.c"
-git reset --hard HEAD
-git pull
-./install.sh
+echo "Rebuilding a new version of the project"
+./make
+
 exit 0
