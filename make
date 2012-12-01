@@ -31,7 +31,7 @@ LAYOUTS="layouts/layout_handler.cpp layouts/expo_layout.cpp"
 VISUALS="visuals/hud.cpp visuals/background.cpp visuals/effects.cpp visuals/picture_renderer.cpp"
 TRANSITIONS="transitions/transition_handler.cpp"
 
-LIBRARIES="-lglut -lGL -lGLU -lXxf86vm -lopenal -lalut src/AmmarServer/src/AmmServerlib/libAmmServerlib.a"
+LIBRARIES="-lglut -lGL -lGLU -lXxf86vm -lopenal -lalut AmmarServer/src/AmmServerlib/libAmmServerlib.a"
 
 cd src
 
