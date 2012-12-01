@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="EmptyThumbnail.h" open="1" top="1" tabpos="6">
+	<File name="EmptyThumbnail.h" open="1" top="0" tabpos="6">
 		<Cursor position="2112" topLine="0" />
 	</File>
 	<File name="FlashyLogo.h" open="1" top="0" tabpos="5">
@@ -13,7 +13,7 @@
 	<File name="FlashySlideShowStarterApp.h" open="1" top="0" tabpos="4">
 		<Cursor position="591" topLine="0" />
 	</File>
-	<File name="FlashySlideShowStarterMain.cpp" open="1" top="0" tabpos="1">
+	<File name="FlashySlideShowStarterMain.cpp" open="1" top="1" tabpos="1">
 		<Cursor position="21017" topLine="334" />
 	</File>
 	<File name="FlashySlideShowStarterMain.h" open="1" top="0" tabpos="3">
