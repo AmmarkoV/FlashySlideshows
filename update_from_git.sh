@@ -10,8 +10,8 @@
       cd ../../
      else 
      echo "Could not find AmmarServer , we have the stock NULL one only cloning a fresh copy from github!"
-     cd src
      rm -rf  src/AmmarServer
+     cd src
      git clone git://github.com/AmmarkoV/AmmarServer.git
     cd ..
    fi
