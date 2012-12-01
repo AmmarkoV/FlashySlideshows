@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "webinterface.h"
+#include "controls.h"
 #include "AmmarServer/src/AmmServerlib/AmmServerlib.h"
 
+#define MAX_WEB_COMMAND_SIZE 512
 
 struct AmmServer_Instance  * flashy_server=0;
 struct AmmServer_RH_Context index_control={0};
@@ -13,10 +15,33 @@ void * index_control_page(char * content)
 {
   //No range check but since everything here is static max_stats_size should be big enough not to segfault with the strcat calls!
   sprintf(content,"<html><head><title>FlashySlideshows Remote Control</title></head><body>");
-  strcat(content,"PREV , NEXT</body></html>");
+  strcat(content," < a href=\"commands.html?UP=1\"> UP <br> ");
+  strcat(content," < a href=\"commands.html?LEFT=1\"> LEFT<br> ");
+  strcat(content," < a href=\"commands.html?RIGHT=1\"> RIGHT <br> ");
+  strcat(content," < a href=\"commands.html?DOWN=1\"> DOWN <br> ");
+  strcat(content,"</body></html>");
   index_control.content_size=strlen(content);
   return 0;
 }
+
+
+void * command_page(char * content)
+{
+
+  char command[MAX_WEB_COMMAND_SIZE]={0};
+
+  //If we have the console argument set this means we dont want the html output enabled so we switch it off
+  if ( _GET(flashy_server,&commands,"UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
+  if ( _GET(flashy_server,&commands,"DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
+  if ( _GET(flashy_server,&commands,"LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
+  if ( _GET(flashy_server,&commands,"RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
+
+  //No range check but since everything here is static max_stats_size should be big enough not to segfault with the strcat calls!
+  index_control_page(content);
+  commands.content_size=strlen(content);
+  return 0;
+}
+
 
 
 //This function adds a Resource Handler for the pages stats.html and formtest.html and associates stats , form and their callback functions
@@ -25,7 +50,7 @@ void init_dynamic_content(char * webroot)
   if (! AmmServer_AddResourceHandler(flashy_server,&index_control,"/index.html",webroot,4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding index page\n"); }
   AmmServer_DoNOTCacheResourceHandler(flashy_server,&index_control);
 
-  if (! AmmServer_AddResourceHandler(flashy_server,&commands,"/command.html",webroot,4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding command page\n"); }
+  if (! AmmServer_AddResourceHandler(flashy_server,&commands,"/commands.html",webroot,4096,0,(void* ) &command_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding command page\n"); }
   AmmServer_DoNOTCacheResourceHandler(flashy_server,&commands);
 
 
