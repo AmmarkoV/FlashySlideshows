@@ -215,6 +215,7 @@ struct SlideShowData
   struct FilePicture * pictures_in_folder;
 
   unsigned char program_data_directory[MAX_PATH];
+  unsigned char app_clipart_dir[MAX_PATH];
   unsigned char album_directory[MAX_PATH];
   unsigned char move_directory[MAX_PATH];
   unsigned char copy_directory[MAX_PATH];

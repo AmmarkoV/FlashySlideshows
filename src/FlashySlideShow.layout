@@ -8,7 +8,7 @@
 		<Cursor position="598" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="7040" topLine="233" />
+		<Cursor position="7040" topLine="218" />
 	</File>
 	<File name="controls.h" open="1" top="0" tabpos="53">
 		<Cursor position="311" topLine="0" />
@@ -153,6 +153,9 @@
 	</File>
 	<File name="visuals/picture_renderer.h" open="1" top="0" tabpos="51">
 		<Cursor position="73" topLine="0" />
+	</File>
+	<File name="webinterface.cpp" open="1" top="1" tabpos="60">
+		<Cursor position="58" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
 		<Cursor position="741" topLine="28" />

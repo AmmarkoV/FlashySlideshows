@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "load_images.h"
 #include "load_textures.h"
 #include "image_sensing.h"
+#include "slideshow.h"
 #include "sound.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -81,7 +82,7 @@ int FileExists(const char *fname)
 int LoadStockTexturesAndSounds()
 {
 
-    char base_directory[128]={0};
+    char base_directory[512]={0};
     char filename[256]={0};
 
    if ( FileExists("app_clipart/star.png") )
@@ -97,6 +98,8 @@ int LoadStockTexturesAndSounds()
         fprintf(stderr,"Unable to locate /usr/share/flashyslideshows/app_clipart/ or app_clipart/\n ");
         return 0;
       }
+
+    strncpy ( (char*) frame.app_clipart_dir , base_directory , MAX_PATH );
 
 
 

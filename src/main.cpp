@@ -786,7 +786,8 @@ int main(int argc, char *argv[])
     loadpicturesthread_id=0;
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
-    if (frame.enable_web_interface) { StartWebInterface("0.0.0.0", 8080 , (char*) frame.album_directory ); }
+    //This has to happen after LoadStockTexturesAndSounds in order for  frame.app_clipart_dir to get populated
+    if (frame.enable_web_interface) { StartWebInterface("0.0.0.0", 8080 , (char*) frame.album_directory , ( char*) frame.app_clipart_dir); }
 
     gettimeofday(&last_frame,0x0);
     /* Start Rendering */
