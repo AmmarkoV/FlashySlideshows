@@ -15,10 +15,10 @@ void * index_control_page(char * content)
 {
   //No range check but since everything here is static max_stats_size should be big enough not to segfault with the strcat calls!
   sprintf(content,"<html><head><title>FlashySlideshows Remote Control</title></head><body>");
-  strcat(content," < a href=\"commands.html?UP=1\"> UP <br> ");
-  strcat(content," < a href=\"commands.html?LEFT=1\"> LEFT<br> ");
-  strcat(content," < a href=\"commands.html?RIGHT=1\"> RIGHT <br> ");
-  strcat(content," < a href=\"commands.html?DOWN=1\"> DOWN <br> ");
+  strcat(content," <a href=\"commands.html?UP=1\">UP</a> <br> ");
+  strcat(content," <a href=\"commands.html?LEFT=1\">LEFT</a><br> ");
+  strcat(content," <a href=\"commands.html?RIGHT=1\">RIGHT</a><br> ");
+  strcat(content," <a href=\"commands.html?DOWN=1\">DOWN</a><br> ");
   strcat(content,"</body></html>");
   index_control.content_size=strlen(content);
   return 0;
