@@ -30,10 +30,12 @@ void * index_control_page(char * content)
   strcat(content,"<form name=\"input\" action=\"index.html\" method=\"get\"> <input type=\"hidden\" value=\"RIGHT\"> <input type=\"submit\" value=\"Right\"> </form> <br><br>");
 
 
-  strcat(content," <a href=\"index.html?UP=1\">UP</a> <br> ");
-  strcat(content," <a href=\"index.html?LEFT=1\">LEFT</a><br> ");
-  strcat(content," <a href=\"index.html?RIGHT=1\">RIGHT</a><br> ");
-  strcat(content," <a href=\"index.html?DOWN=1\">DOWN</a><br> ");
+  sprintf(command,"<a href=\"index.html?%s=1&tick=%u\">%s</a><br>\n",(char*) "UP"   , rand()%100000 , (char*) "Go Up");     strcat(content,command);
+  sprintf(command,"<a href=\"index.html?%s=1&tick=%u\">%s</a><br>\n",(char*) "LEFT" , rand()%100000 , (char*) "Go Left");   strcat(content,command);
+  sprintf(command,"<a href=\"index.html?%s=1&tick=%u\">%s</a><br>\n",(char*) "RIGHT", rand()%100000 , (char*) "Go Right");  strcat(content,command);
+  sprintf(command,"<a href=\"index.html?%s=1&tick=%u\">%s</a><br>\n",(char*) "DOWN" , rand()%100000 , (char*) "Go Down");   strcat(content,command);
+
+
   strcat(content,"</body></html>");
   index_control.content_size=strlen(content);
   return 0;
