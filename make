@@ -2,6 +2,17 @@
 echo "Making FlashySlideshows.."
 
 #Build AmmarServer first of all!
+#OK this is kind of an ugly hack so lets explain a little. . 
+#I have included a Null Version of AmmarServer with this library so that everything will compile without additional dependencies
+#The repository starts off with only this Null library so if we cant find the real one ( AmmServerlib ) we copy the things from the Null Lib to emulate
+#the real libary.. the rest of the project should then compile allright..  , To aquire a working AmmarServer just issue ./update_from_git.sh from repo root dir
+  if [ -d src/AmmarServer/src/AmmServerlib ] 
+   then
+        echo "AmmServerlib , seems to already exist..! leaving it alone.."
+     else 
+       mkdir src/AmmarServer/src/AmmServerlib
+       cp src/AmmarServer/src/AmmServerNULLlib/* src/AmmarServer/src/AmmServerlib
+   fi
 cd src/AmmarServer/src/AmmServerlib
 ./make 
 cd ../../../../
