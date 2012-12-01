@@ -8,10 +8,10 @@
 		<Cursor position="598" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="4049" topLine="107" />
+		<Cursor position="7040" topLine="233" />
 	</File>
-	<File name="controls.h" open="0" top="0" tabpos="11">
-		<Cursor position="180" topLine="0" />
+	<File name="controls.h" open="1" top="0" tabpos="53">
+		<Cursor position="311" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="11550" topLine="259" />
@@ -76,8 +76,8 @@
 	<File name="load_textures.h" open="1" top="0" tabpos="19">
 		<Cursor position="218" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="17309" topLine="511" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="15828" topLine="492" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="84" />
@@ -104,13 +104,13 @@
 		<Cursor position="1345" topLine="7" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2303" topLine="65" />
+		<Cursor position="2262" topLine="65" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="2742" topLine="121" />
+		<Cursor position="2743" topLine="190" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
-		<Cursor position="5267" topLine="148" />
+		<Cursor position="3484" topLine="88" />
 	</File>
 	<File name="sound.h" open="1" top="0" tabpos="30">
 		<Cursor position="192" topLine="0" />
