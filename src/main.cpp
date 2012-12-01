@@ -37,6 +37,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "scene_objects.h"
 #include "version.h"
 
+#include "webinterface.h"
 #include "layouts/layout_handler.h"
 #include "visuals/hud.h"
 
@@ -511,6 +512,11 @@ int main(int argc, char *argv[])
         int i=0;
         for (i=0; i<argc; i++)
          {
+             if (strcmp(argv[i],"-web")==0)
+                   { //Recursive Directory command
+                       fprintf(stderr,"Web Interface Enabled %u - %s\n",i,argv[i]);
+                       frame.enable_web_interface=1;
+                   } else
              if (strcmp(argv[i],"-r")==0)
                    { //Recursive Directory command
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);
@@ -780,11 +786,15 @@ int main(int argc, char *argv[])
     loadpicturesthread_id=0;
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
+    if (frame.enable_web_interface) { StartWebInterface("0.0.0.0", 8080 , (char*) frame.album_directory ); }
 
     gettimeofday(&last_frame,0x0);
     /* Start Rendering */
     glutMainLoop();
     fprintf(stderr,"Gracefully closing program\n");
+
+
+    if (frame.enable_web_interface) { StopWebInterface(); }
 
     EnableScreenSaver();
     StopJoystickControl();

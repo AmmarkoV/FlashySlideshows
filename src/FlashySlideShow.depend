@@ -1474,7 +1474,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1353527596 /home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.h
+1354364581 /home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.h
 	"load_images.h"
 
 1332265684 /home/ammar/Documents/Programming/FlashySlideShow/src/camera_control.h
@@ -1672,7 +1672,7 @@
 	<string.h>
 	<unistd.h>
 
-1353527385 source:/home/ammar/Documents/Programming/FlashySlideShow/src/main.cpp
+1353527922 source:/home/ammar/Documents/Programming/FlashySlideShow/src/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -1842,4 +1842,15 @@
 	<GL/glu.h>
 	"../slideshow.h"
 	"../directory_listing.h"
+
+1354364554 source:/home/ammar/Documents/Programming/FlashySlideShow/src/webinterface.cpp
+	<stdio.h>
+	<string.h>
+	"webinterface.h"
+	"AmmarServer/src/AmmServerlib/AmmServerlib.h"
+
+1354364340 /home/ammar/Documents/Programming/FlashySlideShow/src/webinterface.h
+
+1354230311 /home/ammar/Documents/Programming/FlashySlideShow/src/AmmarServer/src/AmmServerlib/AmmServerlib.h
+	<pthread.h>
 

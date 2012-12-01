@@ -81,6 +81,9 @@ void InitSlideShow()
    frame.background_number = rand()%10;
    if (frame.background_number>10) {frame.background_number=0;}
 
+   frame.enable_web_interface=0;
+
+
    frame.transitions.transition_mode=0;
 
    frame.plain_background_no_image=0;

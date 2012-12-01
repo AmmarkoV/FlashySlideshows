@@ -126,6 +126,9 @@ struct LayoutState
 
 struct SlideShowData
 {
+
+  unsigned int enable_web_interface;
+
   unsigned int plain_background_no_image;
   unsigned int background_number;
   unsigned int enable_sound_effects;
