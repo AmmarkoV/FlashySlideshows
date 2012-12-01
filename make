@@ -13,11 +13,17 @@ echo "Making FlashySlideshows.."
        mkdir src/AmmarServer/src/AmmServerlib
        cp src/AmmarServer/src/AmmServerNULLlib/* src/AmmarServer/src/AmmServerlib
    fi
-cd src/AmmarServer/src/AmmServerlib
-./make 
-cd ../../../../
-pwd
+
+  if [ -d src/AmmarServer/src/AmmServerlib ] 
+   then
+     cd src/AmmarServer/src/AmmServerlib
+     ./make 
+     cd ../../../../
+     pwd
+   fi
  
+#We are done with ammarserver , lets procede to the main project..
+
 
 OpenCVStuff="`pkg-config --cflags opencv` `pkg-config --libs opencv`"
 
