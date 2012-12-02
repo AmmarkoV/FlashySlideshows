@@ -152,7 +152,7 @@
 			</content>
 			<selection>0</selection>
 			<pos>456,186</pos>
-			<size>176,29</size>
+			<size>200,29</size>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX6" variable="CheckBoxFileMove" member="yes">
 			<label>File Move</label>
@@ -225,6 +225,22 @@
 					<accel>Alt-F4</accel>
 					<help>Quit the application</help>
 					<handler function="OnQuit" entry="EVT_MENU" />
+				</object>
+			</object>
+			<object class="wxMenu" variable="Menu3" member="yes">
+				<label>More Options</label>
+				<object class="wxMenuItem" name="idMenuWebInterface" variable="MenuItem5" member="yes">
+					<label>Web Interface</label>
+					<checkable>1</checkable>
+				</object>
+				<object class="wxMenuItem" name="idMenuHUD" variable="MenuItem7" member="yes">
+					<label>Heads Up Display</label>
+					<checked>1</checked>
+					<checkable>1</checkable>
+				</object>
+				<object class="wxMenuItem" name="idMenuSimpleBackground" variable="MenuItem6" member="yes">
+					<label>Simple Background</label>
+					<checkable>1</checkable>
 				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">

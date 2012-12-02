@@ -104,6 +104,9 @@ const long FlashySlideShowStarterFrame::ID_STATICTEXT9 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATICTEXT10 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuWebInterface = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuHUD = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuSimpleBackground = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAmmarkoVWebsite = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAbout = wxNewId();
@@ -170,7 +173,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,400), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
     ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,448), wxSize(144,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
     StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Sort Pictures By"), wxPoint(456,168), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
-    ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,186), wxSize(176,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
+    ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,186), wxSize(200,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
     ComboBoxSort->SetSelection( ComboBoxSort->Append(_("Names Ascending")) );
     ComboBoxSort->Append(_("Dates Ascending"));
     ComboBoxSort->Append(_("Sizes Ascending"));
@@ -208,6 +211,15 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
     Menu1->Append(MenuItem1);
     MenuBar1->Append(Menu1, _("&File"));
+    Menu3 = new wxMenu();
+    MenuItem5 = new wxMenuItem(Menu3, idMenuWebInterface, _("Web Interface"), wxEmptyString, wxITEM_CHECK);
+    Menu3->Append(MenuItem5);
+    MenuItem7 = new wxMenuItem(Menu3, idMenuHUD, _("Heads Up Display"), wxEmptyString, wxITEM_CHECK);
+    Menu3->Append(MenuItem7);
+    MenuItem7->Check(true);
+    MenuItem6 = new wxMenuItem(Menu3, idMenuSimpleBackground, _("Simple Background"), wxEmptyString, wxITEM_CHECK);
+    Menu3->Append(MenuItem6);
+    MenuBar1->Append(Menu3, _("More Options"));
     Menu2 = new wxMenu();
     MenuItem3 = new wxMenuItem(Menu2, idMenuGithub, _("Visit Github Repository"), _("Click to open the github repository of FlashySlideshows on your browser"), wxITEM_NORMAL);
     Menu2->Append(MenuItem3);
@@ -351,6 +363,13 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
                                                       return;
                                                     }
 
+
+    /* Menu Options */
+    if (Menu3->IsChecked(idMenuWebInterface))  { what_to_call<< wxT(" -web"); }
+    if (!Menu3->IsChecked(idMenuHUD))  { what_to_call<< wxT(" -no_hud"); }
+    if (Menu3->IsChecked(idMenuSimpleBackground))  { what_to_call<< wxT(" -no_background"); }
+
+    /* Options from side panel*/
     if ( CheckBoxIncludeSubfolders->IsChecked() ) { what_to_call<< wxT(" -r"); }
     if ( CheckBoxSound->IsChecked() ) { what_to_call<< wxT(" -sfx"); }
     if ( CheckBoxFaceDetection->IsChecked() ) { what_to_call<< wxT(" -fd"); }
@@ -361,6 +380,8 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     if ( CheckBoxFileResize->IsChecked() ) { what_to_call<< wxT(" -file_resize ");
                                              what_to_call<<ComboBoxResizeResolution->GetValue();
                                            }
+
+
 
 
    what_to_call<< wxT(" -images_per_line ");

@@ -83,7 +83,7 @@ void init_dynamic_content(char * webroot,char * app_clipart)
   index_content = readFileForServing(index_file_template,&index_content_size);
   if (index_content==0) { fprintf(stderr,"Could not find index page template..\n"); }
 
-  if (! AmmServer_AddResourceHandler(flashy_server,&index_control,"/index.html",webroot,4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding index page\n"); }
+  if (! AmmServer_AddResourceHandler(flashy_server,&index_control, (char *) "/index.html",webroot,4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding index page\n"); }
   AmmServer_DoNOTCacheResourceHandler(flashy_server,&index_control);
 }
 

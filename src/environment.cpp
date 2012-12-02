@@ -218,13 +218,17 @@ int UnLoadStockTexturesAndSounds()
 void DisableScreenSaver()
 {
  int i=system("gconftool-2 --set /apps/gnome-screensaver/idle_activation_enabled --type bool FALSE");
+ if (i!=0) {fprintf(stderr,"Error disabling ScreenSaver\n"); }
      i=system("gconftool-2 --set /apps/gnome-powermanager/idle_activation_enabled --type bool FALSE");
+ if (i!=0) {fprintf(stderr,"Error disabling PowerSaving\n"); }
 }
 
 void EnableScreenSaver()
 {
   int i=system("gconftool-2 --set /apps/gnome-screensaver/idle_activation_enabled --type bool TRUE");
+ if (i!=0) {fprintf(stderr,"Error enabling ScreenSaver\n"); }
       i=system("gconftool-2 --set /apps/gnome-powermanager/idle_activation_enabled --type bool TRUE");
+ if (i!=0) {fprintf(stderr,"Error enabling PowerSaving\n"); }
 }
 
 
