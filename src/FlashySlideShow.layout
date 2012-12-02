@@ -154,10 +154,10 @@
 	<File name="visuals/picture_renderer.h" open="1" top="0" tabpos="51">
 		<Cursor position="73" topLine="0" />
 	</File>
-	<File name="webinterface.cpp" open="1" top="1" tabpos="54">
+	<File name="webinterface.cpp" open="1" top="0" tabpos="54">
 		<Cursor position="1278" topLine="16" />
 	</File>
-	<File name="webinterface.h" open="1" top="0" tabpos="61">
+	<File name="webinterface.h" open="1" top="0" tabpos="55">
 		<Cursor position="160" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
