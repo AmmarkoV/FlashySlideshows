@@ -14,6 +14,8 @@ int PrintDevMsg();
 void DisableScreenSaver();
 void EnableScreenSaver();
 
+int EmmitDialogWarning(char * inpt);
+
 unsigned int GetSystemFreeMemory();
 unsigned int GetGraphicsCardMemory();
 

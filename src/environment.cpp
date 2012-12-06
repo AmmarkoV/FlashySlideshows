@@ -79,6 +79,17 @@ int FileExists(const char *fname)
 }
 
 
+int EmmitDialogWarning(char * inpt)
+{
+   fprintf(stderr,"Could not Load pictures in directory ( %u total pictures found)\n",GetTotalViewableFilesInDirectory());
+   fprintf(stderr,"Warning : %s \n",inpt);
+   char gdialog_str[4096]={0};
+   sprintf(gdialog_str , "gdialog --title \"Flashy Slideshows\" --infobox \"\n%s\"",inpt);
+   int i=system(gdialog_str);
+   if (i!=0) { fprintf(stderr,"gdialog returned an error , user may not be informed about the error :( \n"); return 0; }
+   return 1;
+}
+
 int LoadStockTexturesAndSounds()
 {
 

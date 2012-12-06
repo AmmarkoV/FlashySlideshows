@@ -515,6 +515,11 @@ int main(int argc, char *argv[])
              if (strcmp(argv[i],"-web")==0)
                    { //Recursive Directory command
                        fprintf(stderr,"Web Interface Enabled %u - %s\n",i,argv[i]);
+                       if (!WebInterfaceCompiledIn())
+                          {
+                            //Web interface has been enabled by user BUT its not compiled in! :S
+                            EmmitDialogWarning( (char *) "Please note that this build of FlashySlideshow hasn't got a compiled in WebInterface..!\n To download it run ./update_from_git.sh from the project's root dir..\n\n\nCheck here for more info :\nhttps://github.com/AmmarkoV/FlashySlideshows\n");
+                          }
                        frame.enable_web_interface=1;
                    } else
              if (strcmp(argv[i],"-r")==0)
@@ -763,9 +768,7 @@ int main(int argc, char *argv[])
 
     if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.sort_randomization,frame.recursive))
       {
-          fprintf(stderr,"Could not Load pictures in directory ( %u total pictures found)\n",GetTotalViewableFilesInDirectory());
-          int i=system("gdialog --title \"Flashy Slideshows\" --infobox \"\nCould not find any pictures in the directory of your selection\"");
-          if (i!=0) { fprintf(stderr,"gdialog returned an error , user may not be informed about the error :( \n"); }
+          EmmitDialogWarning( (char *) "Could not find any pictures in the directory of your selection");
           return 0;
       }
     frame.total_images=GetTotalViewableFilesInDirectory();

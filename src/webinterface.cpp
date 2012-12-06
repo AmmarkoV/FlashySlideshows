@@ -14,6 +14,12 @@ struct AmmServer_RH_Context index_control={0};
 char * index_content =0 ;
 unsigned long index_content_size = 0;
 
+int WebInterfaceCompiledIn()
+{
+  if ( AmmServer_Version() == 0 ) { return 1; }
+  return 0;
+}
+
 char * readFileForServing(char * filename, unsigned long * index_content_size)
 {
   if ( (filename==0) || (index_content_size==0)  ) { fprintf(stderr,"readFileForServing called with incorrect params"); return 0; }
