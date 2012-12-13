@@ -229,13 +229,16 @@
 			</object>
 			<object class="wxMenu" variable="Menu3" member="yes">
 				<label>More Options</label>
+				<object class="wxMenuItem" name="idMenuPlay" variable="MenuItem8" member="no">
+					<label>Immediate Playback</label>
+					<checkable>1</checkable>
+				</object>
 				<object class="wxMenuItem" name="idMenuWebInterface" variable="MenuItem5" member="yes">
 					<label>Web Interface</label>
 					<checkable>1</checkable>
 				</object>
 				<object class="wxMenuItem" name="idMenuHUD" variable="MenuItem7" member="yes">
 					<label>Heads Up Display</label>
-					<checked>1</checked>
 					<checkable>1</checkable>
 				</object>
 				<object class="wxMenuItem" name="idMenuSimpleBackground" variable="MenuItem6" member="yes">

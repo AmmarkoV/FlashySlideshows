@@ -59,11 +59,11 @@ void * index_control_page(char * content)
   char command[MAX_WEB_COMMAND_SIZE]={0};
 
   //If we have the console argument set this means we dont want the html output enabled so we switch it off
-  if ( _GET(flashy_server,&index_control,"UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
-  if ( _GET(flashy_server,&index_control,"DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
-  if ( _GET(flashy_server,&index_control,"LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
-  if ( _GET(flashy_server,&index_control,"RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
-  if ( _GET(flashy_server,&index_control,"PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
+  if ( _GET(flashy_server,&index_control,(char*) "UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
+  if ( _GET(flashy_server,&index_control,(char*) "DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
+  if ( _GET(flashy_server,&index_control,(char*) "LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
+  if ( _GET(flashy_server,&index_control,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
+  if ( _GET(flashy_server,&index_control,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
 
   index_control.content_size=0;
   if (index_content!=0)

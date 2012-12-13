@@ -89,6 +89,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_STATICTEXT10;
         static const long ID_TEXTCTRL2;
         static const long idMenuQuit;
+        static const long idMenuPlay;
         static const long idMenuWebInterface;
         static const long idMenuHUD;
         static const long idMenuSimpleBackground;

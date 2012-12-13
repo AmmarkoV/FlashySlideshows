@@ -8,7 +8,7 @@
 		<Cursor position="598" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="8034" topLine="224" />
+		<Cursor position="8050" topLine="224" />
 	</File>
 	<File name="controls.h" open="1" top="0" tabpos="53">
 		<Cursor position="311" topLine="0" />
@@ -59,7 +59,7 @@
 		<Cursor position="180" topLine="0" />
 	</File>
 	<File name="layouts/layout_handler.cpp" open="1" top="0" tabpos="40">
-		<Cursor position="2714" topLine="100" />
+		<Cursor position="2714" topLine="101" />
 	</File>
 	<File name="layouts/layout_handler.h" open="1" top="0" tabpos="41">
 		<Cursor position="181" topLine="0" />
@@ -77,7 +77,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="16244" topLine="495" />
+		<Cursor position="31192" topLine="768" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="84" />
@@ -104,10 +104,10 @@
 		<Cursor position="1345" topLine="7" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2262" topLine="65" />
+		<Cursor position="2262" topLine="137" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="4882" topLine="0" />
+		<Cursor position="4847" topLine="102" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="3484" topLine="88" />
@@ -155,7 +155,7 @@
 		<Cursor position="73" topLine="0" />
 	</File>
 	<File name="webinterface.cpp" open="1" top="0" tabpos="54">
-		<Cursor position="468" topLine="0" />
+		<Cursor position="2137" topLine="42" />
 	</File>
 	<File name="webinterface.h" open="1" top="0" tabpos="55">
 		<Cursor position="99" topLine="0" />

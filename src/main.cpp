@@ -527,6 +527,11 @@ int main(int argc, char *argv[])
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);
                        frame.recursive=1;
                    } else
+             if (strcmp(argv[i],"-play")==0)
+                   { //Recursive Directory command
+                       fprintf(stderr,"AutoStarting Playback %u - %s\n",i,argv[i]);
+                       ToggleAutomaticSlideshow();
+                   } else
              if (strcmp(argv[i],"-sfx")==0)
                    { //Sound Effects command
                        fprintf(stderr,"%u Sound Effects Enabled %s\n",i,argv[i]);
@@ -631,6 +636,16 @@ int main(int argc, char *argv[])
                        if  ( *argv[i+1]=='1' ) { fprintf(stderr,"Immediate\n");    frame.transitions.transition_mode=1; } else
                        if  ( *argv[i+1]=='2' ) { fprintf(stderr,"Transparency\n"); frame.transitions.transition_mode=2; }  else
                                                { fprintf(stderr,"Incorrect Transition Type..\n"); }
+                      }
+                   } else
+             if (strcmp(argv[i],"-l")==0)
+                   { //Layout Type command
+                      if (i+1<=argc)
+                      {
+                       fprintf(stderr,"%u Layout Type %s=%s\n",i,argv[i],argv[i+1]);
+                       if  ( *argv[i+1]=='0' ) { fprintf(stderr,"Basic Layout\n");      frame.layout.layout_mode=0; } else
+                       if  ( *argv[i+1]=='1' ) { fprintf(stderr,"Expo\n");    frame.layout.layout_mode=1; } else
+                                               { fprintf(stderr,"Incorrect Layout Type..\n"); }
                       }
                    } else
              if (strcmp(argv[i],"-s")==0)
@@ -790,7 +805,7 @@ int main(int argc, char *argv[])
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
     //This has to happen after LoadStockTexturesAndSounds in order for  frame.app_clipart_dir to get populated
-    if (frame.enable_web_interface) { StartWebInterface("0.0.0.0", 8080 , (char*) frame.album_directory , ( char*) frame.app_clipart_dir); }
+    if (frame.enable_web_interface) { StartWebInterface((char*) "0.0.0.0", 8080 , (char*) frame.album_directory , ( char*) frame.app_clipart_dir); }
 
     gettimeofday(&last_frame,0x0);
     /* Start Rendering */
