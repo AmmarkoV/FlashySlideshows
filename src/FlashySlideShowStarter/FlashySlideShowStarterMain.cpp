@@ -220,6 +220,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu3->Append(MenuItem5);
     MenuItem7 = new wxMenuItem(Menu3, idMenuHUD, _("Heads Up Display"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem7);
+    MenuItem7->Check(true);
     MenuItem6 = new wxMenuItem(Menu3, idMenuSimpleBackground, _("Simple Background"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem6);
     MenuBar1->Append(Menu3, _("More Options"));

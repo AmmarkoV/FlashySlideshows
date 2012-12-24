@@ -239,6 +239,7 @@
 				</object>
 				<object class="wxMenuItem" name="idMenuHUD" variable="MenuItem7" member="yes">
 					<label>Heads Up Display</label>
+					<checked>1</checked>
 					<checkable>1</checkable>
 				</object>
 				<object class="wxMenuItem" name="idMenuSimpleBackground" variable="MenuItem6" member="yes">
