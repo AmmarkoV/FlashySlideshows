@@ -352,7 +352,10 @@ unsigned int CountPicturesInDirectory(char * thedirectory,int recursive)
 
 unsigned int LoadPicturesOfDirectory(char * thedirectory,unsigned int comp_func,unsigned int asc_desc,unsigned int randomize,unsigned int recursive)
 {
+
+    printf("Trying to load directory list for %s .. ",thedirectory);
     unsigned int total_pictures_in_dir=CountPicturesInDirectory(thedirectory,recursive);
+    printf(" %u total pictures inside \n ",total_pictures_in_dir);
 
     AllocateDirectoryList(total_pictures_in_dir+4);
     fprintf(stderr,"Album directory has %u pictures inside \n",total_pictures_in_dir);

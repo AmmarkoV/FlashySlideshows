@@ -41,19 +41,19 @@ LIBRARIES="-lglut -lGL -lGLU -lXxf86vm -lopenal -lalut AmmarServer/src/AmmServer
 
 cd src
 
-rm  bin/Release/flashyslideshows
+rm  flashyslideshows
 
-g++ $Optimizations main.cpp environment.cpp jpegexiforient_embed.cpp load_images.cpp load_textures.cpp sound.cpp directory_listing.cpp directory_sorting.cpp directory_transactions.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp memory_hypervisor.cpp joystick.cpp math_3d.cpp image_sensing.cpp webinterface.cpp $TRANSITIONS $VISUALS $LAYOUTS wxwidgets_stuff.cpp $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o bin/Release/flashyslideshows
+g++ $Optimizations main.cpp environment.cpp jpegexiforient_embed.cpp load_images.cpp load_textures.cpp sound.cpp directory_listing.cpp directory_sorting.cpp directory_transactions.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp memory_hypervisor.cpp joystick.cpp math_3d.cpp image_sensing.cpp webinterface.cpp $TRANSITIONS $VISUALS $LAYOUTS wxwidgets_stuff.cpp $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
 
-cp bin/Release/flashyslideshows ../flashyslideshows
+cp flashyslideshows ../flashyslideshows
 
 cd FlashySlideShowStarter
 
-rm  bin/Release/flashyslideshowsgui
+rm  flashyslideshowsgui
 
-g++ $Optimizations FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../directory_listing.cpp ../directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o bin/Release/flashyslideshowsgui
+g++ $Optimizations FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../directory_listing.cpp ../directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o flashyslideshowsgui
 
-cp bin/Release/flashyslideshowsgui ../../flashyslideshowsgui
+cp flashyslideshowsgui ../../flashyslideshowsgui
 
 cd ..
 
@@ -62,14 +62,14 @@ cd ..
 
 echo "Done.."
 
-  if [ -e src/bin/Release/flashyslideshows ] 
+  if [ -e src/flashyslideshows ] 
    then
         echo "FlashySlideshows SUCCESS"
      else  
         echo "FlashySlideshows FAILED"
    fi
 
-  if [ -e src/FlashySlideShowStarter/bin/Release/flashyslideshowsgui ] 
+  if [ -e src/FlashySlideShowStarter/flashyslideshowsgui ] 
    then
         echo "FlashySlideshowsStarter SUCCESS"
      else  

@@ -14,7 +14,7 @@
 		<Cursor position="311" topLine="0" />
 	</File>
 	<File name="directory_listing.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="11550" topLine="79" />
+		<Cursor position="13667" topLine="336" />
 	</File>
 	<File name="directory_listing.h" open="1" top="0" tabpos="7">
 		<Cursor position="269" topLine="0" />
@@ -77,7 +77,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="31192" topLine="768" />
+		<Cursor position="29918" topLine="744" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="84" />
@@ -121,8 +121,8 @@
 	<File name="transitions/transition_handler.h" open="1" top="0" tabpos="43">
 		<Cursor position="406" topLine="0" />
 	</File>
-	<File name="version.h" open="1" top="0" tabpos="35">
-		<Cursor position="851" topLine="0" />
+	<File name="version.h" open="1" top="1" tabpos="35">
+		<Cursor position="763" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="2158" topLine="78" />
@@ -161,7 +161,7 @@
 		<Cursor position="99" topLine="0" />
 	</File>
 	<File name="wxwidgets_stuff.cpp" open="1" top="0" tabpos="17">
-		<Cursor position="741" topLine="28" />
+		<Cursor position="1300" topLine="17" />
 	</File>
 	<File name="wxwidgets_stuff.h" open="1" top="0" tabpos="21">
 		<Cursor position="0" topLine="0" />

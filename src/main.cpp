@@ -675,7 +675,7 @@ int main(int argc, char *argv[])
          }
      }
     strcat((char * ) frame.album_directory,"/");
-    fprintf(stderr,"Slideshow directory is = %s \n", frame.album_directory);
+    fprintf(stderr,"Slideshow directory is = %s (%u chars) \n", frame.album_directory , strlen((char*) frame.album_directory));
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
@@ -776,6 +776,7 @@ int main(int argc, char *argv[])
     /* Initialize WxWidgets */
     WxWidgetsContext wxlibstuff;
     wxlibstuff.OnInit();
+    fprintf(stderr,"Done with wxWidgets initialization\n");
 
 
     LoadStockTexturesAndSounds();

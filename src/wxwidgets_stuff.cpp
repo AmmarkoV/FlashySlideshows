@@ -33,18 +33,12 @@ bool WxWidgetsContext::OnInit()
 {
   fprintf(stderr,"WxWidgets beeing kickstarted\n");
   //(*AppInitialize
-  bool wxsOK = true;
+  bool wxsOK = wxInitialize();
+  if ( ! wxsOK ) { fprintf(stderr,"Could not kickstart wxWidgets\n"); return wxsOK; }
   wxInitAllImageHandlers();
-  if ( wxsOK )
-    {
-  //    ClinicDBFrame* Frame = new ClinicDBFrame(0);
-  //    if (  gui_friendly_mode == 1 ) ShowStartupMenu();
-  //    Frame->Show();
-   //   SetTopWindow(Frame);
-    }
-  //*)
-  return wxsOK;
+  if ( ! wxsOK ) { fprintf(stderr,"Could not kickstart image handlers for wxWidgets\n"); return wxsOK; }
 
+  return wxsOK;
 }
 
 
