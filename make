@@ -45,6 +45,8 @@ rm  flashyslideshows
 
 g++ $Optimizations main.cpp environment.cpp jpegexiforient_embed.cpp load_images.cpp load_textures.cpp sound.cpp directory_listing.cpp directory_sorting.cpp directory_transactions.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp memory_hypervisor.cpp joystick.cpp math_3d.cpp image_sensing.cpp webinterface.cpp $TRANSITIONS $VISUALS $LAYOUTS wxwidgets_stuff.cpp $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
 
+strip flashyslideshows
+
 cp flashyslideshows ../flashyslideshows
 
 cd FlashySlideShowStarter
@@ -52,6 +54,8 @@ cd FlashySlideShowStarter
 rm  flashyslideshowsgui
 
 g++ $Optimizations FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../directory_listing.cpp ../directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o flashyslideshowsgui
+
+strip flashyslideshowsgui
 
 cp flashyslideshowsgui ../../flashyslideshowsgui
 
