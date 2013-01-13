@@ -497,6 +497,8 @@ int main(int argc, char *argv[])
     strcpy((char * ) frame.copy_directory,"Copied");
     strcpy((char * ) frame.move_directory,"Moved");
     strcpy((char * ) frame.resize_directory,"Resized");
+    strcpy((char * ) frame.link_directory,"Linked");
+
 
     if ( argc <1 )
      {
@@ -551,16 +553,6 @@ int main(int argc, char *argv[])
                          strcpy(frame.rescale_resolution_string,argv[i+1]);
                         }
                    } else
-             if (strcmp(argv[i],"-no_hud")==0)
-                   { //File Copy command
-                       fprintf(stderr,"Hud Disabled..");
-                       frame.disable_hud=1;
-                   } else
-             if (strcmp(argv[i],"-no_background")==0)
-                   { //File Copy command
-                       fprintf(stderr,"Background Disabled..");
-                       frame.plain_background_no_image=1;
-                   } else
              if (strcmp(argv[i],"-file_copy")==0)
                    { //File Copy command
                        fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
@@ -570,6 +562,16 @@ int main(int argc, char *argv[])
                    { //File Copy command
                        fprintf(stderr,"%u Link Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
                        frame.allow_operation_link=1;
+                   } else
+             if (strcmp(argv[i],"-no_hud")==0)
+                   { //File Copy command
+                       fprintf(stderr,"Hud Disabled..");
+                       frame.disable_hud=1;
+                   } else
+             if (strcmp(argv[i],"-no_background")==0)
+                   { //File Copy command
+                       fprintf(stderr,"Background Disabled..");
+                       frame.plain_background_no_image=1;
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command

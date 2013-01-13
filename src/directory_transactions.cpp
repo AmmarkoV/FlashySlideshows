@@ -75,7 +75,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
   //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for rescaled files..!\n");
   //  return 0;
 
-    if (!frame.allow_operation_resize) { fprintf(stderr,"LinkFileToDir but frame.allow_operation_resize is not enabled\n"); return 0; }
+    if (!frame.allow_operation_resize) { fprintf(stderr,"RescaleFileToDir but frame.allow_operation_resize is not enabled\n"); return 0; }
     /*
     sprintf(rescale_operation,"convert %s%s -resize \"%s>\" -size \"%s\" xc:white +swap -gravity center -composite %s%s-out.jpg",
             (char*)frame.album_directory,list[file_id].filename,
@@ -104,10 +104,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
 
 int MoveFileToDir(unsigned int file_id,char * dir)
 {
-  //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for moved files..!\n");
-  //  return 0;
-
-    if (!frame.allow_operation_move) {  fprintf(stderr,"LinkFileToDir but frame.allow_operation_move is not enabled\n"); return 0; }
+    if (!frame.allow_operation_move) {  fprintf(stderr,"MoveFileToDir but frame.allow_operation_move is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
@@ -129,15 +126,14 @@ int MoveFileToDir(unsigned int file_id,char * dir)
 
 int LinkFileToDir(unsigned int file_id,char * dir)
 {
-    fprintf(stderr,"LinkFileToDir not implemented yet \n");
-    return 0;
-
     if (!frame.allow_operation_link) { fprintf(stderr,"LinkFileToDir but frame.allow_operation_link is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
 //    char escaped_filename[2048];
 //    escape_str(raw_filename,escaped_filename);
+    char link_operation[2048];
+    sprintf(link_operation,"ln -s \"%s\" \"%s%s\"&",raw_filename,dir,list[file_id].filename);
 
     char move_operation[MAX_PATH]={0};
     strcpy(move_operation,"ln -s \"");
@@ -155,10 +151,7 @@ int LinkFileToDir(unsigned int file_id,char * dir)
 
 int CopyFileToDir(unsigned int file_id,char * dir)
 {
-  //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for moved files..!\n");
-  //  return 0;
-
-    if (!frame.allow_operation_copy) { return 0; }
+    if (!frame.allow_operation_copy) { fprintf(stderr,"CopyFileToDir but frame.allow_operation_copy is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
@@ -220,9 +213,9 @@ int CreateDirsForTransaction(char * dir,unsigned int trans_type,unsigned int sor
     //-----------------------------------------------
     case LINK_TO_DIR :
 
-      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.resize_directory);
+      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.link_directory);
       if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
-      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.resize_directory,sort_id);
+      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.link_directory,sort_id);
       if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
       strcat(dir,"/");
 

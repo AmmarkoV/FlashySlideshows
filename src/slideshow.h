@@ -220,6 +220,7 @@ struct SlideShowData
   unsigned char album_directory[MAX_PATH];
   unsigned char move_directory[MAX_PATH];
   unsigned char copy_directory[MAX_PATH];
+  unsigned char link_directory[MAX_PATH];
   unsigned char resize_directory[MAX_PATH];
   char rescale_resolution_string[100];
 

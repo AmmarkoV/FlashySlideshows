@@ -26,7 +26,7 @@
 	<GL/glu.h>
 	"slideshow.h"
 
-1358077060 /home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.h
+1358078735 /home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.h
 	"load_images.h"
 
 1357555261 /home/ammar/Documents/Programming/FlashySlideShow/src/camera_control.h
@@ -40,11 +40,12 @@
 
 1357555262 /home/ammar/Documents/Programming/FlashySlideShow/src/sound.h
 
-1357555261 source:/home/ammar/Documents/Programming/FlashySlideShow/src/controls.cpp
+1358078231 source:/home/ammar/Documents/Programming/FlashySlideShow/src/controls.cpp
 	<stdlib.h>
 	<stdio.h>
 	"slideshow.h"
 	"camera_control.h"
+	"directory_transactions.h"
 	"pictures_control.h"
 	"controls.h"
 	"visuals.h"
@@ -2458,7 +2459,7 @@
 	"wxwidgets_stuff.h"
 	<wx/image.h>
 
-1358078130 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_transactions.cpp
+1358078789 source:/home/ammar/Documents/Programming/FlashySlideShow/src/directory_transactions.cpp
 	"directory_transactions.h"
 	<stdlib.h>
 	<stdio.h>
@@ -2483,7 +2484,7 @@
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 
-1358078087 source:/home/ammar/Documents/Programming/FlashySlideShow/src/main.cpp
+1358078866 source:/home/ammar/Documents/Programming/FlashySlideShow/src/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
