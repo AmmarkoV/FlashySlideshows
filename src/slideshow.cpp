@@ -101,6 +101,7 @@ void InitSlideShow()
    frame.allow_operation_move=0;
    frame.allow_operation_resize=0;
    frame.allow_operation_copy=0;
+   frame.allow_operation_link=0;
    strcpy(frame.rescale_resolution_string,"1024x768");
    frame.gpu.usedRAM=0;
 

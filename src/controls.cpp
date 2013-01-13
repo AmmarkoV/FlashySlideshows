@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "slideshow.h"
 #include "camera_control.h"
+#include "directory_transactions.h"
 #include "pictures_control.h"
 #include "controls.h"
 #include "visuals.h"
@@ -247,16 +248,17 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
         case 13  : /* ENTER */ ToggleAutomaticSlideshow(); break;
         case ' ' : /* SPACE */ ToggleAutomaticSlideshow(); break;
 
-        case 48+0 : /*Number 0*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),0)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+1 : /*Number 1*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),1)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+2 : /*Number 2*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),2)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+3 : /*Number 3*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),3)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+4 : /*Number 4*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),4)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+5 : /*Number 5*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),5)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+6 : /*Number 6*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),6)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+7 : /*Number 7*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),7)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+8 : /*Number 8*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),8)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
-        case 48+9 : /*Number 9*/ if (MoveOrRescaleOrCopyFileToDir(GetPictureDirectoryListIndex(frame.active_image_place),9)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        //Buttons 0  -  9 , directory transactions
+        case 48+0 : /*Number 0*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),0)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+1 : /*Number 1*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),1)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+2 : /*Number 2*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),2)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+3 : /*Number 3*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),3)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+4 : /*Number 4*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),4)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+5 : /*Number 5*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),5)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+6 : /*Number 6*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),6)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+7 : /*Number 7*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),7)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+8 : /*Number 8*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),8)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
+        case 48+9 : /*Number 9*/ if (PerformDirectoryTransaction(GetPictureDirectoryListIndex(frame.active_image_place),9)>0)  {TriggerNextPictureSlideShow(); usleep(10000); return 0; } break;
 
 
         case 'o': ResetCameraOrientation();

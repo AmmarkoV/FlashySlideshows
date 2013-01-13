@@ -27,11 +27,21 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /*
  *
  *
- *      THIS IS THE IMPLEMENTATION OF THE MOVE , COPY , RESIZE
+ *      THIS IS THE IMPLEMENTATION OF THE MOVE , COPY , RESIZE , LINK
  *      CAPABILITIES
  *
  *
 */
+
+enum DirectoryTransactionOperations
+{
+   NONE = 0 ,
+   MOVE_TO_DIR ,
+   COPY_TO_DIR ,
+   RESIZE_TO_DIR ,
+   LINK_TO_DIR
+};
+
 
 int escape_str(char *in_str,char *out_str)
 {
@@ -65,7 +75,7 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
   //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for rescaled files..!\n");
   //  return 0;
 
-    if (!frame.allow_operation_resize) { return 0; }
+    if (!frame.allow_operation_resize) { fprintf(stderr,"LinkFileToDir but frame.allow_operation_resize is not enabled\n"); return 0; }
     /*
     sprintf(rescale_operation,"convert %s%s -resize \"%s>\" -size \"%s\" xc:white +swap -gravity center -composite %s%s-out.jpg",
             (char*)frame.album_directory,list[file_id].filename,
@@ -97,7 +107,7 @@ int MoveFileToDir(unsigned int file_id,char * dir)
   //  fprintf(stderr,"This code segment is buggy , TOOD remove the ~ and issue a mkdir call to create a subdirectory for moved files..!\n");
   //  return 0;
 
-    if (!frame.allow_operation_move) { return 0; }
+    if (!frame.allow_operation_move) {  fprintf(stderr,"LinkFileToDir but frame.allow_operation_move is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
     sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
@@ -115,6 +125,33 @@ int MoveFileToDir(unsigned int file_id,char * dir)
 
   return (i==0);
 }
+
+
+int LinkFileToDir(unsigned int file_id,char * dir)
+{
+    fprintf(stderr,"LinkFileToDir not implemented yet \n");
+    return 0;
+
+    if (!frame.allow_operation_link) { fprintf(stderr,"LinkFileToDir but frame.allow_operation_link is not enabled\n"); return 0; }
+
+    char raw_filename[MAX_PATH]={0};
+    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+//    char escaped_filename[2048];
+//    escape_str(raw_filename,escaped_filename);
+
+    char move_operation[MAX_PATH]={0};
+    strcpy(move_operation,"ln -s \"");
+    strcat(move_operation,raw_filename);
+    strcat(move_operation,"\" \"");
+    strcat(move_operation,dir);
+    strcat(move_operation,"\"&");
+    fprintf(stderr,"Executing %s \n",move_operation);
+    int i=system(move_operation);
+
+  return (i==0);
+}
+
+
 
 int CopyFileToDir(unsigned int file_id,char * dir)
 {
@@ -141,61 +178,81 @@ int CopyFileToDir(unsigned int file_id,char * dir)
 }
 
 
-int CreateDirsForMoveOrRescale(char * dir,unsigned int resize2_copy1_move0,unsigned int sort_id)
+int CreateDirsForTransaction(char * dir,unsigned int trans_type,unsigned int sort_id)
 {
-   if (resize2_copy1_move0==2)
-   {
-      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.resize_directory);
-      if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
-      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.resize_directory,sort_id);
-      if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
-      strcat(dir,"/");
-   } else
-  if (resize2_copy1_move0==1)
-   {
-      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.copy_directory);
-      if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
-      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.copy_directory,sort_id);
-      if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
-      strcat(dir,"/");
-   } else
-   {
+  switch (trans_type)
+  {
+    //-----------------------------------------------
+    case MOVE_TO_DIR :
+
       sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.move_directory);
       if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
       sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.move_directory,sort_id);
       if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
       strcat(dir,"/");
-   }
+
+    break;
+
+    //-----------------------------------------------
+    case COPY_TO_DIR :
+
+      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.copy_directory);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
+      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.copy_directory,sort_id);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
+      strcat(dir,"/");
+
+    break;
+
+
+    //-----------------------------------------------
+    case RESIZE_TO_DIR :
+
+      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.resize_directory);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
+      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.resize_directory,sort_id);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
+      strcat(dir,"/");
+
+    break;
+
+
+    //-----------------------------------------------
+    case LINK_TO_DIR :
+
+      sprintf(dir,"%s%s",(char*)frame.album_directory,(char*)frame.resize_directory);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Base Dir %s\n",dir); }
+      sprintf(dir,"%s%s/Category%u",(char*)frame.album_directory,(char*)frame.resize_directory,sort_id);
+      if ( CreateDir(dir) ) { fprintf(stderr,"Created Category Dir %s for id %u \n",dir,sort_id); }
+      strcat(dir,"/");
+
+    break;
+  };
+
   return 1;
 }
 
 
-int MoveOrRescaleOrCopyFileToDir(unsigned int file_id,unsigned int sort_id)
+int PerformDirectoryTransaction(unsigned int file_id,unsigned int sort_id)
 {
   char dir[MAX_PATH]={0};
   char msg[512]={0};
 
-  if ((!frame.allow_operation_resize)&&(!frame.allow_operation_move)&&(!frame.allow_operation_copy) )
-    {
-      fprintf(stderr,"MoveOrRescaleOrCopyFileToDir Activated but , Moving , Resizing and Copying are disabled , please start program with -file_move or -file_copy or -file_resize\n");
-      return 0;
-    } else
-  if ((frame.allow_operation_resize)&&(frame.allow_operation_move) )
-    {
-      fprintf(stderr,"Both Moving and Resizing are enabled, using resize function\n");
+  int check_opts = 0;
+  if (frame.allow_operation_move) { ++check_opts; }
+  if (frame.allow_operation_copy) { ++check_opts; }
+  if (frame.allow_operation_resize) { ++check_opts; }
+  if (frame.allow_operation_link) { ++check_opts; }
 
-      sprintf(msg,"Resizing Category %u",sort_id);
-      NewLabel(frame.vx,frame.vy,msg);
 
-      CreateDirsForMoveOrRescale(dir,1,sort_id);
-      return RescaleFileToDir(file_id,dir);
-    } else
+  if (check_opts == 0 ) { fprintf(stderr,"No options enabled for directory transaction , doing nothing \n"); return 0; }
+
   if (frame.allow_operation_resize )
    {
      sprintf(msg,"Resizing Category %u",sort_id);
      NewLabel(frame.vx,frame.vy,msg);
 
-     CreateDirsForMoveOrRescale(dir,2,sort_id);
+     CreateDirsForTransaction(dir,RESIZE_TO_DIR,sort_id);
      return RescaleFileToDir(file_id,dir);
     } else
   if (frame.allow_operation_copy)
@@ -203,7 +260,7 @@ int MoveOrRescaleOrCopyFileToDir(unsigned int file_id,unsigned int sort_id)
      sprintf(msg,"Copying Category %u",sort_id);
      NewLabel(frame.vx,frame.vy,msg);
 
-     CreateDirsForMoveOrRescale(dir,1,sort_id);
+     CreateDirsForTransaction(dir,COPY_TO_DIR,sort_id);
      return CopyFileToDir(file_id,dir);
     } else
   if (frame.allow_operation_move)
@@ -211,9 +268,18 @@ int MoveOrRescaleOrCopyFileToDir(unsigned int file_id,unsigned int sort_id)
      sprintf(msg,"Moving Category %u",sort_id);
      NewLabel(frame.vx,frame.vy,msg);
 
-     CreateDirsForMoveOrRescale(dir,0,sort_id);
+     CreateDirsForTransaction(dir,MOVE_TO_DIR,sort_id);
      return MoveFileToDir(file_id,dir);
+    } else
+  if (frame.allow_operation_link)
+    {
+     sprintf(msg,"Linking Category %u",sort_id);
+     NewLabel(frame.vx,frame.vy,msg);
+
+     CreateDirsForTransaction(dir,LINK_TO_DIR,sort_id);
+     return LinkFileToDir(file_id,dir);
     }
+
 
 
  return 0;

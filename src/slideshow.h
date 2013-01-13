@@ -156,6 +156,7 @@ struct SlideShowData
   unsigned int allow_operation_move;
   unsigned int allow_operation_copy;
   unsigned int allow_operation_resize;
+  unsigned int allow_operation_link;
 
 
   unsigned int time_ms_before_last_slide_change;

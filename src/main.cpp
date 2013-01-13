@@ -304,11 +304,11 @@ void MotionCallback(int x, int y)
 // Method to handle the mouse buttons
 void MouseCallback( int button,int state, int x, int y)
 {
-  int res=0;
+ // int res=0;
     /* The command is handled in controls.cpp / controls.h */
-  if (state== GLUT_UP)   { res=Controls_Handle_MouseButtons(button,2,x,y); } else
-  if (state== GLUT_DOWN) { res=Controls_Handle_MouseButtons(button,1,x,y); } else
-                         { res=Controls_Handle_MouseButtons(button,0,x,y); }
+  if (state== GLUT_UP)   { /*res=*/Controls_Handle_MouseButtons(button,2,x,y); } else
+  if (state== GLUT_DOWN) { /*res=*/Controls_Handle_MouseButtons(button,1,x,y); } else
+                         { /*res=*/Controls_Handle_MouseButtons(button,0,x,y); }
 
   glutPostRedisplay();
 }
@@ -553,18 +553,23 @@ int main(int argc, char *argv[])
                    } else
              if (strcmp(argv[i],"-no_hud")==0)
                    { //File Copy command
-                       fprintf(stderr,"Hud Disabled..",i,argv[i]);
+                       fprintf(stderr,"Hud Disabled..");
                        frame.disable_hud=1;
                    } else
              if (strcmp(argv[i],"-no_background")==0)
                    { //File Copy command
-                       fprintf(stderr,"Background Disabled..",i,argv[i]);
+                       fprintf(stderr,"Background Disabled..");
                        frame.plain_background_no_image=1;
                    } else
              if (strcmp(argv[i],"-file_copy")==0)
                    { //File Copy command
                        fprintf(stderr,"%u Move Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
                        frame.allow_operation_copy=1;
+                   } else
+             if (strcmp(argv[i],"-file_link")==0)
+                   { //File Copy command
+                       fprintf(stderr,"%u Link Sorting Enabled with keys 0 to 9 %s\n",i,argv[i]);
+                       frame.allow_operation_link=1;
                    } else
              if (strcmp(argv[i],"-fd")==0)
                    { //Face Detection command
@@ -675,7 +680,7 @@ int main(int argc, char *argv[])
          }
      }
     strcat((char * ) frame.album_directory,"/");
-    fprintf(stderr,"Slideshow directory is = %s (%u chars) \n", frame.album_directory , strlen((char*) frame.album_directory));
+    fprintf(stderr,"Slideshow directory is = %s (%u chars) \n", frame.album_directory ,(unsigned int) strlen((char*) frame.album_directory));
 
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
