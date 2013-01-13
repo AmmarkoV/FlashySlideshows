@@ -20,7 +20,7 @@ http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.
 
 
 --------------- Library Dependencies ---------------
-You can use the apt-get-dependencies.sh to apt-get the required packages..!
+You can use the ./get-dependencies.sh to get the required packages for compiling the project..!
 
 
 --------------- Compilation ---------------

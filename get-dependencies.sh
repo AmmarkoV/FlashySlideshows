@@ -1,11 +1,23 @@
-#!/bin/bash 
-#command -v apt-get >/dev/null 2>&1 || { echo >&2 "I require apt-get but it's not installed.  Aborting."; exit 1; }
+#!/bin/bash  
 
-echo " Please run ./apt-get-dependencies.sh if you have an apt-get package manager"
-echo " Please run ./pacman-dependendies.sh if you have pacman for your package manager"
+which apt-get &>/dev/null
+if [ $? -eq 0 ] 
+then
+ ./apt-get-dependencies.sh
+ exit 0
+else
+ echo "Apt-Get package manager was not found in this system"
+fi
 
+which pacman &>/dev/null
+if [ $? -eq 0 ] 
+then
+ ./pacman-dependendies.sh
+ exit 0
+else
+ echo "Pacman package manager was not found in this system"
+fi
 
-#command -v pacman >/dev/null 2>&1 || { echo >&2 "I require apt-get but it's not installed.  Aborting."; exit 1; }
+echo " Could not find a compatible package manager for automatic dependency resolution"} 
 
-
-exit 0
+exit 1
