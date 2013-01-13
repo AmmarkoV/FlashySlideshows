@@ -2,21 +2,21 @@
 <wxsmith>
 	<object class="wxFrame" name="FlashySlideShowStarterFrame">
 		<title>Flashy SlideShow Starter </title>
-		<size>685,529</size>
+		<size>685,551</size>
 		<id_arg>0</id_arg>
 		<object class="wxStaticBox" name="ID_STATICBOX2" variable="StaticBox2" member="yes">
 			<label>Slideshow Options</label>
 			<pos>448,16</pos>
-			<size>224,368</size>
+			<size>224,384</size>
 		</object>
 		<object class="wxStaticBox" name="ID_STATICBOX1" variable="StaticBox1" member="yes">
 			<label>Folder Preview</label>
 			<pos>32,16</pos>
-			<size>408,344</size>
+			<size>408,360</size>
 		</object>
 		<object class="wxButton" name="ID_BUTTON1" variable="ButtonStart" member="yes">
 			<label>Start!</label>
-			<pos>448,392</pos>
+			<pos>448,408</pos>
 			<size>216,48</size>
 			<font>
 				<size>32</size>
@@ -30,17 +30,17 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON2" variable="ButtonQuit" member="yes">
 			<label>Quit</label>
-			<pos>600,448</pos>
+			<pos>600,464</pos>
 			<size>61,29</size>
 			<handler function="OnButtonQuitClick" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
 			<label>Directory :</label>
-			<pos>32,372</pos>
+			<pos>32,388</pos>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="PathTextCtrl" member="yes">
 			<value>~/Pictures</value>
-			<pos>104,368</pos>
+			<pos>104,384</pos>
 			<size>336,27</size>
 			<style>wxTE_PROCESS_ENTER</style>
 			<handler function="OnPathTextCtrlText" entry="EVT_TEXT" />
@@ -75,7 +75,7 @@
 			<defaultfolder>~/Pictures</defaultfolder>
 			<filter></filter>
 			<pos>40,48</pos>
-			<size>384,304</size>
+			<size>384,320</size>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX3" variable="CheckBoxVisuals" member="yes">
 			<label>Visual Effects</label>
@@ -128,11 +128,11 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="DateText" member="yes">
 			<label>Select a directory and then click Start to begin Slideshow</label>
-			<pos>32,400</pos>
+			<pos>32,416</pos>
 		</object>
 		<object class="wxButton" name="ID_BUTTON3" variable="ButtonControls" member="yes">
 			<label>Controls</label>
-			<pos>448,448</pos>
+			<pos>448,464</pos>
 			<size>144,29</size>
 			<handler function="OnButtonControlsClick" entry="EVT_BUTTON" />
 		</object>
@@ -178,8 +178,9 @@
 				<item>50%</item>
 			</content>
 			<selection>2</selection>
-			<pos>552,308</pos>
+			<pos>552,320</pos>
 			<size>104,29</size>
+			<enabled>0</enabled>
 			<font>
 				<size>8</size>
 				<style>normal</style>
@@ -211,11 +212,16 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT10" variable="StaticText9" member="yes">
 			<label>Custom Args :</label>
-			<pos>460,350</pos>
+			<pos>456,368</pos>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="Arguments" member="yes">
-			<pos>552,348</pos>
+			<pos>552,368</pos>
 			<size>104,23</size>
+		</object>
+		<object class="wxCheckBox" name="ID_CHECKBOX9" variable="CheckBoxFileLink" member="yes">
+			<label>File Link</label>
+			<pos>456,344</pos>
+			<handler function="OnCheckBoxFileLinkClick" entry="EVT_CHECKBOX" />
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">
@@ -239,7 +245,6 @@
 				</object>
 				<object class="wxMenuItem" name="idMenuHUD" variable="MenuItem7" member="yes">
 					<label>Heads Up Display</label>
-					<checked>1</checked>
 					<checkable>1</checkable>
 				</object>
 				<object class="wxMenuItem" name="idMenuSimpleBackground" variable="MenuItem6" member="yes">

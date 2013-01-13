@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="src/FlashySlideShow.cbp" active="1" />
-		<Project filename="src/FlashySlideShowStarter/FlashySlideShowStarter.cbp" />
+		<Project filename="src/FlashySlideShow.cbp" />
+		<Project filename="src/FlashySlideShowStarter/FlashySlideShowStarter.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>

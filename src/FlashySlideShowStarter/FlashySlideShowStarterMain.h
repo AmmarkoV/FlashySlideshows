@@ -52,6 +52,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnCheckBoxMipmapClick(wxCommandEvent& event);
         void OnCheckBoxIncludeSubfoldersClick(wxCommandEvent& event);
         void OnCheckBoxFileCopyClick(wxCommandEvent& event);
+        void OnCheckBoxFileLinkClick(wxCommandEvent& event);
         //*)
         void OnRefreshDir(wxCommandEvent& event);
 
@@ -88,6 +89,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_STATICTEXT9;
         static const long ID_STATICTEXT10;
         static const long ID_TEXTCTRL2;
+        static const long ID_CHECKBOX9;
         static const long idMenuQuit;
         static const long idMenuPlay;
         static const long idMenuWebInterface;
@@ -122,6 +124,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         wxStaticText* StaticText7;
         wxComboBox* ComboBoxTransitions;
         wxMenuItem* MenuItem5;
+        wxCheckBox* CheckBoxFileLink;
         wxCheckBox* CheckBoxFaceDetection;
         wxStaticText* StaticText4;
         wxComboBox* ComboBoxQuality;
