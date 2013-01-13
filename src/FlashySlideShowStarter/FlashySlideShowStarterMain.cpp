@@ -469,35 +469,51 @@ void FlashySlideShowStarterFrame::CheckNewVersion(wxCommandEvent& event)
 {
    fprintf(stderr,"Our Version is %s ",AutoVersion::FULLVERSION_STRING);
 
-   int size_of_message = 1024; char message[1024];
-   int size_of_output = 512;   char output[512];
-
    int i=0;
    i=system("notify-send \"Please Wait while checking for a new version.. \n It might take a while..\"&");
    if (i!=0) { fprintf(stderr,"Could not inform user in a nice GUI friendly way that it might take a while to check for a new verison\n"); }
 
-   FILE * fp = popen("wget -qO- https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h | grep FULLVERSION_STRING", "r");
-     if (fp == 0 ) { fprintf(stderr,"Failed to run check for new version \n"); return; }
+   StatusBar1->SetStatusText(wxT("Please Wait while checking for a newer version.."));
 
- /* Read the output a line at a time - output it. */
+   //Thanks @c00kiemon5ter
+   //curl -s 'https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h' | awk -F\" '/FULLVERSION_STRING/{ print $2 }'
+   //curl -s 'https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h' | sed -n '/FULLVERSION_STRING/s,.*"\(.\+\)".*,\1,p'
 
-
-
-  sprintf(message,"notify-send \"Our Version is %s \n\"&",AutoVersion::FULLVERSION_STRING); i=system(message);
-  if (i!=0) { fprintf(stderr,"Could not inform user in a nice GUI friendly way that it might take a while to check for a new verison\n"); }
+   //FILE * fp = popen("wget -qO- https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h | grep FULLVERSION_STRING | awk -F\\\" '/\"/{ print $2 }'", "r");
+    int size_of_output = 512;   char output[512];
+    FILE * fp = popen("wget -qO- https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h | sed -n '/FULLVERSION_STRING/s,.*\"\\(.\\+\\)\".*,\\1,p'", "r");
+      if (fp == 0 ) { fprintf(stderr,"Failed to run check for new version \n"); return; }
 
   i=0;
   while (fgets(output, size_of_output , fp) != 0)
     {
-        ++i;
-        fprintf(stderr,"\n\nRemote version line %u = %s \n",i,output);
+      wxString ourVersion(AutoVersion::FULLVERSION_STRING, wxConvUTF8);
+      wxString remoteVersion(output, wxConvUTF8);
 
-        sprintf(message,"notify-send \"Most Up to Date version is %s \n\"&",output); i=system(message);
+        ++i;
+        if (strcmp(AutoVersion::FULLVERSION_STRING,output)!=0)
+          {
+            wxString outmsg;
+            outmsg<<wxT("We have version ");
+            outmsg<<ourVersion;
+            outmsg<<wxT(", there is a newer version ");
+            outmsg<<remoteVersion;
+            outmsg<<wxT("waiting for you at https://raw.github.com/AmmarkoV/FlashySlideshows");
+
+            wxMessageBox(outmsg,wxT("New Version exists"),wxICON_INFORMATION);
+            StatusBar1->SetStatusText(wxT("A new version of flashy slideshows exists.."));
+          } else
+          {
+            wxString outmsg;
+            outmsg<<wxT("You already have the latest version (");
+            outmsg<<ourVersion;
+            outmsg<<wxT(") of FlashySlideshows");
+            wxMessageBox(outmsg,wxT("Your Version is up to date"),wxICON_MASK);
+            StatusBar1->SetStatusText(wxT("Your version of flashy slideshows is up to date.."));
+          }
         break;
     }
-  /* close */
   pclose(fp);
-
 }
 
 
