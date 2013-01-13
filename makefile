@@ -5,8 +5,10 @@
 
 WRKDIR = `pwd`
 MAKE = make 
+#SHELL="/bin/bash"
 
 INSTALLATIONSCRIPT:="./install.sh" 
+UNINSTALLATIONSCRIPT:="./uninstall.sh" 
 
 all: src_flashyslideshow src_flashyslideshowstarter_flashyslideshowstarter
 
@@ -22,6 +24,11 @@ clean: clean_src_flashyslideshow clean_src_flashyslideshowstarter_flashyslidesho
 install :   
 	@echo "INSTALLATIONSCRIPT=$(INSTALLATIONSCRIPT)"
 	$(shell $(INSTALLATIONSCRIPT))
+
+.PHONY: uninstall
+uninstall :   
+	@echo "UNINSTALLATIONSCRIPT=$(UNINSTALLATIONSCRIPT)"
+	$(shell $(UNINSTALLATIONSCRIPT))
 
 clean_src_flashyslideshow: 
 	$(MAKE) -C src clean -f FlashySlideShow.cbp.mak

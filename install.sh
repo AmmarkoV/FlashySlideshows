@@ -3,7 +3,7 @@ echo "Installation needs super user privileges.."
 sudo echo "..." 
 
 
-  ./make
+make
 
 if [ -d "/usr/share/flashyslideshows" ]; then
   echo "FlashySlideshows Installation detected , patching it up :)" 

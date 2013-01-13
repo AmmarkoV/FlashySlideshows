@@ -25,7 +25,7 @@ You can use the ./get-dependencies.sh to get the required packages for compiling
 
 --------------- Compilation ---------------
 To compile the project open a terminal and run
-./make
+make
 This will produce the executables ( flashyslideshows and flashyslideshowsgui )
 you can issue 
 ./flashyslideshowsgui
@@ -33,7 +33,8 @@ you can issue
 
 --------------- Installation of current version---------------
 if you want to install the app , run 
-./install.sh
+./install.sh or
+sudo make install
 your password is required.. 
 This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
 
