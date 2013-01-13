@@ -2,14 +2,15 @@
 echo "Installation needs super user privileges.."
 sudo echo "..." 
 
+
+  ./make
+
 if [ -d "/usr/share/flashyslideshows" ]; then
   echo "FlashySlideshows Installation detected , patching it up :)" 
 else
   echo "Installing Flashy Slideshows in the system.. :)" 
   sudo mkdir /usr/share/flashyslideshows
 fi
-
-  ./make
 
   if [ -e src/FlashySlideShowStarter/flashyslideshowsgui ]
   then
