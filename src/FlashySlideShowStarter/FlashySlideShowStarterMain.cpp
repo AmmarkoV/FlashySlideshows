@@ -474,7 +474,11 @@ int UnixTrimEndingNewLine(char * buffer)
 {
   int len = strlen(buffer);
   if (len > 0 && buffer[len-1] == '\n')
-  buffer[len-1] = 0;
+  {
+   buffer[len-1] = 0;
+   return 1;
+  }
+  return 0;
 }
 
 void FlashySlideShowStarterFrame::CheckNewVersion(wxCommandEvent& event)

@@ -5,7 +5,8 @@
 
 WRKDIR = `pwd`
 MAKE = make
-INSTALLSCRIPT = ./install.sh
+INSTALLATIONSCRIPT:="./install.sh"
+FUNCTION:=$(shell $(INSTALLATIONSCRIPT))
 
 all: src_flashyslideshow src_flashyslideshowstarter_flashyslideshowstarter
 
@@ -16,8 +17,11 @@ src_flashyslideshowstarter_flashyslideshowstarter:
 	$(MAKE) -C src/FlashySlideShowStarter all -f FlashySlideShowStarter.cbp.mak
 
 clean: clean_src_flashyslideshow clean_src_flashyslideshowstarter_flashyslideshowstarter
-
-install : $(INSTALLSCRIPT)
+ 
+.PHONY: install
+install : all  
+          @echo "INSTALLATIONSCRIPT=$(INSTALLATIONSCRIPT)"
+          @echo "FUNCTION=$(FUNCTION)"
 
 clean_src_flashyslideshow: 
 	$(MAKE) -C src clean -f FlashySlideShow.cbp.mak

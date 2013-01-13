@@ -11,18 +11,20 @@ fi
 
   ./make
 
-  if [ -e flashyslideshowsgui ]
+  if [ -e src/FlashySlideShowStarter/flashyslideshowsgui ]
   then
     echo "FlashySlideShow GUI App is OK :) , including it to system binaries .."
+    cp src/FlashySlideShowStarter/flashyslideshowsgui flashyslideshowsgui
     sudo cp flashyslideshowsgui /usr/bin/flashyslideshowsgui 
   else
     echo "FlashySlideShow GUI App could not be installed , you probably got a library missing"
     exit 1
   fi
 
-  if [ -e flashyslideshows ]
+  if [ -e src/flashyslideshows ]
   then
     echo "FlashySlideShow Main App is OK :) , including it to system binaries .."
+    cp src/flashyslideshows flashyslideshows
     sudo cp flashyslideshows /usr/bin/flashyslideshows
   else
     echo "FlashySlideShow Main App could not be installed , you probably got a library missing"

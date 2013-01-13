@@ -47,24 +47,19 @@ rm  flashyslideshows
 g++ $Optimizations $MAIN_PARTS $TRANSITIONS $VISUALS $LAYOUTS wxwidgets_stuff.cpp $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
 
 strip flashyslideshows
-
-cp flashyslideshows ../flashyslideshows
-
+  
 cd FlashySlideShowStarter
 
 rm  flashyslideshowsgui
 
 g++ $Optimizations FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../directory_listing.cpp ../directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o flashyslideshowsgui
 
-strip flashyslideshowsgui
-
-cp flashyslideshowsgui ../../flashyslideshowsgui
+strip flashyslideshowsgui 
 
 cd ..
 
 cd ..
-
-
+ 
 echo "Done.."
 
   if [ -e src/flashyslideshows ] 
