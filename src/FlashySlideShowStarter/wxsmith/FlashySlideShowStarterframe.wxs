@@ -251,6 +251,10 @@
 					<label>Simple Background</label>
 					<checkable>1</checkable>
 				</object>
+				<object class="wxMenuItem" name="idMenuViewCommand" variable="MenuItem9" member="yes">
+					<label>View Command befor startup</label>
+					<checkable>1</checkable>
+				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">
 				<label>Help</label>

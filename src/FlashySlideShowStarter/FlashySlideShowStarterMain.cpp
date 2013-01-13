@@ -109,6 +109,7 @@ const long FlashySlideShowStarterFrame::idMenuPlay = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuWebInterface = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuHUD = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuSimpleBackground = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuViewCommand = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAmmarkoVWebsite = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAbout = wxNewId();
@@ -226,6 +227,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu3->Append(MenuItem7);
     MenuItem6 = new wxMenuItem(Menu3, idMenuSimpleBackground, _("Simple Background"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem6);
+    MenuItem9 = new wxMenuItem(Menu3, idMenuViewCommand, _("View Command befor startup"), wxEmptyString, wxITEM_CHECK);
+    Menu3->Append(MenuItem9);
     MenuBar1->Append(Menu3, _("More Options"));
     Menu2 = new wxMenu();
     MenuItem3 = new wxMenuItem(Menu2, idMenuGithub, _("Visit Github Repository"), _("Click to open the github repository of FlashySlideshows on your browser"), wxITEM_NORMAL);
@@ -386,7 +389,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     if ( CheckBoxMipmap->IsChecked() ) { what_to_call<< wxT(" -m"); }
     if ( CheckBoxFileMove->IsChecked() ) { what_to_call<< wxT(" -file_move"); }
     if ( CheckBoxFileCopy->IsChecked() ) { what_to_call<< wxT(" -file_copy"); }
-    if ( CheckBoxFileCopy->IsChecked() ) { what_to_call<< wxT(" -file_link"); }
+    if ( CheckBoxFileLink->IsChecked() ) { what_to_call<< wxT(" -file_link"); }
     if ( CheckBoxFileResize->IsChecked() ) { what_to_call<< wxT(" -file_resize ");
                                              what_to_call<<ComboBoxResizeResolution->GetValue();
                                            }
@@ -419,6 +422,9 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     what_to_call<< wxT("\"");
 
     //wxMessageBox(what_to_call,wxT("What will be executed")); // DEBUG : P
+
+    if (Menu3->IsChecked(idMenuViewCommand))  { wxMessageBox(what_to_call,wxT("What will be executed"));  }
+
     StatusBar1->SetStatusText(wxT("Starting FlashySlideshows..!!!"));
     ButtonStart->SetLabel(wxT("Running"));
     long result=wxExecute(what_to_call,wxEXEC_SYNC);
