@@ -46,6 +46,11 @@ wxString wxbuildinfo(wxbuildinfoformat format)
     wxbuild.clear();
 
 
+    wxbuild << _T("Running FlashySlideshows v");
+    wxString ourVersion(AutoVersion::FULLVERSION_STRING, wxConvUTF8);
+    wxbuild << ourVersion;
+    wxbuild << _T("\n");
+
     wxbuild << _T("Another quality \"product\" by Ammar Qammaz a.k.a. AmmarkoV --- http://ammar.gr\n\n");
 
     wxbuild << _T("GUI Compiled using wxWidgets\n");
@@ -342,7 +347,7 @@ void ComplainAboutInstallation()
   error_message<<wxT("This means a bad installation , execution from a weird directory or possibly that there are\n");
   error_message<<wxT("unresolved OpenGL dependencies and the main executable couldnt be compiled\n\n");
   error_message<<wxT("You can visit the github repository using the help menu and create an issue ticket\n");
-  error_message<<wxT("describing your problem..!\n");
+  error_message<<wxT("describing your problem , or mail ammarkov+flashy@gmail.com..!\n");
   error_message<<wxT("\n\n");
   error_message<<wxT("Sorry for the inconvinience :)\n");
   wxMessageBox(error_message,wxT("Cannot find required executable files.."));
@@ -465,42 +470,56 @@ void FlashySlideShowStarterFrame::OpenGithubSite(wxCommandEvent& event)
 }
 
 
+int UnixTrimEndingNewLine(char * buffer)
+{
+  int len = strlen(buffer);
+  if (len > 0 && buffer[len-1] == '\n')
+  buffer[len-1] = 0;
+}
+
 void FlashySlideShowStarterFrame::CheckNewVersion(wxCommandEvent& event)
 {
-   fprintf(stderr,"Our Version is %s ",AutoVersion::FULLVERSION_STRING);
+   fprintf(stderr,"Checking for a new Version of Flashy Slideshows ( running %s ) \n ",AutoVersion::FULLVERSION_STRING);
 
    int i=0;
+   //Inform the user that the program will block for a while..!
    i=system("notify-send \"Please Wait while checking for a new version.. \n It might take a while..\"&");
    if (i!=0) { fprintf(stderr,"Could not inform user in a nice GUI friendly way that it might take a while to check for a new verison\n"); }
+   StatusBar1->SetStatusText(wxT("Please Wait while checking for a newer version ( this might take a while ).."));
+   fprintf(stderr,"Please Wait while checking for a newer version ( this might take a while )..\n ");
 
-   StatusBar1->SetStatusText(wxT("Please Wait while checking for a newer version.."));
-
-   //Thanks @c00kiemon5ter
-   //curl -s 'https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h' | awk -F\" '/FULLVERSION_STRING/{ print $2 }'
-   //curl -s 'https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h' | sed -n '/FULLVERSION_STRING/s,.*"\(.\+\)".*,\1,p'
-
+   //Thanks @c00kiemon5ter , the next commandline one liner will put the FULLVERSION_STRING of the git repo inside char * output
    //FILE * fp = popen("wget -qO- https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h | grep FULLVERSION_STRING | awk -F\\\" '/\"/{ print $2 }'", "r");
     int size_of_output = 512;   char output[512];
     FILE * fp = popen("wget -qO- https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h | sed -n '/FULLVERSION_STRING/s,.*\"\\(.\\+\\)\".*,\\1,p'", "r");
-      if (fp == 0 ) { fprintf(stderr,"Failed to run check for new version \n"); return; }
+    if (fp == 0 )
+      {
+        fprintf(stderr,"Failed to run check for new version \n");
+        wxMessageBox(wxT("Failed to run check for new version \n"),wxT("New Version exists"),wxICON_ASTERISK);
+        return;
+      }
 
   i=0;
   while (fgets(output, size_of_output , fp) != 0)
     {
+      //We should trim the trailing new line character ( if it exists )
+      UnixTrimEndingNewLine(output);
       wxString ourVersion(AutoVersion::FULLVERSION_STRING, wxConvUTF8);
       wxString remoteVersion(output, wxConvUTF8);
 
         ++i;
+        fprintf(stderr,"Our Version : `%s` , Remote Version : `%s` \n",AutoVersion::FULLVERSION_STRING,output);
         if (strcmp(AutoVersion::FULLVERSION_STRING,output)!=0)
           {
             wxString outmsg;
-            outmsg<<wxT("We have version ");
+            outmsg<<wxT("You are currently running version ");
             outmsg<<ourVersion;
             outmsg<<wxT(", there is a newer version ");
             outmsg<<remoteVersion;
-            outmsg<<wxT("waiting for you at https://raw.github.com/AmmarkoV/FlashySlideshows");
+            outmsg<<wxT("you can download at https://www.github.com/AmmarkoV/FlashySlideshows");
 
-            wxMessageBox(outmsg,wxT("New Version exists"),wxICON_INFORMATION);
+            wxMessageBox(outmsg,wxT("New Version exists"),wxICON_WARNING);
+            fprintf(stderr,"A new version of flashy slideshows exists..");
             StatusBar1->SetStatusText(wxT("A new version of flashy slideshows exists.."));
           } else
           {
@@ -508,7 +527,8 @@ void FlashySlideShowStarterFrame::CheckNewVersion(wxCommandEvent& event)
             outmsg<<wxT("You already have the latest version (");
             outmsg<<ourVersion;
             outmsg<<wxT(") of FlashySlideshows");
-            wxMessageBox(outmsg,wxT("Your Version is up to date"),wxICON_MASK);
+            wxMessageBox(outmsg,wxT("Version up to date"),wxICON_INFORMATION);
+            fprintf(stderr,"Our version of flashy slideshows is up to date..");
             StatusBar1->SetStatusText(wxT("Your version of flashy slideshows is up to date.."));
           }
         break;
@@ -655,14 +675,23 @@ void FlashySlideShowStarterFrame::OnButtonControlsClick(wxCommandEvent& event)
     wxString controls_text;
     controls_text.clear();
 
+    controls_text<< wxT(" \n");
     controls_text<< wxT(" W = Up , S = Down , A = Left , D = Right \n");
     controls_text<< wxT("---------------------------------------------\n");
     controls_text<< wxT(" Arrow Keys = Change Picture \n F = Zoom out , R = Zoom in \n");
     controls_text<< wxT(" Q = Rotate Counter Clockwise \n E = Rotate Clockwise \n");
     controls_text<< wxT("---------------------------------------------\n");
+    controls_text<< wxT(" Keys 1,2,3,4,5,6,7,8,9,0 control Image Transactions\n");
+    controls_text<< wxT(" This functionality of FlashySlideshows is particularly handy for sorting your images\n\n");
+    controls_text<< wxT(" If `File Move` is checked , active Image will be moved to Moved/CategoryX\n");
+    controls_text<< wxT(" If `File Resize` is checked , active Image will be resized to Resized/CategoryX using the resolution supplied\n");
+    controls_text<< wxT(" If `File Copy` is checked , active Image will be copy to Copied/CategoryX\n");
+    controls_text<< wxT(" If `File Link` is checked , active Image will be linked to Linked/CategoryX\n\n");
+    controls_text<< wxT(" The X part of CategoryX takes the value of the key pressed\n");
+    controls_text<< wxT("---------------------------------------------\n");
     controls_text<< wxT(" Enter = Automatic Slideshow \n M = Cycle Transition Modes \n B = Change Hover Effect \n");
     controls_text<< wxT(" N = Cycle Layouts \n J = Toggle Fullscreen \n Escape = Quit \n");
-    wxMessageBox(controls_text, _("FlashySlideShow Controls list..!"));
+    wxMessageBox(controls_text, _("FlashySlideShow control list"));
 
 }
 
