@@ -112,6 +112,7 @@ const long FlashySlideShowStarterFrame::idMenuSimpleBackground = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuViewCommand = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuGithub = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAmmarkoVWebsite = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuCheckNewVersion = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuAbout = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATUSBAR1 = wxNewId();
 //*)
@@ -123,6 +124,9 @@ BEGIN_EVENT_TABLE(FlashySlideShowStarterFrame,wxFrame)
         EVT_PAINT(FlashySlideShowStarterFrame::OnPaint)
 END_EVENT_TABLE()
 
+
+
+
 FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(FlashySlideShowStarterFrame)
@@ -131,6 +135,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     wxMenu* Menu1;
     wxMenuItem* MenuItem3;
     wxMenuBar* MenuBar1;
+    wxMenuItem* MenuItem10;
     wxMenuItem* MenuItem4;
     wxMenu* Menu2;
     wxMenuItem* MenuItem8;
@@ -235,6 +240,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu2->Append(MenuItem3);
     MenuItem4 = new wxMenuItem(Menu2, idMenuAmmarkoVWebsite, _("Visit Author\'s Website"), _("Click to open the website of the author of the program"), wxITEM_NORMAL);
     Menu2->Append(MenuItem4);
+    MenuItem10 = new wxMenuItem(Menu2, idMenuCheckNewVersion, _("Check for a new version"), wxEmptyString, wxITEM_NORMAL);
+    Menu2->Append(MenuItem10);
     MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
     Menu2->Append(MenuItem2);
     MenuBar1->Append(Menu2, _("Help"));
@@ -266,6 +273,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     //TA KOUMPIA TOU MENU
     Connect(idMenuGithub,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OpenGithubSite);
     Connect(idMenuAmmarkoVWebsite,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OpenAmmarkoVSite);
+    Connect(idMenuCheckNewVersion,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::CheckNewVersion);
 
     default_img_thumb.SetData((unsigned char *)EmptyThumbnail.pixel_data,EmptyThumbnail.width ,EmptyThumbnail.height,true);
     default_bmp_thumb = new wxBitmap(default_img_thumb);
@@ -286,9 +294,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ButtonStart->SetLabel(wxT("Click"));
     ButtonStart->SetLabel(wxT("to"));
     ButtonStart->SetLabel(wxT("Start!"));
+
 }
-
-
 
 
 FlashySlideShowStarterFrame::~FlashySlideShowStarterFrame()
@@ -458,6 +465,41 @@ void FlashySlideShowStarterFrame::OpenGithubSite(wxCommandEvent& event)
 }
 
 
+void FlashySlideShowStarterFrame::CheckNewVersion(wxCommandEvent& event)
+{
+   fprintf(stderr,"Our Version is %s ",AutoVersion::FULLVERSION_STRING);
+
+   int size_of_message = 1024; char message[1024];
+   int size_of_output = 512;   char output[512];
+
+   int i=0;
+   i=system("notify-send \"Please Wait while checking for a new version.. \n It might take a while..\"&");
+   if (i!=0) { fprintf(stderr,"Could not inform user in a nice GUI friendly way that it might take a while to check for a new verison\n"); }
+
+   FILE * fp = popen("wget -qO- https://raw.github.com/AmmarkoV/FlashySlideshows/master/src/version.h | grep FULLVERSION_STRING", "r");
+     if (fp == 0 ) { fprintf(stderr,"Failed to run check for new version \n"); return; }
+
+ /* Read the output a line at a time - output it. */
+
+
+
+  sprintf(message,"notify-send \"Our Version is %s \n\"&",AutoVersion::FULLVERSION_STRING); i=system(message);
+  if (i!=0) { fprintf(stderr,"Could not inform user in a nice GUI friendly way that it might take a while to check for a new verison\n"); }
+
+  i=0;
+  while (fgets(output, size_of_output , fp) != 0)
+    {
+        ++i;
+        fprintf(stderr,"\n\nRemote version line %u = %s \n",i,output);
+
+        sprintf(message,"notify-send \"Most Up to Date version is %s \n\"&",output); i=system(message);
+        break;
+    }
+  /* close */
+  pclose(fp);
+
+}
+
 
 void FlashySlideShowStarterFrame::OnPaint(wxPaintEvent& event)
 {
@@ -478,20 +520,6 @@ void FlashySlideShowStarterFrame::OnPaint(wxPaintEvent& event)
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

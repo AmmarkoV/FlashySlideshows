@@ -266,6 +266,9 @@
 					<label>Visit Author&apos;s Website</label>
 					<help>Click to open the website of the author of the program</help>
 				</object>
+				<object class="wxMenuItem" name="idMenuCheckNewVersion" variable="MenuItem10" member="no">
+					<label>Check for a new version</label>
+				</object>
 				<object class="wxMenuItem" name="idMenuAbout" variable="MenuItem2" member="no">
 					<label>About</label>
 					<accel>F1</accel>

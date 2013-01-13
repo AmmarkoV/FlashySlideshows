@@ -8,7 +8,7 @@
 		<Cursor position="598" topLine="0" />
 	</File>
 	<File name="controls.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="8050" topLine="224" />
+		<Cursor position="1015" topLine="3" />
 	</File>
 	<File name="controls.h" open="1" top="0" tabpos="53">
 		<Cursor position="311" topLine="0" />
@@ -20,16 +20,19 @@
 		<Cursor position="269" topLine="0" />
 	</File>
 	<File name="directory_sorting.cpp" open="1" top="0" tabpos="34">
-		<Cursor position="3694" topLine="86" />
+		<Cursor position="3694" topLine="10" />
 	</File>
 	<File name="directory_sorting.h" open="1" top="0" tabpos="52">
 		<Cursor position="250" topLine="0" />
 	</File>
 	<File name="directory_transactions.cpp" open="1" top="0" tabpos="33">
-		<Cursor position="2984" topLine="169" />
+		<Cursor position="7564" topLine="186" />
+	</File>
+	<File name="directory_transactions.h" open="1" top="0" tabpos="63">
+		<Cursor position="163" topLine="0" />
 	</File>
 	<File name="environment.cpp" open="1" top="0" tabpos="28">
-		<Cursor position="2360" topLine="86" />
+		<Cursor position="2360" topLine="53" />
 	</File>
 	<File name="environment.h" open="1" top="0" tabpos="29">
 		<Cursor position="398" topLine="0" />
@@ -77,7 +80,7 @@
 		<Cursor position="218" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="29918" topLine="744" />
+		<Cursor position="17886" topLine="326" />
 	</File>
 	<File name="math_3d.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="2940" topLine="84" />
@@ -104,10 +107,10 @@
 		<Cursor position="1345" topLine="7" />
 	</File>
 	<File name="slideshow.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2262" topLine="137" />
+		<Cursor position="3002" topLine="11" />
 	</File>
 	<File name="slideshow.h" open="1" top="0" tabpos="5">
-		<Cursor position="4847" topLine="102" />
+		<Cursor position="5088" topLine="193" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="3484" topLine="88" />
@@ -121,7 +124,7 @@
 	<File name="transitions/transition_handler.h" open="1" top="0" tabpos="43">
 		<Cursor position="406" topLine="0" />
 	</File>
-	<File name="version.h" open="1" top="1" tabpos="35">
+	<File name="version.h" open="1" top="0" tabpos="35">
 		<Cursor position="763" topLine="0" />
 	</File>
 	<File name="visuals.cpp" open="1" top="0" tabpos="8">

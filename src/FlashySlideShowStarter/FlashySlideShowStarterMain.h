@@ -36,6 +36,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         unsigned int RefreshThumbnails();
         void OpenAmmarkoVSite(wxCommandEvent& event);
         void OpenGithubSite(wxCommandEvent& event);
+        void CheckNewVersion(wxCommandEvent& event);
         //(*Handlers(FlashySlideShowStarterFrame)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
@@ -98,6 +99,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long idMenuViewCommand;
         static const long idMenuGithub;
         static const long idMenuAmmarkoVWebsite;
+        static const long idMenuCheckNewVersion;
         static const long idMenuAbout;
         static const long ID_STATUSBAR1;
         //*)
