@@ -152,6 +152,10 @@ struct SlideShowData
   unsigned int try_for_best_render_quality; // <-- 0/1
   unsigned int lighting_enabled; // <-- 0/1
   unsigned int fullscreen;
+  unsigned int windowX;
+  unsigned int windowY;
+  unsigned int windowWidth;
+  unsigned int windowHeight;
 
   unsigned int allow_operation_move;
   unsigned int allow_operation_copy;

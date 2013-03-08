@@ -425,60 +425,21 @@ unsigned int WaitForVariableToTakeValue(unsigned int *var,unsigned int value , u
 
 void ToggleFullscreen()
 {
-   //fprintf(stderr,"Fullscreen toggling not implemented , skipping command for safety \n");
-   //return;
-
    if ( frame.fullscreen == 0 )
     {
-      STOP_IDLE_CALLBACK=1;
-      int width_x=glutGet(GLUT_SCREEN_WIDTH);
-      int width_y=glutGet(GLUT_SCREEN_HEIGHT);
-      char mode_string[128]={0};
-      sprintf(mode_string,"%ux%u:32",width_x,width_y);
-      fprintf(stderr,"Attempting fullscreen %s\n",mode_string);
-      glutGameModeString(mode_string);
-      if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE))  {
-                                                        glutEnterGameMode();
-                                                     } else
-                                                     {
-                                                       fprintf(stderr,"Cannot enter fullscreen\n");
-                                                       STOP_IDLE_CALLBACK=0;
-                                                       return;
-                                                     }
-
-      gettimeofday(&last_frame,0x0); // Avoid the unaccounted time passed make movement glitchy
-      InitGlut();
-      glutIdleFunc(IdleCallbackFS);
-      frame.fullscreen=1;
-      STOP_IDLE_CALLBACK=0;
-      glutMainLoop();
+       frame.fullscreen=1;
+       frame.windowX=glutGet(GLUT_WINDOW_X);
+       frame.windowY=glutGet(GLUT_WINDOW_Y);
+       frame.windowWidth=glutGet(GLUT_WINDOW_WIDTH);
+       frame.windowHeight=glutGet(GLUT_WINDOW_HEIGHT);
+       glutFullScreen();
     } else
    if ( frame.fullscreen == 1 )
     {
-      if (originalWindow != 0 && currentWindow != originalWindow)
-      {
-       glutIdleFunc(0);
-       STOP_IDLE_CALLBACK=1;
-       WaitForVariableToTakeValue(&STOP_IDLE_CALLBACK,2,1000);
-       glutLeaveGameMode();
        frame.fullscreen=0;
-       STOP_IDLE_CALLBACK=0;
-       gettimeofday(&last_frame,0x0); // Avoid the unaccounted time passed make movement glitchy
-       glutIdleFunc(IdleCallback);
-       currentWindow = originalWindow;
-      }
-
+      glutPositionWindow(frame.windowX,frame.windowY);
+      glutReshapeWindow(frame.windowWidth,frame.windowHeight);
     }
-
-
-   	if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE) == 0) fprintf(stderr,"Current Mode: Window"); else
-		                                             fprintf(stderr,"Current Mode: Game Mode %dx%d at %d hertz, %d bpp",glutGameModeGet(GLUT_GAME_MODE_WIDTH),
-			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_HEIGHT),
-			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_REFRESH_RATE),
-			                                                                                                            glutGameModeGet(GLUT_GAME_MODE_PIXEL_DEPTH)   );
-
-
-
 }
 
 
@@ -528,6 +489,11 @@ int main(int argc, char *argv[])
                    { //Recursive Directory command
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);
                        frame.recursive=1;
+                   } else
+             if (strcmp(argv[i],"-fullscreen")==0)
+                   { //Fullscreen window
+                       fprintf(stderr,"Auto Fullscreen %u - %s\n",i,argv[i]);
+                       frame.fullscreen=1;
                    } else
              if (strcmp(argv[i],"-play")==0)
                    { //Recursive Directory command
@@ -693,14 +659,28 @@ int main(int argc, char *argv[])
     fprintf(stderr,"System Resolution is %ux%u\n",width_x,width_y);
     if (width_x>1024) { width_x=1024; }
     if (width_y>600)  { width_y=600; }
-    fprintf(stderr,"Window Resolution is %ux%u\n",width_x,width_y);
-    glutInitWindowSize(width_x,width_y);
-    glutInitWindowPosition(0,0);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 
     char title[512]={0};
     sprintf(title,"Flashy Slideshows v%s %s - build %u - %s/%s/%s ",AutoVersion::FULLVERSION_STRING,AutoVersion::STATUS,(unsigned int) AutoVersion::BUILDS_COUNT,AutoVersion::DATE,AutoVersion::MONTH,AutoVersion::YEAR);
-    originalWindow = glutCreateWindow(title);
+
+
+     fprintf(stderr,"Window Resolution is %ux%u\n",width_x,width_y);
+     glutInitWindowSize(width_x,width_y);
+     glutInitWindowPosition(0,0);
+
+     frame.windowX=0; frame.windowY=0;
+     frame.windowWidth=width_x; frame.windowHeight=width_y;
+     originalWindow = glutCreateWindow(title);
+
+   if (frame.fullscreen)
+   {
+      frame.fullscreen=0;
+      ToggleFullscreen();
+   }
+
+
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
+
 
     InitGlut();
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */

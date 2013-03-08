@@ -93,6 +93,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_CHECKBOX9;
         static const long idMenuQuit;
         static const long idMenuPlay;
+        static const long idMenuFullscreenCommand;
         static const long idMenuWebInterface;
         static const long idMenuHUD;
         static const long idMenuSimpleBackground;
@@ -124,6 +125,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         wxMenuItem* MenuItem9;
         wxStaticText* StaticText8;
         wxCheckBox* CheckBoxFileMove;
+        wxMenuItem* MenuItem11;
         wxStaticBox* StaticBox1;
         wxStaticText* StaticText7;
         wxComboBox* ComboBoxTransitions;

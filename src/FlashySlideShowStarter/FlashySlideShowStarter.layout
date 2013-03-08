@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
-	<File name="EmptyThumbnail.h" open="1" top="0" tabpos="6">
-		<Cursor position="2100" topLine="0" />
+	<ActiveTarget name="Release" />
+	<File name="FlashySlideShowStarterApp.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="FlashyLogo.h" open="1" top="0" tabpos="5">
-		<Cursor position="235" topLine="0" />
+	<File name="../directory_listing.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="FlashySlideShowStarterApp.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="0" topLine="0" />
+	<File name="FlashySlideShowStarterApp.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="FlashySlideShowStarterApp.h" open="1" top="0" tabpos="4">
-		<Cursor position="591" topLine="0" />
+	<File name="../directory_sorting.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="FlashySlideShowStarterMain.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="34902" topLine="720" />
+	<File name="FlashySlideShowStarterMain.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="FlashySlideShowStarterMain.h" open="1" top="0" tabpos="3">
-		<Cursor position="1210" topLine="32" />
+	<File name="FlashySlideShowStarterMain.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="21849" topLine="369" />
+		</Cursor>
 	</File>
-	<File name="../directory_listing.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="5759" topLine="0" />
+	<File name="FlashyLogo.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="../directory_sorting.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="0" topLine="3" />
+	<File name="EmptyThumbnail.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

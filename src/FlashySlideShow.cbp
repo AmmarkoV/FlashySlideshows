@@ -4,6 +4,7 @@
 	<Project>
 		<Option title="FlashySlideShow" />
 		<Option pch_mode="2" />
+		<Option default_target="Release" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
@@ -25,6 +26,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option parameters='-no_hud -sfx -fd  -fullscreen -v -images_per_line 3 -q 3 -d 5000   &quot;/home/ammar/Downloads&quot;' />
 				<Compiler>
 					<Add option="-march=core2" />
 					<Add option="-O3" />
@@ -112,7 +114,7 @@
 			<debugger />
 			<AutoVersioning>
 				<Scheme minor_max="1000" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
-				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Settings autoincrement="1" date_declarations="1" update_manifest="0" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
 				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
 				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
 			</AutoVersioning>

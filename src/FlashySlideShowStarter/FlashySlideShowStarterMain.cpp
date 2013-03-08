@@ -111,6 +111,7 @@ const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX9 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuPlay = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuFullscreenCommand = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuWebInterface = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuHUD = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuSimpleBackground = wxNewId();
@@ -231,13 +232,15 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu3 = new wxMenu();
     MenuItem8 = new wxMenuItem(Menu3, idMenuPlay, _("Immediate Playback"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem8);
+    MenuItem11 = new wxMenuItem(Menu3, idMenuFullscreenCommand, _("Fullscreen"), wxEmptyString, wxITEM_CHECK);
+    Menu3->Append(MenuItem11);
     MenuItem5 = new wxMenuItem(Menu3, idMenuWebInterface, _("Web Interface"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem5);
     MenuItem7 = new wxMenuItem(Menu3, idMenuHUD, _("Heads Up Display"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem7);
     MenuItem6 = new wxMenuItem(Menu3, idMenuSimpleBackground, _("Simple Background"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem6);
-    MenuItem9 = new wxMenuItem(Menu3, idMenuViewCommand, _("View Command befor startup"), wxEmptyString, wxITEM_CHECK);
+    MenuItem9 = new wxMenuItem(Menu3, idMenuViewCommand, _("View Command before startup"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem9);
     MenuBar1->Append(Menu3, _("More Options"));
     Menu2 = new wxMenu();
@@ -392,6 +395,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
     if (Menu3->IsChecked(idMenuWebInterface))  { what_to_call<< wxT(" -web"); }
     if (!Menu3->IsChecked(idMenuHUD))  { what_to_call<< wxT(" -no_hud"); }
     if (Menu3->IsChecked(idMenuSimpleBackground))  { what_to_call<< wxT(" -no_background"); }
+    if (Menu3->IsChecked(idMenuFullscreenCommand))  { what_to_call<< wxT(" -fullscreen"); }
 
     /* Options from side panel*/
     if ( CheckBoxIncludeSubfolders->IsChecked() ) { what_to_call<< wxT(" -r"); }
