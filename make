@@ -9,9 +9,16 @@ magenta=$(printf "\033[35m")
 cyan=$(printf "\033[36m")
 white=$(printf "\033[37m")
 normal=$(printf "\033[m")
+ 
+normalChars=$(printf "\033[0m")
+boldChars=$(printf "\033[1m")
+underlinedChars=$(printf "\033[4m")
+blinkingChars=$(printf "\033[5m") 
 
 echo $white
+echo $boldChars
 echo "Making FlashySlideshows.."
+echo $normalChars
 echo $normal
 
 #Build AmmarServer first of all!

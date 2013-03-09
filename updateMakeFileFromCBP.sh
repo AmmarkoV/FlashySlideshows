@@ -3,7 +3,7 @@ echo "Check https://sourceforge.net/projects/cbp2make/ if you dont have cbp2make
 
 cbp2make -in CodeBlocks.workspace -unix
 #mv CodeBlocks.workspace.mak makefile
-
+rm CodeBlocks.workspace.mak
 
 echo "Do not forget to add "
 echo "INSTALLATIONSCRIPT:=\"./install.sh\" " 

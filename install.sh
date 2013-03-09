@@ -1,6 +1,29 @@
 #!/bin/bash
-echo "Installation needs super user privileges.."
-sudo echo "..." 
+
+red=$(printf "\033[31m")
+green=$(printf "\033[32m")
+yellow=$(printf "\033[33m")
+blue=$(printf "\033[34m")
+magenta=$(printf "\033[35m")
+cyan=$(printf "\033[36m")
+white=$(printf "\033[37m")
+normal=$(printf "\033[m")
+
+normalChars=$(printf "\033[0m")
+boldChars=$(printf "\033[1m")
+underlinedChars=$(printf "\033[4m")
+blinkingChars=$(printf "\033[5m") 
+
+ 
+if [ $( id -u ) -eq 0 ]; then
+echo "Will begin installation now"
+else
+ echo $red
+ echo "Installer must be run as root in order to copy files to system.."
+ echo "Please re run using sudo ./install.sh , exiting now.."
+ echo $normal
+ exit 0
+fi
 
 
 make
@@ -14,19 +37,27 @@ fi
 
   if [ -e src/FlashySlideShowStarter/flashyslideshowsgui ]
   then
+    echo $green
     echo "FlashySlideShow GUI App is OK :) , including it to system binaries .." 
+    echo $normal
     sudo cp src/FlashySlideShowStarter/flashyslideshowsgui /usr/bin/flashyslideshowsgui 
   else
+    echo $red
     echo "FlashySlideShow GUI App could not be installed , you probably got a library missing"
+    echo $normal
     exit 1
   fi
 
   if [ -e src/flashyslideshows ]
   then
+    echo $green
     echo "FlashySlideShow Main App is OK :) , including it to system binaries .." 
+    echo $normal
     sudo cp src/flashyslideshows /usr/bin/flashyslideshows
   else
+    echo $red
     echo "FlashySlideShow Main App could not be installed , you probably got a library missing"
+    echo $normal
     exit 1
   fi
  
