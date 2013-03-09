@@ -28,15 +28,19 @@
 				<Option compiler="gcc" />
 				<Option parameters='-no_hud -sfx -fd  -fullscreen -v -images_per_line 3 -q 3 -d 5000   &quot;/home/ammar/Downloads&quot;' />
 				<Compiler>
-					<Add option="-march=core2" />
+					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="`wx-config --cflags`" />
 			<Add option="`pkg-config --cflags opencv`" />
+			<Add option="-march=native -mtune=native" />
 			<Add directory="usr/include" />
 		</Compiler>
 		<Linker>

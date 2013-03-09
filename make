@@ -49,7 +49,7 @@ echo $normal
 
 OpenCVStuff="`pkg-config --cflags opencv` `pkg-config --libs opencv`"
 
-Optimizations="-s -O3 -fexpensive-optimizations"
+Optimizations="-s -O3 -fexpensive-optimizations -march=native -mtune=native"
 CPU=" "
 
 #If we are on an 64bit intel card we might want to uncomment the line that follows for better performance 

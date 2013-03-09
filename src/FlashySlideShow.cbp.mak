@@ -12,7 +12,7 @@ LD = g++
 WINDRES = windres
 
 INC =  -Iusr/include
-CFLAGS =  -Wall `wx-config --cflags` `pkg-config --cflags opencv`
+CFLAGS =  -Wall `wx-config --cflags` `pkg-config --cflags opencv` -march=native -mtune=native
 RESINC = 
 LIBDIR =  -Lusr/lib
 LIB =  -lglut -lGL -lGLU -lXxf86vm -lpthread -lopenal -lalut AmmarServer/src/AmmServerlib/libAmmServerlib.a
@@ -30,12 +30,12 @@ DEP_DEBUG =
 OUT_DEBUG = flashyslideshows
 
 INC_RELEASE =  $(INC)
-CFLAGS_RELEASE =  $(CFLAGS) -march=core2 -O3
+CFLAGS_RELEASE =  $(CFLAGS) -fexpensive-optimizations -O3
 RESINC_RELEASE =  $(RESINC)
 RCFLAGS_RELEASE =  $(RCFLAGS)
 LIBDIR_RELEASE =  $(LIBDIR)
 LIB_RELEASE = $(LIB)
-LDFLAGS_RELEASE =  $(LDFLAGS)
+LDFLAGS_RELEASE =  $(LDFLAGS) -s
 OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = flashyslideshows
