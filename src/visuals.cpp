@@ -23,10 +23,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "visuals.h"
 #include "slideshow.h"
-#include "load_images.h"
+#include "hypervisor/load_images.h"
 #include "directory_listing.h"
 #include "scene_objects.h"
-#include "sound.h"
+#include "tools/sound.h"
 #include <math.h>
 #include "camera_control.h"
 

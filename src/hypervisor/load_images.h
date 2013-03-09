@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define LOAD_IMAGES_H_INCLUDED
 
 #include <GL/glu.h>
-#include "slideshow.h"
+#include "../slideshow.h"
 
 #define OVERFLOW_GUARD_BYTES 10101001
 

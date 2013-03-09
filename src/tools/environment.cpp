@@ -18,11 +18,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "environment.h"
-#include "directory_listing.h"
-#include "load_images.h"
-#include "load_textures.h"
+#include "../directory_listing.h"
+#include "../hypervisor/load_images.h"
+#include "../hypervisor/load_textures.h"
 #include "image_sensing.h"
-#include "slideshow.h"
+#include "../slideshow.h"
 #include "sound.h"
 #include <stdlib.h>
 #include <stdio.h>

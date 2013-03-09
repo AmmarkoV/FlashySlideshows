@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "slideshow.h"
+#include "../slideshow.h"
 #include "webinterface.h"
-#include "controls.h"
-#include "AmmarServer/src/AmmServerlib/AmmServerlib.h"
+#include "../controls.h"
+#include "../AmmarServer/src/AmmServerlib/AmmServerlib.h"
 
 #define MAX_WEB_COMMAND_SIZE 512
 

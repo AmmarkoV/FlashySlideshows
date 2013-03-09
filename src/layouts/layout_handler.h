@@ -1,7 +1,7 @@
 #ifndef LAYOUT_HANDLER_H_INCLUDED
 #define LAYOUT_HANDLER_H_INCLUDED
 
-#include "../load_images.h"
+#include "../hypervisor/load_images.h"
 
 enum layout_list
 {

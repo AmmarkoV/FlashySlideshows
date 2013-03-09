@@ -22,15 +22,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "slideshow.h"
 #include "camera_control.h"
-#include "load_images.h"
+#include "hypervisor/load_images.h"
 #include "pictures_control.h"
-#include "environment.h"
+#include "tools/environment.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "math_3d.h"
-#include "sound.h"
+#include "tools/math_3d.h"
+#include "tools/sound.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -358,7 +358,7 @@ int MoveToPicture(unsigned int direction)
     if ( direction == D_RIGHT) { ++new_mem_place;                      }
 
     if (new_mem_place<0) { new_mem_place=0; } else
-    if (new_mem_place>=frame.total_images) { new_mem_place=frame.total_images-1; }
+    if ((unsigned int ) new_mem_place>=frame.total_images) { new_mem_place=frame.total_images-1; }
 
     SetDestinationOverPicture(new_mem_place);
     frame.transitions.seek_move_activated=1; //THIS MOVEMENT IS A SEEK MOVEMENT SetDestinationOverPicture , sets this to 0 so it is important to set this right here!

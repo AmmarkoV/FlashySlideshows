@@ -18,10 +18,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "load_images.h"
-#include "jpegexiforient_embed.h"
+#include "../tools/jpegexiforient_embed.h"
 #include "memory_hypervisor.h"
-#include "layouts/layout_handler.h"
-#include "load_images.h"
+#include "../layouts/layout_handler.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -29,8 +28,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <wx/image.h>
 
 #include "load_textures.h"
-#include "image_sensing.h"
-#include "environment.h"
+#include "../tools/image_sensing.h"
+#include "../tools/environment.h"
 
 struct Picture *label=0;
 struct Picture *star=0;

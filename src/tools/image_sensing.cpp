@@ -22,7 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <cv.h>
 #include <cxcore.h>
-#include "load_images.h"
+#include "../hypervisor/load_images.h"
 #include "environment.h"
 
 

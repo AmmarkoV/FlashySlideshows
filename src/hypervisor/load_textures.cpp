@@ -19,10 +19,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "load_textures.h"
 #include "load_images.h"
-#include "environment.h"
-#include "directory_listing.h"
-#include "slideshow.h"
-#include "sound.h"
+#include "../tools/environment.h"
+#include "../directory_listing.h"
+#include "../slideshow.h"
+#include "../tools/sound.h"
 #include "memory_hypervisor.h"
 #include <stdlib.h>
 #include <stdio.h>

@@ -18,11 +18,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "memory_hypervisor.h"
-#include "slideshow.h"
+#include "../slideshow.h"
 #include "load_images.h"
 #include "load_textures.h"
-#include "directory_listing.h"
-#include "environment.h"
+#include "../directory_listing.h"
+#include "../tools/environment.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>

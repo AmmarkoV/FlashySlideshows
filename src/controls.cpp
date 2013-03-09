@@ -27,7 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "controls.h"
 #include "visuals.h"
 #include "scene_objects.h"
-#include "environment.h"
+#include "tools/environment.h"
 #include "directory_listing.h"
 
 #include "layouts/layout_handler.h"

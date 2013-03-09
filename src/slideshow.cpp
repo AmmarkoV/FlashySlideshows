@@ -18,7 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #include "slideshow.h"
 #include "camera_control.h"
-#include "sound.h"
+#include "tools/sound.h"
 #include "visuals.h"
 #include "scene_objects.h"
 #include <string.h>

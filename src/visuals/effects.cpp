@@ -18,7 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "effects.h"
-#include "../load_images.h"
+#include "../hypervisor/load_images.h"
 #include <math.h>
 
 #ifdef __APPLE__

@@ -1,5 +1,18 @@
 #!/bin/bash
+
+
+red=$(printf "\033[31m")
+green=$(printf "\033[32m")
+yellow=$(printf "\033[33m")
+blue=$(printf "\033[34m")
+magenta=$(printf "\033[35m")
+cyan=$(printf "\033[36m")
+white=$(printf "\033[37m")
+normal=$(printf "\033[m")
+
+echo $white
 echo "Making FlashySlideshows.."
+echo $normal
 
 #Build AmmarServer first of all!
 #OK this is kind of an ugly hack so lets explain a little. . 
@@ -8,7 +21,9 @@ echo "Making FlashySlideshows.."
 #the real libary.. the rest of the project should then compile allright..  , To aquire a working AmmarServer just issue ./update_from_git.sh from repo root dir
   if [ -d src/AmmarServer/src/AmmServerlib ] 
    then
+        echo $yellow
         echo "AmmServerlib , seems to already exist..! leaving it alone.."
+        echo $normal
      else 
        mkdir src/AmmarServer/src/AmmServerlib
        cp src/AmmarServer/src/AmmServerNULLlib/* src/AmmarServer/src/AmmServerlib
@@ -36,15 +51,21 @@ CPU=" "
 LAYOUTS="layouts/layout_handler.cpp layouts/expo_layout.cpp"
 VISUALS="visuals/hud.cpp visuals/background.cpp visuals/effects.cpp visuals/picture_renderer.cpp"
 TRANSITIONS="transitions/transition_handler.cpp"
-MAIN_PARTS="main.cpp environment.cpp jpegexiforient_embed.cpp load_images.cpp load_textures.cpp sound.cpp directory_listing.cpp directory_sorting.cpp directory_transactions.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp memory_hypervisor.cpp joystick.cpp math_3d.cpp image_sensing.cpp webinterface.cpp"
+TOOLS="tools/environment.cpp tools/image_sensing.cpp tools/webinterface.cpp tools/sound.cpp tools/joystick.cpp tools/wxwidgets_stuff.cpp tools/math_3d.cpp tools/jpegexiforient_embed.cpp"
+HYPERVISOR="hypervisor/memory_hypervisor.cpp hypervisor/load_images.cpp hypervisor/load_textures.cpp"
+
+MAIN_PARTS="main.cpp directory_listing.cpp directory_sorting.cpp directory_transactions.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp"
 
 LIBRARIES="-lglut -lGL -lGLU -lXxf86vm -lopenal -lalut AmmarServer/src/AmmServerlib/libAmmServerlib.a"
 
 cd src
 
+if [ -e flashyslideshows ]
+then
 rm  flashyslideshows
+fi
 
-g++ $Optimizations $MAIN_PARTS $TRANSITIONS $VISUALS $LAYOUTS wxwidgets_stuff.cpp $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
+g++ $Optimizations $MAIN_PARTS $TOOLS $HYPERVISOR $TRANSITIONS $VISUALS $LAYOUTS $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
 
 strip flashyslideshows
   
@@ -59,22 +80,27 @@ strip flashyslideshowsgui
 cd ..
 
 cd ..
- 
-echo "Done.."
-
+  
   if [ -e src/flashyslideshows ] 
    then
+        echo $green
         echo "FlashySlideshows SUCCESS"
+        echo $normal
      else  
+        echo $red
         echo "FlashySlideshows FAILED"
+        echo $normal
    fi
 
   if [ -e src/FlashySlideShowStarter/flashyslideshowsgui ] 
    then
+        echo $green
         echo "FlashySlideshowsStarter SUCCESS"
+        echo $normal
      else  
+        echo $red
         echo "FlashySlideshowsStarter FAILED"
-   fi
-
+        echo $normal
+   fi 
 
 exit 0

@@ -27,7 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define FRAME_DOWN_LEFT 3
 #define FRAME_DOWN_RIGHT 4
 
-#include "load_images.h"
+#include "hypervisor/load_images.h"
 
  struct Color
  {
