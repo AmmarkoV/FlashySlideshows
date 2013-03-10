@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "../slideshow.h"
 #include "load_images.h"
 #include "load_textures.h"
-#include "../directory_listing.h"
+#include "../filesystem/directory_listing.h"
 #include "../tools/environment.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -90,8 +90,8 @@ int MasterMemoryStrategist()
       it is important to always have memory provisions for a stream of new pictures on a suddent
       movement!
 
-      The pictures that belong to the sets Previour Pictures or Next Pictures ( and according to their distance from the current picture )
-      can be marked for unloading both from gpu as well as system memory at the hypervisors discretion to ensure enough memory is saved for the visible pictures
+      The pictures that belong to the sets Previous Pictures or Next Pictures ( and according to their distance from the current picture )
+      can be marked for unloading both from gpu as well as system memory at the hypervisor's discretion to ensure enough memory is saved for the visible pictures
 
       The visible pictures on the other hand must be set to be loaded asap and according to the current picture direction of change with the best possible order
       so that current picture will always be over a loaded picture

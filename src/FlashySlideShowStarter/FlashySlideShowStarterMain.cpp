@@ -8,7 +8,7 @@
  **************************************************************/
 
 #include "FlashySlideShowStarterMain.h"
-#include "../directory_listing.h"
+#include "../filesystem/directory_listing.h"
 #include "../version.h"
 
 #include <wx/msgdlg.h>

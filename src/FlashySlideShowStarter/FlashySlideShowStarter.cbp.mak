@@ -40,17 +40,17 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = flashyslideshowsgui
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/FlashySlideShowStarterApp.o $(OBJDIR_DEBUG)/FlashySlideShowStarterMain.o $(OBJDIR_DEBUG)/__/directory_listing.o $(OBJDIR_DEBUG)/__/directory_sorting.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/__/filesystem/directory_listing.o $(OBJDIR_DEBUG)/__/filesystem/directory_sorting.o $(OBJDIR_DEBUG)/FlashySlideShowStarterApp.o $(OBJDIR_DEBUG)/FlashySlideShowStarterMain.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/FlashySlideShowStarterApp.o $(OBJDIR_RELEASE)/FlashySlideShowStarterMain.o $(OBJDIR_RELEASE)/__/directory_listing.o $(OBJDIR_RELEASE)/__/directory_sorting.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/__/filesystem/directory_listing.o $(OBJDIR_RELEASE)/__/filesystem/directory_sorting.o $(OBJDIR_RELEASE)/FlashySlideShowStarterApp.o $(OBJDIR_RELEASE)/FlashySlideShowStarterMain.o
 
 all: debug release
 
 clean: clean_debug clean_release
 
 before_debug: 
+	test -d $(OBJDIR_DEBUG)/__/filesystem || mkdir -p $(OBJDIR_DEBUG)/__/filesystem
 	test -d $(OBJDIR_DEBUG) || mkdir -p $(OBJDIR_DEBUG)
-	test -d $(OBJDIR_DEBUG)/__ || mkdir -p $(OBJDIR_DEBUG)/__
 
 after_debug: 
 
@@ -59,26 +59,26 @@ debug: before_debug out_debug after_debug
 out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG)  $(LDFLAGS_DEBUG) $(LIB_DEBUG)
 
+$(OBJDIR_DEBUG)/__/filesystem/directory_listing.o: ../filesystem/directory_listing.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../filesystem/directory_listing.cpp -o $(OBJDIR_DEBUG)/__/filesystem/directory_listing.o
+
+$(OBJDIR_DEBUG)/__/filesystem/directory_sorting.o: ../filesystem/directory_sorting.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../filesystem/directory_sorting.cpp -o $(OBJDIR_DEBUG)/__/filesystem/directory_sorting.o
+
 $(OBJDIR_DEBUG)/FlashySlideShowStarterApp.o: FlashySlideShowStarterApp.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c FlashySlideShowStarterApp.cpp -o $(OBJDIR_DEBUG)/FlashySlideShowStarterApp.o
 
 $(OBJDIR_DEBUG)/FlashySlideShowStarterMain.o: FlashySlideShowStarterMain.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c FlashySlideShowStarterMain.cpp -o $(OBJDIR_DEBUG)/FlashySlideShowStarterMain.o
 
-$(OBJDIR_DEBUG)/__/directory_listing.o: ../directory_listing.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../directory_listing.cpp -o $(OBJDIR_DEBUG)/__/directory_listing.o
-
-$(OBJDIR_DEBUG)/__/directory_sorting.o: ../directory_sorting.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c ../directory_sorting.cpp -o $(OBJDIR_DEBUG)/__/directory_sorting.o
-
 clean_debug: 
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
+	rm -rf $(OBJDIR_DEBUG)/__/filesystem
 	rm -rf $(OBJDIR_DEBUG)
-	rm -rf $(OBJDIR_DEBUG)/__
 
 before_release: 
+	test -d $(OBJDIR_RELEASE)/__/filesystem || mkdir -p $(OBJDIR_RELEASE)/__/filesystem
 	test -d $(OBJDIR_RELEASE) || mkdir -p $(OBJDIR_RELEASE)
-	test -d $(OBJDIR_RELEASE)/__ || mkdir -p $(OBJDIR_RELEASE)/__
 
 after_release: 
 
@@ -87,22 +87,22 @@ release: before_release out_release after_release
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE)  $(LDFLAGS_RELEASE) $(LIB_RELEASE)
 
+$(OBJDIR_RELEASE)/__/filesystem/directory_listing.o: ../filesystem/directory_listing.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../filesystem/directory_listing.cpp -o $(OBJDIR_RELEASE)/__/filesystem/directory_listing.o
+
+$(OBJDIR_RELEASE)/__/filesystem/directory_sorting.o: ../filesystem/directory_sorting.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../filesystem/directory_sorting.cpp -o $(OBJDIR_RELEASE)/__/filesystem/directory_sorting.o
+
 $(OBJDIR_RELEASE)/FlashySlideShowStarterApp.o: FlashySlideShowStarterApp.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c FlashySlideShowStarterApp.cpp -o $(OBJDIR_RELEASE)/FlashySlideShowStarterApp.o
 
 $(OBJDIR_RELEASE)/FlashySlideShowStarterMain.o: FlashySlideShowStarterMain.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c FlashySlideShowStarterMain.cpp -o $(OBJDIR_RELEASE)/FlashySlideShowStarterMain.o
 
-$(OBJDIR_RELEASE)/__/directory_listing.o: ../directory_listing.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../directory_listing.cpp -o $(OBJDIR_RELEASE)/__/directory_listing.o
-
-$(OBJDIR_RELEASE)/__/directory_sorting.o: ../directory_sorting.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c ../directory_sorting.cpp -o $(OBJDIR_RELEASE)/__/directory_sorting.o
-
 clean_release: 
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)
+	rm -rf $(OBJDIR_RELEASE)/__/filesystem
 	rm -rf $(OBJDIR_RELEASE)
-	rm -rf $(OBJDIR_RELEASE)/__
 
 .PHONY: before_debug after_debug clean_debug before_release after_release clean_release
 

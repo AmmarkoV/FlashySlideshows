@@ -22,13 +22,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "slideshow.h"
 #include "camera_control.h"
-#include "directory_transactions.h"
+#include "filesystem/directory_transactions.h"
+#include "filesystem/directory_listing.h"
 #include "pictures_control.h"
 #include "controls.h"
 #include "visuals.h"
 #include "scene_objects.h"
 #include "tools/environment.h"
-#include "directory_listing.h"
 
 #include "layouts/layout_handler.h"
 

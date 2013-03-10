@@ -24,7 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "visuals.h"
 #include "slideshow.h"
 #include "hypervisor/load_images.h"
-#include "directory_listing.h"
+#include "filesystem/directory_listing.h"
 #include "scene_objects.h"
 #include "tools/sound.h"
 #include <math.h>

@@ -60,8 +60,9 @@ VISUALS="visuals/hud.cpp visuals/background.cpp visuals/effects.cpp visuals/pict
 TRANSITIONS="transitions/transition_handler.cpp"
 TOOLS="tools/environment.cpp tools/image_sensing.cpp tools/webinterface.cpp tools/sound.cpp tools/joystick.cpp tools/wxwidgets_stuff.cpp tools/math_3d.cpp tools/jpegexiforient_embed.cpp"
 HYPERVISOR="hypervisor/memory_hypervisor.cpp hypervisor/load_images.cpp hypervisor/load_textures.cpp"
+FILESYSTEM="filesystem/directory_listing.cpp filesystem/directory_sorting.cpp filesystem/directory_transactions.cpp"
 
-MAIN_PARTS="main.cpp directory_listing.cpp directory_sorting.cpp directory_transactions.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp"
+MAIN_PARTS="main.cpp slideshow.cpp controls.cpp camera_control.cpp pictures_control.cpp visuals.cpp scene_objects.cpp"
 
 LIBRARIES="-lglut -lGL -lGLU -lXxf86vm -lopenal -lalut AmmarServer/src/AmmServerlib/libAmmServerlib.a"
 
@@ -72,7 +73,7 @@ then
 rm  flashyslideshows
 fi
 
-g++ $Optimizations $MAIN_PARTS $TOOLS $HYPERVISOR $TRANSITIONS $VISUALS $LAYOUTS $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
+g++ $Optimizations $MAIN_PARTS $FILESYSTEM $TOOLS $HYPERVISOR $TRANSITIONS $VISUALS $LAYOUTS $LIBRARIES `wx-config --libs` `wx-config --cxxflags` $OpenCVStuff -L. -o flashyslideshows
 
 strip flashyslideshows
   
@@ -80,7 +81,7 @@ cd FlashySlideShowStarter
 
 rm  flashyslideshowsgui
 
-g++ $Optimizations FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../directory_listing.cpp ../directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o flashyslideshowsgui
+g++ $Optimizations FlashySlideShowStarterApp.cpp FlashySlideShowStarterMain.cpp ../filesystem/directory_listing.cpp ../filesystem/directory_sorting.cpp `wx-config --libs` `wx-config --cxxflags` -L. -o flashyslideshowsgui
 
 strip flashyslideshowsgui 
 

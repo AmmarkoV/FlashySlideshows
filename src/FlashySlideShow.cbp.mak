@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = flashyslideshows
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/tools/image_sensing.o $(OBJDIR_DEBUG)/tools/joystick.o $(OBJDIR_DEBUG)/tools/jpegexiforient_embed.o $(OBJDIR_DEBUG)/tools/math_3d.o $(OBJDIR_DEBUG)/tools/sound.o $(OBJDIR_DEBUG)/tools/webinterface.o $(OBJDIR_DEBUG)/tools/wxwidgets_stuff.o $(OBJDIR_DEBUG)/transitions/transition_handler.o $(OBJDIR_DEBUG)/visuals.o $(OBJDIR_DEBUG)/visuals/background.o $(OBJDIR_DEBUG)/visuals/effects.o $(OBJDIR_DEBUG)/visuals/hud.o $(OBJDIR_DEBUG)/visuals/picture_renderer.o $(OBJDIR_DEBUG)/hypervisor/memory_hypervisor.o $(OBJDIR_DEBUG)/controls.o $(OBJDIR_DEBUG)/directory_listing.o $(OBJDIR_DEBUG)/directory_sorting.o $(OBJDIR_DEBUG)/directory_transactions.o $(OBJDIR_DEBUG)/hypervisor/load_images.o $(OBJDIR_DEBUG)/hypervisor/load_textures.o $(OBJDIR_DEBUG)/camera_control.o $(OBJDIR_DEBUG)/layouts/expo_layout.o $(OBJDIR_DEBUG)/layouts/layout_handler.o $(OBJDIR_DEBUG)/main.o $(OBJDIR_DEBUG)/pictures_control.o $(OBJDIR_DEBUG)/scene_objects.o $(OBJDIR_DEBUG)/slideshow.o $(OBJDIR_DEBUG)/tools/environment.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/tools/image_sensing.o $(OBJDIR_DEBUG)/tools/joystick.o $(OBJDIR_DEBUG)/tools/jpegexiforient_embed.o $(OBJDIR_DEBUG)/tools/math_3d.o $(OBJDIR_DEBUG)/tools/sound.o $(OBJDIR_DEBUG)/tools/webinterface.o $(OBJDIR_DEBUG)/tools/wxwidgets_stuff.o $(OBJDIR_DEBUG)/transitions/transition_handler.o $(OBJDIR_DEBUG)/visuals.o $(OBJDIR_DEBUG)/visuals/background.o $(OBJDIR_DEBUG)/visuals/effects.o $(OBJDIR_DEBUG)/visuals/hud.o $(OBJDIR_DEBUG)/visuals/picture_renderer.o $(OBJDIR_DEBUG)/hypervisor/memory_hypervisor.o $(OBJDIR_DEBUG)/controls.o $(OBJDIR_DEBUG)/filesystem/directory_listing.o $(OBJDIR_DEBUG)/filesystem/directory_sorting.o $(OBJDIR_DEBUG)/filesystem/directory_transactions.o $(OBJDIR_DEBUG)/hypervisor/load_images.o $(OBJDIR_DEBUG)/hypervisor/load_textures.o $(OBJDIR_DEBUG)/camera_control.o $(OBJDIR_DEBUG)/layouts/expo_layout.o $(OBJDIR_DEBUG)/layouts/layout_handler.o $(OBJDIR_DEBUG)/main.o $(OBJDIR_DEBUG)/pictures_control.o $(OBJDIR_DEBUG)/scene_objects.o $(OBJDIR_DEBUG)/slideshow.o $(OBJDIR_DEBUG)/tools/environment.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/tools/image_sensing.o $(OBJDIR_RELEASE)/tools/joystick.o $(OBJDIR_RELEASE)/tools/jpegexiforient_embed.o $(OBJDIR_RELEASE)/tools/math_3d.o $(OBJDIR_RELEASE)/tools/sound.o $(OBJDIR_RELEASE)/tools/webinterface.o $(OBJDIR_RELEASE)/tools/wxwidgets_stuff.o $(OBJDIR_RELEASE)/transitions/transition_handler.o $(OBJDIR_RELEASE)/visuals.o $(OBJDIR_RELEASE)/visuals/background.o $(OBJDIR_RELEASE)/visuals/effects.o $(OBJDIR_RELEASE)/visuals/hud.o $(OBJDIR_RELEASE)/visuals/picture_renderer.o $(OBJDIR_RELEASE)/hypervisor/memory_hypervisor.o $(OBJDIR_RELEASE)/controls.o $(OBJDIR_RELEASE)/directory_listing.o $(OBJDIR_RELEASE)/directory_sorting.o $(OBJDIR_RELEASE)/directory_transactions.o $(OBJDIR_RELEASE)/hypervisor/load_images.o $(OBJDIR_RELEASE)/hypervisor/load_textures.o $(OBJDIR_RELEASE)/camera_control.o $(OBJDIR_RELEASE)/layouts/expo_layout.o $(OBJDIR_RELEASE)/layouts/layout_handler.o $(OBJDIR_RELEASE)/main.o $(OBJDIR_RELEASE)/pictures_control.o $(OBJDIR_RELEASE)/scene_objects.o $(OBJDIR_RELEASE)/slideshow.o $(OBJDIR_RELEASE)/tools/environment.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/tools/image_sensing.o $(OBJDIR_RELEASE)/tools/joystick.o $(OBJDIR_RELEASE)/tools/jpegexiforient_embed.o $(OBJDIR_RELEASE)/tools/math_3d.o $(OBJDIR_RELEASE)/tools/sound.o $(OBJDIR_RELEASE)/tools/webinterface.o $(OBJDIR_RELEASE)/tools/wxwidgets_stuff.o $(OBJDIR_RELEASE)/transitions/transition_handler.o $(OBJDIR_RELEASE)/visuals.o $(OBJDIR_RELEASE)/visuals/background.o $(OBJDIR_RELEASE)/visuals/effects.o $(OBJDIR_RELEASE)/visuals/hud.o $(OBJDIR_RELEASE)/visuals/picture_renderer.o $(OBJDIR_RELEASE)/hypervisor/memory_hypervisor.o $(OBJDIR_RELEASE)/controls.o $(OBJDIR_RELEASE)/filesystem/directory_listing.o $(OBJDIR_RELEASE)/filesystem/directory_sorting.o $(OBJDIR_RELEASE)/filesystem/directory_transactions.o $(OBJDIR_RELEASE)/hypervisor/load_images.o $(OBJDIR_RELEASE)/hypervisor/load_textures.o $(OBJDIR_RELEASE)/camera_control.o $(OBJDIR_RELEASE)/layouts/expo_layout.o $(OBJDIR_RELEASE)/layouts/layout_handler.o $(OBJDIR_RELEASE)/main.o $(OBJDIR_RELEASE)/pictures_control.o $(OBJDIR_RELEASE)/scene_objects.o $(OBJDIR_RELEASE)/slideshow.o $(OBJDIR_RELEASE)/tools/environment.o
 
 all: debug release
 
@@ -54,6 +54,7 @@ before_debug:
 	test -d $(OBJDIR_DEBUG) || mkdir -p $(OBJDIR_DEBUG)
 	test -d $(OBJDIR_DEBUG)/visuals || mkdir -p $(OBJDIR_DEBUG)/visuals
 	test -d $(OBJDIR_DEBUG)/hypervisor || mkdir -p $(OBJDIR_DEBUG)/hypervisor
+	test -d $(OBJDIR_DEBUG)/filesystem || mkdir -p $(OBJDIR_DEBUG)/filesystem
 	test -d $(OBJDIR_DEBUG)/layouts || mkdir -p $(OBJDIR_DEBUG)/layouts
 
 after_debug: 
@@ -108,14 +109,14 @@ $(OBJDIR_DEBUG)/hypervisor/memory_hypervisor.o: hypervisor/memory_hypervisor.cpp
 $(OBJDIR_DEBUG)/controls.o: controls.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c controls.cpp -o $(OBJDIR_DEBUG)/controls.o
 
-$(OBJDIR_DEBUG)/directory_listing.o: directory_listing.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c directory_listing.cpp -o $(OBJDIR_DEBUG)/directory_listing.o
+$(OBJDIR_DEBUG)/filesystem/directory_listing.o: filesystem/directory_listing.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c filesystem/directory_listing.cpp -o $(OBJDIR_DEBUG)/filesystem/directory_listing.o
 
-$(OBJDIR_DEBUG)/directory_sorting.o: directory_sorting.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c directory_sorting.cpp -o $(OBJDIR_DEBUG)/directory_sorting.o
+$(OBJDIR_DEBUG)/filesystem/directory_sorting.o: filesystem/directory_sorting.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c filesystem/directory_sorting.cpp -o $(OBJDIR_DEBUG)/filesystem/directory_sorting.o
 
-$(OBJDIR_DEBUG)/directory_transactions.o: directory_transactions.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c directory_transactions.cpp -o $(OBJDIR_DEBUG)/directory_transactions.o
+$(OBJDIR_DEBUG)/filesystem/directory_transactions.o: filesystem/directory_transactions.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c filesystem/directory_transactions.cpp -o $(OBJDIR_DEBUG)/filesystem/directory_transactions.o
 
 $(OBJDIR_DEBUG)/hypervisor/load_images.o: hypervisor/load_images.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c hypervisor/load_images.cpp -o $(OBJDIR_DEBUG)/hypervisor/load_images.o
@@ -154,6 +155,7 @@ clean_debug:
 	rm -rf $(OBJDIR_DEBUG)
 	rm -rf $(OBJDIR_DEBUG)/visuals
 	rm -rf $(OBJDIR_DEBUG)/hypervisor
+	rm -rf $(OBJDIR_DEBUG)/filesystem
 	rm -rf $(OBJDIR_DEBUG)/layouts
 
 before_release: 
@@ -162,6 +164,7 @@ before_release:
 	test -d $(OBJDIR_RELEASE) || mkdir -p $(OBJDIR_RELEASE)
 	test -d $(OBJDIR_RELEASE)/visuals || mkdir -p $(OBJDIR_RELEASE)/visuals
 	test -d $(OBJDIR_RELEASE)/hypervisor || mkdir -p $(OBJDIR_RELEASE)/hypervisor
+	test -d $(OBJDIR_RELEASE)/filesystem || mkdir -p $(OBJDIR_RELEASE)/filesystem
 	test -d $(OBJDIR_RELEASE)/layouts || mkdir -p $(OBJDIR_RELEASE)/layouts
 
 after_release: 
@@ -216,14 +219,14 @@ $(OBJDIR_RELEASE)/hypervisor/memory_hypervisor.o: hypervisor/memory_hypervisor.c
 $(OBJDIR_RELEASE)/controls.o: controls.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c controls.cpp -o $(OBJDIR_RELEASE)/controls.o
 
-$(OBJDIR_RELEASE)/directory_listing.o: directory_listing.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c directory_listing.cpp -o $(OBJDIR_RELEASE)/directory_listing.o
+$(OBJDIR_RELEASE)/filesystem/directory_listing.o: filesystem/directory_listing.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c filesystem/directory_listing.cpp -o $(OBJDIR_RELEASE)/filesystem/directory_listing.o
 
-$(OBJDIR_RELEASE)/directory_sorting.o: directory_sorting.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c directory_sorting.cpp -o $(OBJDIR_RELEASE)/directory_sorting.o
+$(OBJDIR_RELEASE)/filesystem/directory_sorting.o: filesystem/directory_sorting.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c filesystem/directory_sorting.cpp -o $(OBJDIR_RELEASE)/filesystem/directory_sorting.o
 
-$(OBJDIR_RELEASE)/directory_transactions.o: directory_transactions.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c directory_transactions.cpp -o $(OBJDIR_RELEASE)/directory_transactions.o
+$(OBJDIR_RELEASE)/filesystem/directory_transactions.o: filesystem/directory_transactions.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c filesystem/directory_transactions.cpp -o $(OBJDIR_RELEASE)/filesystem/directory_transactions.o
 
 $(OBJDIR_RELEASE)/hypervisor/load_images.o: hypervisor/load_images.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c hypervisor/load_images.cpp -o $(OBJDIR_RELEASE)/hypervisor/load_images.o
@@ -262,6 +265,7 @@ clean_release:
 	rm -rf $(OBJDIR_RELEASE)
 	rm -rf $(OBJDIR_RELEASE)/visuals
 	rm -rf $(OBJDIR_RELEASE)/hypervisor
+	rm -rf $(OBJDIR_RELEASE)/filesystem
 	rm -rf $(OBJDIR_RELEASE)/layouts
 
 .PHONY: before_debug after_debug clean_debug before_release after_release clean_release

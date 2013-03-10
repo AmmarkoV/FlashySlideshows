@@ -23,7 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <pthread.h>
 #include "slideshow.h"
 #include "visuals.h"
-#include "directory_listing.h"
+#include "filesystem/directory_listing.h"
 #include "camera_control.h"
 #include "pictures_control.h"
 #include "controls.h"

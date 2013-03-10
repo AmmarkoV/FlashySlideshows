@@ -16,7 +16,7 @@
 #endif
 
 #include "../slideshow.h"
-#include "../directory_listing.h"
+#include "../filesystem/directory_listing.h"
 
 
 

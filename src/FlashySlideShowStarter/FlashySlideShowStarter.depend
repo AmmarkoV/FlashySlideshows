@@ -1663,9 +1663,9 @@
 
 1353105021 /usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-release-2.8/wx/setup.h
 
-1362781349 source:/home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
+1362876402 source:/home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/FlashySlideShowStarterMain.cpp
 	"FlashySlideShowStarterMain.h"
-	"../directory_listing.h"
+	"../filesystem/directory_listing.h"
 	"../version.h"
 	<wx/msgdlg.h>
 	<wx/filename.h>
@@ -1686,4 +1686,55 @@
 1357555261 /home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/EmptyThumbnail.h
 
 1357555261 /home/ammar/Documents/Programming/FlashySlideShow/src/FlashySlideShowStarter/FlashyLogo.h
+
+1362876411 source:/home/ammar/Documents/Programming/FlashySlideShow/src/filesystem/directory_listing.cpp
+	"directory_listing.h"
+	"directory_sorting.h"
+	<sys/time.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<wx/msgdlg.h>
+	"../tools/wxwidgets_stuff.h"
+	"wx/dir.h"
+	"wx/filename.h"
+	"wx/dirdlg.h"
+	<wx/filefn.h>
+
+1357555261 /home/ammar/Documents/Programming/FlashySlideShow/src/filesystem/directory_listing.h
+
+1357555261 /home/ammar/Documents/Programming/FlashySlideShow/src/filesystem/directory_sorting.h
+
+1357555262 /home/ammar/Documents/Programming/FlashySlideShow/src/tools/wxwidgets_stuff.h
+	<windows.h>
+	<wx/app.h>
+
+1357555261 source:/home/ammar/Documents/Programming/FlashySlideShow/src/filesystem/directory_sorting.cpp
+	"directory_sorting.h"
+	"directory_listing.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
+
+1362876422 source:/home/ammar/Documents/Programming/FlashySlideShow/src/filesystem/directory_transactions.cpp
+	"directory_transactions.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<sys/stat.h>
+	"../slideshow.h"
+	"../visuals.h"
+	"directory_listing.h"
+
+1358078213 /home/ammar/Documents/Programming/FlashySlideShow/src/filesystem/directory_transactions.h
+
+1362829504 /home/ammar/Documents/Programming/FlashySlideShow/src/slideshow.h
+	"hypervisor/load_images.h"
+
+1362829495 /home/ammar/Documents/Programming/FlashySlideShow/src/hypervisor/load_images.h
+	<GL/glu.h>
+	"../slideshow.h"
+
+1357555262 /home/ammar/Documents/Programming/FlashySlideShow/src/visuals.h
 

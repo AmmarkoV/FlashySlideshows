@@ -37,6 +37,11 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="../filesystem/directory_listing.cpp" />
+		<Unit filename="../filesystem/directory_listing.h" />
+		<Unit filename="../filesystem/directory_sorting.cpp" />
+		<Unit filename="../filesystem/directory_sorting.h" />
+		<Unit filename="../filesystem/directory_transactions.h" />
 		<Unit filename="EmptyThumbnail.h" />
 		<Unit filename="FlashyLogo.h" />
 		<Unit filename="FlashySlideShowStarterApp.cpp" />
@@ -44,17 +49,13 @@
 		<Unit filename="FlashySlideShowStarterMain.cpp" />
 		<Unit filename="FlashySlideShowStarterMain.h" />
 		<Unit filename="wxsmith/FlashySlideShowStarterframe.wxs" />
-		<Unit filename="../directory_listing.cpp" />
-		<Unit filename="../directory_listing.h" />
-		<Unit filename="../directory_sorting.cpp" />
-		<Unit filename="../directory_sorting.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<wxsmith version="1">
 				<gui name="wxWidgets" src="FlashySlideShowStarterApp.cpp" main="FlashySlideShowStarterFrame" init_handlers="necessary" language="CPP" />
 				<resources>
-					<wxFrame wxs="wxsmith/FlashySlideShowStarterframe.wxs" src="FlashySlideShowStarterMain.cpp" hdr="FlashySlideShowStarterMain.h" name="FlashySlideShowStarterFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/FlashySlideShowStarterframe.wxs" src="FlashySlideShowStarterMain.cpp" hdr="FlashySlideShowStarterMain.h" fwddecl="0" i18n="1" name="FlashySlideShowStarterFrame" language="CPP" />
 				</resources>
 			</wxsmith>
 			<lib_finder disable_auto="1" />

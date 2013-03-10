@@ -24,7 +24,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <string.h>
 #include <wx/msgdlg.h>
-#include "tools/wxwidgets_stuff.h"
+#include "../tools/wxwidgets_stuff.h"
 #include "wx/dir.h"
 #include "wx/filename.h"
 #include "wx/dirdlg.h"
