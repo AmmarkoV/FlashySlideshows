@@ -12,11 +12,11 @@ LD = g++
 WINDRES = windres
 
 INC =  -Iusr/include
-CFLAGS =  -Wall `wx-config --cflags` `pkg-config --cflags opencv` -march=native -mtune=native
+CFLAGS =  -Wall `wx-config --cflags` -march=native -mtune=native
 RESINC = 
 LIBDIR =  -Lusr/lib
 LIB =  -lglut -lGL -lGLU -lXxf86vm -lpthread -lopenal -lalut AmmarServer/src/AmmServerlib/libAmmServerlib.a
-LDFLAGS =  `wx-config --libs` `pkg-config --libs opencv`
+LDFLAGS =  `wx-config --libs`
 
 INC_DEBUG =  $(INC)
 CFLAGS_DEBUG =  $(CFLAGS) -pedantic -pg -g

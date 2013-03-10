@@ -47,7 +47,10 @@ echo $normal
 #We are done with ammarserver , lets procede to the main project..
 
 
-OpenCVStuff="`pkg-config --cflags opencv` `pkg-config --libs opencv`"
+#OpenCVStuff="`pkg-config --cflags opencv` `pkg-config --libs opencv`"
+#opencv is temporarily disabled since it is not used
+OpenCVStuff=" " 
+
 
 Optimizations="-s -O3 -fexpensive-optimizations -march=native -mtune=native"
 CPU=" "
