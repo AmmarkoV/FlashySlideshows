@@ -87,7 +87,8 @@ void MainDisplayFunction()
      glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     }
 
-
+  //If we are over only one visible picture we dont have to draw background
+  //and we dont have to draw anything else.. just this one picture!
   if ( CameraSeesOnlyOnePicture() )
    {
      minpicture=frame.active_image_place;

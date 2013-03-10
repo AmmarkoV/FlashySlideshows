@@ -98,7 +98,8 @@ GLfloat fogColor[4]= {0.5f, 0.5f, 0.5f, 1.0f};		// Fog Color
 void * ManageLoadingPicturesMemory_Thread(void * ptr)
 {
   /* THIS THREAD LOADS/UNLOADS IMAGES AROUND
-     BUT !!!!!NOT!!!!! PASS THEM TO GPU AS TEXTURES
+     BUT !!!!!DOES NOT!!!!! PASS THEM TO GPU AS TEXTURES
+     THIS HAS TO HAPPEN FROM THE OPENGL THREAD
   */
   unsigned int loaded_pictures_this_loop=0;
   while (!STOP_APPLICATION)
@@ -108,7 +109,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 /*
     if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
                                           { usleep(10000);  }*/
-    usleep(20000); // 20 ms
+    usleep(25000); // 25 ms
   }
   return 0;
 }
@@ -117,8 +118,7 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
 int ManageCreatingTexturesMemory_OpenGLThread(int count_only)
 {
   /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
-     FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread
-  */
+     FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread */
   return LoadTexturesIfNeeded(count_only);
 }
 
@@ -234,8 +234,6 @@ static void DisplayCallback(void)
      /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-
-
    /* DRAW APPLICATION HUD */
         if (frame.show_time>0)
         {
@@ -305,8 +303,7 @@ void MotionCallback(int x, int y)
 // Method to handle the mouse buttons
 void MouseCallback( int button,int state, int x, int y)
 {
- // int res=0;
-    /* The command is handled in controls.cpp / controls.h */
+  /* The command is handled in controls.cpp / controls.h */
   if (state== GLUT_UP)   { /*res=*/Controls_Handle_MouseButtons(button,2,x,y); } else
   if (state== GLUT_DOWN) { /*res=*/Controls_Handle_MouseButtons(button,1,x,y); } else
                          { /*res=*/Controls_Handle_MouseButtons(button,0,x,y); }
@@ -316,9 +313,9 @@ void MouseCallback( int button,int state, int x, int y)
 
 
 static void KeyCallback(unsigned char key, int x, int y)
-{ //'q'
+{
   if (key==27) {  glutLeaveMainLoop(); /*EnableScreenSaver(); exit(0);*/ } else/* Closes Application on Escape Key*/
-  if (key=='j') ToggleFullscreen();  /* Toggles Fullscreen "window" */
+  if (key=='j') { ToggleFullscreen();  /* Toggles Fullscreen "window" */ }
 
   /* The rest commands are handled in controls.cpp / controls.h */
   unsigned int nokey = Controls_Handle_Keyboard(key,x,y);
@@ -389,10 +386,6 @@ static void VisibilityCallback(int vis)
   //if (vis == GLUT_VISIBLE) { glutIdleFunc(IdleCallback); }
   //                  else { glutIdleFunc(0);}
 }
-
-
-
-
 
 void InitGlut()
 {

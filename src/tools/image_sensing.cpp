@@ -20,18 +20,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "image_sensing.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <cv.h>
-#include <cxcore.h>
 #include "../hypervisor/load_images.h"
 #include "environment.h"
 
 
+#define USE_FACEDETECTION 0
+
+
+#if USE_FACEDETECTION
+#include <cv.h>
+#include <cxcore.h>
 
 IplImage  *image=0;
 char * opencv_pointer_retainer=0; // This is a kind of an ugly hack ( see lines noted with UGLY HACK ) to minimize memcpying between my VisCortex and OpenCV , without disturbing OpenCV
 
 CvHaarClassifierCascade *cascade=0;
 CvMemStorage            *storage=0;
+#endif
+
 
 
 int GetInterestingAreasList(struct Picture *picture)
@@ -43,8 +49,7 @@ int GetInterestingAreasList(struct Picture *picture)
   return 0;
 
 
-
-
+#if USE_FACEDETECTION
     image = cvCreateImage( cvSize(picture->width,picture->height), IPL_DEPTH_8U, 3 );
     opencv_pointer_retainer = image->imageData; // UGLY HACK
 
@@ -78,25 +83,27 @@ int GetInterestingAreasList(struct Picture *picture)
     cvReleaseImage( &image );
 
   return 1;
+  #endif
 }
 
 
 
 void InitFaceRecognition(char * filename)
 {
-
+#if USE_FACEDETECTION
     /* load the classifier  */
     cascade = ( CvHaarClassifierCascade* ) cvLoad( filename, 0, 0, 0 );
 
     /* setup memory buffer; needed by the face detector */
     storage = cvCreateMemStorage( 0 );
-
+#endif
 }
 
 void CloseFaceRecognition()
 {
+#if USE_FACEDETECTION
     cvReleaseHaarClassifierCascade( &cascade );
     cvReleaseMemStorage( &storage );
-
+#endif
 }
 
