@@ -58,7 +58,7 @@ CPU=" "
 LAYOUTS="layouts/layout_handler.cpp layouts/expo_layout.cpp"
 VISUALS="visuals/hud.cpp visuals/background.cpp visuals/effects.cpp visuals/picture_renderer.cpp"
 TRANSITIONS="transitions/transition_handler.cpp"
-TOOLS="tools/environment.cpp tools/image_sensing.cpp tools/webinterface.cpp tools/sound.cpp tools/joystick.cpp tools/wxwidgets_stuff.cpp tools/math_3d.cpp tools/jpegexiforient_embed.cpp"
+TOOLS="tools/environment.cpp tools/image_sensing.cpp tools/webinterface.cpp tools/sound.cpp tools/joystick.cpp tools/wxwidgets_stuff.cpp tools/scriptIntegration.cpp tools/commandlineParser.cpp tools/math_3d.cpp tools/jpegexiforient_embed.cpp"
 HYPERVISOR="hypervisor/memory_hypervisor.cpp hypervisor/load_images.cpp hypervisor/load_textures.cpp"
 FILESYSTEM="filesystem/directory_listing.cpp filesystem/directory_sorting.cpp filesystem/directory_transactions.cpp"
 

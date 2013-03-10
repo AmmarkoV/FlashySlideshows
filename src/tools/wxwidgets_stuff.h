@@ -17,4 +17,6 @@ class WxWidgetsContext : public wxApp
 
 };
 
+unsigned int LaunchGUI_PickDir();
+
 #endif // WXWIDGETS_STUFF_H_INCLUDED

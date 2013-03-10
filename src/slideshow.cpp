@@ -294,7 +294,7 @@ int SlideshowLastPictureToLoad()
   return 0;
 }
 
-int MinPictureThatIsVisible()
+unsigned int MinPictureThatIsVisible()
 {
   if ( frame.total_images<10 ) { return 0;  }
   if ( DISPLAY_ALL_PICTURES == 1 ) { return 0; }/* OVERRIDE UNTIL EVERYTHING IS READY */
@@ -323,7 +323,7 @@ int PictureOutOfBounds(unsigned int pic_place)
    return 0;
 }
 
-int MaxPictureThatIsVisible()
+unsigned int MaxPictureThatIsVisible()
 {
   if ( frame.total_images<10 ) { return frame.total_images-1;  }
   if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */

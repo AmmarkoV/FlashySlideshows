@@ -19,6 +19,8 @@ int EmmitDialogWarning(char * inpt);
 unsigned int GetSystemFreeMemory();
 unsigned int GetGraphicsCardMemory();
 
+int QueryAndSaveGPUAndSystemCapabilities();
+
 unsigned int UploadPhotoToMyloader(char * photo);
 unsigned int UploadCurrentPhotoToMyloader();
 #endif // ENVIRONMENT_H_INCLUDED

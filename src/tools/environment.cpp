@@ -309,37 +309,35 @@ unsigned int gpu_accepted_texture_caps=16*1024*1024; //64MB Default
 
 
 
-unsigned int UploadPhotoToMyloader(char * photo)
+int QueryAndSaveGPUAndSystemCapabilities()
 {
-if (photo==0) { fprintf(stderr,"Erroneous photograph in UploadPhotoToMyloader\n"); return 0; }
-fprintf(stderr,"Trying to UploadPhotoToMyloader %s \n",photo);
-char line[512];
-char command[512];
-sprintf(command,"scripts/myloader \"%s\"",photo);
+   GLint texSize=0;
+   glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+   frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+   frame.gpu.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*4; /*RGBA*/
+   frame.gpu.lastTexture=frame.gpu.maximum_frame_total_size;
+   frame.system.maximum_frame_total_size=GetWidthQuality(frame.quality_setting)*GetHeightQuality(frame.quality_setting)*3; /*RGB*/
+   frame.system.lastTexture=frame.gpu.maximum_frame_total_size;
+   //frame.gpu.maximum_frame_total_size*=2; // <- Safety Factor
 
-FILE *fpipe;
- if ( !(fpipe = (FILE*)popen(command,"r")) )
-   {
-       fprintf(stderr,"Error UploadPhotoToMyloader\n");
-       return 0;
-   } else
-   {
-      while ( fgets( line, sizeof line, fpipe))
-       {
-         fprintf(stderr,"UploadPhotoToMyloader returned link %s \n",line);
-       }
-   }
- return 1;
+
+   fprintf(stderr,"Graphics card vendor : %s\n",(const char *)glGetString(GL_VENDOR));
+   fprintf(stderr,"Renderer : %s\n",(const char *)glGetString(GL_RENDERER));
+   fprintf(stderr,"Version : %s\n",(const char *)glGetString(GL_VERSION));
+   //fprintf(stderr,"Extensions : %s\n",(const char *)glGetString(GL_EXTENSIONS));
+   fprintf(stderr,"Maximum Texture Dimension Size is %u\n",(unsigned int) texSize);
+   frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
+   fprintf(stderr,"Texture Sizes set to quality %u = %ux%u\n",frame.quality_setting,GetWidthQuality(frame.quality_setting),GetHeightQuality(frame.quality_setting));
+
+
+
+
+   frame.gpu.maxRAM=GetGraphicsCardMemory();
+   fprintf(stderr,"Software GPU texture limit set to %u MB\n",(unsigned int)frame.gpu.maxRAM/(1024*1024));
+   frame.system.maxRAM=GetSystemFreeMemory();
+   fprintf(stderr,"Software RAM limit set to %u MB\n",(unsigned int)frame.system.maxRAM/(1024*1024));
+   return 1;
 }
 
-unsigned int UploadCurrentPhotoToMyloader()
-{
-  fprintf(stderr,"Feature deactivated :P");
-  return 0;
-
-  char photo_filename[1024];
-  GetFullFilenameforFile(frame.active_image_place,photo_filename);
-  return  UploadPhotoToMyloader(photo_filename);
-}
 
 

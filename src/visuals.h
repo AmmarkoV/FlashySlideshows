@@ -8,8 +8,8 @@ int DrawEffects();
 
 void DrawDecal(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type,char * text);
 
-int MinPictureThatIsVisible();
-int MaxPictureThatIsVisible();
+//unsigned int MinPictureThatIsVisible();
+//unsigned int MaxPictureThatIsVisible();
 
 void InitEffects();
 

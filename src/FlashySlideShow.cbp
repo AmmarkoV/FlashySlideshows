@@ -83,6 +83,8 @@
 		<Unit filename="scene_objects.h" />
 		<Unit filename="slideshow.cpp" />
 		<Unit filename="slideshow.h" />
+		<Unit filename="tools/commandlineParser.cpp" />
+		<Unit filename="tools/commandlineParser.h" />
 		<Unit filename="tools/environment.cpp" />
 		<Unit filename="tools/environment.h" />
 		<Unit filename="tools/image_sensing.cpp" />
@@ -93,6 +95,8 @@
 		<Unit filename="tools/jpegexiforient_embed.h" />
 		<Unit filename="tools/math_3d.cpp" />
 		<Unit filename="tools/math_3d.h" />
+		<Unit filename="tools/scriptIntegration.cpp" />
+		<Unit filename="tools/scriptIntegration.h" />
 		<Unit filename="tools/sound.cpp" />
 		<Unit filename="tools/sound.h" />
 		<Unit filename="tools/webinterface.cpp" />
