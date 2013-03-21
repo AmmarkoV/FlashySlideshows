@@ -27,7 +27,12 @@ You can use the ./get-dependencies.sh to get the required packages for compiling
 
 --------------- Compilation ---------------
 To compile the project open a terminal and run
-make
+./make ( hand made make script ) 
+  OR
+make   ( make script made using cbp2make ) 
+
+if one of them fails , consider running the other 
+
 This will produce the executables ( flashyslideshows and flashyslideshowsgui )
 you can issue 
 ./flashyslideshowsgui

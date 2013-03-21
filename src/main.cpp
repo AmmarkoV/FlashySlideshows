@@ -129,8 +129,8 @@ int ManageCreatingTexturesMemory_OpenGLThread(int count_only)
    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 void timerCB(int millisec)
 {
- glutPostWindowRedisplay(currentWindow);
- glutTimerFunc(millisec, timerCB, millisec);
+ //glutPostWindowRedisplay(currentWindow);
+ //glutTimerFunc(millisec, timerCB, millisec);
 }
 
 
@@ -294,7 +294,7 @@ void MotionCallback(int x, int y)
     /* The command is handled in controls.cpp / controls.h */
    if ( Controls_Handle_MouseMotion(666,666,x,y) == 1 )
     {
-      glutPostRedisplay();
+      //glutPostRedisplay();
     }
 }
 
@@ -308,7 +308,7 @@ void MouseCallback( int button,int state, int x, int y)
   if (state== GLUT_DOWN) { /*res=*/Controls_Handle_MouseButtons(button,1,x,y); } else
                          { /*res=*/Controls_Handle_MouseButtons(button,0,x,y); }
 
-  glutPostRedisplay();
+  //glutPostRedisplay();
 }
 
 
@@ -324,7 +324,7 @@ static void KeyCallback(unsigned char key, int x, int y)
      key=0;
      if (PrintDevMsg()) fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
      usleep(100);
-     glutPostRedisplay();
+     //glutPostRedisplay();
   }
 }
 
@@ -363,7 +363,7 @@ void SpecialFunctionCallback (int key, int x, int y)
 
     if ( nokey == 0 )
     {
-      key=0; glutPostRedisplay();
+      key=0; //glutPostRedisplay();
     }
 }
 
@@ -377,7 +377,7 @@ static void IdleCallback(void)
 static void IdleCallbackFS(void)
 {
   //  if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
-    glutPostRedisplay();
+   // glutPostRedisplay();
 }
 
 
@@ -491,6 +491,8 @@ int main(int argc, char *argv[])
       ToggleFullscreen();
    }
 
+
+    //putenv( (char *) "__GL_SYNC_TO_VBLANK=1 __GL_YIELD=\"USLEEP\" " );
 
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 

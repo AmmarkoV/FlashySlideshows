@@ -51,8 +51,9 @@ echo $normal
 #opencv is temporarily disabled since it is not used
 OpenCVStuff=" " 
 
-
-Optimizations="-s -O3 -fexpensive-optimizations -march=native -mtune=native"
+#  -fprofile-use and -fprofile-generate
+#  -pg  
+Optimizations="-s -O3 -fexpensive-optimizations -march=native -mtune=native "
 CPU=" "
 
 #If we are on an 64bit intel card we might want to uncomment the line that follows for better performance 
