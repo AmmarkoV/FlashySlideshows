@@ -102,11 +102,12 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
      BUT !!!!!DOES NOT!!!!! PASS THEM TO GPU AS TEXTURES
      THIS HAS TO HAPPEN FROM THE OPENGL THREAD
   */
-  unsigned int loaded_pictures_this_loop=0;
+  frame.loadedPicturesThisLoop=0;
+
   while (!STOP_APPLICATION)
   {
     MasterMemoryStrategist();
-    loaded_pictures_this_loop+=ExecuteMemoryStrategyPlanOnSystemMemory();
+    frame.loadedPicturesThisLoop += ExecuteMemoryStrategyPlanOnSystemMemory();
 /*
     if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
                                           { usleep(10000);  }*/
@@ -378,9 +379,10 @@ static void IdleCallback(void)
    }
 
 #if ECONOMIC_MODE
-  if (CameraMoving()||(Active3DObjectsExist()) )
+  if (CameraMoving()||(Active3DObjectsExist())||(frame.loadedPicturesThisLoop!=0) )
    {
       glutPostRedisplay();
+      frame.loadedPicturesThisLoop =0;
       //glutPostWindowRedisplay(currentWindow);
    } else
    {

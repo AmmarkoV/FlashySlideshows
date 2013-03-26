@@ -147,6 +147,7 @@ struct SlideShowData
 
 
   unsigned int forceDrawOneMoreTime;
+  unsigned int loadedPicturesThisLoop;
 
   unsigned int disable_hud;  // 0, 1
 
