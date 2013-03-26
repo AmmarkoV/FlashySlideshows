@@ -524,9 +524,9 @@ void FlashySlideShowStarterFrame::CheckNewVersion(wxCommandEvent& event)
             outmsg<<ourVersion;
             outmsg<<wxT(", there is a newer version ");
             outmsg<<remoteVersion;
-            outmsg<<wxT("you can download at https://www.github.com/AmmarkoV/FlashySlideshows");
+            outmsg<<wxT(" you can download at https://www.github.com/AmmarkoV/FlashySlideshows");
 
-            wxMessageBox(outmsg,wxT("New Version exists"),wxICON_WARNING);
+            wxMessageBox(outmsg,wxT("A New Version is availiable"),wxICON_WARNING);
             fprintf(stderr,"A new version of flashy slideshows exists..");
             StatusBar1->SetStatusText(wxT("A new version of flashy slideshows exists.."));
           } else
