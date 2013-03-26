@@ -2,7 +2,7 @@
 
 #Reminder , to get a single file out of the repo use  "git checkout -- path/to/file.c"
 git reset --hard HEAD
-git pull 
+git pull origin master
 
  # Since we want to update from git , this is the chance  to clone  a fresh verion of AmmarServer :) 
 # First lets see if we already got a cloned version 
