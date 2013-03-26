@@ -210,6 +210,7 @@ void CameraReachedDestination()
 {
   frame.transitions.effect_move_activated=0;
   frame.transitions.seek_move_activated=0;
+  //frame.forceDrawOneMoreTime=1;
 }
 
 
@@ -388,7 +389,6 @@ int CameraMoving()
                 (frame.desired_x != frame.vx)||
                 (frame.desired_y != frame.vy)||
                 (frame.desired_z != frame.vz)
-
             );
 }
 
@@ -525,17 +525,18 @@ void PerformCameraMovement(unsigned int microseconds_of_movement)
   /* -------------------------------------
      CAMERA ROUNDING ERROR CORRECTION
      ------------------------------------- */
-  if ( ( frame.desired_x > frame.vx ) && ( frame.desired_x < frame.vx+0.005 ) ) { frame.vx = frame.desired_x; } else
-  if ( ( frame.desired_x < frame.vx ) && ( frame.desired_x > frame.vx-0.005 ) ) { frame.vx = frame.desired_x; }
+  float roundingError = 0.015;
+  if ( ( frame.desired_x > frame.vx ) && ( frame.desired_x < frame.vx+ roundingError) ) { frame.vx = frame.desired_x; } else
+  if ( ( frame.desired_x < frame.vx ) && ( frame.desired_x > frame.vx- roundingError) ) { frame.vx = frame.desired_x; }
 
-  if ( ( frame.desired_y > frame.vy ) && ( frame.desired_y < frame.vy+0.005 ) ) { frame.vy = frame.desired_y; } else
-  if ( ( frame.desired_y < frame.vy ) && ( frame.desired_y > frame.vy-0.005 ) ) { frame.vy = frame.desired_y; }
+  if ( ( frame.desired_y > frame.vy ) && ( frame.desired_y < frame.vy+ roundingError) ) { frame.vy = frame.desired_y; } else
+  if ( ( frame.desired_y < frame.vy ) && ( frame.desired_y > frame.vy- roundingError) ) { frame.vy = frame.desired_y; }
 
-  if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+0.005 ) ) { frame.vz = frame.desired_z; } else
-  if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz-0.005 ) ) { frame.vz = frame.desired_z; }
+  if ( ( frame.desired_z > frame.vz ) && ( frame.desired_z < frame.vz+ roundingError) ) { frame.vz = frame.desired_z; } else
+  if ( ( frame.desired_z < frame.vz ) && ( frame.desired_z > frame.vz- roundingError) ) { frame.vz = frame.desired_z; }
 
 
-  if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { CameraReachedDestination(); }
+  if  ( (frame.desired_x==frame.vx)&&(frame.desired_y==frame.vy)&&(frame.desired_z==frame.vz) ) { frame.forceDrawOneMoreTime=1; CameraReachedDestination(); }
 
   CalculateActiveImage_AccordingToPosition(0);
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1364302065 source:/home/ammar/Documents/Programming/FlashySlideshows/src/camera_control.cpp
+1364303009 source:/home/ammar/Documents/Programming/FlashySlideshows/src/camera_control.cpp
 	"transitions/transition_handler.h"
 	"layouts/layout_handler.h"
 	"slideshow.h"
@@ -834,7 +834,7 @@
 
 1363878712 /home/ammar/Documents/Programming/FlashySlideshows/src/visuals/background.h
 
-1364302121 source:/home/ammar/Documents/Programming/FlashySlideshows/src/main.cpp
+1364303495 source:/home/ammar/Documents/Programming/FlashySlideshows/src/main.cpp
 	<stdlib.h>
 	<stdio.h>
 	<unistd.h>
@@ -871,7 +871,7 @@
 1363878712 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/joystick.h
 	<stdio.h>
 
-1364302125 /home/ammar/Documents/Programming/FlashySlideshows/src/version.h
+1364303496 /home/ammar/Documents/Programming/FlashySlideshows/src/version.h
 
 1363878712 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/webinterface.h
 

@@ -56,10 +56,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
-
-
 #define ECONOMIC_MODE 1
-
 
 
 unsigned int STOP_APPLICATION=0;
@@ -297,7 +294,7 @@ void MotionCallback(int x, int y)
     /* The command is handled in controls.cpp / controls.h */
    if ( Controls_Handle_MouseMotion(666,666,x,y) == 1 )
     {
-      //glutPostRedisplay();
+      glutPostRedisplay();
     }
 }
 
@@ -311,7 +308,7 @@ void MouseCallback( int button,int state, int x, int y)
   if (state== GLUT_DOWN) { /*res=*/Controls_Handle_MouseButtons(button,1,x,y); } else
                          { /*res=*/Controls_Handle_MouseButtons(button,0,x,y); }
 
-  //glutPostRedisplay();
+  glutPostRedisplay();
 }
 
 
@@ -327,7 +324,7 @@ static void KeyCallback(unsigned char key, int x, int y)
      key=0;
      if (PrintDevMsg()) fprintf(stderr,"X:%f Y:%f Z:%f \n",frame.vx,frame.vy,frame.vz);
      usleep(100);
-     //glutPostRedisplay();
+     glutPostRedisplay();
   }
 }
 
@@ -366,7 +363,7 @@ void SpecialFunctionCallback (int key, int x, int y)
 
     if ( nokey == 0 )
     {
-      key=0; //glutPostRedisplay();
+      key=0; glutPostRedisplay();
     }
 }
 
@@ -385,6 +382,12 @@ static void IdleCallback(void)
    {
       glutPostRedisplay();
  //     glutPostWindowRedisplay(currentWindow);
+   } else
+   {
+      //We wont redisplay for resource economy , we consider time to be flying as we were constantly redrawing
+      //the same thing..!
+      gettimeofday(&this_frame,0x0);
+      last_frame = this_frame;
    }
 #else
  glutPostRedisplay();
