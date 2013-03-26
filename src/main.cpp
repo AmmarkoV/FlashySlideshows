@@ -381,13 +381,15 @@ static void IdleCallback(void)
   if (CameraMoving()||(Active3DObjectsExist()) )
    {
       glutPostRedisplay();
- //     glutPostWindowRedisplay(currentWindow);
+      //glutPostWindowRedisplay(currentWindow);
    } else
    {
       //We wont redisplay for resource economy , we consider time to be flying as we were constantly redrawing
       //the same thing..!
+      usleep(16000); //16ms yield
       gettimeofday(&this_frame,0x0);
       last_frame = this_frame;
+
    }
 #else
  glutPostRedisplay();
