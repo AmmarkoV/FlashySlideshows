@@ -85,6 +85,7 @@ void InitSlideShow()
 
    //Force draw at start
    frame.forceDrawOneMoreTime=1;
+   frame.onNextDrawAssumeWeWerePaused=1;
 
 
    frame.transitions.transition_mode=0;

@@ -15,6 +15,7 @@ int DestroyPicturesIfNeeded();
 int LoadPicturesIfNeeded();
 int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_ram);
 
+int TexturesToLoadExist();
 int LoadTexturesIfNeeded(int count_only);
 
 int ManagePicturesCreationMemory();

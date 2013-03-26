@@ -56,6 +56,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdlib.h>
 
+//Economic mode tries not to redraw when no redrawing is needed
+//This results to less CPU/GPU usage ,but slightly more jerky movement
+//on some cases ( that will be fixed in the near future )
+//it should be enabled by default
 #define ECONOMIC_MODE 1
 
 
@@ -107,10 +111,10 @@ void * ManageLoadingPicturesMemory_Thread(void * ptr)
   while (!STOP_APPLICATION)
   {
     MasterMemoryStrategist();
-    frame.loadedPicturesThisLoop += ExecuteMemoryStrategyPlanOnSystemMemory();
+    frame.loadedPicturesThisLoop = ExecuteMemoryStrategyPlanOnSystemMemory();
 /*
-    if ( loaded_pictures_this_loop == 0 ) { usleep(100000);  } else
-                                          { usleep(10000);  }*/
+    if ( frame.loadedPicturesThisLoop == 0 ) { usleep(100000);  } else
+                                             { usleep(10000);  }*/
     usleep(25000); // 25 ms
   }
   return 0;
@@ -177,6 +181,18 @@ static void ResizeCallback(int width, int height)
 
 static void DisplayCallback(void)
 {
+    //If we were Paused ( a.k.a. economy mode )
+    //All the time passed since the last draw operation could lead to jerky movement
+    //So we won't track time as we do regularly but "pretend" the last frame was 1ms ago
+    //This will ensure smoothness and eye-candy for the user :)
+    if (frame.onNextDrawAssumeWeWerePaused)
+    {
+      gettimeofday(&last_frame,0x0);
+      time_passed_microseconds = 1000;
+      frame.onNextDrawAssumeWeWerePaused = 0;
+    } else
+    {
+    // Regular per frame time keeping
     /*KEEP TRACK OF TIME -----------------*/
     gettimeofday(&this_frame,0x0);
     time_passed_microseconds = timeval_diff(&difference,&this_frame,&last_frame);
@@ -188,6 +204,7 @@ static void DisplayCallback(void)
      }
     last_frame = this_frame;
     /*---------------------------------------*/
+    }
 
 
 
@@ -379,29 +396,26 @@ static void IdleCallback(void)
    }
 
 #if ECONOMIC_MODE
-  if (CameraMoving()||(Active3DObjectsExist())||(frame.loadedPicturesThisLoop!=0) )
+  if ( (CameraMoving())||(Active3DObjectsExist())||(TexturesToLoadExist()) )
    {
       glutPostRedisplay();
-      frame.loadedPicturesThisLoop =0;
       //glutPostWindowRedisplay(currentWindow);
    } else
    {
       //We wont redisplay for resource economy , we consider time to be flying as we were constantly redrawing
       //the same thing..!
+
+      frame.onNextDrawAssumeWeWerePaused=1;
       usleep(16000); //16ms yield
-      gettimeofday(&this_frame,0x0);
-      last_frame = this_frame;
+
+      //gettimeofday(&this_frame,0x0);
+      //last_frame = this_frame;
 
    }
 #else
  glutPostRedisplay();
 #endif
 
-}
-
-static void IdleCallbackFS(void)
-{
-   // glutPostRedisplay();
 }
 
 

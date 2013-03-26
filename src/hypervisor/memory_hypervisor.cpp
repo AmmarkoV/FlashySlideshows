@@ -375,6 +375,26 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
 
 
 
+int TexturesToLoadExist()
+{
+  unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
+  unsigned int album_traveler=MinPictureThatIsVisible();
+
+  while (album_traveler<=MAX_album_traveler)
+   {
+     /*In case the other thread has moved focus , adapt on the fly --*/
+       if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
+       if (album_traveler>MaxPictureThatIsVisible()) { return 0; }
+     /*-----------------------------------------------------------*/
+
+     if ( album[album_traveler]->gpu.marked_for_texture_loading ) { return 1; }
+     ++album_traveler;
+   }
+
+  return 0;
+}
+
+
 
 
 int LoadTexturesIfNeeded(int count_only)

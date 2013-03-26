@@ -146,6 +146,7 @@ struct SlideShowData
   struct LayoutState layout;
 
 
+  unsigned int onNextDrawAssumeWeWerePaused;
   unsigned int forceDrawOneMoreTime;
   unsigned int loadedPicturesThisLoop;
 
