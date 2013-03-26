@@ -272,7 +272,34 @@ int CreateObjectFountain(unsigned int stock_image)
 
 
 
+int Active3DObjectsExist()
+{
 
+  unsigned int object_traverser=0;
+  while ( object_traverser < existing_objects )
+   {
+     if (
+            (objects[object_traverser].lifetime!=0) &&
+            (
+             (objects[object_traverser].velocity.x!=0) ||
+             (objects[object_traverser].velocity.y!=0) ||
+             (objects[object_traverser].velocity.z!=0) ||
+             (objects[object_traverser].rotation_velocity.x!=0) ||
+             (objects[object_traverser].rotation_velocity.y!=0) ||
+             (objects[object_traverser].rotation_velocity.z!=0)
+            )
+         )
+         {
+             return 1;
+         }
+
+
+     ++object_traverser;
+   }
+
+
+   return 0;
+}
 
 
 

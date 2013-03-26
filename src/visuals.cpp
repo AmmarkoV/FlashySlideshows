@@ -54,8 +54,8 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
 
 int DrawEffects()
 {
-  DrawObject(25,0,0,(float) times_drawn_background/100,9,9,1,0);
-  DrawObject(25,14,0,(float) -times_drawn_background/100,9,9,2,0);
+  //DrawObject(25,0,0,(float) times_drawn_background/100,9,9,1,0);
+  //DrawObject(25,14,0,(float) -times_drawn_background/100,9,9,2,0);
   return 1;
 }
 

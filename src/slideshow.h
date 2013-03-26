@@ -146,6 +146,8 @@ struct SlideShowData
   struct LayoutState layout;
 
 
+  unsigned int forceDrawOneMoreTime;
+
   unsigned int disable_hud;  // 0, 1
 
   unsigned int quality_setting; //Smaller is better

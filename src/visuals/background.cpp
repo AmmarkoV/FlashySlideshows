@@ -23,7 +23,7 @@ float ymin=-((xmax-xmin)*3/4)/2,ymax=ymin*(-1);
 void DrawSimple2DBackground()
 {
   ++times_drawn_background;
-  glClearColor(0,0,0,0);
+ // glClearColor(0,0,0,0);
 
 }
 

@@ -224,6 +224,7 @@ void MoveDestinationCenterRaw(float x,float y,float z)
     frame.desired_x+=x;
     frame.desired_y+=y;
     frame.desired_z+=z;
+    frame.forceDrawOneMoreTime=1; //Force Drawing one more time!
 }
 
 
@@ -285,12 +286,14 @@ void SetDestinationCenter()
 
     frame.desired_x=0; frame.desired_y=0; frame.desired_z=0;
     frame.angle_x=0;   frame.angle_y=0;   frame.angle_z=180;
+    frame.forceDrawOneMoreTime=1; //Force Drawing one more time!
 }
 
 
 void ResetCameraOrientation()
 {
     frame.angle_x=0; frame.angle_y=0; frame.angle_z=180;
+    frame.forceDrawOneMoreTime=1; //Force Drawing one more time!
 }
 
 void SetDestinationOverPicture3dSeek(unsigned int pic_place)
@@ -305,6 +308,7 @@ void SetDestinationOverPicture3dSeek(unsigned int pic_place)
   frame.desired_x=album[pic_place]->position.x;
   frame.desired_y=album[pic_place]->position.y;
   frame.desired_z=album[pic_place]->position.z+4.5;//-0.5;
+  frame.forceDrawOneMoreTime=1; //Force Drawing one more time!
 }
 
 void SetDestinationOverPictureImmediate(unsigned int pic_place)
@@ -314,6 +318,7 @@ void SetDestinationOverPictureImmediate(unsigned int pic_place)
   frame.vx=frame.desired_x;
   frame.vy=frame.desired_y;
   frame.vz=frame.desired_z;
+  frame.forceDrawOneMoreTime=1; //Force Drawing one more time!
 }
 
 
@@ -379,7 +384,12 @@ void SetDestinationOverNextPicture()
 
 int CameraMoving()
 {
-    return ( (frame.desired_x != frame.vx)||(frame.desired_y != frame.vy)||(frame.desired_z != frame.vz) );
+    return (
+                (frame.desired_x != frame.vx)||
+                (frame.desired_y != frame.vy)||
+                (frame.desired_z != frame.vz)
+
+            );
 }
 
 int CameraOverPicture(unsigned int x,unsigned int y)

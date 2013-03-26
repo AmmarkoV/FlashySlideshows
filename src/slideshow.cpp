@@ -83,6 +83,9 @@ void InitSlideShow()
 
    frame.enable_web_interface=0;
 
+   //Force draw at start
+   frame.forceDrawOneMoreTime=1;
+
 
    frame.transitions.transition_mode=0;
 

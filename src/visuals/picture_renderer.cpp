@@ -75,10 +75,11 @@ inline int DisplayFrame(struct Picture * pic,unsigned int place,float *x,float *
    if (SIMPLE_FAST_FRAME) { glDisable ( GL_TEXTURE_2D ); } else //No textures , transparencies , etc , just a white QUAD :P less is more .. :P
                           { glBindTexture(GL_TEXTURE_2D, picture_frame->gpu.gl_rgb_texture ); }
    glBegin(GL_QUADS);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(*x-*size_x-frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Left Of The Texture and Quad
+    glNormal3d(0, 0, 1);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(*x+*size_x+frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(*x+*size_x+frame_size,*y+*size_y+frame_size,*z-0.05);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(*x-*size_x-frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(*x-*size_x-frame_size,*y+*size_y+frame_size,*z-0.05);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(*x+*size_x+frame_size,*y+*size_y+frame_size,*z-0.05);	// Top Right Of The Texture and Quad
    glEnd();
 
   if (SIMPLE_FAST_FRAME)  { glEnable ( GL_TEXTURE_2D ); }

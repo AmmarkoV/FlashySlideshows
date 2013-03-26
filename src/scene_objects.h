@@ -52,6 +52,8 @@ unsigned int Add_3DObject(struct SceneObject newobj);
 unsigned int Add_3DObject(float x,float y,float z,float width,float height,unsigned int stock_number,unsigned int lifetime);
 unsigned int Delete_All3DObjectsOfShape(unsigned int shape);
 
+int Active3DObjectsExist();
+
 int CreateObjectFountain(unsigned int stock_image);
 
 void Run3DObjects(unsigned int microseconds);

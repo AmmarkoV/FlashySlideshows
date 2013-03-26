@@ -58,6 +58,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
+#define ECONOMIC_MODE 1
+
+
+
 unsigned int STOP_APPLICATION=0;
 unsigned int STOP_IDLE_CALLBACK=0;
 
@@ -211,7 +215,6 @@ static void DisplayCallback(void)
    /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
-
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); //| GL_DEPTH_BUFFER_BIT
 	  glPushMatrix();
@@ -256,7 +259,7 @@ static void DisplayCallback(void)
         }
    /* -  -  -  -  -  -  -  */
    glFinish(); // Thats all the drawing
-
+   glutSwapBuffers();
 
    /*STATE MANAGMENT ----------------------------------------------------*/
    AutomaticSlideShowControl_if_needed(); /* if automatic slide show is enabled it will relay commands */
@@ -283,7 +286,7 @@ static void DisplayCallback(void)
     }
 
 
-    glutSwapBuffers();
+ //   glutSwapBuffers();
    // glFlush();
 }
 
@@ -370,13 +373,27 @@ void SpecialFunctionCallback (int key, int x, int y)
 
 static void IdleCallback(void)
 {
-  //  if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
-    glutPostWindowRedisplay(currentWindow);
+  if (frame.forceDrawOneMoreTime)
+   {
+      frame.forceDrawOneMoreTime=0;
+      glutPostRedisplay();
+      return;
+   }
+
+#if ECONOMIC_MODE
+  if (CameraMoving()||(Active3DObjectsExist()) )
+   {
+      glutPostRedisplay();
+ //     glutPostWindowRedisplay(currentWindow);
+   }
+#else
+ glutPostRedisplay();
+#endif
+
 }
 
 static void IdleCallbackFS(void)
 {
-  //  if ( STOP_IDLE_CALLBACK>0 ) { STOP_IDLE_CALLBACK=2; return; }
    // glutPostRedisplay();
 }
 
@@ -502,7 +519,7 @@ int main(int argc, char *argv[])
 
 
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
-    glClearColor(0,0,0,0);
+    glClearColor(1,0,0,0);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
