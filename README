@@ -2,8 +2,8 @@ Flashy Slide Show
 ----------------------
 
 21/3/2012
-This project is now approximately 4.5k loc and has taken me 2+ months of development time..!
-Since it meets my "photography" needs as it is I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable , usefull and I have done a good job profiling code and taken performance seriously while building it... 
+This project is now approximately 4.5k loc and has taken me 3+ months of development time..!
+Since it meets my "photography" needs as it is I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable , useful and I have done a good job profiling code and taken performance seriously while building it... 
 If someone wants a particular feature or has a bug fix , etc , you are welcome to contact me so that it will be added or fixed..  
 https://github.com/AmmarkoV/FlashySlideshows/issues
 
@@ -36,11 +36,11 @@ if one of them fails , consider running the other
 This will produce the executables ( flashyslideshows and flashyslideshowsgui )
 you can issue 
 ./flashyslideshowsgui
-
+to test the application
 
 --------------- Installation of current version---------------
 if you want to install the app , run 
-./install.sh or
+sudo ./install.sh or
 sudo make install
 your password is required.. 
 This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
@@ -66,6 +66,8 @@ TODO LIST
 * Fix Ken Burns effect and connect it to the output of OpenCV face detection which is currently disabled..!
 
 * Add effects ( shiny floor ) to images  ,  transparency , particles  are done
+
+* Add scripting capabilities for prerecorded (closed-loop) slideshows
 
 * Make paper ( bending ) effects with 3D fonts
 
