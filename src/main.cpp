@@ -540,7 +540,7 @@ int main(int argc, char *argv[])
 
 
     /* OpenGL Initialization >>>>>>>>>>>>>>>>> */
-    glClearColor(1,0,0,0);
+    glClearColor(0,0,0,0);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
