@@ -1,8 +1,11 @@
 #!/bin/bash
   
-
-echo "Compiling libAmmServerlib.a null version / Author : Ammar Qammaz"  
+red=$(printf "\033[31m")
+green=$(printf "\033[32m") 
+normal=$(printf "\033[m")
+ 
 LIBNAME="libAmmServerlib.a"
+SOLIBNAME="libAmmServerlib.so"
 
 if [ -e $LIBNAME ]
 then
@@ -13,6 +16,7 @@ fi
 CFLAGS="-s"
 
 gcc -c $CFLAGS main.c -o main.o 
+gcc -shared main.c -fPIC -o $SOLIBNAME
 
 PARTS_OF_LIB="main.o"
 
@@ -22,11 +26,17 @@ rm $PARTS_OF_LIB
 
 if [ -e $LIBNAME ]
 then
-  echo "Success.."
+  echo "$green Success building static AmmarServerNull $LIBNAME .. $normal"
 else
-  echo "Failure.."
+  echo "$red Failure building static AmmarServerNull $LIBNAME .. $normal"
 fi
 
 
+if [ -e $SOLIBNAME ]
+then
+  echo "$green Success building dynamic AmmarServerNull $SOLIBNAME .. $normal"
+else
+  echo "$red Failure building dynamic AmmarServerNull $SOLIBNAME .. $normal"
+fi
 
 exit 0

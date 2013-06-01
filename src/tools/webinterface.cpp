@@ -54,22 +54,22 @@ char * readFileForServing(char * filename, unsigned long * index_content_size)
 }
 
 
-void * index_control_page(char * content)
+void * index_control_page(struct AmmServer_DynamicRequestContext  * rqst)
 {
   char command[MAX_WEB_COMMAND_SIZE]={0};
 
   //If we have the console argument set this means we dont want the html output enabled so we switch it off
-  if ( _GET(flashy_server,&index_control,(char*) "UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
-  if ( _GET(flashy_server,&index_control,(char*) "DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
-  if ( _GET(flashy_server,&index_control,(char*) "LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
-  if ( _GET(flashy_server,&index_control,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
-  if ( _GET(flashy_server,&index_control,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
+  if ( _GET(flashy_server,rqst,(char*) "UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
+  if ( _GET(flashy_server,rqst,(char*) "DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
+  if ( _GET(flashy_server,rqst,(char*) "LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
+  if ( _GET(flashy_server,rqst,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
+  if ( _GET(flashy_server,rqst,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
 
-  index_control.content_size=0;
+  rqst->content_size=0;
   if (index_content!=0)
     {
-     strncpy(content,index_content,index_content_size);
-     index_control.content_size=index_content_size ;
+     strncpy(rqst->content,index_content,index_content_size);
+     rqst->content_size=index_content_size ;
     }
 
   return 0;
