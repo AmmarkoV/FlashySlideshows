@@ -54,7 +54,7 @@ char * readFileForServing(char * filename, unsigned long * index_content_size)
 }
 
 
-void * index_control_page(struct AmmServer_DynamicRequestContext  * rqst)
+void * index_control_page(struct AmmServer_DynamicRequest  * rqst)
 {
   char command[MAX_WEB_COMMAND_SIZE]={0};
 
