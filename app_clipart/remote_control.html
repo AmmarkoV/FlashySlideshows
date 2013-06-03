@@ -8,6 +8,27 @@
     a:hover {color:#FF0000;}  /* mouse over link */
     a:active {color:#FF0000;}  /* selected link */ 
    </style>
+
+
+
+  <script type="text/javascript">    
+   function httpGet(theUrl)
+    {
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, true ); //Second parameter is async
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+    } 
+    
+     function command(theCommand)
+     {
+       var randomnumber=Math.floor(Math.random()*100000);
+       httpGet("index.html?"+theCommand+"&t="+randomnumber); 
+     }  
+   </script>
+
 </head><body>
 <table style="text-align: left; width: 100%; height: 100%;" border="1" cellpadding="2" cellspacing="2">
 
@@ -15,7 +36,7 @@
     <tr>
       <td style="vertical-align: top; text-align: center; font-size: 150%;"><br>
       </td>
-      <td style="vertical-align: top; text-align: center;" onclick="window.location.href = 'index.html?UP=1&tick='+Math.random()%1000000"> 
+      <td style="vertical-align: top; text-align: center;" onclick="command('UP=1');"> 
              <strong style="font-size: 525%;">
               <br>Up<br>
              </strong>
@@ -24,17 +45,17 @@
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top; text-align: center;" onclick="window.location.href = 'index.html?LEFT=1&tick='+Math.random()%1000000"> 
+      <td style="vertical-align: top; text-align: center;" onclick="command('LEFT=1');"> 
              <strong style="font-size: 525%;">
               <br>Left&nbsp;<br>
              </strong>
       </td>
-      <td style="vertical-align: top; text-align: center;" onclick="window.location.href = 'index.html?PLAY=1&tick='+Math.random()%1000000"> 
+      <td style="vertical-align: top; text-align: center;" onclick="command('PLAY=1');"> 
              <strong style="font-size: 525%;">
               <br>Play<br>
              </strong>
       </td>
-      <td style="vertical-align: top; text-align: center;" onclick="window.location.href = 'index.html?RIGHT=1&tick='+Math.random()%1000000"> 
+      <td style="vertical-align: top; text-align: center;" onclick="command('RIGHT=1');"> 
              <strong style="font-size: 525%;">
               <br>Right<br>
              </strong>
@@ -43,7 +64,7 @@
     <tr>
       <td style="vertical-align: top; text-align: center;"><br>
       </td>
-      <td style="vertical-align: top; text-align: center;" onclick="window.location.href = 'index.html?DOWN=1&tick='+Math.random()%1000000"> 
+      <td style="vertical-align: top; text-align: center;" onclick="command('DOWN=1');"> 
              <strong style="font-size: 525%;">
               <br>Down<br>
              </strong>
