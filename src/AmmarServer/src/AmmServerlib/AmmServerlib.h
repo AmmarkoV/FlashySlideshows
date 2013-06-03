@@ -89,12 +89,12 @@ struct AmmServer_DynamicRequest
    unsigned int headerResponse;
 
    char * content;
-   unsigned long content_size;
-   unsigned long MAX_content_size;
+   unsigned long contentSize;
+   unsigned long MAXcontentSize;
 
    char * compressedContent;
    unsigned long compressedContentSize;
-   unsigned long MAX_compressedContentSize;
+   unsigned long MAXcompressedContentSize;
 
    char * GET_request;
    unsigned int GET_request_length;
@@ -113,7 +113,7 @@ struct AmmServer_RH_Context
    unsigned int callback_every_x_msec;
    char callback_cooldown;
 
-   void * prepare_content_callback;
+   void * dynamicRequestCallbackFunction;
 
    char web_root_path[MAX_FILE_PATH];
    char resource_name[MAX_RESOURCE];

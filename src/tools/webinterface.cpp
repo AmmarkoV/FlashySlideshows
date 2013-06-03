@@ -12,45 +12,12 @@ struct AmmServer_Instance  * flashy_server=0;
 struct AmmServer_RH_Context index_control={0};
 
 char * index_content =0 ;
-unsigned long index_content_size = 0;
+unsigned int index_content_size = 0;
 
 int WebInterfaceCompiledIn()
 {
   if ( AmmServer_Version() == 0 ) { return 1; }
   return 0;
-}
-
-char * readFileForServing(char * filename, unsigned long * index_content_size)
-{
-  if ( (filename==0) || (index_content_size==0)  ) { fprintf(stderr,"readFileForServing called with incorrect params"); return 0; }
-  FILE * pFile;
-  char * buffer;
-  long lSize;
-  size_t result;
-
-  pFile = fopen (filename, "rb" );
-  if (pFile==0) {fputs ("File error",stderr); return 0; }
-
-  // obtain file size:
-  fseek (pFile , 0 , SEEK_END);
-  lSize = ftell (pFile);
-  rewind (pFile);
-
-  // allocate memory to contain the whole file:
-  buffer = (char*) malloc (sizeof(char)*lSize);
-  if (buffer == 0 ) {fputs ("Memory error",stderr); return 0;}
-
-  // copy the file into the buffer:
-  result = fread (buffer,1,lSize,pFile);
-  if (result != lSize) {fputs ("Reading error",stderr); return 0; }
-
-  /* the whole file is now loaded in the memory buffer. */
-
-  // terminate
-  fclose (pFile);
-
-  *index_content_size=lSize;
-  return buffer;
 }
 
 
@@ -65,18 +32,15 @@ void * index_control_page(struct AmmServer_DynamicRequest  * rqst)
   if ( _GET(flashy_server,rqst,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
   if ( _GET(flashy_server,rqst,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
 
-  rqst->content_size=0;
+  rqst->contentSize=0;
   if (index_content!=0)
     {
      strncpy(rqst->content,index_content,index_content_size);
-     rqst->content_size=index_content_size ;
+     rqst->contentSize=index_content_size ;
     }
 
   return 0;
 }
-
-
-
 
 
 //This function adds a Resource Handler for the pages stats.html and formtest.html and associates stats , form and their callback functions
@@ -86,7 +50,7 @@ void init_dynamic_content(char * webroot,char * app_clipart)
   strcpy(index_file_template,app_clipart);
   strcat(index_file_template,"/remote_control.html");
 
-  index_content = readFileForServing(index_file_template,&index_content_size);
+  index_content = AmmServer_ReadFileToMemory(index_file_template,&index_content_size);
   if (index_content==0) { fprintf(stderr,"Could not find index page template..\n"); }
 
   if (! AmmServer_AddResourceHandler(flashy_server,&index_control, (char *) "/index.html",webroot,4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding index page\n"); }
