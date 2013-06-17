@@ -71,7 +71,8 @@ void close_dynamic_content()
 int StartWebInterface(char * IP , unsigned int port , char * fileroot,char * app_clipart)
 {
     flashy_server = AmmServer_Start
-        (
+        ( 
+           "flashyslideshows", 
            IP,
            port,
            0, /*This means we don't want a specific configuration file*/
