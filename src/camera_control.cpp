@@ -308,7 +308,7 @@ void SetDestinationOverPicture3dSeek(unsigned int pic_place)
 
   frame.desired_x=album[pic_place]->position.x;
   frame.desired_y=album[pic_place]->position.y;
-  frame.desired_z=album[pic_place]->position.z+4.5;//-0.5;
+  frame.desired_z=album[pic_place]->position.z+1.4;//-0.5;
   frame.forceDrawOneMoreTime=1; //Force Drawing one more time!
 }
 
@@ -408,7 +408,7 @@ int CameraSeesOnlyOnePicture()
   if ( abs(frame.vy-frame.desired_y)>3 ) { return 0; }
 
 
-  if ( frame.vz<=GetLayoutMinimumZ()+1.9  )
+  if ( frame.vz<=GetLayoutMinimumZ()+0.6  ) // <- This is how close we can get before background gets erased
    {
      float xcoord,ycoord,zcoord,distance;
      GetPictureCenterCoords(frame.active_image_place,&xcoord,&ycoord,&zcoord);

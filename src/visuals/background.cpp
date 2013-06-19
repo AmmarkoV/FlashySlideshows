@@ -39,10 +39,12 @@ void DrawTextured2DBackground()
 
     float x=frame.vx,y=frame.vy,z=0;
 
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin,y+ymin,z-15);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax,y+ymin,z-15);	// Bottom Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax,y+ymax,z-15);	// Top Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin,y+ymax,z-15);
+
+    float multiplier = 1.7;
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin*multiplier,y+ymin*multiplier,z-15);	// Bottom Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax*multiplier,y+ymin*multiplier,z-15);	// Bottom Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax*multiplier,y+ymax*multiplier,z-15);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(x+xmin*multiplier,y+ymax*multiplier,z-15);
 
    glEnd();
    glDisable ( GL_TEXTURE_2D );

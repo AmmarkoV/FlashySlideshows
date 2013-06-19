@@ -173,7 +173,7 @@ static void ResizeCallback(int width, int height)
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();           /*NEAR*/
-    glFrustum(-ar, ar, -1.0, 1.0, 1.0, 800.0);
+    glFrustum(-ar, ar, -1.0, 1.0, 0.3, 800.0);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity() ;
