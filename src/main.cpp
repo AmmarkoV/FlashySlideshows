@@ -396,7 +396,12 @@ static void IdleCallback(void)
    }
 
 #if ECONOMIC_MODE
-  if ( (CameraMoving())||(Active3DObjectsExist())||(TexturesToLoadExist()) )
+  if (
+       (CameraMoving())||
+       (Active3DObjectsExist())||
+       (TexturesToLoadExist()) ||
+       (frame.transitions.automatic_slideshow_on)
+     )
    {
       glutPostRedisplay();
       //glutPostWindowRedisplay(currentWindow);
