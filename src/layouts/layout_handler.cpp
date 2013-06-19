@@ -130,12 +130,12 @@ float GetLayoutMaximumY()
 
 float GetLayoutMinimumZ()
 {
-    return -4.5;
+    return -4.7;
 }
 
 float GetLayoutMaximumZ()
 {
-    return 3.5;
+    return 3.0;
 }
 
 int DrawLayoutBackground()
