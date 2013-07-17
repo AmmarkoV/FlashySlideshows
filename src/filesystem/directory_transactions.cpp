@@ -84,7 +84,12 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
 
     char rescale_operation[MAX_PATH]={0};
     char raw_filename[MAX_PATH]={0};
-    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //This overwrites raw_filename with a correct value ..
+    if ( GetViewableFilenameforFile(file_id,(char *) frame.album_directory,raw_filename) == 1 )
+    {
+        fprintf(stderr,"Got Image Filename ( %s ) the new way\n",raw_filename);
+    }
 
 /*
     char escaped_filename[MAX_PATH];
@@ -107,7 +112,14 @@ int MoveFileToDir(unsigned int file_id,char * dir)
     if (!frame.allow_operation_move) {  fprintf(stderr,"MoveFileToDir but frame.allow_operation_move is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
-    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //This overwrites raw_filename with a correct value ..
+    if ( GetViewableFilenameforFile(file_id,(char *) frame.album_directory,raw_filename) == 1 )
+    {
+        fprintf(stderr,"Got Image Filename ( %s ) the new way\n",raw_filename);
+    }
+
+
 //    char escaped_filename[2048];
 //    escape_str(raw_filename,escaped_filename);
 
@@ -129,7 +141,14 @@ int LinkFileToDir(unsigned int file_id,char * dir)
     if (!frame.allow_operation_link) { fprintf(stderr,"LinkFileToDir but frame.allow_operation_link is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
-    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //This overwrites raw_filename with a correct value ..
+    if ( GetViewableFilenameforFile(file_id,(char *) frame.album_directory,raw_filename) == 1 )
+    {
+        fprintf(stderr,"Got Image Filename ( %s ) the new way\n",raw_filename);
+    }
+
+
 //    char escaped_filename[2048];
 //    escape_str(raw_filename,escaped_filename);
     char link_operation[2048];
@@ -154,7 +173,13 @@ int CopyFileToDir(unsigned int file_id,char * dir)
     if (!frame.allow_operation_copy) { fprintf(stderr,"CopyFileToDir but frame.allow_operation_copy is not enabled\n"); return 0; }
 
     char raw_filename[MAX_PATH]={0};
-    sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //sprintf(raw_filename,"%s%s",(char*)frame.album_directory,list[file_id].filename);
+    //This overwrites raw_filename with a correct value ..
+    if ( GetViewableFilenameforFile(file_id,(char *) frame.album_directory,raw_filename) == 1 )
+    {
+        fprintf(stderr,"Got Image Filename ( %s ) the new way\n",raw_filename);
+    }
+
 //    char escaped_filename[2048];
 //    escape_str(raw_filename,escaped_filename);
 

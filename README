@@ -27,9 +27,9 @@ You can use the ./get-dependencies.sh to get the required packages for compiling
 
 --------------- Compilation ---------------
 To compile the project open a terminal and run
-./make ( hand made make script ) 
+./make ( hand made bash make script ) 
   OR
-make   ( make script made using cbp2make ) 
+make   ( make script generated using cbp2make ) , this will probably not succeed before running the update script once or as a part of the project called AmmarServer is not included by default  
 
 if one of them fails , consider running the other 
 
@@ -46,7 +46,7 @@ your password is required..
 This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
 
 --------------- Installation of latest version --------------- 
-./update_from_git.sh will download the latest version of the software from the master repository on github and then run the install.sh script
+./update_from_git.sh will download the latest version of the software from the master repository on github and then run the install.sh script , It also downloads AmmarServer which is an add on that enables a web interface for the application 
 your password is required..  
 
 
