@@ -129,6 +129,7 @@ int ExtensionIsJPEGPicture(wxString *extension)
       unsigned int is_a_picture=0;
       if ( extension->CmpNoCase(wxT("JPG"))==0 )       {is_a_picture=1;}
       else if ( extension->CmpNoCase(wxT("JPEG"))==0)  {is_a_picture=1;}
+      else if ( extension->CmpNoCase(wxT("JPS"))==0)  {is_a_picture=1;}
 
   return is_a_picture;
 }
