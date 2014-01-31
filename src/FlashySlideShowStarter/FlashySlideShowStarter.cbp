@@ -41,7 +41,6 @@
 		<Unit filename="../filesystem/directory_listing.h" />
 		<Unit filename="../filesystem/directory_sorting.cpp" />
 		<Unit filename="../filesystem/directory_sorting.h" />
-		<Unit filename="../filesystem/directory_transactions.h" />
 		<Unit filename="EmptyThumbnail.h" />
 		<Unit filename="FlashyLogo.h" />
 		<Unit filename="FlashySlideShowStarterApp.cpp" />
