@@ -16,8 +16,8 @@ unsigned long index_content_size = 0;
 
 int WebInterfaceCompiledIn()
 {
-  if ( AmmServer_Version() == 0 ) { return 1; }
-  return 0;
+  if ( AmmServer_Version() == 0 ) { return 0; }
+  return 1;
 }
 
 char * readFileForServing(char * filename, unsigned long * index_content_size)
