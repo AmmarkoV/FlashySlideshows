@@ -11,10 +11,13 @@ add_subdirectory (src/)
 #These are unit tests for the core library
 add_subdirectory (src/FlashySlideShowStarter)
    
-INSTALL(FILES "src/flashyslideshows" DESTINATION "/usr/bin" ) 
-INSTALL(FILES "src/FlashySlideShowStarter/flashyslideshowsgui" DESTINATION "/usr/bin" ) 
+INSTALL(PROGRAMS "src/flashyslideshows" DESTINATION "/usr/bin" ) 
+INSTALL(PROGRAMS "src/FlashySlideShowStarter/flashyslideshowsgui" DESTINATION "/usr/bin" ) 
 
-INSTALL(DIRECTORY "app_clipart" DESTINATION "/usr/share/flashyslideshows/")   
-INSTALL(DIRECTORY "sounds" DESTINATION "/usr/share/flashyslideshows/") 
+INSTALL(DIRECTORY "app_clipart" DESTINATION "/usr/share/flashyslideshows/" DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )   
+INSTALL(DIRECTORY "sounds" DESTINATION "/usr/share/flashyslideshows/"  DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE ) 
+ 
 
-
+INSTALL(FILES "app_clipart/flashyicon.png" DESTINATION "/usr/share/icons/" ) 
+INSTALL(FILES "FlashySlideshows.desktop" DESTINATION "/usr/share/applications/" ) 
+ 
