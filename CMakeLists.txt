@@ -10,13 +10,11 @@ add_subdirectory (src/AmmarServer)
 add_subdirectory (src/)
 #These are unit tests for the core library
 add_subdirectory (src/FlashySlideShowStarter)
-  
+   
+INSTALL(FILES "src/flashyslideshows" DESTINATION "/usr/bin" ) 
+INSTALL(FILES "src/FlashySlideShowStarter/flashyslideshowsgui" DESTINATION "/usr/bin" ) 
 
-# TODO FIX INSTALLATION DIRECTORIES 
+INSTALL(DIRECTORY "app_clipart" DESTINATION "/usr/share/flashyslideshows/")   
+INSTALL(DIRECTORY "sounds" DESTINATION "/usr/share/flashyslideshows/") 
 
-#    install(TARGETS AmmarServer
-#                    LIBRARY DESTINATION lib
-#                    ARCHIVE DESTINATION lib
-#                    RUNTIME DESTINATION bin)
- 
 
