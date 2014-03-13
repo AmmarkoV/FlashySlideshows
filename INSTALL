@@ -2,22 +2,28 @@
 You can use the apt-get-dependencies.sh to apt-get the required packages..!
 
 
+
 --------------- Compilation ---------------
-To compile the project open a terminal and run
-./make
-This will produce the executables ( flashyslideshows and flashyslideshowsgui )
-you can issue 
-./flashyslideshowsgui
+To compile the project open a terminal cd to the root of the project and run
 
-
+mkdir build 
+cd build 
+cmake ..
+make 
+  
 --------------- Installation of current version---------------
-if you want to install the app , run 
-./install.sh
+if you want to install the app ( after compiling the project ) , run 
+
+cd build
+sudo make install
+
 your password is required.. 
+
 This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
 
 --------------- Installation of latest version --------------- 
-./update_from_git.sh will download the latest version of the software from the master repository on github and then run the install.sh script
+./update_from_git.sh will download the latest version of the software from the master repository on github
+It also downloads AmmarServer which is an add on that enables a web interface for the application 
 your password is required..  
 
 
