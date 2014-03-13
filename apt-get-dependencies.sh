@@ -7,11 +7,12 @@ BUILD_FLASHY_SLIDESHOWS="g++ gcc wx-common libwxgtk2.8-0 libwxgtk2.8-dev  libalu
 FACE_DETECTION="libopencv-dev libcv-dev libcvaux-dev libhighgui-dev"
 
 #Runtime Dependencies
+BUILDSYSTEM="cmake git"
 UPDATE_CHECKER="wget sed libnotify-bin"
 IMAGE_CONVERSIONS_AND_RESIZING="imagemagick"
 DISPLAYING_FAILSAFE_ERRORS="zenity"
 
 #$FACE_DETECTION 
-sudo apt-get install $BUILD_FLASHY_SLIDESHOWS  $UPDATE_CHECKER $IMAGE_CONVERSIONS_AND_RESIZING $DISPLAYING_FAILSAFE_ERRORS
+sudo apt-get install $BUILDSYSTEM $BUILD_FLASHY_SLIDESHOWS  $UPDATE_CHECKER $IMAGE_CONVERSIONS_AND_RESIZING $DISPLAYING_FAILSAFE_ERRORS
   
 exit 0
