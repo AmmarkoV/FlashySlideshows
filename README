@@ -1,13 +1,10 @@
 Flashy Slide Show
 ----------------------
-
-21/3/2012
+ 
 This project is now approximately 4.5k loc and has taken me 3+ months of development time..!
 Since it meets my "photography" needs as it is I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable , useful and I have done a good job profiling code and taken performance seriously while building it... 
-If someone wants a particular feature or has a bug fix , etc , you are welcome to contact me so that it will be added or fixed..  
-https://github.com/AmmarkoV/FlashySlideshows/issues
-
-
+If someone wants a particular feature or has a bug fix , etc , you are welcome to add it on the issues tracker ( https://github.com/AmmarkoV/FlashySlideshows/issues ) so that it may be added or fixed..  
+   
 AmmarkoV
 
 Videos :
@@ -26,27 +23,26 @@ You can use the ./get-dependencies.sh to get the required packages for compiling
 
 
 --------------- Compilation ---------------
-To compile the project open a terminal and run
-./make ( hand made bash make script ) 
-  OR
-make   ( make script generated using cbp2make ) , this will probably not succeed before running the update script once or as a part of the project called AmmarServer is not included by default  
+To compile the project open a terminal cd to the root of the project and run
 
-if one of them fails , consider running the other 
-
-This will produce the executables ( flashyslideshows and flashyslideshowsgui )
-you can issue 
-./flashyslideshowsgui
-to test the application
-
+mkdir build 
+cd build 
+cmake ..
+make 
+  
 --------------- Installation of current version---------------
-if you want to install the app , run 
-sudo ./install.sh or
+if you want to install the app ( after compiling the project ) , run 
+
+cd build
 sudo make install
+
 your password is required.. 
+
 This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
 
 --------------- Installation of latest version --------------- 
-./update_from_git.sh will download the latest version of the software from the master repository on github and then run the install.sh script , It also downloads AmmarServer which is an add on that enables a web interface for the application 
+./update_from_git.sh will download the latest version of the software from the master repository on github
+It also downloads AmmarServer which is an add on that enables a web interface for the application 
 your password is required..  
 
 
