@@ -234,6 +234,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu3->Append(MenuItem8);
     MenuItem11 = new wxMenuItem(Menu3, idMenuFullscreenCommand, _("Fullscreen"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem11);
+    MenuItem11->Check(true);
     MenuItem5 = new wxMenuItem(Menu3, idMenuWebInterface, _("Web Interface"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem5);
     MenuItem7 = new wxMenuItem(Menu3, idMenuHUD, _("Heads Up Display"), wxEmptyString, wxITEM_CHECK);

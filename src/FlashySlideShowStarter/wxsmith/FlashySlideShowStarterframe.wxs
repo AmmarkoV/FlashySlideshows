@@ -241,6 +241,7 @@
 				</object>
 				<object class="wxMenuItem" name="idMenuFullscreenCommand" variable="MenuItem11" member="yes">
 					<label>Fullscreen</label>
+					<checked>1</checked>
 					<checkable>1</checkable>
 				</object>
 				<object class="wxMenuItem" name="idMenuWebInterface" variable="MenuItem5" member="yes">
