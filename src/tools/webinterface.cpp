@@ -64,6 +64,10 @@ void * index_control_page(struct AmmServer_DynamicRequest  * rqst)
   if ( _GET(flashy_server,rqst,(char*) "LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
   if ( _GET(flashy_server,rqst,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
   if ( _GET(flashy_server,rqst,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
+  if ( _GET(flashy_server,rqst,(char*) "ZOOM_OUT",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('r',0,0); } }
+  if ( _GET(flashy_server,rqst,(char*) "ZOOM_IN",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('f',0,0); } }
+  if ( _GET(flashy_server,rqst,(char*) "STARS",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('u',0,0); } }
+
 
   rqst->contentSize=0;
   if (rqst->content!=0)
