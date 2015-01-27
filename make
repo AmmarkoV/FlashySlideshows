@@ -1,5 +1,15 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR"
+
+echo "Using CMAKE :) "
+cd build 
+make 
+cd ..
+
+exit 0
+
 
 red=$(printf "\033[31m")
 green=$(printf "\033[32m")

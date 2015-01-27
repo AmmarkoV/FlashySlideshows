@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR"
+
 red=$(printf "\033[31m")
 green=$(printf "\033[32m")
 yellow=$(printf "\033[33m")
