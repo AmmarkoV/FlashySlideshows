@@ -506,6 +506,8 @@ int main(int argc, char *argv[])
       return 1;
     }
 
+    /* Turn on VSYNC to prevent tearing >>>>>>>>>>>>>>>>>> */
+    putenv( (char *) "__GL_SYNC_TO_VBLANK=1" );
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
     glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE ,GLUT_ACTION_CONTINUE_EXECUTION);
