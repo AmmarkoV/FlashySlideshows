@@ -301,8 +301,7 @@ static void DisplayCallback(void)
     }
 
 
- //   glutSwapBuffers();
-   // glFlush();
+    glFlush(); //This is needed for Discrete GPU / ( Optimus ) to be working (!)
 }
 
 
