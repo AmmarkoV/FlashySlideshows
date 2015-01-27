@@ -231,7 +231,7 @@ static void DisplayCallback(void)
 
 
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); //| GL_DEPTH_BUFFER_BIT
+   // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // <- This causes screen tearing..! | GL_DEPTH_BUFFER_BIT
 	  glPushMatrix();
        //glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -508,8 +508,12 @@ int main(int argc, char *argv[])
 
     /* Turn on VSYNC to prevent tearing >>>>>>>>>>>>>>>>>> */
     putenv( (char *) "__GL_SYNC_TO_VBLANK=1" );
+    //putenv( (char *) "__GL_SYNC_TO_VBLANK=1 __GL_YIELD=\"USLEEP\" " );
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
+    //Initializing Display Mode should be right after glutInit to ensure the window will get created using the correct flags..! ( double buffering etc )
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
+
     glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE ,GLUT_ACTION_CONTINUE_EXECUTION);
 
     int width_x=glutGet(GLUT_SCREEN_WIDTH);
@@ -535,11 +539,6 @@ int main(int argc, char *argv[])
       frame.fullscreen=0;
       ToggleFullscreen();
    }
-
-
-    //putenv( (char *) "__GL_SYNC_TO_VBLANK=1 __GL_YIELD=\"USLEEP\" " );
-
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
 
 
     InitGlut();
