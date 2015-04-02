@@ -628,7 +628,14 @@ int main(int argc, char *argv[])
     pthread_create( &loadpicturesthread_id, NULL,ManageLoadingPicturesMemory_Thread,0);
 
     //This has to happen after LoadStockTexturesAndSounds in order for  frame.app_clipart_dir to get populated
-    if (frame.enable_web_interface) { StartWebInterface((char*) "0.0.0.0", 8080 , (char*) frame.album_directory , ( char*) frame.app_clipart_dir); }
+    if (frame.enable_web_interface)
+        {
+          if (!StartWebInterface((char*) "0.0.0.0", 8080 , (char*) frame.album_directory , ( char*) frame.app_clipart_dir))
+          {
+           // EmmitDialogWarning( (char *) "Could not initialize web interface");
+           fprintf(stderr,"\n\nCould not initialize web interface\n\n");
+          }
+        }
 
     gettimeofday(&last_frame,0x0);
     /* Start Rendering */

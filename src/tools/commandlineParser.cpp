@@ -35,7 +35,7 @@ int parseArguments(int argc, char *argv[])
                        if (!WebInterfaceCompiledIn())
                           {
                             //Web interface has been enabled by user BUT its not compiled in! :S
-                            EmmitDialogWarning( (char *) "Please note that this build of FlashySlideshow hasn't got a compiled in WebInterface..!\n To download it run ./update_from_git.sh from the project's root dir..\n\n\nCheck here for more info :\nhttps://github.com/AmmarkoV/FlashySlideshows\n");
+                            EmmitDialogWarning( (char *) "Please note that this build of FlashySlideshow hasn't got a compiled in WebInterface..!\n To download it run ./update_from_git.sh from the project's root dir and enable it at the CMake file..\n\n\nCheck here for more info :\nhttps://github.com/AmmarkoV/FlashySlideshows\n");
                           }
                        frame.enable_web_interface=1;
                    } else

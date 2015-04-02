@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
+#if WITH_WEBINTERFACE
+
 #include "../slideshow.h"
 #include "webinterface.h"
 #include "../controls.h"
@@ -13,6 +17,9 @@ struct AmmServer_RH_Context index_control={0};
 
 char * index_content =0 ;
 unsigned long index_content_size = 0;
+
+
+
 
 int WebInterfaceCompiledIn()
 {
@@ -133,4 +140,24 @@ int StopWebInterface()
   return 0;
 }
 
+#else
+
+int WebInterfaceCompiledIn()
+{
+  return 0;
+}
+
+int StartWebInterface(char * IP , unsigned int port , char * fileroot ,char * app_clipart)
+{
+  fprintf(stderr,"StartWebInterface not compiled in\n");
+  return 0;
+}
+
+int StopWebInterface()
+{
+  fprintf(stderr,"StopWebInterface not compiled in\n");
+  return 0;
+}
+
+#endif
 

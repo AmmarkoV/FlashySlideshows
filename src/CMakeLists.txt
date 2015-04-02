@@ -2,8 +2,7 @@ project( flashyslideshows )
 cmake_minimum_required( VERSION 2.8.7 ) 
 # Extend cmake's module path
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/modules ${CMAKE_MODULE_PATH})
-   
-
+    
 add_executable(flashyslideshows 
                main.cpp 
                controls.cpp
@@ -75,12 +74,19 @@ add_executable(flashyslideshows
 
 
 
+set(EXTRA_LIBS pthread )
+
+IF( ENABLE_WEB_INTERFACE )
+ set(EXTRA_LIBS AmmarServer )
+ add_definitions(-DWITH_WEBINTERFACE)
+ENDIF( ENABLE_WEB_INTERFACE )
+
 
  SET(wxWidgets_USE_LIBS)
  FIND_PACKAGE(wxWidgets)
  IF(wxWidgets_FOUND)
    INCLUDE("${wxWidgets_USE_FILE}") 
-   target_link_libraries(flashyslideshows glut GL GLU Xxf86vm openal alut pthread rt AmmarServer ${wxWidgets_LIBRARIES} )
+   target_link_libraries(flashyslideshows glut GL GLU Xxf86vm openal alut rt ${EXTRA_LIBS} ${wxWidgets_LIBRARIES} )
    # and for each of your dependant executable/library targets: 
  ELSE(wxWidgets_FOUND)
    # For convenience. When we cannot continue, inform the user
