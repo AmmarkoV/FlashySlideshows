@@ -207,8 +207,9 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxResizeResolution = new wxComboBox(this, ID_COMBOBOX4, wxEmptyString, wxPoint(552,320), wxSize(104,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX4"));
     ComboBoxResizeResolution->Append(_("320x240"));
     ComboBoxResizeResolution->Append(_("640x480"));
-    ComboBoxResizeResolution->SetSelection( ComboBoxResizeResolution->Append(_("1024x768")) );
+    ComboBoxResizeResolution->Append(_("1024x768"));
     ComboBoxResizeResolution->Append(_("1280x720"));
+    ComboBoxResizeResolution->SetSelection( ComboBoxResizeResolution->Append(_("1920x1080")) );
     ComboBoxResizeResolution->Append(_("30%"));
     ComboBoxResizeResolution->Append(_("50%"));
     ComboBoxResizeResolution->Disable();

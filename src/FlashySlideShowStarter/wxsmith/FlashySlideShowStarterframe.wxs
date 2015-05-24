@@ -174,10 +174,11 @@
 				<item>640x480</item>
 				<item>1024x768</item>
 				<item>1280x720</item>
+				<item>1920x1080</item>
 				<item>30%</item>
 				<item>50%</item>
 			</content>
-			<selection>2</selection>
+			<selection>4</selection>
 			<pos>552,320</pos>
 			<size>104,29</size>
 			<enabled>0</enabled>
