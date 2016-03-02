@@ -1,15 +1,28 @@
 project( FlashySlideshowsProject ) 
 cmake_minimum_required( VERSION 2.8.7 )
 
-set(CMAKE_CXX_FLAGS "-fPIC -march=native -mtune=native -O3 -fexpensive-optimizations -s") 
-    
+OPTION (ENABLE_OPTIMIZATIONS OFF)
 OPTION (ENABLE_WEB_INTERFACE OFF)
+OPTION (ENABLE_FACE_DETECTION OFF)
 
 #These are unit tests for the core library
 
+IF( ENABLE_FACE_DETECTION )
+  add_definitions(-DUSE_FACEDETECTION) 
+ENDIF( ENABLE_FACE_DETECTION )
+
+
+IF(  ENABLE_OPTIMIZATIONS )
+  set(CMAKE_CXX_FLAGS "-fPIC -march=native -mtune=native -O3 -fexpensive-optimizations -s") 
+ENDIF( ENABLE_OPTIMIZATIONS )
+
+
 IF( ENABLE_WEB_INTERFACE )
+  add_definitions(-DWITH_WEBINTERFACE)
   add_subdirectory (src/AmmarServer)
 ENDIF( ENABLE_WEB_INTERFACE )
+
+
 #This is the core application 
 add_subdirectory (src/)
 #These are unit tests for the core library

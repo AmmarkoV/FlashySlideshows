@@ -1,1 +1,0 @@
-/home/ammar/Documents/Programming/FlashySlideShow/src/AmmarServer/src/AmmServerNULLlib/../AmmServerlib/AmmServerlib.h

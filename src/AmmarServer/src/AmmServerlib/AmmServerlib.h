@@ -23,7 +23,7 @@ extern "C" {
 *        Of course not all of them are supported/used internally but they are listed in the same order to maintain spec compatibility
 * @bug   A potential bug might arise if the specs of the header file are changed and someone is linking with an older version libAmmServer.a thats why this value exists
 */
-#define AMMAR_SERVER_HTTP_HEADER_SPEC 129
+#define AMMAR_SERVER_HTTP_HEADER_SPEC 134
 
 
 
@@ -56,7 +56,7 @@ enum TypesOfRequests
 };
 
 
-#define MAX_IP_STRING_SIZE 32
+#define MAX_IP_STRING_SIZE 48 // This should be more than INET6_ADDRSTRLEN
 #define MAX_QUERY 2048
 #define MAX_RESOURCE 2048
 #define MAX_FILE_PATH 1024
@@ -75,8 +75,17 @@ enum TypesOfRequests
 */
 struct HTTPHeader
 {
+   unsigned int failed;
+   unsigned int dumpedToFile; //This is dummy
+
+   unsigned int parsingStartOffset;
+   unsigned int parsingCurrentLine;
+
    char * headerRAW;
+   unsigned int headerRAWHeadSize;
    unsigned int headerRAWSize;
+   unsigned int headerRAWRequestedSize; // The size that the client requests ( we have our own limits and agenda though )
+   unsigned int MAXheaderRAWSize;
 
    int  requestType; //See enum TypesOfRequests
    char resource[MAX_RESOURCE+1];
@@ -85,10 +94,16 @@ struct HTTPHeader
 
    char * POSTrequest;
    unsigned long POSTrequestSize;
+   char * POSTrequestBody;
+   unsigned long POSTrequestBodySize;
+
+
+
 
    unsigned char authorized;
    unsigned char keepalive;
    unsigned char supports_compression;
+
 
    //RANGE DATA
    unsigned long range_start;
@@ -98,31 +113,39 @@ struct HTTPHeader
    unsigned long ContentLength; //<- for POST requests
 
    //The next strings point directly on the header to keep memory usage on a minimum
-   //and performance on the maximum :P
+   //and performance on the maximum , they have to be refreshed if memory gets reallocated:P
+
+   unsigned int cookieIndex;
    char * cookie; //<-   *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int cookieLength;
 
+   unsigned int hostIndex;
    char * host; //<-     *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int hostLength;
 
+   unsigned int refererIndex;
    char * referer; //<-  *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int refererLength;
 
+   unsigned int eTagIndex;
    char * eTag; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int eTagLength;
 
+   unsigned int userAgentIndex;
    char * userAgent; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int userAgentLength;
 
+   unsigned int contentTypeIndex;
    char * contentType; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int contentTypeLength;
 
+   unsigned int contentDispositionIndex;
    char * contentDisposition;  //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int contentDispositionLength;
 
+   unsigned int boundaryIndex;
    char * boundary;  //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int boundaryLength;
-
 };
 
 
@@ -173,6 +196,7 @@ struct AmmServer_DynamicRequest
    char * content;
    unsigned long contentSize;
    unsigned long MAXcontentSize;
+   unsigned int contentContainsPathToFileToBeStreamed;
 
    char * compressedContent;
    unsigned long compressedContentSize;
@@ -184,6 +208,7 @@ struct AmmServer_DynamicRequest
    char * POST_request;
    unsigned int POST_request_length;
 
+   struct AmmServer_Instance * instance;
 
    unsigned int clientID;
 };
@@ -195,6 +220,7 @@ struct AmmServer_RH_Context
 {
    unsigned int RH_Scenario;
 
+   unsigned int executedNow;
    unsigned int last_callback;
    unsigned int callback_every_x_msec;
    char callback_cooldown;
@@ -224,6 +250,44 @@ struct AmmServer_Instance_Settings
     int BINDING_PORT;
 };
 
+
+
+
+struct AmmServer_ResponseCategory_Statistics
+{
+    unsigned long uploadedKB;
+    unsigned long downloadedKB;
+    unsigned int  requestNumber;
+};
+
+
+/** @brief This holds all the statistics of an Ammar Server Instance
+  *        this is the central structure for holding all of these things to keep the rest of the instance from getting cluttered
+  * @bug AmmServer_Instance_Statistics are not yet used , they are a stub..!
+*/
+struct AmmServer_Instance_Statistics
+{
+    unsigned long filesCurrentlyOpen;
+    unsigned long filesTotalOpen;
+
+    unsigned long clientsServed;
+
+    unsigned long totalUploadKB;
+    unsigned long totalDownloadKB;
+
+
+    unsigned long recvOperationsStarted;
+    unsigned long recvOperationsFinished;
+
+
+    struct AmmServer_ResponseCategory_Statistics notModifiedPages;
+    struct AmmServer_ResponseCategory_Statistics notFonudPages;
+    struct AmmServer_ResponseCategory_Statistics otherCategoriesHere;
+
+    /*etc*/
+};
+
+
 /** @brief This holds all the information about an Ammar Server Instance , sockets , thread pools , cache , memory , settings etc , this is the central structure for holding context */
 struct AmmServer_Instance
 {
@@ -233,7 +297,8 @@ struct AmmServer_Instance
     unsigned int prespawn_turn_to_serve;
     unsigned int prespawn_jobs_started;
     unsigned int prespawn_jobs_finished;
-    int files_open;
+
+    struct AmmServer_Instance_Statistics statistics;
 
     //Server state
     int serversock;
@@ -260,6 +325,8 @@ struct AmmServer_Instance
     void * prespawned_pool; //Actually struct PreSpawnedThread * but declared as a void pointer here
 
     struct AmmServer_RequestOverride_Context * clientRequestHandlerOverrideContext;
+    struct AmmServer_RH_Context webserverMonitorPage;
+    int webserverMonitorEnabled;
 
     char webserver_root[MAX_FILE_PATH];
     char templates_root[MAX_FILE_PATH];
@@ -282,6 +349,9 @@ struct HTTPTransaction
   unsigned int clientListID;
   unsigned int threadID;
   int prespawnedThreadFlag;
+
+  char ipStr[MAX_IP_STRING_SIZE];
+  unsigned int port;
 };
 
 /** @brief Enumerator for calls AmmServer_GetInfo */
@@ -392,6 +462,18 @@ int AmmServer_Stop(struct AmmServer_Instance * instance);
 */
 int AmmServer_Running(struct AmmServer_Instance * instance);
 
+
+/**
+* @brief Return a file instead of a Dynamic Request
+* @ingroup core
+* @param An AmmarServer Request
+* @param File to serve
+* @retval 1=Running,0=Stopped
+*/
+int AmmServer_DynamicRequestReturnFile(struct AmmServer_DynamicRequest  * rqst,const char * filename);
+
+
+
 /**
 * @brief Add a request handler to handle requests , before they get processed internally
 *        Calling this will bind a C function that will be called and produce output when someone asks for any resource using the specified method
@@ -432,6 +514,15 @@ int AmmServer_AddResourceHandler
     );
 
 
+
+/**
+* @brief monitor.html will give information about the server health internals and load , should only be used for debugging
+*        otherwise any client will be able to snoop around and see what is happening inside the server
+* @ingroup core
+* @param An AmmarServer Instance
+* @retval 1=Success,0=Fail
+*/
+int AmmServer_EnableMonitor( struct AmmServer_Instance * instance);
 
 
 /**
@@ -621,42 +712,6 @@ int AmmServer_ExecuteCommandLineNum(const char *  command , char * what2GetBack 
 int AmmServer_ExecuteCommandLine(const char *  command , char * what2GetBack , unsigned int what2GetBackMaxSize);
 
 
-
-/**
-* @brief Hot-Replace a character inside a memory block , typically used to replace characters like '+' with ' '
-* @ingroup tools
-* @param Pointer to memory that contains the null terminated string
-* @param Character to be replaced
-* @param What to replace the character with
-*/
-void AmmServer_ReplaceCharInString(char * input , char findChar , char replaceWith);
-
-/**
-* @brief Hot-Replace a variable inside a memory block , typically used to replace placeholders inside text files , like $$$$$$$$NAME$$$$$$$$  , the value should be smaller or equal to the var beeing replaced
-* @ingroup tools
-* @param Pointer to memory that contains the document
-* @param Size of document
-* @param Variable to be replaced
-* @param What to replace it with
-* @retval 1=Ok,0=Failed
-* @bug Value should not be bigger than variable otherwise things won't fit in the same memory block , this should be handled
-*/
-int AmmServer_ReplaceVarInMemoryFile(char * page,unsigned int pageLength,const char * var,const char * value);
-
-
-/**
-* @brief Hot-Replace ALL variables inside a memory block , typically used to replace placeholders inside text files , like $$$$$$$$NAME$$$$$$$$  , the value should be smaller or equal to the var being replaced
-* @ingroup tools
-* @param Pointer to memory that contains the document
-* @param Maximum number of Variable instances , 0 means infinite ( until the end of the memory buffer )..
-* @param Size of document
-* @param Variable to be replaced
-* @param What to replace it with
-* @retval 1=Ok,0=Failed
-* @bug Value should not be bigger than variable otherwise things won't fit in the same memory block , this should be handled
-*/
-int AmmServer_ReplaceAllVarsInMemoryFile(char * page,unsigned int instances,unsigned int pageLength,const char * var,const char * value);
-
 /**
 * @brief Read a file and store it to a freshly allocated memory block
 * @ingroup tools
@@ -686,31 +741,46 @@ int AmmServer_WriteFileFromMemory(const char * filename,char * memory , unsigned
 struct AmmServer_MemoryHandler *  AmmServer_ReadFileToMemoryHandler(const char * filename);
 
 
+
 /**
-* @brief Copy Content from one place of a buffer to another using an intermediate buffer..
+* @brief Copy a memory handler
 * @ingroup tools
-* @param Original Buffer
-* @param Size of Original Buffer
-* @param Pointer to the start of the source of the copy
-* @param Pointer to the start of the destination of the copy
-* @param Size of data to copy
-* @retval 1=Ok,0=Failed
+* @param Input memory handle
+* @retval Pointer to the new memory handler or 0=Failed
 */
-int AmmServer_CopyOverlappingDataContent(unsigned char * buffer , unsigned int totalSize  , unsigned char * from , unsigned char * to , unsigned int blockSize);
+struct AmmServer_MemoryHandler *  AmmServer_CopyMemoryHandler(struct AmmServer_MemoryHandler * inpt);
 
 
 /**
 * @brief Search for entryPoint pattern in buffer , and inject data there..!
 * @ingroup tools
+* @param Memory Handler for Buffer we want to inject to , see struct AmmServer_MemoryHandler
 * @param String to find in buffer and replace with new content
 * @param Data we want to inject
-* @param Memory Handler for Buffer we want to inject to , see struct AmmServer_MemoryHandler
 * @retval 1=Ok,0=Failed
 */
-int AmmServer_InjectDataToBuffer(unsigned char * entryPoint , unsigned char * data , struct AmmServer_MemoryHandler * mh );
+int AmmServer_ReplaceVariableInMemoryHandler(struct AmmServer_MemoryHandler * mh,const char * var,const char * value);
 
 
-int AmmServer_ReplaceVarInMemoryHandler(struct AmmServer_MemoryHandler * mh,const char * var,const char * value);
+
+/**
+* @brief Hot-Replace a character inside a memory block , typically used to replace characters like '+' with ' '
+* @ingroup tools
+* @param Pointer to memory that contains the null terminated string
+* @param Character to be replaced
+* @param What to replace the character with
+*/
+void AmmServer_ReplaceCharInString(char * input , char findChar , char replaceWith);
+
+/**
+* @brief Search for entryPoint pattern in buffer multiple times , and inject data in each one..!
+* @ingroup tools
+* @param Memory Handler for Buffer we want to inject to , see struct AmmServer_MemoryHandler
+* @param Number of instances we want to replace
+* @param String to find in buffer and replace with new content
+* @param Data we want to inject
+* @retval 1=Ok,0=Failed
+*/
 int AmmServer_ReplaceAllVarsInMemoryHandler(struct AmmServer_MemoryHandler * mh ,unsigned int instances,const char * var,const char * value);
 
 struct AmmServer_MemoryHandler * AmmServer_AllocateMemoryHandler(unsigned int initialBufferLength, unsigned int growStep);
@@ -744,6 +814,17 @@ int AmmServer_DirectoryExists(const char * filename);
 * @retval 1=Exists,0=Does not Exist
 */
 int AmmServer_FileExists(const char * filename);
+
+
+
+/**
+* @brief Check if file is a video
+* @ingroup tools
+* @param Path to file
+* @retval 1=Exists,0=Does not Exist
+*/
+int AmmServer_FileIsVideo(const char * filename);
+
 
 /**
 * @brief Erase a File
