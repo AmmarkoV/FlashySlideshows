@@ -19,11 +19,25 @@ unsigned int times_drawn_background=0;
 
 float xmin=-80,xmax=80;
 float ymin=-((xmax-xmin)*3/4)/2,ymax=ymin*(-1);
+float multiplier = 1.7;
+
 
 void DrawSimple2DBackground()
 {
   ++times_drawn_background;
  // glClearColor(0,0,0,0);
+
+  glBegin(GL_QUADS);
+    glColor3f(0.0,0.0,0.0);
+
+    float x=frame.vx,y=frame.vy,z=0;
+
+    glVertex3f(x+xmin*multiplier,y+ymin*multiplier,z-15);	// Bottom Left Of The Texture and Quad
+    glVertex3f(x+xmax*multiplier,y+ymin*multiplier,z-15);	// Bottom Right Of The Texture and Quad
+    glVertex3f(x+xmax*multiplier,y+ymax*multiplier,z-15);	// Top Right Of The Texture and Quad
+    glVertex3f(x+xmin*multiplier,y+ymax*multiplier,z-15);
+
+   glEnd();
 
 }
 
@@ -40,7 +54,6 @@ void DrawTextured2DBackground()
     float x=frame.vx,y=frame.vy,z=0;
 
 
-    float multiplier = 1.7;
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x+xmin*multiplier,y+ymin*multiplier,z-15);	// Bottom Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x+xmax*multiplier,y+ymin*multiplier,z-15);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x+xmax*multiplier,y+ymax*multiplier,z-15);	// Top Right Of The Texture and Quad
