@@ -71,4 +71,3 @@ unsigned int LaunchGUI_PickDir()
  return 0;
 }
 
-

@@ -147,7 +147,7 @@ int framerate_limiter()
  if ( frame.fps <= 200 ) {  usleep (1000); return 0; } else
  if ( frame.fps <= 300 ) {  usleep (2000);return 0; } else
     {
-      usleep (2000); //1ms flat sleep time for the card
+      usleep (2000); //2ms flat sleep time for the card
     }
  return 1;
 
@@ -181,6 +181,8 @@ static void ResizeCallback(int width, int height)
 
 static void DisplayCallback(void)
 {
+    unsigned int MAXLATENCY=2000*1000; //2seconds rendering time is terrible
+
     //If we were Paused ( a.k.a. economy mode )
     //All the time passed since the last draw operation could lead to jerky movement
     //So we won't track time as we do regularly but "pretend" the last frame was 1ms ago
@@ -196,7 +198,7 @@ static void DisplayCallback(void)
     /*KEEP TRACK OF TIME -----------------*/
     gettimeofday(&this_frame,0x0);
     time_passed_microseconds = timeval_diff(&difference,&this_frame,&last_frame);
-    if (time_passed_microseconds>1000000)
+    if (time_passed_microseconds>MAXLATENCY)
      {
       fprintf(stderr,"FRAME DELAYED %u msecs\n",time_passed_microseconds/1000);
       fprintf(stderr,"to keep things from freaking out we will pretend We were paused and only 1 ms passed\n");
