@@ -183,6 +183,7 @@ struct SlideShowData
   unsigned int total_images_loaded;
   unsigned int total_position_calculations;
 
+  unsigned int alwaysRedraw;
   unsigned int recursive;
   unsigned int total_images;
   unsigned int images_per_line;

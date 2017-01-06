@@ -39,6 +39,11 @@ int parseArguments(int argc, char *argv[])
                           }
                        frame.enable_web_interface=1;
                    } else
+             if (strcmp(argv[i],"-alwaysRedraw")==0)
+                   { //Recursive Directory command
+                       fprintf(stderr,"Always redraw enabled %u - %s\n",i,argv[i]);
+                       frame.alwaysRedraw=1;
+                   } else
              if (strcmp(argv[i],"-r")==0)
                    { //Recursive Directory command
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);

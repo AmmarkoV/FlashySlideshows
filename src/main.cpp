@@ -399,6 +399,7 @@ static void IdleCallback(void)
 #if ECONOMIC_MODE
   if (
        (CameraMoving())||
+       (frame.alwaysRedraw) ||
        (Active3DObjectsExist())||
        (TexturesToLoadExist()) ||
        (frame.transitions.automatic_slideshow_on)

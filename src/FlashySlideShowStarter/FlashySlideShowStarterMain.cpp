@@ -111,6 +111,7 @@ const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX9 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuPlay = wxNewId();
+const long FlashySlideShowStarterFrame::idMenuEconomy = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuFullscreenCommand = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuWebInterface = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuHUD = wxNewId();
@@ -233,6 +234,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Menu3 = new wxMenu();
     MenuItem8 = new wxMenuItem(Menu3, idMenuPlay, _("Immediate Playback"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem8);
+    MenuItem12 = new wxMenuItem(Menu3, idMenuEconomy, _("Economy"), wxEmptyString, wxITEM_CHECK);
+    Menu3->Append(MenuItem12);
     MenuItem11 = new wxMenuItem(Menu3, idMenuFullscreenCommand, _("Fullscreen"), wxEmptyString, wxITEM_CHECK);
     Menu3->Append(MenuItem11);
     MenuItem11->Check(true);
@@ -393,6 +396,7 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 
 
     /* Menu Options */
+    if (!Menu3->IsChecked(idMenuEconomy))  { what_to_call<< wxT(" -alwaysRedraw"); }
     if (Menu3->IsChecked(idMenuPlay))  { what_to_call<< wxT(" -play"); }
     if (Menu3->IsChecked(idMenuWebInterface))  { what_to_call<< wxT(" -web"); }
     if (!Menu3->IsChecked(idMenuHUD))  { what_to_call<< wxT(" -no_hud"); }
