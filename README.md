@@ -26,7 +26,7 @@ Videos :
 ## Dependencies
 ------------------------------------------------------------------ 
 
-You can use the ./get-dependencies.sh to get the required packages for compiling the project..!
+You can use the ./get-dependencies.sh script to get the required packages for compiling the project..!
 
 
 ## Building
@@ -34,10 +34,7 @@ You can use the ./get-dependencies.sh to get the required packages for compiling
 
 To compile the project open a terminal cd to the root of the project and run
 
-mkdir build 
-cd build 
-cmake ..
-make 
+mkdir build && cd build && cmake .. && make 
   
 ## Installation
 ------------------------------------------------------------------ 
@@ -45,8 +42,7 @@ make
 
 if you want to install the app ( after compiling the project ) , run 
 
-cd build
-sudo make install
+cd build && sudo make install
 
 your password is required.. 
 
