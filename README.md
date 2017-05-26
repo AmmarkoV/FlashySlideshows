@@ -10,6 +10,7 @@ If someone wants a particular feature or has a bug fix , etc , you are welcome t
    
 Screenshots :
 
+![FlashySlideshows0](https://raw.githubusercontent.com/AmmarkoV/AmmarServer/master/doc/link.png)
 ![FlashySlideshows1](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot1.jpg)
 ![FlashySlideshows2](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot2.jpg)
 ![FlashySlideshows3](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot3.jpg)
