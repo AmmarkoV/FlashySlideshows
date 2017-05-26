@@ -8,10 +8,10 @@ If someone wants a particular feature or has a bug fix , etc , you are welcome t
    
 Screenshots :
 
-![FlashySlideshows1](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot1.jpg)
-![FlashySlideshows2](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot2.jpg)
-![FlashySlideshows3](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot3.jpg)
-![FlashySlideshows4](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.jpg)
+![FlashySlideshows1](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot1.jpg)
+![FlashySlideshows2](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot2.jpg)
+![FlashySlideshows3](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot3.jpg)
+![FlashySlideshows4](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot4.jpg)
 
 AmmarkoV
 
