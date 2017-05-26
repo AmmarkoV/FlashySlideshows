@@ -1,6 +1,6 @@
-#Flashy Slide Shows
+# Flashy Slide Shows
 
-##A hardware accelerated slideshow application for linux
+## A hardware accelerated slideshow application for linux
 
 ----------------------
  
@@ -52,13 +52,15 @@ your password is required..
 
 This will add a shortcut on the applications list and the binaries flashyslideshowsgui and flashyslideshows on the system ..
 
---------------- Installation of latest version --------------- 
+### Installation of latest version
+
 ./update_from_git.sh will download the latest version of the software from the master repository on github
 It also downloads AmmarServer which is an add on that enables a web interface for the application 
 your password is required..  
 
 
---------------- Uninstallation of current version---------------
+### Uninstallation of current version
+
 if you want to uninstall the app , run 
 ./uninstall.sh
 your password is required..  
