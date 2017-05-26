@@ -4,13 +4,14 @@
 
 ----------------------
  
+![FlashySlideshows0](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/link.png)
+
 This project is now approximately 4.5k loc and has taken me 3+ months of development time..!
 Since it meets my "photography" needs as it is I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable , useful and I have done a good job profiling code and taken performance seriously while building it... 
 If someone wants a particular feature or has a bug fix , etc , you are welcome to add it on the issues tracker ( https://github.com/AmmarkoV/FlashySlideshows/issues ) so that it may be added or fixed..  
    
 Screenshots :
 
-![FlashySlideshows0](https://raw.githubusercontent.com/AmmarkoV/AmmarServer/master/doc/link.png)
 ![FlashySlideshows1](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot1s.jpg)
 ![FlashySlideshows2](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot2s.jpg)
 ![FlashySlideshows3](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/screenshot3s.png)
