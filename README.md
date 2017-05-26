@@ -1,5 +1,7 @@
 #Flashy Slide Shows
+
 ##A hardware accelerated slideshow application for linux
+
 ----------------------
  
 This project is now approximately 4.5k loc and has taken me 3+ months of development time..!
