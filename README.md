@@ -21,11 +21,15 @@ http://www.youtube.com/watch?v=zBEPWMlduAY
 
  
 
---------------- Library Dependencies ---------------
+## Dependencies
+------------------------------------------------------------------ 
+
 You can use the ./get-dependencies.sh to get the required packages for compiling the project..!
 
 
---------------- Compilation ---------------
+## Building
+------------------------------------------------------------------ 
+
 To compile the project open a terminal cd to the root of the project and run
 
 mkdir build 
@@ -33,7 +37,10 @@ cd build
 cmake ..
 make 
   
---------------- Installation of current version---------------
+## Installation
+------------------------------------------------------------------ 
+
+
 if you want to install the app ( after compiling the project ) , run 
 
 cd build
@@ -56,8 +63,9 @@ your password is required..
 
   
 
-TODO LIST  
---------------
+## TODO LIST
+------------------------------------------------------------------ 
+
 * Improve code structure
 
 * Add save functionality for remembering settings..
