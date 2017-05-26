@@ -22,7 +22,7 @@ AmmarkoV
 Videos :
 
 [![YouTube Link](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/utube1.png)  ](http://www.youtube.com/watch?v=QwYI-nkeCIw)
-![YouTube Link](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/utube2.png)  [link](http://www.youtube.com/watch?v=zBEPWMlduAY)
+[![YouTube Link](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/utube2.png)  ](http://www.youtube.com/watch?v=zBEPWMlduAY)
  
 
 ## Dependencies
