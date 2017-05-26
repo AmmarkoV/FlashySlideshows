@@ -6,9 +6,9 @@
  
 ![FlashySlideshows0](https://raw.githubusercontent.com/AmmarkoV/FlashySlideshows/master/screenshots/link.png)
 
-This project is now approximately 4.5k loc and has taken me 3+ months of development time..!
+This project [is now approximately 4.5k loc and has taken me 3+ months of development time](https://www.openhub.net/p/FlashySlideshows)..!
 Since it meets my "photography" needs as it is I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable , useful and I have done a good job profiling code and taken performance seriously while building it... 
-If someone wants a particular feature or has a bug fix , etc , you are welcome to add it on the issues tracker ( https://github.com/AmmarkoV/FlashySlideshows/issues ) so that it may be added or fixed..  
+If someone wants a particular feature or has a bug fix , etc , you are welcome [to add it on the issues tracker](https://github.com/AmmarkoV/FlashySlideshows/issues) so that it may be added or fixed..  
    
 Screenshots :
 
@@ -26,7 +26,7 @@ Videos :
 ## Dependencies
 ------------------------------------------------------------------ 
 
-You can use the ./get-dependencies.sh script to get the required packages for compiling the project..!
+You can use the [./get-dependencies.sh](https://github.com/AmmarkoV/FlashySlideshows/blob/master/apt-get-dependencies.sh) script to get the required packages for compiling the project..!
 
 
 ## Building
@@ -50,7 +50,7 @@ This will add a shortcut on the applications list and the binaries flashyslidesh
 
 ### Installation of latest version
 
-./update_from_git.sh will download the latest version of the software from the master repository on github
+[./update_from_git.sh](https://github.com/AmmarkoV/FlashySlideshows/blob/master/update_from_git.sh) will download the latest version of the software from the master repository on github
 It also downloads AmmarServer which is an add on that enables a web interface for the application 
 your password is required..  
 
@@ -58,7 +58,7 @@ your password is required..
 ### Uninstallation of current version
 
 if you want to uninstall the app , run 
-./uninstall.sh
+[./uninstall.sh](https://github.com/AmmarkoV/FlashySlideshows/blob/master/uninstall.sh)
 your password is required..  
 
   
