@@ -1,22 +1,25 @@
-Flashy Slide Show
+#Flashy Slide Shows
+##A hardware accelerated slideshow application for linux
 ----------------------
  
 This project is now approximately 4.5k loc and has taken me 3+ months of development time..!
 Since it meets my "photography" needs as it is I decided to pause it once again to concentrate on other projects :P .. Overall it is pretty stable , useful and I have done a good job profiling code and taken performance seriously while building it... 
 If someone wants a particular feature or has a bug fix , etc , you are welcome to add it on the issues tracker ( https://github.com/AmmarkoV/FlashySlideshows/issues ) so that it may be added or fixed..  
    
+Screenshots :
+
+![FlashySlideshows1](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot1.jpg)
+![FlashySlideshows2](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot2.jpg)
+![FlashySlideshows3](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot3.jpg)
+![FlashySlideshows4](http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.jpg)
+
 AmmarkoV
 
 Videos :
 http://www.youtube.com/watch?v=QwYI-nkeCIw
 http://www.youtube.com/watch?v=zBEPWMlduAY
 
-Screenshots :
-http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot1.jpg 
-http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot2.jpg 
-http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot3.png 
-http://github.com/AmmarkoV/FlashySlideshows/blob/master/screenshots/screenshot4.jpg 
-
+ 
 
 --------------- Library Dependencies ---------------
 You can use the ./get-dependencies.sh to get the required packages for compiling the project..!
