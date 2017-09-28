@@ -35,7 +35,7 @@ bool WxWidgetsContext::OnInit()
   //(*AppInitialize
   bool wxsOK = wxInitialize();
   if ( ! wxsOK ) { fprintf(stderr,"Could not kickstart wxWidgets\n"); return wxsOK; }
-  //wxInitAllImageHandlers();
+  wxInitAllImageHandlers();
   if ( ! wxsOK ) { fprintf(stderr,"Could not kickstart image handlers for wxWidgets\n"); return wxsOK; }
 
   return wxsOK;

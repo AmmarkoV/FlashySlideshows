@@ -1116,7 +1116,7 @@
 
 1491890964 /usr/include/wx-3.0/wx/compiler.h
 
-1458119652 /usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-3.0/wx/setup.h
+1491890964 /usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-3.0/wx/setup.h
 
 1491890964 /usr/include/wx-3.0/wx/chkconf.h
 	"wx/msw/wince/chkconf.h"
@@ -2102,4 +2102,279 @@
 	"../slideshow.h"
 	"../visuals.h"
 	"directory_listing.h"
+
+1506614788 source:/home/ammar/Documents/Programming/FlashySlideshows/src/hypervisor/load_textures.cpp
+	"load_textures.h"
+	"load_images.h"
+	"../tools/environment.h"
+	"../filesystem/directory_listing.h"
+	"../slideshow.h"
+	"../tools/sound.h"
+	"memory_hypervisor.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/hypervisor/load_textures.h
+	<GL/glu.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/hypervisor/memory_hypervisor.h
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/hypervisor/memory_hypervisor.cpp
+	"memory_hypervisor.h"
+	"../slideshow.h"
+	"load_images.h"
+	"load_textures.h"
+	"../filesystem/directory_listing.h"
+	"../tools/environment.h"
+	<stdio.h>
+	<unistd.h>
+	<pthread.h>
+	<sys/time.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/layouts/expo_layout.cpp
+	"expo_layout.h"
+	"../slideshow.h"
+	<math.h>
+	<stdlib.h>
+	<stdio.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/layouts/expo_layout.h
+	"../hypervisor/load_images.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/layouts/layout_handler.cpp
+	"layout_handler.h"
+	"expo_layout.h"
+	"../slideshow.h"
+	"../visuals/background.h"
+	<stdlib.h>
+	<stdio.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/visuals/background.h
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/main.cpp
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<pthread.h>
+	"slideshow.h"
+	"visuals.h"
+	"filesystem/directory_listing.h"
+	"camera_control.h"
+	"pictures_control.h"
+	"controls.h"
+	"hypervisor/load_images.h"
+	"hypervisor/load_textures.h"
+	"hypervisor/memory_hypervisor.h"
+	"tools/commandlineParser.h"
+	"tools/sound.h"
+	"tools/wxwidgets_stuff.h"
+	"tools/joystick.h"
+	"tools/environment.h"
+	"scene_objects.h"
+	"version.h"
+	"tools/webinterface.h"
+	"layouts/layout_handler.h"
+	"visuals/hud.h"
+	<unistd.h>
+	<sys/time.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/commandlineParser.h
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/joystick.h
+	<stdio.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/version.h
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/webinterface.h
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/visuals/hud.h
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/pictures_control.cpp
+	"pictures_control.h"
+	"slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/scene_objects.cpp
+	"scene_objects.h"
+	"visuals.h"
+	<stdlib.h>
+	<stdio.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/slideshow.cpp
+	"slideshow.h"
+	"camera_control.h"
+	"tools/sound.h"
+	"visuals.h"
+	"scene_objects.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	"transitions/transition_handler.h"
+	"layouts/layout_handler.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/commandlineParser.cpp
+	"commandlineParser.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"environment.h"
+	"webinterface.h"
+	"wxwidgets_stuff.h"
+	"../slideshow.h"
+	"../layouts/layout_handler.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/image_sensing.cpp
+	"image_sensing.h"
+	<stdlib.h>
+	<stdio.h>
+	"../hypervisor/load_images.h"
+	"environment.h"
+	<cv.h>
+	<cxcore.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/image_sensing.h
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/joystick.cpp
+	<stdio.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<stdlib.h>
+	<string.h>
+	<pthread.h>
+	"../camera_control.h"
+	"joystick.h"
+	"../slideshow.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/jpegexiforient_embed.cpp
+	"jpegexiforient_embed.h"
+	<stdio.h>
+	<stdlib.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/jpegexiforient_embed.h
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/math_3d.cpp
+	"math_3d.h"
+	<math.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/scriptIntegration.cpp
+	"scriptIntegration.h"
+	"../filesystem/directory_listing.h"
+	"../slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/tools/scriptIntegration.h
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/sound.cpp
+	"sound.h"
+	"../slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<AL/al.h>
+	<AL/alc.h>
+	<AL/alut.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/tools/webinterface.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../slideshow.h"
+	"webinterface.h"
+	"../controls.h"
+	"../AmmarServer/src/AmmServerlib/AmmServerlib.h"
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/AmmarServer/src/AmmServerlib/AmmServerlib.h
+	<pthread.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/transitions/transition_handler.cpp
+	"transition_handler.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/visuals.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"visuals.h"
+	"slideshow.h"
+	"hypervisor/load_images.h"
+	"filesystem/directory_listing.h"
+	"scene_objects.h"
+	"tools/sound.h"
+	<math.h>
+	"camera_control.h"
+	"layouts/layout_handler.h"
+	"visuals/effects.h"
+	"visuals/hud.h"
+	"visuals/background.h"
+	"visuals/picture_renderer.h"
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/visuals/effects.h
+
+1506613299 /home/ammar/Documents/Programming/FlashySlideshows/src/visuals/picture_renderer.h
+	"../hypervisor/load_images.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/visuals/background.cpp
+	"background.h"
+	"../slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/visuals/effects.cpp
+	"effects.h"
+	"../hypervisor/load_images.h"
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/visuals/hud.cpp
+	"hud.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
+	"../slideshow.h"
+	"../filesystem/directory_listing.h"
+
+1506613299 source:/home/ammar/Documents/Programming/FlashySlideshows/src/visuals/picture_renderer.cpp
+	"picture_renderer.h"
+	"../slideshow.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<GL/glu.h>
 

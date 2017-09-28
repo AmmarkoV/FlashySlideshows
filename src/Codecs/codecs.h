@@ -116,6 +116,7 @@ struct Image * createImageBitBlt( struct Image * inImg , unsigned int x , unsign
 int swapImageEndianness(struct Image * img);
 int swapImageEndiannessRaw(unsigned char * pixels, unsigned int width,unsigned int height,unsigned int bitsperpixel , unsigned int channels);
 
+int resizeImage( struct Image * inputImage , unsigned int newWidth , unsigned int newHeight);
 
 int convertCodecImages(char * filenameInput , char * filenameOutput);
 

@@ -99,10 +99,12 @@ int LoadStockTexturesAndSounds()
    if ( FileExists("app_clipart/star.png") )
       {
         //if we are running without an installation it is better to use this dir..!
+        fprintf(stderr,"Will use clipart from development directory..\n");
         strcpy(base_directory,"app_clipart");
       } else
     if ( FileExists("/usr/share/flashyslideshows/app_clipart/star.png") )
       {
+        fprintf(stderr,"Will use clipart from system installation ..\n");
         strcpy(base_directory,"/usr/share/flashyslideshows/app_clipart");
       } else
       {

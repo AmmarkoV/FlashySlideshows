@@ -614,6 +614,80 @@ struct Image * copyImage( struct Image * inputImage)
  return newImage;
 }
 
+void resize(int* input, int* output, int sourceWidth, int sourceHeight, int targetWidth, int targetHeight)
+{ //billinear resize found on the internet ( not the fastest thing ever )
+    int a, b, c, d, x, y, index;
+    float x_ratio = ((float)(sourceWidth - 1)) / targetWidth;
+    float y_ratio = ((float)(sourceHeight - 1)) / targetHeight;
+    float x_diff, y_diff, blue, red, green ;
+    int offset = 0 ;
+
+    for (int i = 0; i < targetHeight; i++)
+    {
+        for (int j = 0; j < targetWidth; j++)
+        {
+            x = (int)(x_ratio * j) ;
+            y = (int)(y_ratio * i) ;
+            x_diff = (x_ratio * j) - x ;
+            y_diff = (y_ratio * i) - y ;
+            index = (y * sourceWidth + x) ;
+            a = input[index] ;
+            b = input[index + 1] ;
+            c = input[index + sourceWidth] ;
+            d = input[index + sourceWidth + 1] ;
+
+            // blue element
+            blue = (a&0xff)*(1-x_diff)*(1-y_diff) + (b&0xff)*(x_diff)*(1-y_diff) +
+                   (c&0xff)*(y_diff)*(1-x_diff)   + (d&0xff)*(x_diff*y_diff);
+
+            // green element
+            green = ((a>>8)&0xff)*(1-x_diff)*(1-y_diff) + ((b>>8)&0xff)*(x_diff)*(1-y_diff) +
+                    ((c>>8)&0xff)*(y_diff)*(1-x_diff)   + ((d>>8)&0xff)*(x_diff*y_diff);
+
+            // red element
+            red = ((a>>16)&0xff)*(1-x_diff)*(1-y_diff) + ((b>>16)&0xff)*(x_diff)*(1-y_diff) +
+                  ((c>>16)&0xff)*(y_diff)*(1-x_diff)   + ((d>>16)&0xff)*(x_diff*y_diff);
+
+            output [offset++] =
+                    0x000000ff | // alpha
+                    ((((int)red)   << 24)&0xff0000) |
+                    ((((int)green) << 16)&0xff00) |
+                    ((((int)blue)  << 8)&0xff00);
+        }
+    }
+}
+
+int resizeImage( struct Image * inputImage , unsigned int newWidth , unsigned int newHeight)
+{
+  if (inputImage==0) { fprintf(stderr,"Could not copy null image\n"); return 0; }
+  if (inputImage->pixels==0) { fprintf(stderr,"Could not copy null image buffer\n"); return 0; }
+
+  if (  (inputImage->width=newWidth) &&
+          (inputImage->height=newHeight) ) { return 1;}
+
+ struct Image * newImage = createImage(newWidth,newHeight,inputImage->channels,inputImage->bitsperpixel);
+
+ if(newImage!=0)
+ {
+  resize((int*) inputImage->pixels, (int*) newImage->pixels ,inputImage->width,inputImage->height,newWidth,newHeight);
+  char * swapSpace = newImage->pixels;
+  newImage->pixels = inputImage->pixels;
+  inputImage->pixels=swapSpace;
+
+  inputImage->bitsperpixel = newImage->bitsperpixel;
+  inputImage->width        = newImage->width;
+  inputImage->height       = newImage->height;
+  inputImage->image_size   = newImage->image_size;
+  inputImage->channels     = newImage->channels;
+
+  destroyImage(newImage);
+
+  return 1;
+ }
+ return 0;
+}
+
+
 
 
 int convertCodecImages(char * filenameInput , char * filenameOutput)

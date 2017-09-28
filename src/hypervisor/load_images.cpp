@@ -226,7 +226,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
                                                  pic->system.marked_for_rgbdata_loading=0;  /* THIS MAY CAUSE A BLINK NO USE IN RETRYING , IT HAS FAILED*/
                                                  return 0; }
 
-    if ((pic->system.rgb_data==0) || (pic->system.rgb_data_size==0))
+    if ((pic->system.rgb_data==0) && (pic->system.rgb_data_size==0))
      {
          /* ALLOCATE ENOUGH MEMORY FOR THE RAW IMAGE */
          pic->system.overflow_guard=OVERFLOW_GUARD_BYTES;
@@ -236,7 +236,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          if ( !RAM_System_Memory_can_accomodate(frame.system.lastTexture) ) { fprintf(stderr,"RAM Memory cannot accomodate %u bytes \n",(unsigned int) frame.system.lastTexture); return 0; }
 
          frame.system.usedRAM+=frame.system.lastTexture;
-         pic->system.rgb_data=(char *) malloc( ( width*height*depth ) + depth );
+         pic->system.rgb_data=(char *) malloc( (width+1)*(height+1)*depth * sizeof(char) );
 
          if  ( pic->system.rgb_data <=0 )
           {
@@ -292,7 +292,6 @@ return 1;
 
 int WxLoadJPEG(char * filename,struct Picture * pic)
 {
-
  wxImage new_img;
  if ( new_img.LoadFile(_U(filename)) )
  {
@@ -302,8 +301,8 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
  pic->initial_height=height;
  unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
 
- width  = (unsigned int) (width  * rescale_ratio / 100);
- height = (unsigned int) (height * rescale_ratio / 100);
+ width  = (unsigned int) (width  * (float) rescale_ratio / 100);
+ height = (unsigned int) (height * (float) rescale_ratio / 100);
 
  new_img.Rescale(width,height);
 
@@ -325,7 +324,7 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
        /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 
- memcpy(pic->system.rgb_data,data,width*height*3);
+ memcpy(pic->system.rgb_data,data,width*height*3*sizeof(char));
  pic->width=width;   // Width has been changed!
  pic->height=height; // Height has been changed!
 
@@ -349,7 +348,7 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
 
 
 
-int WxLoadFromCodecs(char * filename,struct Picture * pic)
+int loadFromCodecs(char * filename,struct Picture * pic)
 {
  unsigned int imageType=guessFilenameTypeStupid(filename);
  struct Image * tmpImg = readImage(filename,imageType,0);
@@ -361,12 +360,17 @@ int WxLoadFromCodecs(char * filename,struct Picture * pic)
  pic->initial_width=width;
  pic->initial_height=height;
 
- //unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
- //width  = (unsigned int) (width  * rescale_ratio / 100);
- //height = (unsigned int) (height * rescale_ratio / 100);
- //new_img.Rescale(width,height);
- pic->is_jpeg = ( imageType == JPG_CODEC);
+/*
+ fprintf(stderr,"Resizing  %ux%u to ",width,height);
+ unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
+ width  = (unsigned int) (width  * (float) rescale_ratio / 100);
+ height = (unsigned int) (height * (float) rescale_ratio / 100);
+ fprintf(stderr," %ux%u .. ",width,height);
+ resizeImage(tmpImg,width,height);
+ fprintf(stderr,"done\n");
+*/
 
+ pic->is_jpeg = ( imageType == JPG_CODEC);
  if (pic->is_jpeg)
   {
     if (!GetJPEGExifOrientation(filename,pic))
@@ -375,17 +379,19 @@ int WxLoadFromCodecs(char * filename,struct Picture * pic)
      }
   }
 
+  /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   PREPARE MEMORY TO HOLD DATA
+   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+   if ( PreparePictureForImage(pic,width,height,3) == 0 )
+      {
+        fprintf(stderr,"PreparePictureForImage could not prepare memory! \n");
+        destroyImage(tmpImg);
+        return 0;
+      }
+   /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
- unsigned char * data = tmpImg->pixels;
 
-       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>
-          PREPARE MEMORY TO HOLD DATA
-          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-       if ( PreparePictureForImage(pic,width,height,3) == 0 ) { fprintf(stderr,"PreparePictureForImage could not prepare memory! \n"); return 0; }
-       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
-
- memcpy(pic->system.rgb_data,data,width*height*3);
+ memcpy(pic->system.rgb_data,tmpImg->pixels,width*height*3*sizeof(char));
  pic->width=width;   // Width has been changed!
  pic->height=height; // Height has been changed!
 
@@ -416,7 +422,7 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 
 
-//    if ( WxLoadFromCodecs(filename,pic) ) { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
+  //if ( loadFromCodecs(filename,pic) ) { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
   if ( WxLoadJPEG(filename,pic) )       { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
                                      else {
                                             pic->failed_to_load=1;
