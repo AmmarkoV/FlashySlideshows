@@ -128,6 +128,8 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  glEnable ( GL_TEXTURE_2D );
  glBindTexture(GL_TEXTURE_2D, pic->gpu.gl_rgb_texture );
 
+
+
    if (frame.try_for_best_render_quality)
     {
       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // good quality when image bigger than texture

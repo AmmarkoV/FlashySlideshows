@@ -112,7 +112,7 @@ int LoadStockTexturesAndSounds()
         return 0;
       }
 
-    strncpy ( (char*) frame.app_clipart_dir , base_directory , MAX_PATH );
+    snprintf ( (char*) frame.app_clipart_dir , MAX_PATH , "%s", base_directory );
 
 
 

@@ -80,7 +80,7 @@ void MainDisplayFunction()
     {
      glEnable(GL_NORMALIZE);
      glEnable(GL_LINE_SMOOTH);
-     glEnable (GL_POLYGON_SMOOTH);
+     //glEnable (GL_POLYGON_SMOOTH); this causes diagonal lines..
      glEnable(GL_ALPHA_TEST);
      glAlphaFunc(GL_GREATER, 0.1);
      glEnable(GL_BLEND);
