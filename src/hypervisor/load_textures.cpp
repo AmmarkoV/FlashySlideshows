@@ -81,7 +81,7 @@ int printoutOGLErr(unsigned int errnum)
      case GL_STACK_OVERFLOW    : fprintf(stderr,"This command would cause a stack overflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
      case GL_STACK_UNDERFLOW   : fprintf(stderr,"This command would cause a stack underflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
      case GL_OUT_OF_MEMORY     : fprintf(stderr,"There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded. \n");  break;
-     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+//     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
   };
   return 1;
 }
@@ -154,7 +154,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);                      // GL_RGB
+      //This no longer exists ? glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);                      // GL_RGB
       glTexImage2D(GL_TEXTURE_2D, 0, depth_flag, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
       error_num=glGetError();
       if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u ( initial %ux%u )\n",picturedata->width,picturedata->height,depth_flag,picturedata->initial_width,picturedata->initial_height); return 0; }

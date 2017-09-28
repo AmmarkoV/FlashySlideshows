@@ -5,6 +5,9 @@ OPTION (ENABLE_OPTIMIZATIONS OFF)
 OPTION (ENABLE_WEB_INTERFACE OFF)
 OPTION (ENABLE_FACE_DETECTION OFF)
 
+OPTION (ENABLE_JPG ON)
+OPTION (ENABLE_PNG ON)
+
 #These are unit tests for the core library
 
 IF( ENABLE_FACE_DETECTION )
@@ -23,11 +26,14 @@ IF( ENABLE_WEB_INTERFACE )
 ENDIF( ENABLE_WEB_INTERFACE )
 
 
+add_subdirectory (src/Codecs)
 #This is the core application 
 add_subdirectory (src/)
 #These are unit tests for the core library
 add_subdirectory (src/FlashySlideShowStarter)
    
+
+
 INSTALL(PROGRAMS "src/flashyslideshows" DESTINATION "/usr/bin" ) 
 INSTALL(PROGRAMS "src/FlashySlideShowStarter/flashyslideshowsgui" DESTINATION "/usr/bin" ) 
 

@@ -26,6 +26,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <unistd.h>
 #include <wx/image.h>
+#include <wx/string.h>
+
+#include "../Codecs/codecs.h"
 
 #include "load_textures.h"
 #include "../tools/image_sensing.h"
@@ -291,8 +294,8 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
 {
 
  wxImage new_img;
- new_img.LoadFile(_U(filename));
-
+ if ( new_img.LoadFile(_U(filename)) )
+ {
  unsigned int width = new_img.GetWidth();
  unsigned int height = new_img.GetHeight();
  pic->initial_width=width;
@@ -330,8 +333,80 @@ int WxLoadJPEG(char * filename,struct Picture * pic)
    {
      fprintf(stderr,"ERROR : Loading the picture caused an overflow!\n");
    }
- return 1;
+
+  return 1;
+ }
+
+ fprintf(stderr,"ERROR : Could not load %s picture!\n",filename);
+
+ return 0;
 }
+
+
+
+
+
+
+
+
+int WxLoadFromCodecs(char * filename,struct Picture * pic)
+{
+ unsigned int imageType=guessFilenameTypeStupid(filename);
+ struct Image * tmpImg = readImage(filename,imageType,0);
+
+ if ( tmpImg!=0 )
+ {
+ unsigned int width = tmpImg->width;
+ unsigned int height = tmpImg->height;
+ pic->initial_width=width;
+ pic->initial_height=height;
+
+ //unsigned int rescale_ratio=PickPictureRescaleRatio(width,height);
+ //width  = (unsigned int) (width  * rescale_ratio / 100);
+ //height = (unsigned int) (height * rescale_ratio / 100);
+ //new_img.Rescale(width,height);
+ pic->is_jpeg = ( imageType == JPG_CODEC);
+
+ if (pic->is_jpeg)
+  {
+    if (!GetJPEGExifOrientation(filename,pic))
+     {
+         fprintf(stderr,"Could not get Exif orientation for file %s \n",filename);
+     }
+  }
+
+
+ unsigned char * data = tmpImg->pixels;
+
+       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          PREPARE MEMORY TO HOLD DATA
+          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+       if ( PreparePictureForImage(pic,width,height,3) == 0 ) { fprintf(stderr,"PreparePictureForImage could not prepare memory! \n"); return 0; }
+       /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+
+ memcpy(pic->system.rgb_data,data,width*height*3);
+ pic->width=width;   // Width has been changed!
+ pic->height=height; // Height has been changed!
+
+ destroyImage(tmpImg);
+
+ if (pic->system.overflow_guard!=OVERFLOW_GUARD_BYTES)
+   {
+     fprintf(stderr,"ERROR : Loading the picture caused an overflow!\n");
+   }
+
+  return 1;
+ }
+
+ fprintf(stderr,"ERROR : Could not load %s picture!\n",filename);
+
+ return 0;
+}
+
+
+
+
 
 
 int LoadPicture(char * filename,struct Picture * pic)
@@ -341,7 +416,8 @@ int LoadPicture(char * filename,struct Picture * pic)
 
 
 
-    if ( WxLoadJPEG(filename,pic) )       { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
+//    if ( WxLoadFromCodecs(filename,pic) ) { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
+  if ( WxLoadJPEG(filename,pic) )       { pic->system.marked_for_rgbdata_loading=0; /* PICTURE IS LOADED ALL IS DONE :) */ }
                                      else {
                                             pic->failed_to_load=1;
                                             pic->gpu.gl_rgb_texture=failed->gpu.gl_rgb_texture;
