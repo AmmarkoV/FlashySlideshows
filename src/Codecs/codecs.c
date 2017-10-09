@@ -622,9 +622,10 @@ void resize(int* input, int* output, int sourceWidth, int sourceHeight, int targ
     float x_diff, y_diff, blue, red, green ;
     int offset = 0 ;
 
-    for (int i = 0; i < targetHeight; i++)
+    int i=0,j=0;
+    for (i = 0; i < targetHeight; i++)
     {
-        for (int j = 0; j < targetWidth; j++)
+        for (j = 0; j < targetWidth; j++)
         {
             x = (int)(x_ratio * j) ;
             y = (int)(y_ratio * i) ;
