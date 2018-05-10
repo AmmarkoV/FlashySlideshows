@@ -30,7 +30,9 @@ You can use the [./get-dependencies.sh](https://github.com/AmmarkoV/FlashySlides
 
 Overall :
 
+```
 sudo apt-get install cmake git g++ gcc wx-common libwxgtk2.8-0 libwxgtk2.8-dev  libalut0 libalut-dev freeglut3 freeglut3-dev libxxf86vm-dev libjpeg-dev imagemagick wget sed libnotify-bin
+```
 
 should give you everything you need to build this application using the CMake build system.
 
@@ -39,15 +41,19 @@ should give you everything you need to build this application using the CMake bu
 
 To compile the project open a terminal cd to the root of the project and run
 
+```
 mkdir build && cd build && cmake .. && make 
-  
+```  
+
 ## Installation
 ------------------------------------------------------------------ 
 
 
 if you want to install the app ( after compiling the project ) , run 
 
+```
 cd build && sudo make install
+```
 
 your password is required.. 
 
