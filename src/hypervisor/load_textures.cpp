@@ -29,6 +29,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <unistd.h>
 
+#include <GL/glext.h>
+
 int complain_about_errors()
 {
   int err=glGetError();
@@ -81,7 +83,7 @@ int printoutOGLErr(unsigned int errnum)
      case GL_STACK_OVERFLOW    : fprintf(stderr,"This command would cause a stack overflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
      case GL_STACK_UNDERFLOW   : fprintf(stderr,"This command would cause a stack underflow. The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
      case GL_OUT_OF_MEMORY     : fprintf(stderr,"There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded. \n");  break;
-     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
+//     case GL_TABLE_TOO_LARGE   : fprintf(stderr,"The specified table exceeds the implementation's maximum supported table size.  The offending command is ignored and has no other side effect than to set the error flag. \n");  break;
   };
   return 1;
 }
@@ -148,7 +150,7 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
   if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
    {
-      /* LOADING TEXTURE --WITH-- MIPMAPING */
+      // LOADING TEXTURE --WITH-- MIPMAPING
       glPixelStorei(GL_UNPACK_ALIGNMENT,1);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

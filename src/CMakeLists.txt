@@ -2,7 +2,26 @@ project( flashyslideshows )
 cmake_minimum_required( VERSION 2.8.7 ) 
 # Extend cmake's module path
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/modules ${CMAKE_MODULE_PATH})
-    
+ 
+   IF( ENABLE_JPG )
+ MESSAGE("JPGs will be included in this codec build")
+ set(JPG_Libs jpeg ) 
+ set(JPG_Parts jpgInput.c jpgInput.h jpgExifexternal.c jpgExifexternal.h jpgExiforient_embed.c jpgExiforient_embed.h )
+ set(JPG_Includes ${CMAKE_SOURCE_DIR}/3dparty/OpenNI2/Include/ )
+ add_definitions(-DUSE_JPG_FILES)
+ add_definitions(-DENABLE_JPG)
+ENDIF( ENABLE_JPG )
+
+
+IF( ENABLE_PNG )
+ MESSAGE("PNGs will be included in this codec build")
+ set(PNG_Libs png ) 
+ set(PNG_Parts pngInput.c pngInput.h)
+ set(PNG_Includes ${CMAKE_SOURCE_DIR}/3dparty/OpenNI2/Include/ )
+ add_definitions(-DUSE_PNG_FILES)
+ add_definitions(-DENABLE_PNG)
+ENDIF( ENABLE_PNG )
+
 add_executable(flashyslideshows 
                main.cpp 
                controls.cpp
@@ -86,7 +105,7 @@ ENDIF( ENABLE_WEB_INTERFACE )
  FIND_PACKAGE(wxWidgets)
  IF(wxWidgets_FOUND)
    INCLUDE("${wxWidgets_USE_FILE}") 
-   target_link_libraries(flashyslideshows glut GL GLU Xxf86vm openal alut rt ${EXTRA_LIBS} ${wxWidgets_LIBRARIES} )
+   target_link_libraries(flashyslideshows glut GL GLU Xxf86vm openal alut rt Codecs ${PNG_Libs} ${JPG_Libs} ${EXTRA_LIBS} ${wxWidgets_LIBRARIES} )
    # and for each of your dependant executable/library targets: 
  ELSE(wxWidgets_FOUND)
    # For convenience. When we cannot continue, inform the user
@@ -101,7 +120,7 @@ set_target_properties(flashyslideshows PROPERTIES
                        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                       )
  
-add_dependencies(flashyslideshows AmmarServer)    
+add_dependencies(flashyslideshows AmmarServer Codecs)    
 
 
 #    install(TARGETS AmmarServer
