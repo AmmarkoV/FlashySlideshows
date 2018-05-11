@@ -22,6 +22,16 @@ IF( ENABLE_PNG )
  add_definitions(-DENABLE_PNG)
 ENDIF( ENABLE_PNG )
 
+
+
+IF( ENABLE_WEB_INTERFACE ) 
+ MESSAGE("AmmarServer will be included in this build")
+ set(WEB_LIBS AmmarServer )
+ add_definitions(-DWITH_WEBINTERFACE)
+ENDIF( ENABLE_WEB_INTERFACE )
+
+
+
 add_executable(flashyslideshows 
                main.cpp 
                controls.cpp
@@ -90,22 +100,13 @@ add_executable(flashyslideshows
                filesystem/directory_transactions.h
 
 ) 
-
-
-
-set(EXTRA_LIBS pthread )
-
-IF( ENABLE_WEB_INTERFACE )
- set(EXTRA_LIBS AmmarServer )
- add_definitions(-DWITH_WEBINTERFACE)
-ENDIF( ENABLE_WEB_INTERFACE )
-
+ 
 
  SET(wxWidgets_USE_LIBS)
  FIND_PACKAGE(wxWidgets)
  IF(wxWidgets_FOUND)
    INCLUDE("${wxWidgets_USE_FILE}") 
-   target_link_libraries(flashyslideshows glut GL GLU Xxf86vm openal alut rt Codecs ${PNG_Libs} ${JPG_Libs} ${EXTRA_LIBS} ${wxWidgets_LIBRARIES} )
+   target_link_libraries(flashyslideshows pthread glut GL GLU Xxf86vm openal alut rt Codecs ${PNG_Libs} ${JPG_Libs} ${WEB_LIBS} ${wxWidgets_LIBRARIES} )
    # and for each of your dependant executable/library targets: 
  ELSE(wxWidgets_FOUND)
    # For convenience. When we cannot continue, inform the user
@@ -120,7 +121,7 @@ set_target_properties(flashyslideshows PROPERTIES
                        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                       )
  
-add_dependencies(flashyslideshows AmmarServer Codecs)    
+add_dependencies(flashyslideshows ${WEB_LIBS} Codecs)    
 
 
 #    install(TARGETS AmmarServer
