@@ -31,7 +31,7 @@ You can use the [./get-dependencies.sh](https://github.com/AmmarkoV/FlashySlides
 Overall :
 
 ```
-sudo apt-get install cmake git g++ gcc wx-common libwxgtk2.8-0 libwxgtk2.8-dev  libalut0 libalut-dev freeglut3 freeglut3-dev libxxf86vm-dev libjpeg-dev imagemagick wget sed libnotify-bin
+sudo apt-get install cmake git g++ gcc wx-common libwxgtk3.0-dev libalut0 libalut-dev freeglut3 freeglut3-dev libxxf86vm-dev libjpeg-dev  libpng-dev imagemagick wget sed libnotify-bin
 ```
 
 should give you everything you need to build this application using the CMake build system.
