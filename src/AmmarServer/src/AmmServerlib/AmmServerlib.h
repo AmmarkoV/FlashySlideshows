@@ -17,13 +17,13 @@ extern "C" {
 #endif
 
 #include <pthread.h>
+#include <libgen.h>
 
 /**
-* @brief An enumerator that lists the types of requests , per HTTP spec , see http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
-*        Of course not all of them are supported/used internally but they are listed in the same order to maintain spec compatibility
+* @brief An ID that is used to distinguish between different versions..
 * @bug   A potential bug might arise if the specs of the header file are changed and someone is linking with an older version libAmmServer.a thats why this value exists
 */
-#define AMMAR_SERVER_HTTP_HEADER_SPEC 134
+#define AMMAR_SERVER_HTTP_HEADER_SPEC 136
 
 
 
@@ -56,6 +56,24 @@ enum TypesOfRequests
 };
 
 
+
+
+/**
+* @brief An enumerator that lists the types of requests fields availiable for a POST / GET / COOKIE or FILE request
+*/
+enum TypesOfRequestFields
+{
+   NAME        = 1 ,
+   VALUE           ,
+   FILENAME        ,
+   TEMPNAME        ,
+   TYPE            ,
+   SIZE
+};
+
+
+
+
 #define MAX_IP_STRING_SIZE 48 // This should be more than INET6_ADDRSTRLEN
 #define MAX_QUERY 2048
 #define MAX_RESOURCE 2048
@@ -67,6 +85,59 @@ enum TypesOfRequests
 #define MAX_INSTANCE_NAME_STRING 128
 
 
+/** @brief Maximum number of boundaries to be searched for in a GET request */
+#define MAX_HTTP_GET_VARIABLE_COUNT 128
+
+/** @brief Maximum number of boundaries to be searched for in a POST request */
+#define MAX_HTTP_POST_BOUNDARY_COUNT 32
+
+/**
+* @brief Each POST Request has a payload that consists of a series of boundaries that contain data. This structure holds this data as a series of pointers in the initial header buffer
+         in order to facilitate easy and fast parsing of the data
+*/
+struct POSTRequestBoundaryContent
+{
+   ///very important to add any fields here to the recalculateHeaderFieldsBasedOnANewBaseAddress  code..
+   char * pointerStart;
+   char * pointerEnd;
+   unsigned int contentSize;
+
+   //All the following are 0 if not used or point to a place inside an HTTP Header
+   char *       name;
+   unsigned int nameSize;
+
+   char *       value;
+   unsigned int valueSize;
+
+   char *       filename;
+   unsigned int filenameSize;
+
+   char *       contentDisposition;
+   unsigned int contentDispositionSize;
+
+   char *       contentType;
+   unsigned int contentTypeSize;
+
+   int reallocateOnHeaderRAWResize;
+};
+
+
+/**
+* @brief Each GET Request has a payload that consists of a series of boundaries that contain data. This structure holds this data as a series of pointers in the initial header buffer
+         in order to facilitate easy and fast parsing of the data
+*/
+struct GETRequestContent
+{
+   ///very important to add any fields here to the recalculateHeaderFieldsBasedOnANewBaseAddress  code..
+   //All the following are 0 if not used or point to a place inside an HTTP Header
+   char *       name;
+   unsigned int nameSize;
+
+   char *       value;
+   unsigned int valueSize;
+
+   int reallocateOnHeaderRAWResize;
+};
 
 
 /**
@@ -81,7 +152,8 @@ struct HTTPHeader
    unsigned int parsingStartOffset;
    unsigned int parsingCurrentLine;
 
-   char * headerRAW;
+
+   char * headerRAW; //This is the place where everything rests at..!
    unsigned int headerRAWHeadSize;
    unsigned int headerRAWSize;
    unsigned int headerRAWRequestedSize; // The size that the client requests ( we have our own limits and agenda though )
@@ -90,14 +162,18 @@ struct HTTPHeader
    int  requestType; //See enum TypesOfRequests
    char resource[MAX_RESOURCE+1];
    char verified_local_resource[MAX_FILE_PATH+1];
-   char GETquery[MAX_QUERY+1];
+
+   //char GETquery[MAX_QUERY+1];
+   unsigned int sizeOfExtraDataThatWillNeedToBeDeallocated;
+   char * extraDataThatWillNeedToBeDeallocated;
+
+   char * GETrequest;
+   unsigned long GETrequestSize;
 
    char * POSTrequest;
    unsigned long POSTrequestSize;
    char * POSTrequestBody;
    unsigned long POSTrequestBodySize;
-
-
 
 
    unsigned char authorized;
@@ -115,38 +191,41 @@ struct HTTPHeader
    //The next strings point directly on the header to keep memory usage on a minimum
    //and performance on the maximum , they have to be refreshed if memory gets reallocated:P
 
-   unsigned int cookieIndex;
-   char * cookie; //<-   *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
+   ///very important to add any fields here to the recalculateHeaderFieldsBasedOnANewBaseAddress  code..
    unsigned int cookieLength;
+   char * cookie; //<-   *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int hostIndex;
-   char * host; //<-     *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int hostLength;
+   char * host; //<-     *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int refererIndex;
-   char * referer; //<-  *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int refererLength;
+   char * referer; //<-  *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int eTagIndex;
-   char * eTag; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int eTagLength;
+   char * eTag; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int userAgentIndex;
-   char * userAgent; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int userAgentLength;
+   char * userAgent; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int contentTypeIndex;
-   char * contentType; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int contentTypeLength;
+   char * contentType; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int contentDispositionIndex;
-   char * contentDisposition;  //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int contentDispositionLength;
+   char * contentDisposition;  //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int boundaryIndex;
-   char * boundary;  //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
    unsigned int boundaryLength;
+   char * boundary;  //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
+
+   unsigned int GETItemNumber;
+   struct GETRequestContent GETItem[MAX_HTTP_GET_VARIABLE_COUNT+1]; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
+
+   unsigned int POSTItemNumber;
+   struct POSTRequestBoundaryContent POSTItem[MAX_HTTP_POST_BOUNDARY_COUNT+1]; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
+
+   unsigned int COOKIEItemNumber;
+   struct GETRequestContent COOKIEItem[MAX_HTTP_GET_VARIABLE_COUNT+1]; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 };
+
 
 
 /**
@@ -156,8 +235,13 @@ struct HTTPHeader
 */
 enum RHScenarios
 {
-   SAME_PAGE_FOR_ALL_CLIENTS = 0 ,
-   DIFFERENT_PAGE_FOR_EACH_CLIENT
+   SAME_PAGE_FOR_ALL_CLIENTS        = 1 ,
+   DIFFERENT_PAGE_FOR_EACH_CLIENT   = 2 ,
+   ENABLE_RECEIVING_FILES           = 4
+                                  //= 8
+                                  //= 16
+                                  //= 32
+                                  //= 64
 };
 
 /**
@@ -180,6 +264,7 @@ struct AmmServer_MemoryHandler
 {
   unsigned int contentSize;
   unsigned int contentCurrentLength;
+  unsigned int contentGrowthStep;
   char * content;
 };
 
@@ -191,6 +276,11 @@ struct AmmServer_MemoryHandler
 */
 struct AmmServer_DynamicRequest
 {
+   struct AmmServer_Instance * instance;
+   unsigned int clientID;
+   unsigned int sessionID;
+   unsigned int useSessionLifecycle;
+
    unsigned int headerResponse;
 
    char * content;
@@ -202,16 +292,20 @@ struct AmmServer_DynamicRequest
    unsigned long compressedContentSize;
    unsigned long MAXcompressedContentSize;
 
-   char * GET_request;
-   unsigned int GET_request_length;
+   unsigned int sizeOfExtraDataThatWillNeedToBeDeallocated;
+   char * extraDataThatWillNeedToBeDeallocated;
 
-   char * POST_request;
-   unsigned int POST_request_length;
+   unsigned int POSTItemNumber;
+   struct POSTRequestBoundaryContent * POSTItem; //<-    *THIS POINTS SOMEWHERE INSIDE THE STACK SO NEVER FREE IT ..!
 
-   struct AmmServer_Instance * instance;
+   unsigned int GETItemNumber;
+   struct GETRequestContent * GETItem; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 
-   unsigned int clientID;
+   unsigned int COOKIEItemNumber;
+   struct GETRequestContent * COOKIEItem; //<-    *THIS POINTS SOMEWHERE INSIDE headerRAW , or is 0 *
 };
+
+
 
 /**
 * @brief We can override resources to respond with our own C function code , to do so a AmmServer_DynamicRequest must be populated using a AmmServer_AddResourceHandler
@@ -220,6 +314,10 @@ struct AmmServer_RH_Context
 {
    unsigned int RH_Scenario;
 
+   unsigned int enablePOST;
+   unsigned int allowCrossRequests;
+   unsigned int needsDifferentPageForEachClient;
+   unsigned int needsSamePageForAllClients;
    unsigned int executedNow;
    unsigned int last_callback;
    unsigned int callback_every_x_msec;
@@ -248,6 +346,9 @@ struct AmmServer_Instance_Settings
     //------------------------------------------------
 
     int BINDING_PORT;
+
+    unsigned int MAX_POST_TRANSACTION_SIZE;
+    int ENABLE_POST;
 };
 
 
@@ -274,6 +375,10 @@ struct AmmServer_Instance_Statistics
 
     unsigned long totalUploadKB;
     unsigned long totalDownloadKB;
+
+
+    unsigned long totalUploadBytes;
+    unsigned long totalDownloadBytes;
 
 
     unsigned long recvOperationsStarted;
@@ -314,6 +419,7 @@ struct AmmServer_Instance
     void * cacheHashMap;
 
     void * clientList;
+    void * sessionList;
     //Thread holders..
     unsigned int CLIENT_THREADS_STARTED;
     unsigned int CLIENT_THREADS_STOPPED;
@@ -346,6 +452,7 @@ struct HTTPTransaction
   unsigned int resourceCacheID;
 
   int clientSock;
+  int clientDisconnected;
   unsigned int clientListID;
   unsigned int threadID;
   int prespawnedThreadFlag;
@@ -366,6 +473,8 @@ enum AmmServSettings
 {
     AMMSET_PASSWORD_PROTECTION=0,
     AMMSET_RANDOMIZE_ETAG_BEGINNING,
+    AMMSET_MAX_POST_TRANSACTION_SIZE,
+    AMMSET_TIMEOUT_SEC,
     AMMSET_TEST
 };
 
@@ -387,6 +496,15 @@ char * AmmServer_Version();
 * @retval 1=Success,0=Failure
 */
 int AmmServer_CheckIfHeaderBinaryAreTheSame(int headerSpec);
+
+
+
+
+int AmmServer_GetDateString(char * output , unsigned int maxOutput);
+
+
+int AmmServer_AppendToFile(const char * filename,const char * msg);
+
 
 /**
 * @brief Writes the C string pointed by format to stderr , as a warning ( Yellow ) and logs it to the appropriate log
@@ -417,6 +535,32 @@ void AmmServer_Error( const char *format , ... );
 * @param Arbitrary number of other parameters that where defined in format
 */
 void AmmServer_Success( const char *format , ... );
+
+
+
+/**
+* @brief Writes the C string pointed by format to stderr , as an info ( White ) and does not log it
+         If format includes format specifiers (subsequences beginning with %), the additional arguments following format are formatted and inserted in the resulting
+         string replacing their respective specifiers.
+* @ingroup tools
+* @param format , see printf ( http://www.cplusplus.com/reference/cstdio/printf/ )
+* @param Arbitrary number of other parameters that where defined in format
+*/
+void AmmServer_Info( const char *format , ... );
+
+
+
+/**
+* @brief Writes the C string pointed by format to stderr , as an info ( White ) and does not log it
+         If format includes format specifiers (subsequences beginning with %), the additional arguments following format are formatted and inserted in the resulting
+         string replacing their respective specifiers.
+* @ingroup tools
+* @param format , see printf ( http://www.cplusplus.com/reference/cstdio/printf/ )
+* @param Arbitrary number of other parameters that where defined in format
+*/
+void AmmServer_Stub( const char *format , ... );
+
+
 
 /**
 * @brief Start a Web Server , allocate memory , bind ports and return its instance..
@@ -474,6 +618,9 @@ int AmmServer_DynamicRequestReturnFile(struct AmmServer_DynamicRequest  * rqst,c
 
 
 
+void* AmmServer_DynamicRequestReturnMemoryHandler(struct AmmServer_DynamicRequest  * rqst,struct AmmServer_MemoryHandler * content);
+
+
 /**
 * @brief Add a request handler to handle requests , before they get processed internally
 *        Calling this will bind a C function that will be called and produce output when someone asks for any resource using the specified method
@@ -487,6 +634,26 @@ int AmmServer_DynamicRequestReturnFile(struct AmmServer_DynamicRequest  * rqst,c
 */
 int AmmServer_AddRequestHandler(struct AmmServer_Instance * instance,struct AmmServer_RequestOverride_Context * RequestOverrideContext,const char * request_type,void * callback);
 
+
+/**
+* @brief Add a scheduler that fires every X seconds  in order to perform mainenance ( defragment databases , save stuff to disk etc )
+* @ingroup core
+* @param An AmmarServer Instance
+* @param Name of resource that will do the callback
+* @param Function to be called and provides output when someone asks for resource
+* @param Number of seconds between 2 subsequent calls
+* @param Number of repetitions to do ( 0 = infinite )
+* @retval 1=Success,0=Fail
+*/
+int AmmServer_AddScheduler
+     ( struct AmmServer_Instance * instance,
+       const char * resource_name ,
+       void * callback,
+       unsigned int seconds,
+       unsigned int repetitions
+    );
+
+
 /**
 * @brief Add a request handler to handle dynamic requests , the core mechanic of AmmarServer
 *        Calling this will bind a C function that will be called and produce output when someone asks for a resource
@@ -495,7 +662,6 @@ int AmmServer_AddRequestHandler(struct AmmServer_Instance * instance,struct AmmS
 * @param An AmmarServer Instance
 * @param An AmmServer_RH_Context to be populated
 * @param Name of resource that should get dynamic responses ( i.e. "index.html" )
-* @param Root Path for the specific resource
 * @param Memory chunk to allocate for responses , ( this is the max response size )
 * @param Minimum time between two calls of the function ( 0 = no minimum time)
 * @param Function to be called and provides output when someone asks for resource
@@ -506,7 +672,7 @@ int AmmServer_AddResourceHandler
      ( struct AmmServer_Instance * instance,
        struct AmmServer_RH_Context * context,
        const char * resource_name ,
-       const char * web_root,
+       //const char * web_root,
        unsigned int allocate_mem_bytes,
        unsigned int callback_every_x_msec,
        void * callback,
@@ -514,6 +680,19 @@ int AmmServer_AddResourceHandler
     );
 
 
+void * AmmServer_EditorCallback(struct AmmServer_DynamicRequest  * rqst);
+
+void * AmmServer_LoginCallback(struct AmmServer_DynamicRequest  * rqst);
+
+//TODO: Add comment here..
+int AmmServer_AddEditorResourceHandler
+    (
+       struct AmmServer_Instance * instance,
+       struct AmmServer_RH_Context * context,
+       const char * resource_name ,
+       //const char * web_root ,
+       void * callback
+    );
 
 /**
 * @brief monitor.html will give information about the server health internals and load , should only be used for debugging
@@ -563,8 +742,6 @@ int AmmServer_GetIntSettingValue(struct AmmServer_Instance * instance,unsigned i
 */
 int AmmServer_SetIntSettingValue(struct AmmServer_Instance * instance,unsigned int set_type,int set_value);
 
-
-
 /**
 * @brief Get a String out of the state of an instance , of course one can dive into the instance structure but this is a much more clean way to do this
 * @ingroup core
@@ -583,61 +760,144 @@ char * AmmServer_GetStrSettingValue(struct AmmServer_Instance * instance,unsigne
 * @retval 1=Success,0=Failure */
 int AmmServer_SetStrSettingValue(struct AmmServer_Instance * instance,unsigned int set_type,const char * set_value);
 
+
+
+
+///-------------------------------------------------------------------------------
 /**
-* @brief Get a POST argument
-* @ingroup core
-* @param Instance of an AmmarServer
-* @param Request that contains the POST argument ( see AmmServer_DynamicRequest )
-* @param Input Name of argument we are looking for
-* @param Output Pointer that will be copied with the value we were looking for
-* @param Maximum Size for output Value
-* @retval 1=Success,0=Failure */
-int AmmServer_POSTArg (struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst,const char * var_id_IN,char * var_value_OUT,unsigned int max_var_value_OUT);
-
-
-/**
-* @brief Get a GET argument
-* @ingroup core
-* @param Instance of an AmmarServer
-* @param Request that contains the POST argument ( see AmmServer_DynamicRequest )
-* @param Input Name of argument we are looking for
-* @param Output Pointer that will be copied with the value we were looking for
-* @param Maximum Size for output Value
-* @retval 1=Success,0=Failure */
-int AmmServer_GETArg  (struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst,const char * var_id_IN,char * var_value_OUT,unsigned int max_var_value_OUT);
-
+* @brief The client can use this call to see how many POST items have been submitted in an HTTP Request
+* @ingroup POST
+* @param The Dynamic Request we want to examine
+* @retval Number of POST items,0=Failure/No Items */
+int _POSTnum(struct AmmServer_DynamicRequest * rqst);
 
 /**
-* @brief Access a FILE submitted by a dynamic requested
-* @ingroup core
-* @param Instance of an AmmarServer
-* @param Request that contains the POST argument ( see AmmServer_DynamicRequest )
-* @param Input Name of argument we are looking for
-* @param Output Pointer that will be copied with the value we were looking for
-* @param Maximum Size for output Value
-* @retval 1=Success,0=Failure */
-int AmmServer_FILES   (struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst,const char * var_id_IN,char * var_value_OUT,unsigned int max_var_value_OUT);
+* @brief The client can use this call to retrieve a string value of a specific POST item by submitting its name
+  The pointer returned is guaranteed to be null terminated although in the case of a large file that can contain additional null characters
+  you should use the last variable to know where it properly ends.
+* @ingroup POST
+* @param The Dynamic Request we want to examine
+* @param The name of the POST field we want to receive a string for
+* @param Output size of the POST field we selected using our name
+* @retval Pointer to our requested value, 0=Failure*/
+char * _POST (struct AmmServer_DynamicRequest * rqst,const char * name,unsigned int * valueLength);
 
 /**
-* @brief Shorthand/Shortcut for AmmServer_POSTArg()
+* @brief The client can use this call to retrieve the numeric value ( internally delivered using atoi ) of a specific POST items by submitting its name
+* @ingroup POST
+* @param The Dynamic Request we want to examine
+* @param The name of the POST field we want to receive a number for
+* @retval Integer value of the POST item with a given name , 0=Failure*/
+unsigned int _POSTuint(struct AmmServer_DynamicRequest * rqst,const char * name);
+
+/**
+* @brief Quickly check if a POST field has been submitted or not in a request
+* @ingroup POST
+* @param The Dynamic Request we want to examine
+* @param The Name of the POST item we are checking
+* @retval 1=Exists , 0=Does not exist*/
+int _POSTexists(struct AmmServer_DynamicRequest * rqst,const char * name);
+
+/**
+* @brief Shortcut to compare a POST field to a value ( internally using strcmp(POSTValue,ourValue) )
+* @ingroup POST
+* @param The Dynamic Request we want to examine
+* @param The Name of the POST item we are checking
+* @param The Value that we want to strncmp with our value
+* @retval See strncmp*/
+int _POSTcmp(struct AmmServer_DynamicRequest * rqst,const char * name,const char * what2CompareTo);
+
+/**
+* @brief Copy a POST field value to a given buffer
+* @ingroup POST
+* @param The Dynamic Request we want to examine
+* @param The Name of the POST item we want to copy checking
+* @param The Destination pointer of where we want to copy to
+* @param The Destination pointer maximum accommodation size
+* @retval 1=Success , 0=Failure*/
+int _POSTcpy(struct AmmServer_DynamicRequest * rqst,const char * name,char * destination,unsigned int destinationSize);
+///-------------------------------------------------------------------------------
+
+
+
+/**
+* @brief The client can use this call to see how many GET items have been submitted in an HTTP Request
+* @ingroup GET
+* @param The Dynamic Request we want to examine
+* @retval Number of GET items,0=Failure/No Items */
+int _GETnum(struct AmmServer_DynamicRequest * rqst);
+
+/**
+* @brief The client can use this call to retrieve a string value of a specific GET item by submitting its name
+  The pointer returned is guaranteed to be null terminated although in the case of a large string that can contain additional null characters
+  you should use the last variable to know where it properly ends.
+* @ingroup GET
+* @param The Dynamic Request we want to examine
+* @param The name of the GET field we want to receive a string for
+* @param Output size of the GET field we selected using our name
+* @retval Pointer to our requested value, 0=Failure*/
+char * _GET(struct AmmServer_DynamicRequest * rqst,const char * name,unsigned int * valueLength);
+
+/**
+* @brief The client can use this call to retrieve the numeric value ( internally delivered using atoi ) of a specific POST items by submitting its name
+* @ingroup GET
+* @param The Dynamic Request we want to examine
+* @param The name of the POST field we want to receive a number for
+* @retval Integer value of the POST item with a given name , 0=Failure*/
+unsigned int _GETuint(struct AmmServer_DynamicRequest * rqst,const char * name);
+
+
+/**
+* @brief Quickly check if a GET field has been submitted or not in a request
+* @ingroup GET
+* @param The Dynamic Request we want to examine
+* @param The Name of the GET item we are checking
+* @retval 1=Exists , 0=Does not exist*/
+int _GETexists(struct AmmServer_DynamicRequest * rqst,const char * name);
+
+
+/**
+* @brief Shortcut to compare a GET field to a value ( internally using strcmp(POSTValue,ourValue) )
+* @ingroup GET
+* @param The Dynamic Request we want to examine
+* @param The Name of the GET item we are checking
+* @param The Value that we want to strncmp with our value
+* @retval See strncmp*/
+int _GETcmp(struct AmmServer_DynamicRequest * rqst,const char * name,const char * what2CompareTo);
+
+/**
+* @brief Copy a GET field value to a given buffer
+* @ingroup GET
+* @param The Dynamic Request we want to examine
+* @param The Name of the GET item we want to copy checking
+* @param The Destination pointer of where we want to copy to
+* @param The Destination pointer maximum accommodation size
+* @retval 1=Success , 0=Failure*/
+int _GETcpy  (struct AmmServer_DynamicRequest * rqst,const char * name,char * destination,unsigned int destinationSize);
+///-------------------------------------------------------------------------------
+/**
+* @brief Shorthand/Shortcut for AmmServer_CookieArg()
 * @ingroup shortcut */
-int _POST (struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst,const char * var_id_IN,char * var_value_OUT,unsigned int max_var_value_OUT);
+const char * _COOKIE(struct AmmServer_DynamicRequest * rqst,const char * name,unsigned int * valueLength);
 
+int _COOKIEnum(struct AmmServer_DynamicRequest * rqst);
+///-------------------------------------------------------------------------------
 /**
-* @brief Shorthand/Shortcut for AmmServer_GETArg()
+* @brief Shorthand/Shortcut for AmmServer_FILES()
 * @ingroup shortcut */
-int _GET  (struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst,const char * var_id_IN,char * var_value_OUT,unsigned int max_var_value_OUT);
+const char * _SESSION(struct AmmServer_DynamicRequest * rqst,const char * name,unsigned int * valueLength);
 
 /**
 * @brief Shorthand/Shortcut for AmmServer_FILES()
 * @ingroup shortcut */
-int _FILES(struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst,const char * var_id_IN,char * var_value_OUT,unsigned int max_var_value_OUT);
+const char * _FILES(struct AmmServer_DynamicRequest * rqst,const char * POSTName,enum TypesOfRequestFields POSTType,unsigned int * outputSize);
+///-------------------------------------------------------------------------------
 
 /**
 * @brief Staged way to easily handle bad clients etc from the clients , currently a stub..!
 * @ingroup shortcut
 * @bug Client behaviours etc are not implemented yet */
-int AmmServer_SignalCountAsBadClientBehaviour(struct AmmServer_Instance * instance,struct AmmServer_DynamicRequest * rqst);
+int AmmServer_SignalCountAsBadClientBehaviour(struct AmmServer_DynamicRequest * rqst);
 
 /**
 * @brief Save Dynamic Request to file
@@ -646,7 +906,7 @@ int AmmServer_SignalCountAsBadClientBehaviour(struct AmmServer_Instance * instan
 * @param Instance of an AmmarServer
 * @param Request that we want to save to a file ( see AmmServer_DynamicRequest )
 * @retval 1=Success,0=Failure */
-int AmmServer_SaveDynamicRequest(const char* filename , struct AmmServer_Instance * instance  , struct AmmServer_DynamicRequest * rqst);
+int AmmServer_SaveDynamicRequest(const char* filename  , struct AmmServer_DynamicRequest * rqst);
 
 
 
@@ -729,7 +989,7 @@ char * AmmServer_ReadFileToMemory(const char * filename,unsigned int *length );
 * @param Size of memory block
 * @retval 1=Ok,0=Failed
 */
-int AmmServer_WriteFileFromMemory(const char * filename,char * memory , unsigned int memoryLength);
+int AmmServer_WriteFileFromMemory(const char * filename,const char * memory , unsigned int memoryLength);
 
 
 /**
@@ -750,6 +1010,8 @@ struct AmmServer_MemoryHandler *  AmmServer_ReadFileToMemoryHandler(const char *
 */
 struct AmmServer_MemoryHandler *  AmmServer_CopyMemoryHandler(struct AmmServer_MemoryHandler * inpt);
 
+
+int filterStringForHtmlInjection(char * buffer , unsigned int bufferSize);
 
 /**
 * @brief Search for entryPoint pattern in buffer , and inject data there..!
@@ -783,6 +1045,9 @@ void AmmServer_ReplaceCharInString(char * input , char findChar , char replaceWi
 */
 int AmmServer_ReplaceAllVarsInMemoryHandler(struct AmmServer_MemoryHandler * mh ,unsigned int instances,const char * var,const char * value);
 
+
+int AmmServer_ReplaceAllVarsInDynamicRequest(struct AmmServer_DynamicRequest * dr ,unsigned int instances,const char * var,const char * value);
+
 struct AmmServer_MemoryHandler * AmmServer_AllocateMemoryHandler(unsigned int initialBufferLength, unsigned int growStep);
 int AmmServer_FreeMemoryHandler(struct AmmServer_MemoryHandler ** mh);
 
@@ -797,6 +1062,10 @@ int AmmServer_FreeMemoryHandler(struct AmmServer_MemoryHandler ** mh);
 int AmmServer_RegisterTerminationSignal(void * callback);
 
 
+
+const char * AmmServer_GetDirectoryFromPath(char * path);
+const char * AmmServer_GetBasenameFromPath(char * path);
+const char * AmmServer_GetExtensionFromPath(char * path);
 
 /**
 * @brief Check if directory Exists
@@ -817,6 +1086,10 @@ int AmmServer_FileExists(const char * filename);
 
 
 
+int AmmServer_FileIsText(const char * filename);
+int AmmServer_FileIsAudio(const char * filename);
+int AmmServer_FileIsImage(const char * filename);
+
 /**
 * @brief Check if file is a video
 * @ingroup tools
@@ -824,7 +1097,7 @@ int AmmServer_FileExists(const char * filename);
 * @retval 1=Exists,0=Does not Exist
 */
 int AmmServer_FileIsVideo(const char * filename);
-
+int AmmServer_FileIsFlash(const char * filename);
 
 /**
 * @brief Erase a File
@@ -841,6 +1114,17 @@ int AmmServer_EraseFile(const char * filename);
 * @retval 1=Safe,0=Unsafe
 */
 unsigned int AmmServer_StringIsHTMLSafe(const char * str);
+
+/**
+* @brief Check if a string has html elements inside it , so if we append it to a web site we won't have html injected
+* @ingroup tools
+* @param Directory path
+* @param Input String
+* @retval 1=Safe,0=Unsafe
+*/
+unsigned int AmmServer_StringHasSafePath( const char * directory , const char * filenameUNSANITIZEDString);
+
+
 
 #ifdef __cplusplus
 }

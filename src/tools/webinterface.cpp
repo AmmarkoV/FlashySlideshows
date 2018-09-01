@@ -66,15 +66,15 @@ void * index_control_page(struct AmmServer_DynamicRequest  * rqst)
   char command[MAX_WEB_COMMAND_SIZE]={0};
 
   //If we have the console argument set this means we dont want the html output enabled so we switch it off
-  if ( _GET(flashy_server,rqst,(char*) "UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
-  if ( _GET(flashy_server,rqst,(char*) "DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
-  if ( _GET(flashy_server,rqst,(char*) "LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
-  if ( _GET(flashy_server,rqst,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
-  if ( _GET(flashy_server,rqst,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
-  if ( _GET(flashy_server,rqst,(char*) "ZOOM_OUT",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('r',0,0); } }
-  if ( _GET(flashy_server,rqst,(char*) "ZOOM_IN",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('f',0,0); } }
-  if ( _GET(flashy_server,rqst,(char*) "STARS",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('u',0,0); } }
-  if ( _GET(flashy_server,rqst,(char*) "HEARTS",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('k',0,0); } }
+  if ( _GETcpy(rqst,(char*) "UP",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(1,0,0); }
+  if ( _GETcpy(rqst,(char*) "DOWN",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(2,0,0); }
+  if ( _GETcpy(rqst,(char*) "LEFT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(3,0,0); }
+  if ( _GETcpy(rqst,(char*) "RIGHT",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(4,0,0); }
+  if ( _GETcpy(rqst,(char*) "PLAY",command,MAX_WEB_COMMAND_SIZE) ) { Controls_Handle_Keyboard(13,0,0); }
+  if ( _GETcpy(rqst,(char*) "ZOOM_OUT",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('r',0,0); } }
+  if ( _GETcpy(rqst,(char*) "ZOOM_IN",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('f',0,0); } }
+  if ( _GETcpy(rqst,(char*) "STARS",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('u',0,0); } }
+  if ( _GETcpy(rqst,(char*) "HEARTS",command,MAX_WEB_COMMAND_SIZE) ) { int i=0; for(i=0; i<3; i++) { Controls_Handle_Keyboard('k',0,0); } }
 
 
   rqst->contentSize=0;
@@ -101,7 +101,8 @@ void init_dynamic_content(char * webroot,char * app_clipart)
   index_content = readFileForServing(index_file_template,&index_content_size);
   if (index_content==0) { fprintf(stderr,"Could not find index page template..\n"); }
 
-  if (! AmmServer_AddResourceHandler(flashy_server,&index_control, (char *) "/index.html",webroot,4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding index page\n"); }
+
+  if (! AmmServer_AddResourceHandler(flashy_server,&index_control, (char *) "/index.html",4096,0,(void* ) &index_control_page,SAME_PAGE_FOR_ALL_CLIENTS) ) { fprintf(stderr,"Failed adding index page\n"); }
   AmmServer_DoNOTCacheResourceHandler(flashy_server,&index_control);
 }
 
