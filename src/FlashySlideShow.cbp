@@ -51,7 +51,10 @@
 			<Add library="pthread" />
 			<Add library="openal" />
 			<Add library="alut" />
-			<Add library="AmmarServer/src/AmmServerlib/libAmmServerlib.a" />
+			<Add library="AmmarServer/src/AmmServerlib/libAmmarServer.a" />
+			<Add library="Codecs/libCodecs.a" />
+			<Add library="png" />
+			<Add library="jpeg" />
 			<Add directory="usr/lib" />
 		</Linker>
 		<Unit filename="camera_control.cpp" />
