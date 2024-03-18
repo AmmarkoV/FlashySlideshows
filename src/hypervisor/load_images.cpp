@@ -238,7 +238,7 @@ int PreparePictureForImage(struct Picture * pic,unsigned int width,unsigned int 
          frame.system.usedRAM+=frame.system.lastTexture;
          pic->system.rgb_data=(char *) malloc( (width+1)*(height+1)*depth * sizeof(char) );
 
-         if  ( pic->system.rgb_data <=0 )
+         if  ( pic->system.rgb_data == 0 )
           {
             fprintf(stderr,"Error allocating memory for raw image \n");
             pic->system.rgb_data=0;
