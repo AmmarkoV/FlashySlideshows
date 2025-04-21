@@ -33,7 +33,7 @@
 unsigned int display_logo=1;
 unsigned int ONLY_DISPLAY_LOGO=1;
 wxBitmap *flashy_bmp=0,*default_bmp_thumb=0,*bmp_thumb1=0,*bmp_thumb2=0,*bmp_thumb3=0,*bmp_thumb4=0,*bmp_thumb5=0;
-wxImage   flashy_img=0,default_img_thumb=0,img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
+wxImage   flashy_img,default_img_thumb,img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
 
 //helper functions
 enum wxbuildinfoformat {
