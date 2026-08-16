@@ -22,6 +22,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "slideshow.h"
 #include "camera_control.h"
+#include "transitions/shader_transitions.h"
 #include "hypervisor/load_images.h"
 #include "pictures_control.h"
 #include "tools/environment.h"
@@ -345,6 +346,18 @@ void SetDestinationOverPicture(unsigned int place)
                FreeRotatePicture(15);
 
                fprintf(stderr,"Transparency trick destination for pic %u ,  %0.2f -> %0.2f\n",frame.active_image_place,album[frame.active_image_place]->transparency,album[frame.active_image_place]->target_transparency);
+              break;
+     case 3 :
+              {
+                /* The shader transition needs the picture we are leaving , and
+                   SetDestinationOverPictureImmediate is about to overwrite it */
+                int leaving = (int) frame.active_image_place;
+                SetDestinationOverPictureImmediate(place);
+                ResetPictureRotation();
+                /* The camera arrives instantly so it does not fight the effect for
+                   attention , the shader is what carries the change */
+                StartShaderTransition(leaving,(int) place);
+              }
               break;
      default :  SetDestinationOverPicture3dSeek(place); ResetPictureRotation(); break;
    };

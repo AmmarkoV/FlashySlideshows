@@ -102,6 +102,30 @@ int refresh_max_texture_dimension()
   return frame.gpu.maximum_frame_dimension_size;
 }
 
+unsigned int GetPictureTextureForSampling(int place,float * textureWidth,float * textureHeight)
+{
+  if (textureWidth!=0)  { *textureWidth=0;  }
+  if (textureHeight!=0) { *textureHeight=0; }
+
+  if (album==0) { return 0; }
+  if (place<0)  { return 0; }
+  if ((unsigned int) place >= frame.total_images) { return 0; }
+
+  struct Picture * pic = album[place];
+  if (pic==0)                            { return 0; }
+  if (PictureCreationPending(pic))       { return 0; }
+  if (PictureLoadingPending(pic))        { return 0; }
+  if (PictureFailed(pic))                { return 0; }
+  if (!pic->gpu.texture_loaded)          { return 0; }
+  if (pic->gpu.gl_rgb_texture==0)        { return 0; }
+  if ((pic->width==0)||(pic->height==0)) { return 0; }
+
+  if (textureWidth!=0)  { *textureWidth  = (float) pic->width;  }
+  if (textureHeight!=0) { *textureHeight = (float) pic->height; }
+  return (unsigned int) pic->gpu.gl_rgb_texture;
+}
+
+
 int make_texture(struct Picture * picturedata,int enable_mipmaping)
 {
 

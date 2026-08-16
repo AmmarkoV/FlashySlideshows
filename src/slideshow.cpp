@@ -26,6 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <time.h>
 #include "transitions/transition_handler.h"
+#include "transitions/shader_transitions.h"
 #include "layouts/layout_handler.h"
 
 struct SlideShowData frame;
@@ -252,16 +253,21 @@ void ToggleAutomaticSlideshow()
 
 void ToggleTransitionMode()
 {
-    /* 0 = 3d seek , 1 = immediate */
+    /* 0 = 3d seek , 1 = immediate , 2 = transparency , 3 = shader */
     ++frame.transitions.transition_mode;
-    if ( frame.transitions.transition_mode == 2 ) { fprintf(stderr,"Transparency effect (UNDER CONSTRUCTION) enabled\n"); }
 
+    /* Mode 3 needs a compiled shaders/transition_*.frag to have something to draw ,
+       without one it would behave exactly like immediate , so it is skipped */
+    if ( ( frame.transitions.transition_mode == 3 ) && ( GetNumberOfShaderTransitions() == 0 ) )
+      { frame.transitions.transition_mode = 0; }
 
-    if ( frame.transitions.transition_mode > 2 ) frame.transitions.transition_mode = 0;
+    if ( frame.transitions.transition_mode > 3 ) frame.transitions.transition_mode = 0;
 
 
     char message[512];
-    sprintf(message,"   Transition mode set to %u \n",frame.transitions.transition_mode);
+    if ( frame.transitions.transition_mode == 3 )
+      { sprintf(message,"   Transition mode set to shader ( %s ) \n",GetActiveShaderTransitionName()); } else
+      { sprintf(message,"   Transition mode set to %u \n",frame.transitions.transition_mode); }
     NewLabel(frame.vx-3,frame.vy+3,message);
 }
 

@@ -54,6 +54,7 @@ class FlashySlideShowStarterFrame: public wxFrame
         void OnCheckBoxIncludeSubfoldersClick(wxCommandEvent& event);
         void OnCheckBoxFileCopyClick(wxCommandEvent& event);
         void OnCheckBoxFileLinkClick(wxCommandEvent& event);
+        void OnComboBoxTransitionsSelect(wxCommandEvent& event);
         //*)
         void OnRefreshDir(wxCommandEvent& event);
 
@@ -91,6 +92,10 @@ class FlashySlideShowStarterFrame: public wxFrame
         static const long ID_STATICTEXT10;
         static const long ID_TEXTCTRL2;
         static const long ID_CHECKBOX9;
+        static const long ID_STATICTEXT11;
+        static const long ID_COMBOBOX5;
+        static const long ID_STATICTEXT12;
+        static const long ID_COMBOBOX6;
         static const long idMenuQuit;
         static const long idMenuPlay;
         static const long idMenuEconomy;
@@ -148,9 +153,19 @@ class FlashySlideShowStarterFrame: public wxFrame
         wxButton* ButtonQuit;
         wxStaticText* StaticText9;
         wxCheckBox* CheckBoxFileCopy;
+        wxStaticText* StaticTextBackground;
+        wxComboBox* ComboBoxBackground;
+        wxStaticText* StaticTextShaderTransition;
+        wxComboBox* ComboBoxShaderTransition;
         //*)
 
         wxTreeCtrl* PathTreeCtrl;
+
+        /* The animated backgrounds and the shader transitions are just files in
+           shaders/ , so the launcher lists whatever is really there rather than a
+           hardcoded menu that goes stale the moment somebody adds a .frag */
+        unsigned int PopulateShaderCombo(wxComboBox * combo,const wxString & prefix);
+        void RefreshShaderTransitionState();
 
         DECLARE_EVENT_TABLE()
 };

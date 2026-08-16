@@ -95,8 +95,37 @@ there , no recompiling involved. The files are
 `iMouse` , `iDate` and `iChannel0..3` , so most single pass shaders from shadertoy.com
 can be pasted in as they are.
 
+`ambient` is a special one : instead of drawing a pattern it takes a heavily blurred ,
+over-scaled copy of the photo the camera is on , so the background is coloured by the
+album itself and cross fades whenever you move to another picture.
+
 This needs a driver with GLSL 1.30 support. If there is none , or if the shaders
 directory is missing , the application says so and keeps using the picture background.
+
+
+## Shader transitions
+------------------------------------------------------------------ 
+
+Transition mode 3 turns the slideshow into a full screen presentation : the photo you
+are on fills the window , and moving to the next one is carried by a fragment shader
+rather than by the camera. Whatever animated background is selected keeps showing in the
+bars either side of the picture.
+
+```
+flashyslideshows -t 3 -transition wipe -background ambient -play path/to/album
+```
+
+Press **M** until the transition mode comes round to it , and **V** to cycle through the
+effects. The ones that ship are `crossfade` , `dissolve` , `wipe` and `zoomblur`.
+
+Every `shaders/transition_*.frag` becomes a selectable effect , the same way the
+backgrounds work. They may be written either in the ShaderToy dialect , or in the
+[GL Transitions](https://gl-transitions.com) one — a `vec4 transition(vec2 uv)` using
+`progress` , `ratio` , `getFromColor` and `getToColor` — which is detected from the file
+and wired up for you , so shaders from that collection can be dropped in unmodified.
+
+Modes 0 to 2 are unchanged : 0 is the 3D seek through the album , 1 is an immediate jump
+and 2 is the transparency effect.
 
 
 ## TODO LIST

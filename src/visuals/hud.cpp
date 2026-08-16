@@ -194,7 +194,7 @@ void DisplayHUD(unsigned int view_instructions)
       line-=lineHeight*2;
       glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Arrow keys , move from picture to picture  - W = Up , S = Down , A = Left , D = Right camera");
       line-=lineHeight;
-      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "M = Cycle transition modes , N = Cycle layouts , B = Cycle animated backgrounds  ");
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "M = Cycle transition modes , V = Cycle shader transitions , N = Cycle layouts , B = Cycle animated backgrounds  ");
       line-=lineHeight;
       glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "F = Zoom out , R = Zoom in  ,Q = Rotate Counter Clockwise , E = Rotate Clockwise");
       line-=lineHeight;

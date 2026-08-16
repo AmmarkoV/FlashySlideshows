@@ -109,6 +109,10 @@ const long FlashySlideShowStarterFrame::ID_STATICTEXT9 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_STATICTEXT10 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_TEXTCTRL2 = wxNewId();
 const long FlashySlideShowStarterFrame::ID_CHECKBOX9 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_STATICTEXT11 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_COMBOBOX5 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_STATICTEXT12 = wxNewId();
+const long FlashySlideShowStarterFrame::ID_COMBOBOX6 = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuQuit = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuPlay = wxNewId();
 const long FlashySlideShowStarterFrame::idMenuEconomy = wxNewId();
@@ -148,13 +152,13 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     wxMenuItem* MenuItem8;
 
     Create(parent, wxID_ANY, _("Flashy SlideShow Starter "), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    SetClientSize(wxSize(685,551));
-    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(224,384), 0, _T("ID_STATICBOX2"));
+    SetClientSize(wxSize(685,655));
+    StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(224,488), 0, _T("ID_STATICBOX2"));
     StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(32,16), wxSize(408,360), 0, _T("ID_STATICBOX1"));
-    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,408), wxSize(216,48), 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,512), wxSize(216,48), 0, wxDefaultValidator, _T("ID_BUTTON1"));
     wxFont ButtonStartFont(32,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
     ButtonStart->SetFont(ButtonStartFont);
-    ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(600,464), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(600,568), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,388), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     PathTextCtrl = new wxTextCtrl(this, ID_TEXTCTRL1, _("~/Pictures"), wxPoint(104,384), wxSize(336,27), wxTE_PROCESS_ENTER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     CheckBoxSound = new wxCheckBox(this, ID_CHECKBOX1, _("Sound Effects"), wxPoint(456,280), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
@@ -165,6 +169,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxTransitions->SetSelection( ComboBoxTransitions->Append(_("3D Seek")) );
     ComboBoxTransitions->Append(_("Immediate"));
     ComboBoxTransitions->Append(_("Transparency"));
+    ComboBoxTransitions->Append(_("Shader"));
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Transitions"), wxPoint(456,86), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     PictureFolder = new wxGenericDirCtrl(this, ID_GENERICDIRCTRL1, _T("~/Pictures"), wxPoint(40,48), wxSize(384,320), 0, wxEmptyString, 0, _T("ID_GENERICDIRCTRL1"));
     CheckBoxVisuals = new wxCheckBox(this, ID_CHECKBOX3, _("Visual Effects"), wxPoint(456,264), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
@@ -187,7 +192,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     CheckBoxMipmap = new wxCheckBox(this, ID_CHECKBOX5, _("Use Mipmaping"), wxPoint(456,232), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
     CheckBoxMipmap->SetValue(false);
     DateText = new wxStaticText(this, ID_STATICTEXT6, _("Select a directory and then click Start to begin Slideshow"), wxPoint(32,416), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-    ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,464), wxSize(144,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    ButtonControls = new wxButton(this, ID_BUTTON3, _("Controls"), wxPoint(448,568), wxSize(144,29), 0, wxDefaultValidator, _T("ID_BUTTON3"));
     StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Sort Pictures By"), wxPoint(456,168), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
     ComboBoxSort = new wxComboBox(this, ID_COMBOBOX3, wxEmptyString, wxPoint(456,186), wxSize(200,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX3"));
     ComboBoxSort->SetSelection( ComboBoxSort->Append(_("Names Ascending")) );
@@ -226,6 +231,11 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Arguments = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxPoint(552,368), wxSize(104,23), 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     CheckBoxFileLink = new wxCheckBox(this, ID_CHECKBOX9, _("File Link"), wxPoint(456,344), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX9"));
     CheckBoxFileLink->SetValue(false);
+    StaticTextBackground = new wxStaticText(this, ID_STATICTEXT11, _("Animated Background"), wxPoint(456,398), wxDefaultSize, 0, _T("ID_STATICTEXT11"));
+    ComboBoxBackground = new wxComboBox(this, ID_COMBOBOX5, wxEmptyString, wxPoint(456,414), wxSize(200,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX5"));
+    ComboBoxBackground->SetSelection( ComboBoxBackground->Append(_("Picture")) );
+    StaticTextShaderTransition = new wxStaticText(this, ID_STATICTEXT12, _("Shader Transition"), wxPoint(456,446), wxDefaultSize, 0, _T("ID_STATICTEXT12"));
+    ComboBoxShaderTransition = new wxComboBox(this, ID_COMBOBOX6, wxEmptyString, wxPoint(456,462), wxSize(200,29), 0, 0, 0, wxDefaultValidator, _T("ID_COMBOBOX6"));
     MenuBar1 = new wxMenuBar();
     Menu1 = new wxMenu();
     MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
@@ -279,6 +289,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Connect(ID_CHECKBOX7,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileResizeClick);
     Connect(ID_CHECKBOX8,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileCopyClick);
     Connect(ID_CHECKBOX9,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnCheckBoxFileLinkClick);
+    Connect(ID_COMBOBOX1,wxEVT_COMMAND_COMBOBOX_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnComboBoxTransitionsSelect);
     Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnQuit);
     Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OnAbout);
     //*)
@@ -308,6 +319,23 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ButtonStart->SetLabel(wxT("to"));
     ButtonStart->SetLabel(wxT("Start!"));
 
+    /* Filled from the shaders directory rather than hardcoded , so dropping another
+       .frag in there makes it selectable here with no code change , which is the
+       same property the slideshow itself has */
+    if ( PopulateShaderCombo(ComboBoxBackground,wxT("background_")) == 0 )
+     {
+       ComboBoxBackground->Disable();
+       StaticTextBackground->SetLabel(_("Animated Background ( none found )"));
+     }
+    if ( PopulateShaderCombo(ComboBoxShaderTransition,wxT("transition_")) == 0 )
+     {
+       StaticTextShaderTransition->SetLabel(_("Shader Transition ( none found )"));
+     } else
+     {
+       ComboBoxShaderTransition->SetSelection(0);
+     }
+    RefreshShaderTransitionState();
+
 }
 
 
@@ -335,6 +363,26 @@ void FlashySlideShowStarterFrame::OnRefreshDir(wxCommandEvent& event)
 }
 
 
+/* Where the shaders live. The same three candidates the main executable walks
+   through in visuals/shadertoy.cpp , plus one more because the launcher can also be
+   started from its own build directory , which is one level deeper. */
+static wxString FindShadersDirectory()
+{
+  const char * candidates[] = { "shaders",
+                                "../shaders",
+                                "../../shaders",
+                                "/usr/share/flashyslideshows/shaders",
+                                0 };
+  unsigned int i=0;
+  for (i=0; candidates[i]!=0; i++)
+   {
+     wxString directory = wxString::FromAscii(candidates[i]);
+     if ( wxFileName::FileExists(directory+wxT("/background_aurora.frag")) ) { return directory; }
+   }
+  return wxEmptyString;
+}
+
+
 int FileExists(const char *fname)
 {
     FILE *file;
@@ -359,6 +407,49 @@ void ComplainAboutInstallation()
   error_message<<wxT("\n\n");
   error_message<<wxT("Sorry for the inconvinience :)\n");
   wxMessageBox(error_message,wxT("Cannot find required executable files.."));
+}
+
+
+unsigned int FlashySlideShowStarterFrame::PopulateShaderCombo(wxComboBox * combo,const wxString & prefix)
+{
+  wxString directory = FindShadersDirectory();
+  if (directory.IsEmpty()) { return 0; }
+
+  wxDir shaderDirectory(directory);
+  if (!shaderDirectory.IsOpened()) { return 0; }
+
+  /* Collected first and sorted , so the list is in the same order the slideshow
+     itself ends up with , and the readdir order of the filesystem does not show */
+  wxArrayString names;
+  wxString filename;
+  bool more = shaderDirectory.GetFirst(&filename,prefix+wxT("*.frag"),wxDIR_FILES);
+  while (more)
+   {
+     wxString name = filename.Mid(prefix.Length());
+     names.Add(name.BeforeLast(wxT('.')));
+     more = shaderDirectory.GetNext(&filename);
+   }
+  names.Sort();
+
+  size_t i=0;
+  for (i=0; i<names.GetCount(); i++) { combo->Append(names[i]); }
+  return (unsigned int) names.GetCount();
+}
+
+
+/* The shader transition only has any say when the transition mode is set to Shader ,
+   and neither combo means anything at all on a build with no shaders directory */
+void FlashySlideShowStarterFrame::RefreshShaderTransitionState()
+{
+  bool haveTransitions = ( ComboBoxShaderTransition->GetCount() > 0 );
+  bool shaderModeChosen = ( ComboBoxTransitions->GetCurrentSelection() == 3 );
+  if ( haveTransitions && shaderModeChosen ) { ComboBoxShaderTransition->Enable(); }
+                                        else { ComboBoxShaderTransition->Disable(); }
+}
+
+void FlashySlideShowStarterFrame::OnComboBoxTransitionsSelect(wxCommandEvent& event)
+{
+  RefreshShaderTransitionState();
 }
 
 
@@ -424,6 +515,20 @@ void FlashySlideShowStarterFrame::OnButtonStartClick(wxCommandEvent& event)
 
     if ( ComboBoxQuality->GetCurrentSelection()!=1 ) { what_to_call<< wxT(" -q "); what_to_call<<ComboBoxQuality->GetCurrentSelection(); }
     if ( ComboBoxTransitions->GetCurrentSelection()!=0 ) { what_to_call<< wxT(" -t ");  what_to_call<<ComboBoxTransitions->GetCurrentSelection();  }
+
+    /* Entry 0 of the background combo is the old static picture , which is the
+       default and needs no flag at all */
+    if ( ComboBoxBackground->IsEnabled() && ( ComboBoxBackground->GetCurrentSelection() > 0 ) )
+     {
+       what_to_call<< wxT(" -background ");
+       what_to_call<< ComboBoxBackground->GetStringSelection();
+     }
+
+    if ( ComboBoxShaderTransition->IsEnabled() && ( ComboBoxShaderTransition->GetCurrentSelection() >= 0 ) )
+     {
+       what_to_call<< wxT(" -transition ");
+       what_to_call<< ComboBoxShaderTransition->GetStringSelection();
+     }
     if ( DelaySpinCtrl->GetValue()!=100 ) { what_to_call<< wxT(" -d ");  what_to_call<<DelaySpinCtrl->GetValue(); }
 
     if ( ComboBoxSort->GetCurrentSelection()!=0 )

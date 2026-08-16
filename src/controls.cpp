@@ -32,6 +32,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "layouts/layout_handler.h"
 #include "visuals/dynamic_background.h"
+#include "transitions/shader_transitions.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -298,6 +299,15 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
                   NewLabel(frame.desired_x,frame.desired_y,(char *) label);
                   break; //if (ENABLE_WIGGLING) {ENABLE_WIGGLING=0;} else {ENABLE_WIGGLING=1;}
         case 'm': ToggleTransitionMode(); break;
+        /* Which shaders/transition_*.frag transition mode 3 plays , M picks the mode
+           itself and V picks the effect it uses */
+        case 'v': if (GetNumberOfShaderTransitions()>0)
+                   {
+                     CycleShaderTransition();
+                     sprintf(label," Transition : %s",GetActiveShaderTransitionName());
+                     NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                   }
+                  break;
 
         case 153: MoveToPicture(D_UP);   MoveToPicture(D_UP);   MoveToPicture(D_UP);  MoveToPicture(D_UP);
                   sprintf(label," Go To %u/%u",frame.active_image_place,frame.total_images);

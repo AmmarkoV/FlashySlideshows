@@ -44,6 +44,14 @@ int parseArguments(int argc, char *argv[])
                        fprintf(stderr,"Always redraw enabled %u - %s\n",i,argv[i]);
                        frame.alwaysRedraw=1;
                    } else
+             if (strcmp(argv[i],"-transition")==0)
+                   { //Which shaders/transition_<name>.frag transition mode 3 should use
+                      if (i+1<argc)
+                      {
+                       snprintf(frame.shader_transition,64,"%s",argv[i+1]);
+                       fprintf(stderr,"%u Shader transition %s = %s\n",i,argv[i],frame.shader_transition);
+                      }
+                   } else
              if (strcmp(argv[i],"-background")==0)
                    { //Animated shader background , see visuals/dynamic_background.h
                       if (i+1<argc)
@@ -175,6 +183,7 @@ int parseArguments(int argc, char *argv[])
                        if  ( *argv[i+1]=='0' ) { fprintf(stderr,"3D Seek\n");      frame.transitions.transition_mode=0; } else
                        if  ( *argv[i+1]=='1' ) { fprintf(stderr,"Immediate\n");    frame.transitions.transition_mode=1; } else
                        if  ( *argv[i+1]=='2' ) { fprintf(stderr,"Transparency\n"); frame.transitions.transition_mode=2; }  else
+                       if  ( *argv[i+1]=='3' ) { fprintf(stderr,"Shader\n");       frame.transitions.transition_mode=3; }  else
                                                { fprintf(stderr,"Incorrect Transition Type..\n"); }
                       }
                    } else

@@ -2,12 +2,12 @@
 <wxsmith>
 	<object class="wxFrame" name="FlashySlideShowStarterFrame">
 		<title>Flashy SlideShow Starter </title>
-		<size>685,551</size>
+		<size>685,655</size>
 		<id_arg>0</id_arg>
 		<object class="wxStaticBox" name="ID_STATICBOX2" variable="StaticBox2" member="yes">
 			<label>Slideshow Options</label>
 			<pos>448,16</pos>
-			<size>224,384</size>
+			<size>224,488</size>
 		</object>
 		<object class="wxStaticBox" name="ID_STATICBOX1" variable="StaticBox1" member="yes">
 			<label>Folder Preview</label>
@@ -16,7 +16,7 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON1" variable="ButtonStart" member="yes">
 			<label>Start!</label>
-			<pos>448,408</pos>
+			<pos>448,512</pos>
 			<size>216,48</size>
 			<font>
 				<size>32</size>
@@ -30,7 +30,7 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON2" variable="ButtonQuit" member="yes">
 			<label>Quit</label>
-			<pos>600,464</pos>
+			<pos>600,568</pos>
 			<size>61,29</size>
 			<handler function="OnButtonQuitClick" entry="EVT_BUTTON" />
 		</object>
@@ -62,10 +62,33 @@
 				<item>3D Seek</item>
 				<item>Immediate</item>
 				<item>Transparency</item>
+				<item>Shader</item>
 			</content>
 			<selection>0</selection>
 			<pos>456,102</pos>
 			<size>128,29</size>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT11" variable="StaticTextBackground" member="yes">
+			<label>Animated Background</label>
+			<pos>456,398</pos>
+		</object>
+		<object class="wxComboBox" name="ID_COMBOBOX5" variable="ComboBoxBackground" member="yes">
+			<content>
+				<item>Picture</item>
+			</content>
+			<selection>0</selection>
+			<pos>456,414</pos>
+			<size>200,29</size>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT12" variable="StaticTextShaderTransition" member="yes">
+			<label>Shader Transition</label>
+			<pos>456,446</pos>
+		</object>
+		<object class="wxComboBox" name="ID_COMBOBOX6" variable="ComboBoxShaderTransition" member="yes">
+			<content>
+			</content>
+			<pos>456,462</pos>
+			<size>200,29</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
 			<label>Transitions</label>
@@ -132,7 +155,7 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON3" variable="ButtonControls" member="yes">
 			<label>Controls</label>
-			<pos>448,464</pos>
+			<pos>448,568</pos>
 			<size>144,29</size>
 			<handler function="OnButtonControlsClick" entry="EVT_BUTTON" />
 		</object>

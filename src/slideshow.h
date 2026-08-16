@@ -143,6 +143,9 @@ struct SlideShowData
   /* Name of a shaders/background_<name>.frag to start with , empty = the static
      picture background , see visuals/dynamic_background.h */
   char dynamic_background[64];
+  /* Name of a shaders/transition_<name>.frag to use for transition mode 3 ,
+     empty = whichever one sorted first , see transitions/shader_transitions.h */
+  char shader_transition[64];
   unsigned int enable_sound_effects;
 
   unsigned int show_information;

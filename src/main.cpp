@@ -47,6 +47,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "visuals/hud.h"
 #include "visuals/shadertoy.h"
 #include "visuals/dynamic_background.h"
+#include "transitions/shader_transitions.h"
 
 #include <unistd.h>
 
@@ -274,6 +275,10 @@ static void DisplayCallback(void)
 
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();
+
+     /* A slide change in transition mode 3 plays out here , over the finished scene
+        and under the HUD */
+     DrawShaderTransition();
      /*   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 
 
@@ -666,6 +671,19 @@ int main(int argc, char *argv[])
        {
          if (frame.dynamic_background[0]!=0) { SelectDynamicBackgroundByName(frame.dynamic_background); }
        }
+      if ( InitShaderTransitions() )
+       {
+         if (frame.shader_transition[0]!=0) { SelectShaderTransitionByName(frame.shader_transition); }
+       }
+    }
+
+   /* -t 3 sets the mode straight from the command line , without going through
+      ToggleTransitionMode which knows to skip it. Landing in a mode that has nothing to
+      draw would silently look exactly like mode 0 , so say so and go there properly. */
+   if ( ( frame.transitions.transition_mode == 3 ) && ( GetNumberOfShaderTransitions() == 0 ) )
+    {
+      fprintf(stderr,"Transition mode 3 needs a shaders/transition_*.frag and none were loaded , falling back to the 3D seek\n");
+      frame.transitions.transition_mode = 0;
     }
 
 
@@ -720,6 +738,7 @@ int main(int argc, char *argv[])
 
     EnableScreenSaver();
     StopJoystickControl();
+    CloseShaderTransitions();
     CloseDynamicBackgrounds();
     UnLoadStockTexturesAndSounds();
     DestroySlideshowPictureStructure();

@@ -18,25 +18,17 @@
 #include "background.h"
 #include "../slideshow.h"
 #include "../tools/environment.h"
+#include "../hypervisor/load_textures.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <glob.h>
 
-#define MAX_DYNAMIC_BACKGROUNDS 32
 #define DYNAMIC_BACKGROUND_PREFIX "background_"
 
-struct dynamicBackground
-{
-  struct shadertoyEffect * fx;
-  char name[64];
-};
+static struct shadertoyEffectList backgrounds;
 
-static struct dynamicBackground backgrounds[MAX_DYNAMIC_BACKGROUNDS];
-static unsigned int numberOfBackgrounds=0;
-
-/* 0 = the old static picture background , 1..numberOfBackgrounds = a shader */
+/* 0 = the old static picture background , 1..backgrounds.count = a shader */
 static unsigned int selectedBackground=0;
 
 static unsigned int lastDrawTickCount=0;
@@ -46,126 +38,67 @@ static unsigned int lastDrawTickCount=0;
    to it instead of switching it off on their behalf */
 static unsigned int alwaysRedrawWasRequested=0;
 
+/* How long shaders/background_ambient.frag takes to fade from the photo we were on to
+   the one we just moved to , in milliseconds */
+#define PHOTO_CROSSFADE_MS 700.0
 
-/* "some/path/background_aurora.frag" -> "aurora" */
-static void NameFromShaderPath(const char * path,char * name,unsigned int nameSize)
-{
-  const char * base = strrchr(path,'/');
-  base = (base!=0) ? base+1 : path;
-  snprintf(name,nameSize,"%s",base+strlen(DYNAMIC_BACKGROUND_PREFIX));
-  char * dot = strrchr(name,'.');
-  if (dot!=0) { *dot=0; }
-}
-
-/* The shaders live next to app_clipart , which is either in the directory the binary
-   was started from ( a build tree ) or under /usr/share ( an installation ). The
-   binary itself lands in src/ so the development case has to look one level up too. */
-static int FindShadersDirectory(char * directory,unsigned int directorySize)
-{
-  const char * candidates[] = { "shaders",
-                                "../shaders",
-                                "/usr/share/flashyslideshows/shaders",
-                                0 };
-  unsigned int i=0;
-  for (i=0; candidates[i]!=0; i++)
-   {
-     char probe[MAX_PATH+64]={0};
-     snprintf(probe,MAX_PATH+64,"%s/background_aurora.frag",candidates[i]);
-     if (FileExists(probe))
-      {
-        snprintf(directory,directorySize,"%s",candidates[i]);
-        return 1;
-      }
-   }
-  return 0;
-}
+static int activePhotoIndex=-1;
+static int previousPhotoIndex=-1;
+static unsigned int photoChangedAtTick=0;
 
 
 unsigned int InitDynamicBackgrounds()
 {
-  numberOfBackgrounds=0;
   selectedBackground=0;
   alwaysRedrawWasRequested=frame.alwaysRedraw;
 
-  if (!shadertoyAvailiable) { return 0; }
-
-  char directory[MAX_PATH]={0};
-  if (!FindShadersDirectory(directory,MAX_PATH))
-   {
-     fprintf(stderr,"Unable to locate a shaders/ directory , dynamic backgrounds are off\n");
-     return 0;
-   }
-
-  char pattern[MAX_PATH+64]={0};
-  snprintf(pattern,MAX_PATH+64,"%s/%s*.frag",directory,DYNAMIC_BACKGROUND_PREFIX);
-
-  glob_t files;
-  memset(&files,0,sizeof(files));
-  if (glob(pattern,0,0,&files)!=0) { return 0; }
-
-  unsigned int i=0;
-  for (i=0; (i<files.gl_pathc) && (numberOfBackgrounds<MAX_DYNAMIC_BACKGROUNDS); i++)
-   {
-     struct shadertoyEffect * fx = shadertoy_load(files.gl_pathv[i]);
-     if (fx!=0)
-      {
-        backgrounds[numberOfBackgrounds].fx = fx;
-        NameFromShaderPath(files.gl_pathv[i],backgrounds[numberOfBackgrounds].name,64);
-        ++numberOfBackgrounds;
-      }
-   }
-  globfree(&files);
+  if (!shadertoy_loadEffectDirectory(DYNAMIC_BACKGROUND_PREFIX,&backgrounds)) { return 0; }
 
   fprintf(stderr,"Dynamic backgrounds availiable :");
-  for (i=0; i<numberOfBackgrounds; i++) { fprintf(stderr," %s",backgrounds[i].name); }
+  shadertoy_printEffectNames(&backgrounds);
   fprintf(stderr,"\n");
 
-  return numberOfBackgrounds;
+  return backgrounds.count;
 }
 
 
 unsigned int GetNumberOfDynamicBackgrounds()
 {
-  return numberOfBackgrounds;
+  return backgrounds.count;
 }
 
 const char * GetDynamicBackgroundName(unsigned int index)
 {
-  if (index>=numberOfBackgrounds) { return ""; }
-  return backgrounds[index].name;
+  if (index>=backgrounds.count) { return ""; }
+  return backgrounds.entry[index].name;
 }
 
 
 int SelectDynamicBackgroundByName(const char * name)
 {
-  if (name==0) { return 0; }
-
-  unsigned int i=0;
-  for (i=0; i<numberOfBackgrounds; i++)
+  int found = shadertoy_findEffectByName(&backgrounds,name);
+  if (found<0)
    {
-     if (strcmp(backgrounds[i].name,name)==0)
-      {
-        selectedBackground=i+1;
-        /* A shader background is a moving picture , the event driven redraw would
-           freeze it on whatever frame it stopped at */
-        frame.alwaysRedraw=1;
-        fprintf(stderr,"Using the %s dynamic background\n",name);
-        return 1;
-      }
+     fprintf(stderr,"There is no %s background , availiable ones are :",(name!=0)?name:"");
+     shadertoy_printEffectNames(&backgrounds);
+     fprintf(stderr,"\n");
+     return 0;
    }
 
-  fprintf(stderr,"There is no %s background , availiable ones are :",name);
-  for (i=0; i<numberOfBackgrounds; i++) { fprintf(stderr," %s",backgrounds[i].name); }
-  fprintf(stderr,"\n");
-  return 0;
+  selectedBackground=(unsigned int) found + 1;
+  /* A shader background is a moving picture , the event driven redraw would freeze it
+     on whatever frame it stopped at */
+  frame.alwaysRedraw=1;
+  fprintf(stderr,"Using the %s dynamic background\n",name);
+  return 1;
 }
 
 
 void CycleDynamicBackground()
 {
-  if (numberOfBackgrounds==0) { return; }
+  if (backgrounds.count==0) { return; }
 
-  selectedBackground = (selectedBackground+1) % (numberOfBackgrounds+1);
+  selectedBackground = (selectedBackground+1) % (backgrounds.count+1);
 
   if (selectedBackground==0)
    {
@@ -174,7 +107,7 @@ void CycleDynamicBackground()
    } else
    {
      frame.alwaysRedraw=1;
-     fprintf(stderr,"Using the %s dynamic background\n",backgrounds[selectedBackground-1].name);
+     fprintf(stderr,"Using the %s dynamic background\n",backgrounds.entry[selectedBackground-1].name);
    }
   frame.forceDrawOneMoreTime=1;
 }
@@ -182,13 +115,13 @@ void CycleDynamicBackground()
 
 unsigned int DynamicBackgroundIsActive()
 {
-  return ( (numberOfBackgrounds>0) && (selectedBackground>0) );
+  return ( (backgrounds.count>0) && (selectedBackground>0) );
 }
 
 const char * GetActiveDynamicBackgroundName()
 {
   if (!DynamicBackgroundIsActive()) { return ""; }
-  return backgrounds[selectedBackground-1].name;
+  return backgrounds.entry[selectedBackground-1].name;
 }
 
 
@@ -196,24 +129,48 @@ int DrawDynamicBackground()
 {
   if (!DynamicBackgroundIsActive()) { return 0; }
 
-  struct shadertoyEffect * fx = backgrounds[selectedBackground-1].fx;
+  struct shadertoyEffect * fx = backgrounds.entry[selectedBackground-1].fx;
   if (fx==0) { return 0; }
 
   float width  = (float) glutGet(GLUT_WINDOW_WIDTH);
   float height = (float) glutGet(GLUT_WINDOW_HEIGHT);
   if ( (width<1) || (height<1) ) { return 0; }
 
-  float timeNow   = (float) frame.tick_count / 1000;
-  float timeDelta = (float) (frame.tick_count - lastDrawTickCount) / 1000;
-  lastDrawTickCount = frame.tick_count;
-  if ( (timeDelta<0.0) || (timeDelta>1.0) ) { timeDelta=1.0/60; } /* first frame , or a long stall */
+  struct shadertoyInputs inputs;
+  memset(&inputs,0,sizeof(inputs));
 
-  shadertoy_draw(fx,
-                 timeNow,timeDelta,(int) times_drawn_background,
-                 width,height,
-                 frame.mouse.mouse_x,frame.mouse.mouse_y,
-                 0,0,
-                 0.0);
+  inputs.time      = (float) frame.tick_count / 1000;
+  inputs.timeDelta = (float) (frame.tick_count - lastDrawTickCount) / 1000;
+  lastDrawTickCount = frame.tick_count;
+  /* First frame , or a long stall , or the tick counter wrapping around */
+  if ( (inputs.timeDelta<0.0) || (inputs.timeDelta>1.0) ) { inputs.timeDelta=1.0/60; }
+
+  inputs.frameNumber = (int) times_drawn_background;
+  inputs.width  = width;
+  inputs.height = height;
+  inputs.mouseX = frame.mouse.mouse_x;
+  inputs.mouseY = frame.mouse.mouse_y;
+
+  /* Notice a change of photo so the ambient background can fade across instead of
+     cutting , and hold on to which one we were showing before */
+  int currentPhoto = (int) frame.active_image_place;
+  if (currentPhoto!=activePhotoIndex)
+   {
+     previousPhotoIndex = activePhotoIndex;
+     activePhotoIndex   = currentPhoto;
+     photoChangedAtTick = frame.tick_count;
+   }
+
+  inputs.channel[0] = GetPictureTextureForSampling(activePhotoIndex  ,&inputs.channelWidth[0],&inputs.channelHeight[0]);
+  inputs.channel[1] = GetPictureTextureForSampling(previousPhotoIndex,&inputs.channelWidth[1],&inputs.channelHeight[1]);
+
+  inputs.progress = (float) (frame.tick_count - photoChangedAtTick) / PHOTO_CROSSFADE_MS;
+  if ( (inputs.progress<0.0) || (inputs.progress>1.0) ) { inputs.progress=1.0; }
+  /* The picture we were fading from may have been unloaded halfway through , in which
+     case there is nothing to fade from and the new one has to be shown outright */
+  if (inputs.channel[1]==0) { inputs.progress=1.0; }
+
+  shadertoy_draw(fx,&inputs);
 
   ++times_drawn_background;
   return 1;
@@ -222,12 +179,6 @@ int DrawDynamicBackground()
 
 void CloseDynamicBackgrounds()
 {
-  unsigned int i=0;
-  for (i=0; i<numberOfBackgrounds; i++)
-   {
-     shadertoy_unload(backgrounds[i].fx);
-     backgrounds[i].fx=0;
-   }
-  numberOfBackgrounds=0;
+  shadertoy_unloadEffectList(&backgrounds);
   selectedBackground=0;
 }

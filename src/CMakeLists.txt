@@ -64,6 +64,8 @@ add_executable(flashyslideshows
                #Transitions
                transitions/transition_handler.cpp
                transitions/transition_handler.h
+               transitions/shader_transitions.cpp
+               transitions/shader_transitions.h
                #Tools
                tools/commandlineParser.cpp 
                tools/commandlineParser.h 

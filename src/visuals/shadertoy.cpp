@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <glob.h>
 
 #include "shadertoy.h"
 
@@ -40,9 +41,42 @@ static const char * shadertoyPreamble =
 static const char * shadertoyFooter =
 "\nvoid main()\n"
 "{\n"
-"  vec4 color = vec4(0.0);\n"
+"  vec4 color = vec4(0.0,0.0,0.0,1.0);\n"
 "  mainImage(color,gl_FragCoord.xy);\n"
-"  gl_FragColor = vec4(color.rgb,1.0);\n"
+"  gl_FragColor = color;\n"
+"}\n";
+
+/* A shader that declares transition(vec2) instead of mainImage(out vec4,in vec2) is a
+   GL Transitions ( gl-transitions.com ) shader , and expects progress / ratio /
+   getFromColor / getToColor to already exist. Providing them here means the ~80
+   shaders in that collection can be dropped into shaders/ unmodified.
+   Their uv has ( 0,0 ) at the bottom left and covers the whole viewport , while our
+   photos are stored with row 0 at the top and are not the shape of the window , so
+   the two samplers letterbox the picture and flip it on the way in. */
+static const char * transitionBindings =
+"\n#define progress iProgress\n"
+"#define ratio (iResolution.x/iResolution.y)\n"
+"vec4 shadertoy_fitted(sampler2D img,vec3 res,vec2 uv)\n"
+"{\n"
+"  if (res.x<1.0) { return vec4(0.0); }\n"
+"  float pictureAspect = res.x/res.y;\n"
+"  float viewAspect    = iResolution.x/iResolution.y;\n"
+"  vec2 scale = vec2(1.0);\n"
+"  if (pictureAspect>viewAspect) { scale.y = pictureAspect/viewAspect; }\n"
+"  else                         { scale.x = viewAspect/pictureAspect; }\n"
+"  vec2 p = (uv-0.5)*scale + 0.5;\n"
+"  if ( (p.x<0.0)||(p.x>1.0)||(p.y<0.0)||(p.y>1.0) ) { return vec4(0.0); }\n"
+"  return texture(img,vec2(p.x,1.0-p.y));\n"
+"}\n"
+"#define getFromColor(uv) shadertoy_fitted(iChannel0,iChannelResolution[0],uv)\n"
+"#define getToColor(uv)   shadertoy_fitted(iChannel1,iChannelResolution[1],uv)\n"
+"#line 1\n";
+
+static const char * transitionFooter =
+"\nvoid main()\n"
+"{\n"
+"  vec2 uv = gl_FragCoord.xy / iResolution.xy;\n"
+"  gl_FragColor = transition(uv);\n"
 "}\n";
 
 static const char * fullscreenVertexShader =
@@ -77,6 +111,35 @@ static char * loadFileToMemory(const char * filename,int * length)
 
   *length=(int) bytesRead;
   return buffer;
+}
+
+
+/* Does the shader source actually contain this token , as opposed to merely mentioning
+   it in a comment ? Which dialect a file is written in is decided by whether it
+   declares mainImage or transition , and a header comment that explains "this file has
+   no mainImage" would otherwise put it in the wrong bucket. */
+static int sourceMentions(const char * source,const char * token)
+{
+  unsigned int tokenLength = strlen(token);
+  const char * p = source;
+
+  while (*p!=0)
+  {
+    if ( (p[0]=='/') && (p[1]=='/') )
+     { while ( (*p!=0) && (*p!='\n') ) { ++p; } continue; }
+
+    if ( (p[0]=='/') && (p[1]=='*') )
+     {
+       p+=2;
+       while ( (*p!=0) && !( (p[0]=='*') && (p[1]=='/') ) ) { ++p; }
+       if (*p!=0) { p+=2; }
+       continue;
+     }
+
+    if (strncmp(p,token,tokenLength)==0) { return 1; }
+    ++p;
+  }
+  return 0;
 }
 
 
@@ -178,10 +241,21 @@ struct shadertoyEffect * shadertoy_load(const char * fragmentFile)
   char * body = loadFileToMemory(fragmentFile,&fileLength);
   if (body==0) { fprintf(stderr,"Could not load shadertoy file %s \n",fragmentFile); return 0; }
 
-  unsigned int fullLength = strlen(shadertoyPreamble) + fileLength + strlen(shadertoyFooter) + 1;
+  /* Which dialect this file is written in. A GL Transitions shader has no mainImage ,
+     it declares vec4 transition(vec2 uv) instead. */
+  const char * preamble = shadertoyPreamble;
+  const char * bindings = "";
+  const char * footer   = shadertoyFooter;
+  if ( (!sourceMentions(body,"mainImage")) && (sourceMentions(body,"transition(")) )
+   {
+     bindings = transitionBindings;
+     footer   = transitionFooter;
+   }
+
+  unsigned int fullLength = strlen(preamble) + strlen(bindings) + fileLength + strlen(footer) + 1;
   char * full = (char *) malloc(fullLength);
   if (full==0) { free(body); return 0; }
-  snprintf(full,fullLength,"%s%s%s",shadertoyPreamble,body,shadertoyFooter);
+  snprintf(full,fullLength,"%s%s%s%s",preamble,bindings,body,footer);
   free(body);
 
   unsigned int program = shadertoy_compileProgram(fullscreenVertexShader,full);
@@ -199,7 +273,8 @@ struct shadertoyEffect * shadertoy_load(const char * fragmentFile)
   fx->locFrame            = glGetUniformLocation(program,"iFrame");
   fx->locChannel0         = glGetUniformLocation(program,"iChannel0");
   fx->locChannel1         = glGetUniformLocation(program,"iChannel1");
-  fx->locChannelResolution= glGetUniformLocation(program,"iChannelResolution");
+  fx->locChannelResolution[0]= glGetUniformLocation(program,"iChannelResolution[0]");
+  fx->locChannelResolution[1]= glGetUniformLocation(program,"iChannelResolution[1]");
   fx->locDate             = glGetUniformLocation(program,"iDate");
   fx->locProgress         = glGetUniformLocation(program,"iProgress");
 
@@ -208,14 +283,113 @@ struct shadertoyEffect * shadertoy_load(const char * fragmentFile)
 }
 
 
-void shadertoy_draw(struct shadertoyEffect * fx,
-                    float time,float timeDelta,int frameNumber,
-                    float width,float height,
-                    float mouseX,float mouseY,
-                    unsigned int chan0Tex,unsigned int chan1Tex,
-                    float progress)
+/* ------------------------------------------------------------------------------
+   Finding and loading a whole directory of effects , shared by the animated
+   backgrounds and the transitions since both are "every .frag with this prefix"
+   ------------------------------------------------------------------------------ */
+
+int shadertoy_findShadersDirectory(char * directory,unsigned int directorySize)
 {
-  if ( (fx==0) || (!shadertoyAvailiable) ) { return; }
+  const char * candidates[] = { "shaders",
+                                "../shaders",
+                                "/usr/share/flashyslideshows/shaders",
+                                0 };
+  unsigned int i=0;
+  for (i=0; candidates[i]!=0; i++)
+   {
+     char probe[1024]={0};
+     snprintf(probe,1024,"%s/background_aurora.frag",candidates[i]);
+     FILE * fp = fopen(probe,"rb");
+     if (fp!=0)
+      {
+        fclose(fp);
+        snprintf(directory,directorySize,"%s",candidates[i]);
+        return 1;
+      }
+   }
+  return 0;
+}
+
+/* "some/path/background_aurora.frag" -> "aurora" */
+static void nameFromShaderPath(const char * path,const char * prefix,char * name,unsigned int nameSize)
+{
+  const char * base = strrchr(path,'/');
+  base = (base!=0) ? base+1 : path;
+  snprintf(name,nameSize,"%s",base+strlen(prefix));
+  char * dot = strrchr(name,'.');
+  if (dot!=0) { *dot=0; }
+}
+
+unsigned int shadertoy_loadEffectDirectory(const char * prefix,struct shadertoyEffectList * list)
+{
+  if (list==0) { return 0; }
+  memset(list,0,sizeof(struct shadertoyEffectList));
+  if (!shadertoyAvailiable) { return 0; }
+
+  char directory[1024]={0};
+  if (!shadertoy_findShadersDirectory(directory,1024))
+   {
+     fprintf(stderr,"Unable to locate a shaders/ directory , %s effects are off\n",prefix);
+     return 0;
+   }
+
+  char pattern[1088]={0};
+  snprintf(pattern,1088,"%s/%s*.frag",directory,prefix);
+
+  glob_t files;
+  memset(&files,0,sizeof(files));
+  if (glob(pattern,0,0,&files)!=0) { return 0; }
+
+  unsigned int i=0;
+  for (i=0; (i<files.gl_pathc) && (list->count<MAX_SHADERTOY_EFFECTS); i++)
+   {
+     struct shadertoyEffect * fx = shadertoy_load(files.gl_pathv[i]);
+     if (fx!=0)
+      {
+        list->entry[list->count].fx = fx;
+        nameFromShaderPath(files.gl_pathv[i],prefix,list->entry[list->count].name,64);
+        ++list->count;
+      }
+   }
+  globfree(&files);
+
+  return list->count;
+}
+
+int shadertoy_findEffectByName(struct shadertoyEffectList * list,const char * name)
+{
+  if ( (list==0) || (name==0) ) { return -1; }
+  unsigned int i=0;
+  for (i=0; i<list->count; i++)
+   {
+     if (strcmp(list->entry[i].name,name)==0) { return (int) i; }
+   }
+  return -1;
+}
+
+void shadertoy_printEffectNames(struct shadertoyEffectList * list)
+{
+  if (list==0) { return; }
+  unsigned int i=0;
+  for (i=0; i<list->count; i++) { fprintf(stderr," %s",list->entry[i].name); }
+}
+
+void shadertoy_unloadEffectList(struct shadertoyEffectList * list)
+{
+  if (list==0) { return; }
+  unsigned int i=0;
+  for (i=0; i<list->count; i++)
+   {
+     shadertoy_unload(list->entry[i].fx);
+     list->entry[i].fx=0;
+   }
+  list->count=0;
+}
+
+
+void shadertoy_draw(struct shadertoyEffect * fx,struct shadertoyInputs * inputs)
+{
+  if ( (fx==0) || (inputs==0) || (!shadertoyAvailiable) ) { return; }
 
   /* The rest of the application lives in the fixed function pipeline and expects to
      find its state where it left it , so everything touched here is put back below */
@@ -223,43 +397,52 @@ void shadertoy_draw(struct shadertoyEffect * fx,
   GLboolean blendingWasOn = glIsEnabled(GL_BLEND);
   GLboolean depthTestWasOn = glIsEnabled(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
-  glDisable(GL_BLEND);
   glDisable(GL_DEPTH_TEST);
+  if (inputs->useAlpha)
+       { glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); } else
+       { glDisable(GL_BLEND); }
 
   glUseProgram(fx->program);
 
+  float width=inputs->width , height=inputs->height;
+
   if (fx->locResolution>=0) { glUniform3f(fx->locResolution,width,height,1.0f); }
-  if (fx->locTime>=0)       { glUniform1f(fx->locTime,time); }
-  if (fx->locTimeDelta>=0)  { glUniform1f(fx->locTimeDelta,timeDelta); }
-  if (fx->locFrame>=0)      { glUniform1i(fx->locFrame,frameNumber); }
-  if (fx->locProgress>=0)   { glUniform1f(fx->locProgress,progress); }
+  if (fx->locTime>=0)       { glUniform1f(fx->locTime,inputs->time); }
+  if (fx->locTimeDelta>=0)  { glUniform1f(fx->locTimeDelta,inputs->timeDelta); }
+  if (fx->locFrame>=0)      { glUniform1i(fx->locFrame,inputs->frameNumber); }
+  if (fx->locProgress>=0)   { glUniform1f(fx->locProgress,inputs->progress); }
   //ShaderToy mouse coordinates have y going up
-  if (fx->locMouse>=0)      { glUniform4f(fx->locMouse,mouseX,height-mouseY,mouseX,height-mouseY); }
+  if (fx->locMouse>=0)      { glUniform4f(fx->locMouse,inputs->mouseX,height-inputs->mouseY,inputs->mouseX,height-inputs->mouseY); }
   if (fx->locDate>=0)
   {
     float date[4];
     getShaderToyDate(date);
     glUniform4f(fx->locDate,date[0],date[1],date[2],date[3]);
   }
-  if (fx->locChannelResolution>=0)
-  {
-    float channelResolution[12];
-    unsigned int i=0;
-    for (i=0; i<4; i++)
-     { channelResolution[i*3+0]=width; channelResolution[i*3+1]=height; channelResolution[i*3+2]=1.0; }
-    glUniform3fv(fx->locChannelResolution,4,channelResolution);
-  }
+  /* An unbound channel keeps a resolution of ( 0,0,0 ) , which is how a shader tells
+     that there is no picture there. Channels 2 and 3 are never bound by this
+     application and are simply left at whatever the shader initialized them to. */
+  unsigned int channelIndex=0;
+  for (channelIndex=0; channelIndex<2; channelIndex++)
+   {
+     if (fx->locChannelResolution[channelIndex]<0) { continue; }
+     if (inputs->channel[channelIndex]==0)
+          { glUniform3f(fx->locChannelResolution[channelIndex],0.0,0.0,0.0); } else
+          { glUniform3f(fx->locChannelResolution[channelIndex],
+                        inputs->channelWidth[channelIndex],
+                        inputs->channelHeight[channelIndex],1.0); }
+   }
 
-  if (chan0Tex)
+  if (inputs->channel[0])
   {
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D,chan0Tex);
+    glBindTexture(GL_TEXTURE_2D,inputs->channel[0]);
     if (fx->locChannel0>=0) { glUniform1i(fx->locChannel0,0); }
   }
-  if (chan1Tex)
+  if (inputs->channel[1])
   {
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D,chan1Tex);
+    glBindTexture(GL_TEXTURE_2D,inputs->channel[1]);
     if (fx->locChannel1>=0) { glUniform1i(fx->locChannel1,1); }
   }
 
@@ -269,7 +452,7 @@ void shadertoy_draw(struct shadertoyEffect * fx,
 
   /* Leaving texture unit 1 selected would send every following fixed function
      glBindTexture to the wrong unit and the whole slideshow would go untextured */
-  if (chan1Tex) { glBindTexture(GL_TEXTURE_2D,0); }
+  if (inputs->channel[1]) { glBindTexture(GL_TEXTURE_2D,0); }
   glActiveTexture(GL_TEXTURE0);
   glUseProgram(0);
 
