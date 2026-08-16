@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* GLEW has to come before any other GL header , it refuses to load after gl.h */
+#include <GL/glew.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -34,6 +37,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "tools/sound.h"
 #include "tools/wxwidgets_stuff.h"
 #include "tools/joystick.h"
+#include "tools/vsync.h"
 #include "tools/environment.h"
 #include "scene_objects.h"
 #include "version.h"
@@ -41,6 +45,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "tools/webinterface.h"
 #include "layouts/layout_handler.h"
 #include "visuals/hud.h"
+#include "visuals/shadertoy.h"
+#include "visuals/dynamic_background.h"
 
 #include <unistd.h>
 
@@ -142,6 +148,10 @@ void timerCB(int millisec)
 
 int framerate_limiter()
 {
+ /* When the swap itself blocks until the vertical blank there is nothing left to
+    limit , sleeping here would only steal time from the next frame.. */
+ if (verticalSyncEnabled) { return 0; }
+
  if ( frame.fps <= 50 ) { return 0; } else
  if ( frame.fps <= 100 ) {  usleep (500); return 0; } else
  if ( frame.fps <= 200 ) {  usleep (1000); return 0; } else
@@ -168,12 +178,19 @@ int framerate_limiter()
 
 static void ResizeCallback(int width, int height)
 {
+    if (height<1) { height=1; } /* a zero height window would divide by zero below */
     const float ar = (float) width / (float) height;
+
+    /* The background quad has to be sized from the frustum to cover the window at any
+       aspect ratio , so remember what we handed to glFrustum.
+       frame.windowWidth / windowHeight are deliberately NOT touched here , they hold
+       the windowed size that ToggleFullscreen restores when it leaves fullscreen. */
+    frame.aspectRatio = ar;
 
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();           /*NEAR*/
-    glFrustum(-ar, ar, -1.0, 1.0, 0.3, 800.0);
+    glFrustum(-ar*FRUSTUM_HALF_HEIGHT, ar*FRUSTUM_HALF_HEIGHT, -FRUSTUM_HALF_HEIGHT, FRUSTUM_HALF_HEIGHT, FRUSTUM_NEAR_PLANE, FRUSTUM_FAR_PLANE);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity() ;
@@ -233,7 +250,14 @@ static void DisplayCallback(void)
 
 
     /* OPEN GL DRAWING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-   // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // <- This causes screen tearing..! | GL_DEPTH_BUFFER_BIT
+   /* This used to be commented out because it "caused tearing" , but tearing is caused
+      by swapping during scanout and is handled by EnableVerticalSync() now. Without a
+      clear , every back buffer still holds the frame from two frames ago , which shows
+      up as garbage anywhere the drawing does not reach ( the window edges , and the
+      whole background when CameraSeesOnlyOnePicture() skips it ).
+      Only the color buffer , the depth test is deliberately off in this application
+      and the scene is ordered by hand.. */
+   glClear(GL_COLOR_BUFFER_BIT);
 	  glPushMatrix();
        //glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -247,7 +271,6 @@ static void DisplayCallback(void)
 
              Render_3DObjects();
 
-             DrawEffects();
 
           glTranslatef(frame.vx,frame.vy,frame.vz);
        glPopMatrix();
@@ -275,7 +298,10 @@ static void DisplayCallback(void)
           DisplayHUD(0);
         }
    /* -  -  -  -  -  -  -  */
-   glFinish(); // Thats all the drawing
+   /* No glFinish() here on purpose : it blocks the CPU until the GPU has drained the
+      whole queue and glutSwapBuffers() then blocks again , which stops any of the next
+      frame's work from overlapping this frame's rasterization. The swap already
+      flushes , so the driver can pipeline the two. */
    glutSwapBuffers();
 
    /*STATE MANAGMENT ----------------------------------------------------*/
@@ -514,7 +540,19 @@ int main(int argc, char *argv[])
     /* GLUT Initialization >>>>>>>>>>>>>>>>>> */
     glutInit(&argc, argv);
     //Initializing Display Mode should be right after glutInit to ensure the window will get created using the correct flags..! ( double buffering etc )
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |  GLUT_ALPHA | GLUT_DEPTH ); // depth buffer and multisampling disabled for older systems..!  |GLUT_MULTISAMPLE | GLUT_DEPTH
+    /* Pictures get drawn rotated ( expo layout , exif rotation , the roll of each
+       picture ) so their edges are exactly what multisampling is for. It is asked for
+       first and we fall back to the plain visual when the driver cannot provide it ,
+       which keeps the promise made to older systems.. */
+    unsigned int displayModeFlags = GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH;
+    frame.multisampling_enabled=0;
+    if (frame.try_for_best_render_quality)
+     {
+       glutInitDisplayMode(displayModeFlags | GLUT_MULTISAMPLE);
+       if (glutGet(GLUT_DISPLAY_MODE_POSSIBLE)) { frame.multisampling_enabled=1; } else
+                                                { fprintf(stderr,"No multisampled visual availiable , continuing without it\n"); }
+     }
+    if (!frame.multisampling_enabled) { glutInitDisplayMode(displayModeFlags); }
 
     glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE ,GLUT_ACTION_CONTINUE_EXECUTION);
 
@@ -535,6 +573,21 @@ int main(int argc, char *argv[])
      frame.windowX=0; frame.windowY=0;
      frame.windowWidth=width_x; frame.windowHeight=width_y;
      originalWindow = glutCreateWindow(title);
+
+    /* GLEW needs a live context , so this has to happen after glutCreateWindow.
+       Everything past OpenGL 1.1 ( glGenerateMipmap , the shader pipeline ) goes
+       through it. glewExperimental keeps it happy on core-ish profiles.. */
+    glewExperimental = GL_TRUE;
+    GLenum glew_status = glewInit();
+    if ( glew_status != GLEW_OK )
+     {
+       fprintf(stderr,"Could not initialize GLEW : %s\n",(const char *) glewGetErrorString(glew_status));
+       fprintf(stderr,"Carrying on with plain OpenGL 1.1 , mipmaps and shaders will be unavailiable\n");
+     }
+    glGetError(); /* glewInit leaves a stale GL_INVALID_ENUM behind on some drivers */
+
+    /* Now that there is a drawable , ask for a swap interval instead of tearing */
+    EnableVerticalSync();
 
    if (frame.fullscreen)
    {
@@ -567,6 +620,13 @@ int main(int argc, char *argv[])
      glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
      glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
      glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+     if (frame.multisampling_enabled)
+      {
+        glEnable(GL_MULTISAMPLE);
+        GLint samples=0;
+        glGetIntegerv(GL_SAMPLES,&samples);
+        fprintf(stderr,"Multisampling enabled , %u samples per pixel\n",(unsigned int) samples);
+      }
     } else
     {
      glShadeModel(GL_FLAT);
@@ -597,6 +657,17 @@ int main(int argc, char *argv[])
    //Now that we have an OpenGL context we can query the maximum texture dimension..
    QueryAndSaveGPUAndSystemCapabilities();
 
+   /* Shaders need the context and GLEW , both of which exist by now. If either the
+      driver or the shaders/ directory is missing this quietly comes back with zero
+      backgrounds and the static app_clipart quad keeps being used. */
+   if ( shadertoy_init() )
+    {
+      if ( InitDynamicBackgrounds() )
+       {
+         if (frame.dynamic_background[0]!=0) { SelectDynamicBackgroundByName(frame.dynamic_background); }
+       }
+    }
+
 
     /* Initialize WxWidgets */
     WxWidgetsContext wxlibstuff;
@@ -605,7 +676,6 @@ int main(int argc, char *argv[])
 
 
     LoadStockTexturesAndSounds();
-    InitEffects();
 
     if (!LoadPicturesOfDirectory((char*)frame.album_directory,frame.sort_type,frame.sort_ascending,frame.sort_randomization,frame.recursive))
       {
@@ -650,6 +720,7 @@ int main(int argc, char *argv[])
 
     EnableScreenSaver();
     StopJoystickControl();
+    CloseDynamicBackgrounds();
     UnLoadStockTexturesAndSounds();
     DestroySlideshowPictureStructure();
     wxlibstuff.OnClose();

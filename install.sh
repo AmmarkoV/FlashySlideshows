@@ -80,14 +80,23 @@ else
   echo "Creating Sounds Directory" 
   sudo mkdir /usr/share/flashyslideshows/sounds
 fi
+
+
+if [ -d "/usr/share/flashyslideshows/shaders" ]; then
+  echo "FlashySlideshows Shaders directory detected , patching it up :)" 
+else
+  echo "Creating Shaders Directory" 
+  sudo mkdir /usr/share/flashyslideshows/shaders
+fi
  
   sudo cp app_clipart/* /usr/share/flashyslideshows/app_clipart
   sudo cp sounds/* /usr/share/flashyslideshows/sounds
+  sudo cp shaders/* /usr/share/flashyslideshows/shaders
   sudo cp app_clipart/flashyicon.png /usr/share/icons/flashyicon.png
   sudo cp FlashySlideshows.desktop /usr/share/applications/FlashySlideshows.desktop
   
   sudo chmod 744 /usr/share/flashyslideshows/app_clipart/*  
-  sudo chmod 744 /usr/share/flashyslideshows/app_clipart/*  
+  sudo chmod 744 /usr/share/flashyslideshows/shaders/*  
   
   TIME_STAMP=`date`
   

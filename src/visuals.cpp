@@ -33,9 +33,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "layouts/layout_handler.h"
 
-#include "visuals/effects.h"
 #include "visuals/hud.h"
 #include "visuals/background.h"
+#include "visuals/dynamic_background.h"
 #include "visuals/picture_renderer.h"
 
 #ifdef __APPLE__
@@ -51,13 +51,6 @@ void glColorRGB(unsigned char R,unsigned char G,unsigned char B)
   glColor3f((float) R/255,(float) G/255,(float) B/255);
 }
 
-
-int DrawEffects()
-{
-  //DrawObject(25,0,0,(float) times_drawn_background/100,9,9,1,0);
-  //DrawObject(25,14,0,(float) -times_drawn_background/100,9,9,2,0);
-  return 1;
-}
 
 int NewLabel(float x,float y,char * text)
 {
@@ -93,6 +86,10 @@ void MainDisplayFunction()
    {
      minpicture=frame.active_image_place;
      maxpicture=frame.active_image_place+1;
+     /* One picture does not necessarily cover the whole window , and letting an
+        animated background blink out of existence every time the camera closes in
+        on a photo looks like a bug , so it keeps being drawn */
+     if (DynamicBackgroundIsActive()) { DrawLayoutBackground(); }
    } else
    {
        DrawLayoutBackground();

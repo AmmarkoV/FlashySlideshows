@@ -38,7 +38,10 @@ INSTALL(PROGRAMS "src/flashyslideshows" DESTINATION "/usr/bin" )
 INSTALL(PROGRAMS "src/FlashySlideShowStarter/flashyslideshowsgui" DESTINATION "/usr/bin" ) 
 
 INSTALL(DIRECTORY "app_clipart" DESTINATION "/usr/share/flashyslideshows/" DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )   
-INSTALL(DIRECTORY "sounds" DESTINATION "/usr/share/flashyslideshows/"  DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE ) 
+INSTALL(DIRECTORY "sounds" DESTINATION "/usr/share/flashyslideshows/"  DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
+# The animated backgrounds are plain text ShaderToy fragment shaders compiled at
+# runtime , so they have to be installed next to the clipart , see visuals/dynamic_background.cpp
+INSTALL(DIRECTORY "shaders" DESTINATION "/usr/share/flashyslideshows/"  DIRECTORY_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
  
 
 INSTALL(FILES "app_clipart/flashyicon.png" DESTINATION "/usr/share/icons/" ) 

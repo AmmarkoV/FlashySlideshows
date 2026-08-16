@@ -31,6 +31,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "tools/environment.h"
 
 #include "layouts/layout_handler.h"
+#include "visuals/dynamic_background.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -307,7 +308,17 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
                   NewLabel(frame.desired_x,frame.desired_y,(char *) label);
                   break; //PAGE DOWN
 
-        case 'b':  break;
+        /* Was an empty placeholder for a "hover mode" that never got written , it now
+           walks through shaders/background_*.frag and back to the static background */
+        case 'b': if (GetNumberOfDynamicBackgrounds()>0)
+                   {
+                     CycleDynamicBackground();
+                     if (DynamicBackgroundIsActive())
+                          { sprintf(label," Background : %s",GetActiveDynamicBackgroundName()); } else
+                          { sprintf(label," Background : picture"); }
+                     NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                   }
+                  break;
 
        default : nokey=1;
             break;

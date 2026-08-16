@@ -2,7 +2,11 @@ project( flashyslideshows )
 cmake_minimum_required( VERSION 2.8.7 ) 
 # Extend cmake's module path
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/modules ${CMAKE_MODULE_PATH})
- 
+
+# GLEW gives us the entry points past OpenGL 1.1 ( glGenerateMipmap , the shader
+# pipeline used by visuals/shadertoy.c , etc ) without dlsym-ing them by hand
+FIND_PACKAGE(GLEW REQUIRED)
+
    IF( ENABLE_JPG )
  MESSAGE("JPGs will be included in this codec build")
  set(JPG_Libs jpeg ) 
@@ -49,8 +53,10 @@ add_executable(flashyslideshows
                #Visuals 
                visuals/background.cpp
                visuals/background.h
-               visuals/effects.cpp
-               visuals/effects.h
+               visuals/dynamic_background.cpp
+               visuals/dynamic_background.h
+               visuals/shadertoy.cpp
+               visuals/shadertoy.h
                visuals/hud.cpp
                visuals/hud.h
                visuals/picture_renderer.cpp
@@ -75,6 +81,8 @@ add_executable(flashyslideshows
                tools/scriptIntegration.h 
                tools/sound.cpp 
                tools/sound.h 
+               tools/vsync.cpp
+               tools/vsync.h
                tools/webinterface.cpp
                tools/webinterface.h 
                tools/wxwidgets_stuff.cpp 
@@ -106,7 +114,7 @@ add_executable(flashyslideshows
  FIND_PACKAGE(wxWidgets)
  IF(wxWidgets_FOUND)
    INCLUDE("${wxWidgets_USE_FILE}") 
-   target_link_libraries(flashyslideshows pthread glut GL GLU Xxf86vm openal alut rt Codecs ${PNG_Libs} ${JPG_Libs} ${WEB_LIBS} ${wxWidgets_LIBRARIES} )
+   target_link_libraries(flashyslideshows pthread glut GL GLU ${GLEW_LIBRARIES} Xxf86vm openal alut rt Codecs ${PNG_Libs} ${JPG_Libs} ${WEB_LIBS} ${wxWidgets_LIBRARIES} )
    # and for each of your dependant executable/library targets: 
  ELSE(wxWidgets_FOUND)
    # For convenience. When we cannot continue, inform the user

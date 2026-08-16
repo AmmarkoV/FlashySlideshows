@@ -74,12 +74,16 @@ inline int DisplayFrame(struct Picture * pic,unsigned int place,float *x,float *
 
    if (SIMPLE_FAST_FRAME) { glDisable ( GL_TEXTURE_2D ); } else //No textures , transparencies , etc , just a white QUAD :P less is more .. :P
                           { glBindTexture(GL_TEXTURE_2D, picture_frame->gpu.gl_rgb_texture ); }
+   /* This quad used to be wound clockwise which made it a back face , and since
+      DisplayPicture enables GL_CULL_FACE ( and main.cpp culls GL_BACK ) the frame
+      was thrown away before rasterization and never appeared on screen.
+      It now follows the same winding/texture coordinates as the picture quad below. */
    glBegin(GL_QUADS);
     glNormal3d(0, 0, 1);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(*x+*size_x+frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(1.0f, 0.0f); glVertex3f(*x-*size_x-frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Left Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(*x-*size_x-frame_size,*y+*size_y+frame_size,*z-0.05);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(*x+*size_x+frame_size,*y-*size_y-frame_size,*z-0.05);	// Bottom Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(*x+*size_x+frame_size,*y+*size_y+frame_size,*z-0.05);	// Top Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(*x-*size_x-frame_size,*y+*size_y+frame_size,*z-0.05);
    glEnd();
 
   if (SIMPLE_FAST_FRAME)  { glEnable ( GL_TEXTURE_2D ); }
@@ -128,18 +132,12 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
  glEnable ( GL_TEXTURE_2D );
  glBindTexture(GL_TEXTURE_2D, pic->gpu.gl_rgb_texture );
 
-
-
-   if (frame.try_for_best_render_quality)
-    {
-      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // good quality when image bigger than texture
-      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // good quality when image smaller than
-    } else
-    {
-      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST); // cheap scaling when image bigger than texture
-      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); // cheap scaling when image smaller than
-    }
-
+   /* The magnification/minification filters used to be set here , on every frame ,
+      for every picture. Besides being a needless state change it also overwrote the
+      GL_LINEAR_MIPMAP_LINEAR that make_texture() had asked for , so the mipmaps were
+      generated , paid for in GPU memory , and then never sampled.
+      Filtering is a property of the texture object and is now decided once , at
+      upload time , in hypervisor/load_textures.cpp */
 
    glBegin(GL_QUADS);
     glNormal3f( 0.0f, 0.0f,1.0f);                              // back face points into the screen on z.
@@ -158,8 +156,7 @@ int DisplayPicture(struct Picture * pic,unsigned int place,float x,float y,float
          CyanMagentaYellowModifyPicture(17,20,59,pic,place,&tx,&ty,&tz,&size_x,&size_y,&heading,&pitch,&roll);
     }*/
 
-  glTranslated(-x,-y,-z);
-
+  /* No need to undo the glTranslated , glPopMatrix throws the whole matrix away */
   glPopMatrix();
   return 1;
 }

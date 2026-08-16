@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* GLEW has to come before any other GL header , it refuses to load after gl.h */
+#include <GL/glew.h>
+
 #include "load_textures.h"
 #include "load_images.h"
 #include "../tools/environment.h"
@@ -105,7 +108,10 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
 	                          return 0; }
 
+    /* A mipmapped texture also carries its pyramid , which is another ~1/3 of the
+       base level and used to be missing from the budget completely.. */
     unsigned long this_texture = picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
+    if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation == 1 ) ) { this_texture += this_texture/3; }
     if ( !GPU_Memory_can_accomodate(this_texture) ) {
                                                       fprintf(stderr,"Abort making texture , GPU cant accomodate it ( %u KB ) \n",(unsigned int) this_texture/1024);
                                                       SignalGPUFull=1;
@@ -126,7 +132,6 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
      if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Binding new Texture \n");
      glBindTexture(GL_TEXTURE_2D,new_tex_id);
      if ( complain_about_errors() ) { return 0; }
-     glFlush();
 
     picturedata->gpu.gl_rgb_texture=new_tex_id;
 
@@ -147,45 +152,59 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
       }
 */
   unsigned int error_num=0;
+  unsigned int use_mipmaps = ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation == 1 ) );
 
-  if ( ( enable_mipmaping == 1 ) || ( frame.force_mipmap_generation ==1 ) )
+  /* If GLEW could not give us glGenerateMipmap we must not ask for a mipmapped
+     minification filter either , a texture with no pyramid behind it is
+     incomplete and the driver draws it black.. */
+  if ( (use_mipmaps) && (glGenerateMipmap==0) )
    {
-      // LOADING TEXTURE --WITH-- MIPMAPING
-      glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);                      // GL_RGB
-      glTexImage2D(GL_TEXTURE_2D, 0, depth_flag, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
-      error_num=glGetError();
-      if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u ( initial %ux%u )\n",picturedata->width,picturedata->height,depth_flag,picturedata->initial_width,picturedata->initial_height); return 0; }
-   } else
+     fprintf(stderr,"No glGenerateMipmap on this driver , falling back to a single texture level\n");
+     use_mipmaps=0;
+   }
+
+  /* Filtering belongs to the texture object and is decided once , here.
+     It used to be re-set by the drawing code on every single frame which silently
+     overwrote GL_LINEAR_MIPMAP_LINEAR with GL_LINEAR , so the mipmaps below were
+     built , kept in GPU memory , and then never sampled.. */
+  GLint magnification_filter = (frame.try_for_best_render_quality) ? GL_LINEAR : GL_NEAREST;
+  GLint minification_filter  = magnification_filter;
+  if (use_mipmaps)
    {
-      /* LOADING TEXTURE --WITHOUT-- MIPMAPING - IT IS LOADED RAW*/
-      glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);                       //GL_RGB
-      glTexImage2D(GL_TEXTURE_2D, 0, depth_flag, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE,(const GLvoid *) rgba_data);
-      error_num=glGetError();
-      if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u ( initial %ux%u )\n",picturedata->width,picturedata->height,depth_flag,picturedata->initial_width,picturedata->initial_height); return 0; }
+     minification_filter = (frame.try_for_best_render_quality) ? GL_LINEAR_MIPMAP_LINEAR : GL_NEAREST_MIPMAP_NEAREST;
+   }
+
+  glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+  /* Photographs are not tiling patterns , with GL_REPEAT the filter blends the
+     right edge of the picture into its left edge ( and top into bottom ) */
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magnification_filter);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minification_filter);
+  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+  /* Pictures are drawn rotated ( expo layout , exif rotation ) so anisotropy is
+     worth the memory it does not cost , when the driver offers it */
+  if (frame.gpu.maximum_anisotropy > 1.0)
+   {
+     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, frame.gpu.maximum_anisotropy);
+   }
+
+  /* An explicitly sized internal format , so the driver stops having to guess */
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, picturedata->width , picturedata->height, 0, depth_flag, GL_UNSIGNED_BYTE, (const GLvoid *) rgba_data);
+  error_num=glGetError();
+  if  ( error_num!=0 ) { printoutOGLErr(error_num); fprintf(stderr,"Creating texture %ux%u:%u ( initial %ux%u )\n",picturedata->width,picturedata->height,depth_flag,picturedata->initial_width,picturedata->initial_height); return 0; }
+
+  if (use_mipmaps)
+   {
+     /* GL_GENERATE_MIPMAP was deprecated in GL 3.0 and dropped from core ,
+        some drivers just ignore it. This is the supported way to ask.. */
+     glGenerateMipmap(GL_TEXTURE_2D);
+     if (PrintDevMsg()) fprintf(stderr,"Using mipmaps there is a lot more memory consumption , needs work..\n");
    }
 
 /* RGBA Software conversion for debugging :p HAS A PREVIOUS PART
    if ( (rgba_data != 0)&&(depth_flag=GL_RGBA) )  { free(rgba_data); }
 */
-
-
-   if (enable_mipmaping)
-    {
-     if (PrintDevMsg()) fprintf(stderr,"Using mipmaps there is a lot more memory consumption , needs work..\n");
-    }
-
-
-
 
 
     /* PICTURE IS LOADED IN GPU SO WE CAN UNLOAD IT FROM MAIN RAM MEMORY */
@@ -208,8 +227,6 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
     if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Texture of size ( %u %u ) id is %u\n", picturedata->width , picturedata->height,picturedata->gpu.gl_rgb_texture);
 
-    glFlush();
-
          SoundLibrary_PlaySound(LOADED_PICTURE);
     return 1;
 }
@@ -230,7 +247,12 @@ unsigned int clear_texture(struct Picture * picturedata)
 
            picturedata->gpu.gl_rgb_texture=loading->gpu.gl_rgb_texture;
 
-           frame.gpu.usedRAM-= picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;
+           /* Give back exactly what make_texture charged for , recomputing it from the
+              dimensions here meant the two sides drifted apart as soon as mipmaps were on */
+           if ( frame.gpu.usedRAM > picturedata->gpu.texture_data_size )
+                { frame.gpu.usedRAM-= picturedata->gpu.texture_data_size; } else
+                { frame.gpu.usedRAM=0; }
+           picturedata->gpu.texture_data_size=0;
        } else
        {
            fprintf(stderr,"clear_texture called for already clear texture ");
@@ -245,9 +267,6 @@ unsigned int clear_texture(struct Picture * picturedata)
            fprintf(stderr,"Todo NEED SIZE FOR THUMBNAIL :P\n");
            //frame.gpu.usedRAM-=picturedata->width*picturedata->height*4 ;
        }*/
-     glFlush();
-
-
 
     picturedata->gpu.marked_for_texture_removal=0;
     picturedata->gpu.texture_loaded=0;

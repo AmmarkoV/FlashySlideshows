@@ -44,6 +44,14 @@ int parseArguments(int argc, char *argv[])
                        fprintf(stderr,"Always redraw enabled %u - %s\n",i,argv[i]);
                        frame.alwaysRedraw=1;
                    } else
+             if (strcmp(argv[i],"-background")==0)
+                   { //Animated shader background , see visuals/dynamic_background.h
+                      if (i+1<argc)
+                      {
+                       snprintf(frame.dynamic_background,64,"%s",argv[i+1]);
+                       fprintf(stderr,"%u Dynamic background %s = %s\n",i,argv[i],frame.dynamic_background);
+                      }
+                   } else
              if (strcmp(argv[i],"-r")==0)
                    { //Recursive Directory command
                        fprintf(stderr,"Recursive Directory Enabled %u - %s\n",i,argv[i]);

@@ -31,7 +31,7 @@ You can use the [./get-dependencies.sh](https://github.com/AmmarkoV/FlashySlides
 Overall :
 
 ```
-sudo apt-get install cmake git g++ gcc wx-common libwxgtk3.0-dev libalut0 libalut-dev freeglut3 freeglut3-dev libxxf86vm-dev libjpeg-dev  libpng-dev imagemagick wget sed libnotify-bin
+sudo apt-get install cmake git g++ gcc wx-common libwxgtk3.0-dev libalut0 libalut-dev freeglut3 freeglut3-dev libxxf86vm-dev libjpeg-dev  libpng-dev libglew-dev imagemagick wget sed libnotify-bin
 ```
 
 should give you everything you need to build this application using the CMake build system.
@@ -73,6 +73,31 @@ if you want to uninstall the app , run
 your password is required..  
 
   
+
+## Animated backgrounds
+------------------------------------------------------------------ 
+
+Instead of the static `app_clipart/backgroundN.jpg` picture , the slideshow can draw its
+background with a fragment shader. Press **B** to cycle through the ones that were found
+at startup and back to the picture background , or pick one from the start with :
+
+```
+flashyslideshows -background aurora path/to/album
+```
+
+The ones that ship with the project are `aurora` , `bokeh` , `gradient` and `plasma`.
+
+Every `shaders/background_*.frag` in the [shaders](https://github.com/AmmarkoV/FlashySlideshows/tree/master/shaders)
+directory becomes a selectable background , so adding one is a matter of dropping a file
+there , no recompiling involved. The files are
+[ShaderToy](https://www.shadertoy.com) compatible : they contain a
+`mainImage(out vec4 fragColor,in vec2 fragCoord)` and can use `iResolution` , `iTime` ,
+`iMouse` , `iDate` and `iChannel0..3` , so most single pass shaders from shadertoy.com
+can be pasted in as they are.
+
+This needs a driver with GLSL 1.30 support. If there is none , or if the shaders
+directory is missing , the application says so and keeps using the picture background.
+
 
 ## TODO LIST
 ------------------------------------------------------------------ 

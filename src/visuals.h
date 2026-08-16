@@ -4,14 +4,12 @@
 void DisplayHUD(unsigned int view_instructions);
 void MainDisplayFunction();
 void DrawBackground();
-int DrawEffects();
 
 void DrawDecal(float x,float y,float z,float  rotation,float width,float height,unsigned int decal_type,char * text);
 
 //unsigned int MinPictureThatIsVisible();
 //unsigned int MaxPictureThatIsVisible();
 
-void InitEffects();
 
 int NewLabel(float x,float y,char * text);
 

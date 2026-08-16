@@ -4,6 +4,11 @@
 #include <unistd.h>
 
 long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct timeval *start_time );
+
+/* Was already defined in environment.cpp , it just never had a declaration to go with
+   it , and visuals/dynamic_background.cpp needs it to find the shaders directory */
+int FileExists(const char *fname);
+
 int LoadStockTexturesAndSounds();
 int UnLoadStockTexturesAndSounds();
 

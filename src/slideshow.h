@@ -27,6 +27,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define FRAME_DOWN_LEFT 3
 #define FRAME_DOWN_RIGHT 4
 
+/* The projection ResizeCallback installs is glFrustum(-ar,ar,-1,1,0.3,800).
+   Anything that has to work out how large a quad must be to cover the whole
+   viewport at a given depth ( visuals/background.cpp ) needs these numbers , so
+   they live here instead of being spelled out twice and drifting apart. */
+#define FRUSTUM_NEAR_PLANE  0.3
+#define FRUSTUM_HALF_HEIGHT 1.0
+#define FRUSTUM_FAR_PLANE   800.0
+
 #include "hypervisor/load_images.h"
 
  struct Color
@@ -47,6 +55,7 @@ struct GPU_Data
   unsigned long usedRAM;
   unsigned long maximum_frame_total_size;
   unsigned int  maximum_frame_dimension_size;
+  float         maximum_anisotropy; /* 0/1 = not supported , queried at startup */
 
 
   unsigned int  contiguous_block_of_textures_loaded;
@@ -131,6 +140,9 @@ struct SlideShowData
 
   unsigned int plain_background_no_image;
   unsigned int background_number;
+  /* Name of a shaders/background_<name>.frag to start with , empty = the static
+     picture background , see visuals/dynamic_background.h */
+  char dynamic_background[64];
   unsigned int enable_sound_effects;
 
   unsigned int show_information;
@@ -153,6 +165,7 @@ struct SlideShowData
   unsigned int disable_hud;  // 0, 1
 
   unsigned int quality_setting; //Smaller is better
+  unsigned int multisampling_enabled;       // <-- set at startup , the driver has the last word
   unsigned int try_for_best_render_quality; // <-- 0/1
   unsigned int lighting_enabled; // <-- 0/1
   unsigned int fullscreen;
@@ -160,6 +173,7 @@ struct SlideShowData
   unsigned int windowY;
   unsigned int windowWidth;
   unsigned int windowHeight;
+  float aspectRatio; /* width/height of the viewport , kept up to date by ResizeCallback */
 
   unsigned int allow_operation_move;
   unsigned int allow_operation_copy;

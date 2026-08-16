@@ -20,8 +20,26 @@
 
 
 
+/* The HUD is laid out in these units and then stretched over whatever the window
+   really is , so the bars keep their proportions on any resolution.
+   The text however is rasterized by glutBitmapString at a fixed pixel size , so the
+   font would drift away from its background on a big screen. hudScale is how many
+   HUD units one screen pixel is worth , and the text sizes are multiplied by it. */
+#define HUD_WIDTH  1024.0
+#define HUD_HEIGHT 768.0
+
+float hudScaleX=1.0 , hudScaleY=1.0;
+
 void setOrthographicProjection()
 {
+	int windowWidth  = glutGet(GLUT_WINDOW_WIDTH);
+	int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	if (windowWidth<1)  { windowWidth=(int)HUD_WIDTH;   }
+	if (windowHeight<1) { windowHeight=(int)HUD_HEIGHT; }
+
+	hudScaleX = (float) HUD_WIDTH  / (float) windowWidth;
+	hudScaleY = (float) HUD_HEIGHT / (float) windowHeight;
+
 	// switch to projection mode
 	glMatrixMode(GL_PROJECTION);
 	// save previous matrix which contains the
@@ -30,7 +48,7 @@ void setOrthographicProjection()
 	// reset matrix
 	glLoadIdentity();
 	// set a 2D orthographic projection
-	gluOrtho2D(0, 1024, 0, 768);
+	gluOrtho2D(0, HUD_WIDTH, 0, HUD_HEIGHT);
 	// invert the y axis, down is positive
 	//glScalef(1, -1, 1);
 	// mover the origin from the bottom left corner
@@ -38,9 +56,16 @@ void setOrthographicProjection()
 	glTranslatef(0,0, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
+	glLoadIdentity();
 
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
+}
+
+/* Height in HUD units of a line of text that is drawn at pixelHeight screen pixels */
+float hudTextHeight(float pixelHeight)
+{
+  return pixelHeight * hudScaleY;
 }
 
 
@@ -61,19 +86,20 @@ void resetPerspectiveProjection()
 void ShowClock()
 {
    setOrthographicProjection();
+     float barHeight = hudTextHeight(34);
      glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE);
        glBegin(GL_QUADS);
         glColor4f(0.8,0.8,0.8,0.8);
 
-        glVertex2f(300,50);	// Bottom Left Of The Texture and Quad
-        glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
-        glVertex2f(1024,0);	// Top Right Of The Texture and Quad
+        glVertex2f(300,barHeight);	// Bottom Left Of The Texture and Quad
+        glVertex2f(HUD_WIDTH,barHeight);	// Bottom Right Of The Texture and Quad
+        glVertex2f(HUD_WIDTH,0);	// Top Right Of The Texture and Quad
         glVertex2f(300,0);
        glEnd();
      glDisable(GL_BLEND);
      glColor3f(0.8,0.0,0.0);
-     glRasterPos2f(335,15);
+     glRasterPos2f(335,hudTextHeight(9));
 
      char time_string[512]={0};
 
@@ -127,20 +153,25 @@ void DisplayHUD(unsigned int view_instructions)
 
  setOrthographicProjection();
 
+ /* Bars are sized from the text they have to hold , so they keep hugging it when the
+    window is bigger than the 1024x768 this HUD was originally written for.. */
+ float barHeight  = hudTextHeight(34);
+ float lineHeight = hudTextHeight(30);
+
  glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
    glBegin(GL_QUADS);
     glColor4f(0.8,0.8,0.8,0.8);
 
-    glVertex2f(0,50);	// Bottom Left Of The Texture and Quad
-    glVertex2f(1024,50);	// Bottom Right Of The Texture and Quad
-    glVertex2f(1024,0);	// Top Right Of The Texture and Quad
+    glVertex2f(0,barHeight);	// Bottom Left Of The Texture and Quad
+    glVertex2f(HUD_WIDTH,barHeight);	// Bottom Right Of The Texture and Quad
+    glVertex2f(HUD_WIDTH,0);	// Top Right Of The Texture and Quad
     glVertex2f(0,0);
 
-    glVertex2f(0,768);	// Bottom Left Of The Texture and Quad
-    glVertex2f(1024,768);	// Bottom Right Of The Texture and Quad
-    glVertex2f(1024,718);	// Top Right Of The Texture and Quad
-    glVertex2f(0,718);
+    glVertex2f(0,HUD_HEIGHT);	// Bottom Left Of The Texture and Quad
+    glVertex2f(HUD_WIDTH,HUD_HEIGHT);	// Bottom Right Of The Texture and Quad
+    glVertex2f(HUD_WIDTH,HUD_HEIGHT-barHeight);	// Top Right Of The Texture and Quad
+    glVertex2f(0,HUD_HEIGHT-barHeight);
 
     if (view_instructions==1)
     {
@@ -157,13 +188,19 @@ void DisplayHUD(unsigned int view_instructions)
 
     if (view_instructions==1)
     {
+      float line=600;
       glColor3f(0.0,0.0,0.0);
-      glRasterPos2f(120,600); glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "Instructions");
-      glRasterPos2f(120,500); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Arrow keys , move from picture to picture  - W = Up , S = Down , A = Left , D = Right camera");
-      glRasterPos2f(120,450); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "M = Cycle transition modes , N = Cycle layouts , B = change hover mode  ");
-      glRasterPos2f(120,400); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "F = Zoom out , R = Zoom in  ,Q = Rotate Counter Clockwise , E = Rotate Clockwise");
-      glRasterPos2f(120,350); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Enter/Space = Toggle Automatic Slideshow , J = Toggle Fullscreen ");
-      glRasterPos2f(120,300); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Escape = Quit ");
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*) "Instructions");
+      line-=lineHeight*2;
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Arrow keys , move from picture to picture  - W = Up , S = Down , A = Left , D = Right camera");
+      line-=lineHeight;
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "M = Cycle transition modes , N = Cycle layouts , B = Cycle animated backgrounds  ");
+      line-=lineHeight;
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "F = Zoom out , R = Zoom in  ,Q = Rotate Counter Clockwise , E = Rotate Clockwise");
+      line-=lineHeight;
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Enter/Space = Toggle Automatic Slideshow , J = Toggle Fullscreen ");
+      line-=lineHeight;
+      glRasterPos2f(120,line); glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) "Escape = Quit ");
     }
 
 
@@ -175,7 +212,7 @@ void DisplayHUD(unsigned int view_instructions)
       unsigned int total_memory=(unsigned int) (frame.system.usedRAM/ (1024*1024));
       sprintf(fps_string,"Rendering Speed : %u fps - %u Pic loads - %u Pos Calcs - GPU %u/%u MB - RAM %u/%u MB",frame.fps,frame.total_images_loaded,frame.total_position_calculations,total_memory_used_by_gpu,max_memory_used_by_gpu,total_memory,max_memory);
       glColor3f(1.0,0.0,0.0);
-      glRasterPos2f(0,10);
+      glRasterPos2f(0,hudTextHeight(9));
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
       glColor3f(0.0,0.0,0.0);
@@ -191,7 +228,7 @@ void DisplayHUD(unsigned int view_instructions)
                           GetItemDate(frame.active_image_place,0),GetItemDate(frame.active_image_place,1),GetItemDate(frame.active_image_place,2),
                           GetItemDate(frame.active_image_place,3),GetItemDate(frame.active_image_place,4),GetItemDate(frame.active_image_place,5)
               );
-      glRasterPos2f(00,740);
+      glRasterPos2f(0,HUD_HEIGHT-hudTextHeight(25));
       glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char*)fps_string);
 
  glColor4f(1.0,1.0,1.0,1.0);

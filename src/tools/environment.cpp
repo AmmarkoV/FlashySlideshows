@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* GLEW has to come before any other GL header , it refuses to load after gl.h */
+#include <GL/glew.h>
+
 #include "environment.h"
 #include "../filesystem/directory_listing.h"
 #include "../hypervisor/load_images.h"
@@ -28,6 +31,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+
+#include <GL/glext.h>
 
 int PrintOpenGLDebugMsg()
 {
@@ -330,6 +335,22 @@ int QueryAndSaveGPUAndSystemCapabilities()
    fprintf(stderr,"Maximum Texture Dimension Size is %u\n",(unsigned int) texSize);
    frame.gpu.maximum_frame_dimension_size=(unsigned int) texSize;
    fprintf(stderr,"Texture Sizes set to quality %u = %ux%u\n",frame.quality_setting,GetWidthQuality(frame.quality_setting),GetHeightQuality(frame.quality_setting));
+
+   /* Anisotropic filtering , pictures get drawn at an angle so it is worth asking for.
+      It is an extension , if it is not there we just stay on plain trilinear.. */
+   frame.gpu.maximum_anisotropy=0.0;
+   const char * extensions = (const char *) glGetString(GL_EXTENSIONS);
+   if ( (extensions!=0) && (strstr(extensions,"GL_EXT_texture_filter_anisotropic")!=0) )
+    {
+      GLfloat anisotropy=0.0;
+      glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT,&anisotropy);
+      if (anisotropy>16.0) { anisotropy=16.0; } /* 16x is already past the point of seeing it */
+      frame.gpu.maximum_anisotropy=(float) anisotropy;
+      fprintf(stderr,"Anisotropic filtering availiable , using %0.1fx\n",frame.gpu.maximum_anisotropy);
+    } else
+    {
+      fprintf(stderr,"No anisotropic filtering on this driver\n");
+    }
 
 
 
