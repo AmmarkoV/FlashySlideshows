@@ -176,6 +176,17 @@ struct SlideShowData
   unsigned int windowY;
   unsigned int windowWidth;
   unsigned int windowHeight;
+  /* windowWidth/windowHeight above hold the *windowed* size that ToggleFullscreen
+     restores , which is not the size we are currently drawing into once we go
+     fullscreen. These two are the real drawable size and are refreshed by
+     ResizeCallback on every reshape.
+     They exist because glutGet(GLUT_WINDOW_WIDTH) is not a free lookup : freeglut
+     answers it by asking the X server , so every call is a blocking round trip. The
+     HUD , the dynamic background and the shader transitions all wanted the viewport
+     size on every single frame , which added up to a handful of round trips per frame
+     for a number that only ever changes when the window is resized. */
+  unsigned int viewportWidth;
+  unsigned int viewportHeight;
   float aspectRatio; /* width/height of the viewport , kept up to date by ResizeCallback */
 
   unsigned int allow_operation_move;

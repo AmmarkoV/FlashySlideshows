@@ -32,8 +32,12 @@ float hudScaleX=1.0 , hudScaleY=1.0;
 
 void setOrthographicProjection()
 {
-	int windowWidth  = glutGet(GLUT_WINDOW_WIDTH);
-	int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	/* This used to be two glutGet(GLUT_WINDOW_*) calls , which freeglut answers by
+	   asking the X server. The HUD is drawn on every frame , so that was two blocking
+	   round trips per frame to learn a number that only changes on a reshape.
+	   ResizeCallback keeps frame.viewportWidth/Height current for us instead. */
+	int windowWidth  = (int) frame.viewportWidth;
+	int windowHeight = (int) frame.viewportHeight;
 	if (windowWidth<1)  { windowWidth=(int)HUD_WIDTH;   }
 	if (windowHeight<1) { windowHeight=(int)HUD_HEIGHT; }
 

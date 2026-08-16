@@ -188,6 +188,13 @@ static void ResizeCallback(int width, int height)
        the windowed size that ToggleFullscreen restores when it leaves fullscreen. */
     frame.aspectRatio = ar;
 
+    /* The one place that actually knows how big the drawable is. Everything that used
+       to ask glutGet(GLUT_WINDOW_WIDTH/HEIGHT) once per frame ( the HUD , the dynamic
+       background , the shader transitions ) reads these instead , which takes the X
+       server round trip that freeglut does for that query out of the frame loop. */
+    frame.viewportWidth  = (unsigned int) width;
+    frame.viewportHeight = (unsigned int) height;
+
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();           /*NEAR*/
@@ -577,6 +584,10 @@ int main(int argc, char *argv[])
 
      frame.windowX=0; frame.windowY=0;
      frame.windowWidth=width_x; frame.windowHeight=width_y;
+     /* GLUT calls ResizeCallback before the first display , so these get overwritten
+        with the truth almost immediately , but a sane value here means nothing has to
+        cope with a zero sized viewport if anything asks earlier than that */
+     frame.viewportWidth=width_x; frame.viewportHeight=width_y;
      originalWindow = glutCreateWindow(title);
 
     /* GLEW needs a live context , so this has to happen after glutCreateWindow.

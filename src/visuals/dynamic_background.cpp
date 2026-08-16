@@ -132,8 +132,11 @@ int DrawDynamicBackground()
   struct shadertoyEffect * fx = backgrounds.entry[selectedBackground-1].fx;
   if (fx==0) { return 0; }
 
-  float width  = (float) glutGet(GLUT_WINDOW_WIDTH);
-  float height = (float) glutGet(GLUT_WINDOW_HEIGHT);
+  /* An animated background redraws continuously , so asking glutGet for the window
+     size here meant an X server round trip on every frame. ResizeCallback keeps
+     frame.viewportWidth/Height up to date , which is the same number for free. */
+  float width  = (float) frame.viewportWidth;
+  float height = (float) frame.viewportHeight;
   if ( (width<1) || (height<1) ) { return 0; }
 
   struct shadertoyInputs inputs;

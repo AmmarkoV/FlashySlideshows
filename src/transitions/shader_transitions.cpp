@@ -131,8 +131,11 @@ int DrawShaderTransition()
   struct shadertoyEffect * fx = transitions.entry[selectedTransition].fx;
   if (fx==0) { transitionPlaying=0; return 0; }
 
-  float width  = (float) glutGet(GLUT_WINDOW_WIDTH);
-  float height = (float) glutGet(GLUT_WINDOW_HEIGHT);
+  /* Transition mode 3 draws this pass on every frame , not only while an effect is
+     playing , so the two glutGet calls that used to be here were an X server round
+     trip per frame. ResizeCallback maintains frame.viewportWidth/Height instead. */
+  float width  = (float) frame.viewportWidth;
+  float height = (float) frame.viewportHeight;
   if ( (width<1) || (height<1) ) { return 0; }
 
   float progress = 1.0;
