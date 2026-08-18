@@ -164,7 +164,10 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 
      if (PrintOpenGLDebugMsg()) fprintf(stderr,"OpenGL Binding new Texture \n");
      glBindTexture(GL_TEXTURE_2D,new_tex_id);
-     if ( complain_about_errors() ) { return 0; }
+     /* Bailing out here used to walk away from a texture name that was already generated ,
+        leaving it allocated on the card with nothing pointing at it and nothing in the
+        budget accounting for it */
+     if ( complain_about_errors() ) { glDeleteTextures(1,&new_tex_id); return 0; }
 
     picturedata->gpu.gl_rgb_texture=new_tex_id;
 

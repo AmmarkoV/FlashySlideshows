@@ -178,7 +178,11 @@ int MasterMemoryStrategist()
      {
 
      }
-    --album_traveler;
+    /* ++ and not -- : this walks the visible band , decrementing sent it backwards out
+       of the band and marked the pictures below it for loading , which is the very set
+       the first loop above marks for removal. The function is still switched off by the
+       return at the top of it , this is only so that enabling it does not thrash. */
+    ++album_traveler;
   }
 
 
@@ -207,30 +211,75 @@ int RAM_System_Memory_can_accomodate(unsigned int newfile)
 
    if (frame.system.maxRAM <= frame.system.usedRAM + newfile)
     {
-       fprintf(stderr,"System memory bounds reached ( while on range %u - %u [ over %u , last %u ] ) \n",MinPictureThatIsVisible(),MaxPictureThatIsVisible(),frame.active_image_place,frame.last_image_place);
-       UnLoadPicturesIfNeeded(0,1); // Clear system RAM , because it has obviously run out :P !
+       /* This used to make room itself , which meant a question asked once per picture
+          per pass turned into a full album unload scan once per picture per pass , with
+          a line of output for each. Making room is the caller's business now , see
+          MakeRoomInSystemMemory below. */
        return 0;
     }
  return 1;
 }
 
 
+/* The band used to be walked from its first index to its last , so on a fast scroll the
+   picture the camera actually sits over was decoded somewhere in the middle of the walk ,
+   after everything above it. This fills order[] with the same band walked outwards from
+   the active picture instead ( active , active+1 , active-1 , active+2 ... ) which is the
+   order the comment at the top of this file asks for , and returns how many places it
+   wrote. */
+#define MAXIMUM_BAND_WALK 1024
+
+static unsigned int BandWalkOrder(unsigned int * order,unsigned int maximum_entries,unsigned int minimum,unsigned int maximum,unsigned int centre)
+{
+  unsigned int total=0;
+  if (maximum<minimum) { return 0; }
+  if (centre<minimum)  { centre=minimum; }
+  if (centre>maximum)  { centre=maximum; }
+
+  unsigned int reach_up   = maximum-centre;
+  unsigned int reach_down = centre-minimum;
+  unsigned int span = (reach_up>reach_down) ? reach_up : reach_down;
+
+  unsigned int offset=0;
+  for (offset=0; (offset<=span)&&(total<maximum_entries); offset++)
+   {
+     if (centre+offset<=maximum)                                  { order[total]=centre+offset; ++total; }
+     if ((offset>0)&&(centre>=minimum+offset)&&(total<maximum_entries)) { order[total]=centre-offset; ++total; }
+   }
+  return total;
+}
+
+
+/* Asked for once when a pass finds itself short , instead of by every single picture */
+static int MakeRoomInSystemMemory(unsigned int newfile)
+{
+  if ( RAM_System_Memory_can_accomodate(newfile) ) { return 1; }
+
+  fprintf(stderr,"System memory bounds reached ( while on range %u - %u [ over %u , last %u ] ) \n",
+          MinPictureThatIsVisible(),MaxPictureThatIsVisible(),frame.active_image_place,frame.last_image_place);
+  UnLoadPicturesIfNeeded(0,1); /* Clear system RAM , because it has obviously run out :P ! */
+
+  return RAM_System_Memory_can_accomodate(newfile);
+}
+
+
 int CreatePicturesIfNeeded()
 {
-  unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
-  unsigned int album_traveler=MinPictureThatIsVisible();
   unsigned int created_pictures_this_loop=0;
-
+  unsigned int order[MAXIMUM_BAND_WALK];
+  unsigned int walk=0;
+  unsigned int total_to_walk=BandWalkOrder(order,MAXIMUM_BAND_WALK,MinPictureThatIsVisible(),MaxPictureThatIsVisible(),frame.active_image_place);
 
   char pictures_filename_shared_stack_mem_hyper[1024]={0};
-  while (album_traveler<=MAX_album_traveler)
+  for (walk=0; walk<total_to_walk; walk++)
    {
+     unsigned int album_traveler=order[walk];
      /*In case the other thread has moved focus , adapt on the fly --*/
-       if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
-       if (album_traveler>MaxPictureThatIsVisible()) { return created_pictures_this_loop; }
+       if (album_traveler<MinPictureThatIsVisible()) { continue; }
+       if (album_traveler>MaxPictureThatIsVisible()) { continue; }
      /*-----------------------------------------------------------*/
                                                         //lastTexture
-    if (!RAM_System_Memory_can_accomodate(frame.system.maximum_frame_total_size) )  { /*No point trying to load if it doesnt't fit*/ } else
+    if (!MakeRoomInSystemMemory(frame.system.maximum_frame_total_size) )  { /*No point trying to load if it doesnt't fit*/ } else
      {
       if (PictureCreationPending(album[album_traveler])) // We need to create a picture structure , so lets do it!
       { if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
@@ -249,7 +298,6 @@ int CreatePicturesIfNeeded()
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
        }
      }
-    ++album_traveler;
    }
 
   return created_pictures_this_loop;
@@ -264,20 +312,21 @@ int DestroyPicturesIfNeeded()
 
 int LoadPicturesIfNeeded()
 {
-  unsigned int MAX_album_traveler=MaxPictureThatIsVisible();
-  unsigned int album_traveler=MinPictureThatIsVisible();
   unsigned int loaded_pictures_this_loop=0;
-
+  unsigned int order[MAXIMUM_BAND_WALK];
+  unsigned int walk=0;
+  unsigned int total_to_walk=BandWalkOrder(order,MAXIMUM_BAND_WALK,MinPictureThatIsVisible(),MaxPictureThatIsVisible(),frame.active_image_place);
 
   char pictures_filename_shared_stack_mem_hyper[1024]={0};
-  while (album_traveler<=MAX_album_traveler)
+  for (walk=0; walk<total_to_walk; walk++)
    {
+     unsigned int album_traveler=order[walk];
      /*In case the other thread has moved focus , adapt on the fly --*/
-       if (album_traveler<MinPictureThatIsVisible()) { album_traveler=MinPictureThatIsVisible(); }
-       if (album_traveler>MaxPictureThatIsVisible()) { return loaded_pictures_this_loop; }
+       if (album_traveler<MinPictureThatIsVisible()) { continue; }
+       if (album_traveler>MaxPictureThatIsVisible()) { continue; }
      /*-----------------------------------------------------------*/
 
-    if (RAM_System_Memory_can_accomodate(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
+    if (MakeRoomInSystemMemory(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
     { if ( PictureLoadingPending(album[album_traveler]) )
       {
           // THIS SHOULD LOAD THE PICTURE
@@ -290,7 +339,6 @@ int LoadPicturesIfNeeded()
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
       }
     }
-    ++album_traveler;
    }
 
   return loaded_pictures_this_loop;

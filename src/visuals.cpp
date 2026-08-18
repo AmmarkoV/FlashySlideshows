@@ -258,10 +258,11 @@ void MainDisplayFunction()
                              );
            }
 
-  /* TEMPORARY DIAGNOSTIC , remove once the disappearing pictures are understood.
-     Only speaks up on the frames where the album ends up with nothing on screen , and
-     then walks the band a second time saying what each picture measured. */
-  if (pictures_drawn==0)
+  /* Only under --debug , and only on the frames where the album ends up with nothing on
+     screen : says where the band was , where the camera was , and what every picture in
+     the band measured against its bounds. This is what caught the placeholder positions
+     that used to march the band away from the camera. */
+  if ( (pictures_drawn==0) && (PrintDevMsg()) )
    {
      fprintf(stderr,"NOTHING DRAWN : band %u-%u of %u , active %u ( last %u ) , camera %0.2f,%0.2f,%0.2f , angles %0.2f,%0.2f,%0.2f , ar %0.2f , rejected %u\n",
              minpicture,maxpicture,frame.total_images,frame.active_image_place,frame.last_image_place,

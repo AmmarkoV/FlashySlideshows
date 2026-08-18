@@ -182,7 +182,10 @@ int PictureFailed(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) return 1;
   if ( picturedata == loading ) return 0;
-  return picturedata->system.marked_for_rgbdata_loading;
+  /* This used to return marked_for_rgbdata_loading , which is what PictureLoadingPending
+     answers , so a picture that failed to decode was indistinguishable from one still on
+     its way in. failed_to_load is the flag LoadPicture actually sets when it gives up. */
+  return picturedata->failed_to_load;
 }
 
 int PrintPictureData(struct Picture * picturedata)
