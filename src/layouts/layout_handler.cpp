@@ -1,6 +1,7 @@
 #include "layout_handler.h"
 #include "expo_layout.h"
 #include "../slideshow.h"
+#include "../hypervisor/load_images.h"
 #include "../visuals/background.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,6 +28,30 @@ void GetLayoutCoordinatesForXY(unsigned int X,unsigned int Y,float *x,float *y,f
   *y= *y-12;
 
   *z=-5;
+}
+
+
+int GetPictureGeometry(unsigned int place,float *x,float *y,float *z,float *sizeX,float *sizeY)
+{
+  struct Picture * pic=0;
+  if ( (album!=0) && (place<frame.total_images) ) { pic=album[place]; }
+
+  /* Anything not loaded yet shares one of the loading / loading_texture / failed
+     placeholder structures , and that structure's position member holds wherever it was
+     last drawn rather than where this slot belongs. Asking it gives the answer for some
+     other picture entirely , so only a picture that is really its own answers for itself
+     and everything else is told where the layout is going to put it. */
+  if ( (pic!=0) && (pic->position.ok!=0) && (pic!=loading) && (pic!=loading_texture) && (pic!=failed) )
+   {
+     *x=pic->position.x;      *y=pic->position.y;      *z=pic->position.z;
+     *sizeX=pic->position.size_x; *sizeY=pic->position.size_y;
+     return 1;
+   }
+
+  GetLayoutCoordinatesForXY(PictureIDtoX(place),PictureIDtoY(place),x,y,z);
+  /* The biggest a picture is ever sized to , see FixOpenGLPictureSize */
+  *sizeX=6.0; *sizeY=4.5;
+  return 0;
 }
 
 

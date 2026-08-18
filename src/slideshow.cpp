@@ -316,13 +316,18 @@ unsigned int MinPictureThatIsVisible()
   unsigned int cur_place=frame.active_image_place;
   unsigned int pictures_before_current_to_go_to  = frame.images_per_line * LINES_AWAY_DRAWN;
 
+  /* The camera moved forward since the last calculation , so the band keeps reaching
+     back to where it came from and nothing pops out of existence behind us. Both places
+     are unsigned , the difference is only taken in the direction that is positive */
   if ( (cur_place > frame.last_image_place)&&(cur_place-frame.last_image_place<=pictures_before_current_to_go_to) ) { cur_place = frame.last_image_place; }
 
 
   if ( cur_place  <= pictures_before_current_to_go_to ) {} else
                                                         {
                                                                   min_picture=cur_place-pictures_before_current_to_go_to;
-                                                                  if ( min_picture-1 >= 0 ) { min_picture-=1; }
+                                                                  /* min_picture-1>=0 is always true on an unsigned , the one extra
+                                                                     picture is only there to take when there is one to take */
+                                                                  if ( min_picture > 0 ) { min_picture-=1; }
                                                         }
   //fprintf(stderr," %u MinPictureThatIsVisible == \n",min_picture);
   return min_picture;
@@ -336,13 +341,21 @@ int PictureOutOfBounds(unsigned int pic_place)
 
 unsigned int MaxPictureThatIsVisible()
 {
+  /* Every caller uses the answer as an inclusive last index , so an empty album has no
+     last picture to point at and total_images-1 would wrap all the way round */
+  if ( frame.total_images==0 ) { return 0; }
   if ( frame.total_images<10 ) { return frame.total_images-1;  }
-  if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images; } /* OVERRIDE UNTIL EVERYTHING IS READY */
+  if ( DISPLAY_ALL_PICTURES == 1 ) { return frame.total_images-1; } /* OVERRIDE UNTIL EVERYTHING IS READY */
 
   unsigned int cur_place=frame.active_image_place;
   unsigned int pictures_after_current_to_go_to=frame.images_per_line * LINES_AWAY_DRAWN;
 
-  if ( ( cur_place < frame.last_image_place )&&(cur_place-frame.last_image_place<=pictures_after_current_to_go_to) ) { cur_place = frame.last_image_place; }
+  /* The mirror of the test in MinPictureThatIsVisible , the camera moved backwards so
+     the band stays stretched up to where it came from. This used to subtract the larger
+     place from the smaller one : on unsigned that wraps to a huge number , the <= was
+     never true and the band never got stretched , which is what made whole rows of
+     pictures stop being drawn while scrolling back up. */
+  if ( ( cur_place < frame.last_image_place )&&(frame.last_image_place-cur_place<=pictures_after_current_to_go_to) ) { cur_place = frame.last_image_place; }
 
   unsigned int max_picture=cur_place + (frame.images_per_line-1) + pictures_after_current_to_go_to;
 

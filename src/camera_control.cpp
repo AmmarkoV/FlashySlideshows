@@ -59,6 +59,7 @@ int ChangeActiveImageMem(unsigned int place)
       frame.active_image_x=PictureIDtoX(place);
       frame.active_image_y=PictureIDtoY(place);
       frame.active_image_place=place;
+      if (PrintDevMsg()) fprintf(stderr,"ACTIVE %u -> %u ( camera %0.2f,%0.2f,%0.2f )\n",frame.last_image_place,place,frame.vx,frame.vy,frame.vz);
      }
 
     frame.time_ms_before_last_slide_change=frame.tick_count;
@@ -115,24 +116,35 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 
 
 
+   /* The clamp this used to do produced album[frame.total_images] , one past the last
+      picture , and the guard below tested a different expression than the one that got
+      dereferenced. Both are the same index now. */
    album_traveler=total_y * frame.images_per_line;
-   if (album_traveler > frame.total_images) { album_traveler=frame.total_images; }
 
    float inf_left[3]={0.0,0.0,-5} , inf_right[3]={0.0,0.0,-5};
-   if ( !PictureOutOfBounds (total_y*frame.images_per_line) )
+   if ( !PictureOutOfBounds (album_traveler) )
      {
-       bot_left[0]=album[album_traveler]->position.x - 1000;
-       bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
+       /* Through GetPictureGeometry and not album[..]->position directly : a picture the
+          loader has not caught up with yet is the shared placeholder , whose position is
+          wherever it was last drawn. Reading that put this rectangle right on top of the
+          camera and had the test below decide the camera had left the album , which
+          marched the active picture to the end of it a bandful at a time. */
+       float rowX,rowY,rowZ,rowSizeX,rowSizeY;
+       GetPictureGeometry(album_traveler,&rowX,&rowY,&rowZ,&rowSizeX,&rowSizeY);
 
-       bot_right[0]=album[album_traveler]->position.x + 1000;
-       bot_right[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
+       bot_left[0]=rowX - 1000;
+       bot_left[1]=rowY + rowSizeY;
+
+       bot_right[0]=rowX + 1000;
+       bot_right[1]=rowY + rowSizeY;
 
        inf_left[0]=bot_left[0]-1000;  inf_right[0]=bot_right[0]+1000;
        inf_left[1]=bot_left[1]+1000;  inf_right[1]=bot_right[1]+1000;
        if ( rayIntersectsRectangle(camera_point,camera_direction,bot_left,bot_right,inf_left,inf_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! DOWN
-                //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! DOWN  was %u/%u ",frame.active_image_x,frame.active_image_y);
+                if (PrintDevMsg()) fprintf(stderr,"BRANCH out of images DOWN : camera %0.2f,%0.2f,%0.2f vs rect y %0.2f..%0.2f x %0.2f..%0.2f ( row picture %u ) -> active %u\n",
+                                           frame.vx,frame.vy,frame.vz,bot_left[1],inf_left[1],inf_left[0],inf_right[0],album_traveler,MaxPictureThatIsVisible());
                 ChangeActiveImageMem(MaxPictureThatIsVisible());
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
@@ -143,18 +155,24 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
        start_y=MinPictureThatIsVisible()  / frame.images_per_line; // REDUCE COMPLEXITY 0  / frame.images_per_line
        total_y=MaxPictureThatIsVisible()  / frame.images_per_line; // REDUCE COMPLEXITY frame.total_images / frame.images_per_line
        album_traveler = start_y*frame.images_per_line;
-       top_left[0]=album[album_traveler]->position.x - album[album_traveler]->position.size_x;
-       top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+       /* Nothing to be over if the band starts past the end of the album */
+       if ( PictureOutOfBounds(album_traveler) ) { return; }
+       float firstX,firstY,firstZ,firstSizeX,firstSizeY;
+       GetPictureGeometry(album_traveler,&firstX,&firstY,&firstZ,&firstSizeX,&firstSizeY);
 
-       top_right[0]=album[album_traveler]->position.x + album[album_traveler]->position.size_x;
-       top_right[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
+       top_left[0]=firstX - firstSizeX;
+       top_left[1]=firstY - firstSizeY;
+
+       top_right[0]=firstX + firstSizeX;
+       top_right[1]=firstY - firstSizeY;
 
        inf_left[0]=bot_left[0]-1000;  inf_right[0]=bot_right[0]+1000;
        inf_left[1]=bot_left[1]-1000;  inf_right[1]=bot_right[1]-1000;
        if ( rayIntersectsRectangle(camera_point,camera_direction,inf_left,inf_right,top_left,top_right) )
             {
                 // CAMERA OUT OF LOADED IMAGES! UP
-                //fprintf(stderr," CAMERA OUT OF LOADED IMAGES! UP  was %u/%u ",frame.active_image_x,frame.active_image_y);
+                if (PrintDevMsg()) fprintf(stderr,"BRANCH out of images UP : camera %0.2f,%0.2f,%0.2f vs rect y %0.2f..%0.2f x %0.2f..%0.2f ( row picture %u ) -> active %u\n",
+                                           frame.vx,frame.vy,frame.vz,inf_left[1],top_left[1],inf_left[0],inf_right[0],album_traveler,MinPictureThatIsVisible());
                   ChangeActiveImageMem(MinPictureThatIsVisible());
                 //fprintf(stderr," now %u/%u \n",frame.active_image_x,frame.active_image_y);
                 return;
@@ -162,19 +180,25 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
 
    if (PrintDevMsg()) { fprintf(stderr,"The Following code should be improved i think it is buggy :P\n"); }
    album_traveler=start_y * frame.images_per_line;
-   if (album_traveler > frame.total_images) { album_traveler=frame.total_images; }
+   if ( PictureOutOfBounds(album_traveler) ) { return; }
 
-   for (y=start_y; y<total_y; y++)
+   /* total_y is the row the last picture of the band sits on , so it is a row to look
+      at and not one to stop before. With y<total_y the bottom row of the band never got
+      tested , and a band that fits in a single row was never tested at all , which left
+      the active picture stuck on whatever it was before the camera moved. */
+   for (y=start_y; y<=total_y; y++)
     {
-     top_left[1]=album[album_traveler]->position.y - album[album_traveler]->position.size_y;
-     bot_left[1]=album[album_traveler]->position.y + album[album_traveler]->position.size_y;
-     top_right[1]=top_left[1]; bot_right[1]=bot_left[1];
-
-
      for (x=0; x<frame.images_per_line; x++)
      {
-       top_left[0]= album[album_traveler]->position.x-album[album_traveler]->position.size_x;
-       top_right[0]=album[album_traveler]->position.x+album[album_traveler]->position.size_x;
+       float picX,picY,picZ,picSizeX,picSizeY;
+       GetPictureGeometry(album_traveler,&picX,&picY,&picZ,&picSizeX,&picSizeY);
+
+       top_left[1]=picY - picSizeY;
+       bot_left[1]=picY + picSizeY;
+       top_right[1]=top_left[1]; bot_right[1]=bot_left[1];
+
+       top_left[0]= picX-picSizeX;
+       top_right[0]=picX+picSizeX;
        bot_left[0]=top_left[0]; bot_right[0]=top_right[0];
 
             if ( rayIntersectsRectangle(camera_point,camera_direction,top_left,top_right,bot_right,bot_left) )
@@ -183,6 +207,7 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
                     {
                       //fprintf(stderr,"OVER (%f,%f,%f) PIC UP TRIANGLE %u/%u -> %u ",frame.vx,frame.vy,frame.vz,x,y,album_traveler);
                       //fprintf(stderr,"y seek from %u to %u\n",start_y,total_y);
+                      if (PrintDevMsg()) fprintf(stderr,"BRANCH ray hit picture %u ( grid %u,%u ) camera %0.2f,%0.2f,%0.2f\n",album_traveler,x,y,frame.vx,frame.vy,frame.vz);
                       ChangeActiveImageMem(album_traveler); //PictureXYtoID(x,y)
                       return;
                     }
@@ -190,7 +215,7 @@ void CalculateActiveImage_AccordingToPosition(unsigned char force_check)
             }
 
        ++album_traveler;
-       if (album_traveler > frame.total_images) { album_traveler=frame.total_images; return; }
+       if ( PictureOutOfBounds(album_traveler) ) { return; }
      }
     }
    return ;

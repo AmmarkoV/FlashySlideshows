@@ -132,6 +132,15 @@ int make_texture(struct Picture * picturedata,int enable_mipmaping)
 	if ( picturedata == 0 ) { fprintf(stderr,"Error making texture from picture , accomodation structure is not allocated\n");
 	                          return 0; }
 
+    /* Making a texture for a picture that already holds one charged frame.gpu.usedRAM a
+       second time and leaked the first GL texture : texture_data_size is overwritten
+       further down , so the earlier charge could never be given back. The budget then
+       only ever grew , until GPU_Memory_can_accomodate() started refusing every texture
+       and SignalGPUFull had the hypervisor unload the ones still there , which empties
+       the screen and never recovers. Giving the old one back first keeps the two sides
+       of the accounting in step. */
+    if ( picturedata->gpu.texture_loaded ) { clear_texture(picturedata); }
+
     /* A mipmapped texture also carries its pyramid , which is another ~1/3 of the
        base level and used to be missing from the budget completely.. */
     unsigned long this_texture = picturedata->width * picturedata->height * /*RGBA ->*/ 4 /* <- RGBA*/ ;

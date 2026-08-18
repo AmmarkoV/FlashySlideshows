@@ -118,6 +118,11 @@ int parseArguments(int argc, char *argv[])
                    { //Face Detection command
                        fprintf(stderr,"%u Face Detection Enabled %s\n",i,argv[i]);
                    } else
+             if ( (strcmp(argv[i],"--debug")==0) || (strcmp(argv[i],"-debug")==0) )
+                   { //Full tracing of input events , camera moves and active picture changes
+                       fprintf(stderr,"%u Debug tracing enabled %s\n",i,argv[i]);
+                       DEBUG_TRACE=1;
+                   } else
              if (strcmp(argv[i],"-v")==0)
                    { //Visuals Enabled command
                        fprintf(stderr,"%u Visuals Enabled %s\n",i,argv[i]);

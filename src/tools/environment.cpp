@@ -44,9 +44,12 @@ int PrintPictureLoadingMsg()
   return 0;
 }
 
+/* Switched on with --debug on the command line , see tools/commandlineParser.cpp */
+int DEBUG_TRACE=0;
+
 int PrintDevMsg()
 {
-  return 0;
+  return DEBUG_TRACE;
 }
 
 long timeval_diff ( struct timeval *difference, struct timeval *end_time, struct timeval *start_time )

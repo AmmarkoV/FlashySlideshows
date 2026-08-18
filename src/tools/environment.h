@@ -14,6 +14,7 @@ int UnLoadStockTexturesAndSounds();
 
 int PrintOpenGLDebugMsg();
 int PrintPictureLoadingMsg();
+extern int DEBUG_TRACE;
 int PrintDevMsg();
 
 void DisableScreenSaver();

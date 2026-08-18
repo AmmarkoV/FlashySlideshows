@@ -29,7 +29,21 @@ else
 fi
 
 
-make
+# The compilation has no business running as root .. it did until now , and every
+# object file it left behind was owned by root , which is what makes a later plain
+# "make" in the source tree die with permission errors . So the build is handed back
+# to whoever called sudo , and root is kept for the copying that actually needs it .
+BUILD_USER="${SUDO_USER:-root}"
+
+if [ "$BUILD_USER" != "root" ]; then
+  echo "Building as $BUILD_USER , root is only used for the installation itself"
+  # Leftovers from the times this script did build as root
+  chown -R "$BUILD_USER" src/obj src/FlashySlideShowStarter/obj \
+                         src/flashyslideshows src/FlashySlideShowStarter/flashyslideshowsgui 2>/dev/null
+  sudo -u "$BUILD_USER" make
+else
+  make
+fi
 
 if [ -d "/usr/share/flashyslideshows" ]; then
   echo "FlashySlideshows Installation detected , patching it up :)" 

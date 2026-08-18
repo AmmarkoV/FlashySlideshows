@@ -32,6 +32,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "layouts/layout_handler.h"
+#include "tools/environment.h"
 
 #include "visuals/hud.h"
 #include "visuals/background.h"
@@ -93,6 +94,7 @@ struct PictureCullingContext
   unsigned int enabled;
   float aspectRatio;
   float rollCos , rollSin; /* |cos| and |sin| of the world roll around z */
+  float minBoundX , minBoundY; /* half the distance between two neighbouring pictures */
 };
 
 static void PrepareCullingContext(struct PictureCullingContext * cull)
@@ -118,13 +120,26 @@ static void PrepareCullingContext(struct PictureCullingContext * cull)
   cull->rollCos = (float) fabs(cos(rollRadians));
   cull->rollSin = (float) fabs(sin(rollRadians));
 
+  /* Whatever the arithmetic below works out , a picture whose centre is nearer than half
+     the layout spacing is never thrown away. Half the spacing is the furthest the camera
+     can ever be from the closest picture , so this is what keeps the test from emptying
+     the screen : zoomed all the way in the window on the picture plane is about 2 by 3.6
+     units while the pictures sit 14 by 12 apart , and the margin the picture's own radius
+     buys over the spacing is a few tenths of a unit for a wide window and negative for a
+     narrow one. Taken from the layout itself so the two cannot drift apart. */
+  float firstX,firstY,firstZ,nextX,nextY,nextZ;
+  GetLayoutCoordinatesForXY(0,0,&firstX,&firstY,&firstZ);
+  GetLayoutCoordinatesForXY(1,1,&nextX,&nextY,&nextZ);
+  cull->minBoundX = (float) fabs(nextX-firstX) / 2;
+  cull->minBoundY = (float) fabs(nextY-firstY) / 2;
+
   cull->enabled=1;
 }
 
-static int PictureIsOffScreen(struct PictureCullingContext * cull,struct Picture * pic,unsigned int place)
+static int PictureIsOffScreen(struct PictureCullingContext * cull,struct Picture * pic,unsigned int place,int verbose)
 {
-  if (!cull->enabled) { return 0; }
-  if (pic==0)         { return 0; }
+  if (!cull->enabled) { if (verbose) { fprintf(stderr,"  %u : culling is off\n",place); } return 0; }
+  if (pic==0)         { if (verbose) { fprintf(stderr,"  %u : null picture\n",place); } return 0; }
 
   float pictureX,pictureY,pictureZ;
   float halfSizeX,halfSizeY;
@@ -137,22 +152,17 @@ static int PictureIsOffScreen(struct PictureCullingContext * cull,struct Picture
      is taken from the layout instead , which is where DisplayPicture is going to put it
      anyway. position.ok==0 means nobody has run the layout for this picture yet , same
      story. */
-  if ( (pic->position.ok!=0) && (pic!=loading) && (pic!=loading_texture) && (pic!=failed) )
-   {
-     pictureX=pic->position.x;  pictureY=pic->position.y;  pictureZ=pic->position.z;
-     halfSizeX=pic->position.size_x; halfSizeY=pic->position.size_y;
-   } else
-   {
-     GetLayoutCoordinatesForXY(PictureIDtoX(place),PictureIDtoY(place),&pictureX,&pictureY,&pictureZ);
-     /* The biggest a picture is ever sized to , see FixOpenGLPictureSize */
-     halfSizeX=6.0; halfSizeY=4.5;
-   }
+  GetPictureGeometry(place,&pictureX,&pictureY,&pictureZ,&halfSizeX,&halfSizeY);
 
   /* How far in front of the camera the plane this picture lives on is. Anything at or
      behind the near plane is either behind us or clipped by OpenGL anyway , and the
      arithmetic below would be meaningless , so it is simply kept. */
   float distance = frame.vz - pictureZ;
-  if (distance<FRUSTUM_NEAR_PLANE) { return 0; }
+  /* <= and not < : zoomed all the way in the camera stops at GetLayoutMinimumZ() which
+     puts it exactly FRUSTUM_NEAR_PLANE in front of the picture plane , and that is the
+     one position where the window is at its narrowest and the test is least able to
+     afford being wrong */
+  if (distance<=FRUSTUM_NEAR_PLANE) { return 0; }
 
   /* The projection is glFrustum(-ar*H,ar*H,-H,H,near,far) , so at a distance d in front
      of the eye the window covers exactly 2*d*H/near vertically and ar times that
@@ -172,6 +182,17 @@ static int PictureIsOffScreen(struct PictureCullingContext * cull,struct Picture
   float boundX = halfWidth*cull->rollCos + halfHeight*cull->rollSin + pictureRadius;
   float boundY = halfWidth*cull->rollSin + halfHeight*cull->rollCos + pictureRadius;
 
+  if (boundX<cull->minBoundX) { boundX=cull->minBoundX; }
+  if (boundY<cull->minBoundY) { boundY=cull->minBoundY; }
+
+  if (verbose)
+   {
+     fprintf(stderr,"  %u : at %0.2f,%0.2f,%0.2f size %0.2f,%0.2f | dx %0.2f vs %0.2f | dy %0.2f vs %0.2f | dist %0.2f\n",
+             place,pictureX,pictureY,pictureZ,halfSizeX,halfSizeY,
+             (float) fabs(pictureX-frame.vx),boundX,
+             (float) fabs(pictureY-frame.vy),boundY,distance);
+   }
+
   if ( fabs(pictureX-frame.vx) > boundX ) { return 1; }
   if ( fabs(pictureY-frame.vy) > boundY ) { return 1; }
 
@@ -182,6 +203,7 @@ static int PictureIsOffScreen(struct PictureCullingContext * cull,struct Picture
 void MainDisplayFunction()
 {
   unsigned int album_traveler=0;
+  unsigned int pictures_drawn=0 , pictures_rejected=0;
   unsigned int minpicture=MinPictureThatIsVisible(),maxpicture=MaxPictureThatIsVisible();
 
   struct PictureCullingContext cull;
@@ -204,6 +226,8 @@ void MainDisplayFunction()
    {
      minpicture=frame.active_image_place;
      maxpicture=frame.active_image_place+1;
+     /* The loop below is inclusive , so the last picture of the album has no next one */
+     if (maxpicture>=frame.total_images) { maxpicture=frame.total_images-1; }
      /* One picture does not necessarily cover the whole window , and letting an
         animated background blink out of existence every time the camera closes in
         on a photo looks like a bug , so it keeps being drawn */
@@ -218,7 +242,8 @@ void MainDisplayFunction()
            {
                /* Everything in the band that the window does not reach is dropped here ,
                   before any of its fragments cost anything */
-               if ( PictureIsOffScreen(&cull,album[album_traveler],album_traveler) ) { continue; }
+               if ( PictureIsOffScreen(&cull,album[album_traveler],album_traveler,0) ) { ++pictures_rejected; continue; }
+               ++pictures_drawn;
 
                DisplayPicture( album[album_traveler],
                                album_traveler ,
@@ -232,6 +257,25 @@ void MainDisplayFunction()
                                album[album_traveler]->position.roll + album[album_traveler]->rotate
                              );
            }
+
+  /* TEMPORARY DIAGNOSTIC , remove once the disappearing pictures are understood.
+     Only speaks up on the frames where the album ends up with nothing on screen , and
+     then walks the band a second time saying what each picture measured. */
+  if (pictures_drawn==0)
+   {
+     fprintf(stderr,"NOTHING DRAWN : band %u-%u of %u , active %u ( last %u ) , camera %0.2f,%0.2f,%0.2f , angles %0.2f,%0.2f,%0.2f , ar %0.2f , rejected %u\n",
+             minpicture,maxpicture,frame.total_images,frame.active_image_place,frame.last_image_place,
+             frame.vx,frame.vy,frame.vz,frame.angle_x,frame.angle_y,frame.angle_z,
+             frame.aspectRatio,pictures_rejected);
+     if (PrintDevMsg())
+      {
+        for ( album_traveler=minpicture; album_traveler<=maxpicture; album_traveler++ )
+         {
+           if (PictureOutOfBounds(album_traveler)) { fprintf(stderr,"  %u : out of bounds\n",album_traveler); break; }
+           PictureIsOffScreen(&cull,album[album_traveler],album_traveler,1);
+         }
+      }
+   }
 
   if (frame.try_for_best_render_quality)
     {

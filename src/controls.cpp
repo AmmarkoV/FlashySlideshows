@@ -82,6 +82,7 @@ int Controls_Handle_MouseButtons(int button,int state, int x, int y)
      if (state == GLUT_UP )
       {
         frame.desired_z-=frame.desired_step;
+        if (PrintDevMsg()) fprintf(stderr,"EVENT wheel up at %d,%d : step %0.2f , desired z %0.2f , camera %0.2f,%0.2f,%0.2f\n",x,y,frame.desired_step,frame.desired_z,frame.vx,frame.vy,frame.vz);
       }
      is_not_mouse_wheel_event=0;
    } else
@@ -90,6 +91,7 @@ int Controls_Handle_MouseButtons(int button,int state, int x, int y)
      if (state == GLUT_UP )
       {
         frame.desired_z+=frame.desired_step;
+        if (PrintDevMsg()) fprintf(stderr,"EVENT wheel down at %d,%d : step %0.2f , desired z %0.2f , camera %0.2f,%0.2f,%0.2f\n",x,y,frame.desired_step,frame.desired_z,frame.vx,frame.vy,frame.vz);
       }
      is_not_mouse_wheel_event=0;
    }
@@ -214,6 +216,11 @@ int Controls_Handle_MouseMotion(int button,int state, int x, int y)
 
          frame.desired_x+=difference_x/20; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
          frame.desired_y-=difference_y/12; /* We want to drag the screen to the oposite direction / the number 24 is the total viewable area of the window*/
+
+         if (PrintDevMsg()) fprintf(stderr,"EVENT drag to %d,%d ( by %0.1f,%0.1f ) : desired %0.2f,%0.2f,%0.2f , camera %0.2f,%0.2f,%0.2f , active %u\n",
+                                    x,y,difference_x,difference_y,
+                                    frame.desired_x,frame.desired_y,frame.desired_z,
+                                    frame.vx,frame.vy,frame.vz,frame.active_image_place);
 
          frame.transitions.seek_move_activated=0;
          CalculateActiveImage_AccordingToPosition(1);
