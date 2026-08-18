@@ -93,8 +93,7 @@ int LoadSoundBuffers()
 	ALenum format;
 	ALsizei size;
 	ALvoid* data;
-	ALsizei freq;
-	ALboolean loop;
+	ALfloat freq; /* alutLoadMemoryFromFile reports the sampling rate as a float */
 
 	// Load wav data into buffers.
 	alGenBuffers(total_loaded_buffers, Buffers);
@@ -103,17 +102,18 @@ int LoadSoundBuffers()
 
     for (unsigned int i=0; i<total_loaded_buffers; i++)
       {
-         alutLoadWAVFile((ALbyte *)filenames[i], &format, &data, &size, &freq, &loop);
-         theerror=alGetError();
-	     if(theerror != AL_NO_ERROR) { fprintf(stderr,"Error (%u) loading Wav sound Buffer %u %s\n",theerror,i,filenames[i]);   }
+         /* alutLoadWAVFile/alutUnloadWAV are deprecated , alutLoadMemoryFromFile hands us
+            a plain malloc'ed block that we feed to OpenAL and free ourselves */
+         data = alutLoadMemoryFromFile(filenames[i], &format, &size, &freq);
+         if (data==0) { fprintf(stderr,"Error (%s) loading Wav sound Buffer %u %s\n",alutGetErrorString(alutGetError()),i,filenames[i]); }
+          else
+         {
+           alBufferData(Buffers[i], format, data, size, (ALsizei) freq);
+	       theerror=alGetError();
+	       if(theerror != AL_NO_ERROR) { fprintf(stderr,"Error (%u) loading Wav sound Buffer %u %s\n",theerror,i,filenames[i]);   }
 
-         alBufferData(Buffers[i], format, data, size, freq);
-	     theerror=alGetError();
-	     if(theerror != AL_NO_ERROR) { fprintf(stderr,"Error (%u) loading Wav sound Buffer %u %s\n",theerror,i,filenames[i]);   }
-
-         alutUnloadWAV(format, data, size, freq);
-	     theerror=alGetError();
-	     if(theerror != AL_NO_ERROR) { fprintf(stderr,"Error (%u) loading Wav sound Buffer %u %s\n",theerror,i,filenames[i]);   }
+           free(data);
+         }
 
 	     free(filenames[i]); /* Release memory for filename */
       }

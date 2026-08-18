@@ -18,8 +18,6 @@
 #include <wx/wx.h>
 #include <wx/utils.h>
 #include <wx/dir.h>
-#include "EmptyThumbnail.h"
-#include "FlashyLogo.h"
 
 //(*InternalHeaders(FlashySlideShowStarterFrame)
 #include <wx/string.h>
@@ -33,11 +31,36 @@
 unsigned int display_logo=1;
 unsigned int ONLY_DISPLAY_LOGO=1;
 wxBitmap *flashy_bmp=0,*default_bmp_thumb=0,*bmp_thumb1=0,*bmp_thumb2=0,*bmp_thumb3=0,*bmp_thumb4=0,*bmp_thumb5=0;
-wxImage   flashy_img,default_img_thumb,img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
+wxImage   img_thumb1,img_thumb2,img_thumb3,img_thumb4,img_thumb5;
 
 //helper functions
 enum wxbuildinfoformat {
     short_f, long_f };
+
+/* The logo and the empty thumbnail placeholder used to be 170KB of GIMP C dumps
+   compiled into the launcher , they are now plain .png files living next to the rest
+   of the clipart , the same candidates the main executable walks through */
+static wxBitmap * LoadClipartBitmap(const wxString & filename)
+{
+  const char * candidates[] = { "app_clipart",
+                                "../app_clipart",
+                                "../../app_clipart",
+                                "/usr/share/flashyslideshows/app_clipart",
+                                0 };
+  unsigned int i=0;
+  for (i=0; candidates[i]!=0; i++)
+   {
+     wxString path = wxString::FromAscii(candidates[i])+wxT("/")+filename;
+     if ( wxFileName::FileExists(path) )
+      {
+        wxImage image;
+        if ( image.LoadFile(path) ) { return new wxBitmap(image); }
+      }
+   }
+  fprintf(stderr,"Unable to locate clipart file %s\n",(const char*) filename.mb_str(wxConvUTF8));
+  return 0;
+}
+
 
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
@@ -156,7 +179,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     StaticBox2 = new wxStaticBox(this, ID_STATICBOX2, _("Slideshow Options"), wxPoint(448,16), wxSize(224,488), 0, _T("ID_STATICBOX2"));
     StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Folder Preview"), wxPoint(32,16), wxSize(408,360), 0, _T("ID_STATICBOX1"));
     ButtonStart = new wxButton(this, ID_BUTTON1, _("Start!"), wxPoint(448,512), wxSize(216,48), 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    wxFont ButtonStartFont(32,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
+    wxFont ButtonStartFont(32,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
     ButtonStart->SetFont(ButtonStartFont);
     ButtonQuit = new wxButton(this, ID_BUTTON2, _("Quit"), wxPoint(600,568), wxSize(61,29), 0, wxDefaultValidator, _T("ID_BUTTON2"));
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Directory :"), wxPoint(32,388), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
@@ -219,7 +242,7 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     ComboBoxResizeResolution->Append(_("30%"));
     ComboBoxResizeResolution->Append(_("50%"));
     ComboBoxResizeResolution->Disable();
-    wxFont ComboBoxResizeResolutionFont(8,wxSWISS,wxFONTSTYLE_NORMAL,wxNORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
+    wxFont ComboBoxResizeResolutionFont(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
     ComboBoxResizeResolution->SetFont(ComboBoxResizeResolutionFont);
     CheckBoxFileCopy = new wxCheckBox(this, ID_CHECKBOX8, _("File Copy"), wxPoint(456,328), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX8"));
     CheckBoxFileCopy->SetValue(false);
@@ -299,12 +322,8 @@ FlashySlideShowStarterFrame::FlashySlideShowStarterFrame(wxWindow* parent,wxWind
     Connect(idMenuAmmarkoVWebsite,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::OpenAmmarkoVSite);
     Connect(idMenuCheckNewVersion,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FlashySlideShowStarterFrame::CheckNewVersion);
 
-    default_img_thumb.SetData((unsigned char *)EmptyThumbnail.pixel_data,EmptyThumbnail.width ,EmptyThumbnail.height,true);
-    default_bmp_thumb = new wxBitmap(default_img_thumb);
-
-    flashy_img.SetData((unsigned char *)FlashyLogo.pixel_data,FlashyLogo.width ,FlashyLogo.height,true);
-    flashy_bmp = new wxBitmap(flashy_img);
-   // free(pixel);
+    default_bmp_thumb = LoadClipartBitmap(wxT("empty_thumbnail.png"));
+    flashy_bmp = LoadClipartBitmap(wxT("flashylogo.png"));
 
 
     StatusBar1->SetStatusText(wxT("Welcome to Flashy Slideshows!"));
@@ -667,11 +686,16 @@ void FlashySlideShowStarterFrame::OnPaint(wxPaintEvent& event)
       if ( flashy_bmp != 0 ) { dc.DrawBitmap(*flashy_bmp,32+0*(67+10),height,true); } else {   }
   } else
   {
-   if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),height,true); }
-   if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),height,true); }
-   if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),height,true); }
-   if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),height,true); }
-   if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),height,true); } else { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),height,true); }
+   if ( bmp_thumb1 != 0 ) { dc.DrawBitmap(*bmp_thumb1,32+0*(67+10),height,true); } else
+   if ( default_bmp_thumb != 0 ) { dc.DrawBitmap(*default_bmp_thumb,32+0*(67+10),height,true); }
+   if ( bmp_thumb2 != 0 ) { dc.DrawBitmap(*bmp_thumb2,32+1*(67+10),height,true); } else
+   if ( default_bmp_thumb != 0 ) { dc.DrawBitmap(*default_bmp_thumb,32+1*(67+10),height,true); }
+   if ( bmp_thumb3 != 0 ) { dc.DrawBitmap(*bmp_thumb3,32+2*(67+10),height,true); } else
+   if ( default_bmp_thumb != 0 ) { dc.DrawBitmap(*default_bmp_thumb,32+2*(67+10),height,true); }
+   if ( bmp_thumb4 != 0 ) { dc.DrawBitmap(*bmp_thumb4,32+3*(67+10),height,true); } else
+   if ( default_bmp_thumb != 0 ) { dc.DrawBitmap(*default_bmp_thumb,32+3*(67+10),height,true); }
+   if ( bmp_thumb5 != 0 ) { dc.DrawBitmap(*bmp_thumb5,32+4*(67+10),height,true); } else
+   if ( default_bmp_thumb != 0 ) { dc.DrawBitmap(*default_bmp_thumb,32+4*(67+10),height,true); }
   }
 
 }

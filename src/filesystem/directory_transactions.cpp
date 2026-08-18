@@ -95,11 +95,18 @@ int RescaleFileToDir(unsigned int file_id,char * dir)
     char escaped_filename[MAX_PATH];
     escape_str(raw_filename,escaped_filename);*/
 
-    sprintf(rescale_operation,"nice -n 19 convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"&",
+    int rescale_operation_length = snprintf(rescale_operation,sizeof(rescale_operation),"nice -n 19 convert \"%s\" -resize \"%s>^\" \"%s%s-resized.jpg\"&",
              raw_filename,
              frame.rescale_resolution_string,
              dir,
              list[file_id].filename);
+
+    //A truncated command line would reach system() with unbalanced quotes , so don't run it at all..
+    if ( (rescale_operation_length<0) || ((unsigned int) rescale_operation_length>=sizeof(rescale_operation)) )
+    {
+      fprintf(stderr,"Rescale command too long for %s , not executing it\n",raw_filename);
+      return 0;
+    }
 
     fprintf(stderr,"Executing %s \n",rescale_operation);
     int i=system(rescale_operation);

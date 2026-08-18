@@ -99,7 +99,7 @@ int LoadStockTexturesAndSounds()
 {
 
     char base_directory[512]={0};
-    char filename[256]={0};
+    char filename[600]={0};
 
    if ( FileExists("app_clipart/star.png") )
       {
@@ -123,47 +123,47 @@ int LoadStockTexturesAndSounds()
 
     /* Loading Stock textures >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-    sprintf(filename,"%s/star.png",base_directory);
+    snprintf(filename,sizeof(filename),"%s/star.png",base_directory);
     star=CreatePicture((char * )filename,1);
     make_texture(star,1);
 
-    sprintf(filename,"%s/heart.png",base_directory);
+    snprintf(filename,sizeof(filename),"%s/heart.png",base_directory);
     heart=CreatePicture((char * )filename,1);
     make_texture(heart,1);
 
-    sprintf(filename,"%s/play.png",base_directory);
+    snprintf(filename,sizeof(filename),"%s/play.png",base_directory);
     play_img=CreatePicture((char * )filename,1);
     make_texture(play_img,1);
 
-    sprintf(filename,"%s/pause.png",base_directory);
+    snprintf(filename,sizeof(filename),"%s/pause.png",base_directory);
     pause_img=CreatePicture((char * )filename,1);
     make_texture(pause_img,1);
 
-    sprintf(filename,"%s/loading_texture.jpg",base_directory);
+    snprintf(filename,sizeof(filename),"%s/loading_texture.jpg",base_directory);
     loading_texture=CreatePicture((char * )filename,1);
    // loading_texture->position.ok=1;
     make_texture(loading_texture,1);
 
-    sprintf(filename,"%s/loading.jpg",base_directory);
+    snprintf(filename,sizeof(filename),"%s/loading.jpg",base_directory);
     loading=CreatePicture((char * )filename,1);
    // loading->position.ok=1;
     make_texture(loading,1);
 
-    sprintf(filename,"%s/failed.jpg",base_directory);
+    snprintf(filename,sizeof(filename),"%s/failed.jpg",base_directory);
     failed=CreatePicture((char * )filename,1);
     //failed->position.ok=1;
     make_texture(failed,1);
 
 
-    sprintf(filename,"%s/background%u.jpg",base_directory,frame.background_number);
+    snprintf(filename,sizeof(filename),"%s/background%u.jpg",base_directory,frame.background_number);
     background=CreatePicture((char * )filename,1);
     make_texture(background,1); //frame.mipmaping <- no mipmapping on background ( is a performance hit :P ) but mipmaping screws the bacground details..!
 
-    sprintf(filename,"%s/frame.jpg",base_directory);
+    snprintf(filename,sizeof(filename),"%s/frame.jpg",base_directory);
     picture_frame=CreatePicture((char * )filename,1);
     make_texture(picture_frame,1);
 
-    sprintf(filename,"%s/label.jpg",base_directory);
+    snprintf(filename,sizeof(filename),"%s/label.jpg",base_directory);
     label=CreatePicture((char * )filename,1);
     make_texture(label,1);
 
@@ -189,16 +189,16 @@ int LoadStockTexturesAndSounds()
     /* OpenAL Initialization >>>>>>>>>>>>>>>>> */
     StartSoundLibrary();
 
-    sprintf(filename,"%s/pop.wav",base_directory);
+    snprintf(filename,sizeof(filename),"%s/pop.wav",base_directory);
     AddSoundBufferForLoad((char *)filename); //LOADED_PICTURE
 
-    sprintf(filename,"%s/cling.wav",base_directory);
+    snprintf(filename,sizeof(filename),"%s/cling.wav",base_directory);
     AddSoundBufferForLoad((char *)filename); //LOADED_PICTURE
 
-    sprintf(filename,"%s/slideshow_start.wav",base_directory);
+    snprintf(filename,sizeof(filename),"%s/slideshow_start.wav",base_directory);
     AddSoundBufferForLoad((char *)filename); //SLIDESHOW_START
 
-    sprintf(filename,"%s/slideshow_stop.wav",base_directory);
+    snprintf(filename,sizeof(filename),"%s/slideshow_stop.wav",base_directory);
     AddSoundBufferForLoad((char *)filename); //SLIDESHOW_STOP
 
     LoadSoundBuffers();

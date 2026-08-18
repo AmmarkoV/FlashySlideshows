@@ -1,12 +1,12 @@
-project( FlashySlideshowsProject ) 
-cmake_minimum_required( VERSION 2.8.7 )
+cmake_minimum_required( VERSION 3.10 )
+project( FlashySlideshowsProject )
 
-OPTION (ENABLE_OPTIMIZATIONS OFF)
-OPTION (ENABLE_WEB_INTERFACE OFF)
-OPTION (ENABLE_FACE_DETECTION OFF)
+OPTION (ENABLE_OPTIMIZATIONS "Build with -O3 -march=native" OFF)
+OPTION (ENABLE_WEB_INTERFACE "Build the AmmarServer web remote control" OFF)
+OPTION (ENABLE_FACE_DETECTION "Build with face detection" OFF)
 
-OPTION (ENABLE_JPG ON)
-OPTION (ENABLE_PNG ON)
+OPTION (ENABLE_JPG "Build with JPEG image support" ON)
+OPTION (ENABLE_PNG "Build with PNG image support" ON)
 
 #These are unit tests for the core library
 
