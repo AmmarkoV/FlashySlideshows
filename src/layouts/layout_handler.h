@@ -12,6 +12,7 @@ enum layout_list
 
 void GetLayoutCoordinatesForXY(unsigned int X,unsigned int Y,float *x,float *y,float *z);
 int GetPictureGeometry(unsigned int place,float *x,float *y,float *z,float *sizeX,float *sizeY);
+int ChangeImagesPerLine(int howmany);
 
 int HandleLayout();
 int HandlePictureLayout(struct Picture * pic,unsigned int place);

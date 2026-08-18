@@ -304,9 +304,55 @@ int CreatePicturesIfNeeded()
 }
 
 
+/* Picture structures were created and never given back : only their rgb data and their
+   textures were released , so a long session over a big album kept one malloc per picture
+   ever visited alive for as long as it ran. A slot far enough outside the band is handed
+   back to the shared loading placeholder here , which is exactly the state a slot that was
+   never visited is in , so CreatePicturesIfNeeded builds it again if the camera returns.
+
+   This belongs to the OpenGL thread. Not because it touches OpenGL ( it refuses to free
+   anything still holding a texture , since only that thread may call glDeleteTextures )
+   but because UnLoadPicturesIfNeeded walks these very slots from that same thread , and
+   freeing a structure it is halfway through reading would be a use after free. The loader
+   thread only ever writes slots inside the band , which this one never touches. */
+#define PICTURES_DESTROYED_PER_PASS 8
+
 int DestroyPicturesIfNeeded()
 {
-  return 0;
+  if ( frame.total_images == 0 ) { return 0; }
+  if ( album == 0 )              { return 0; }
+  if ( loading == 0 )            { return 0; } /* nothing to hand the slots back to yet */
+
+  unsigned int minimum=MinPictureThatIsVisible();
+  unsigned int maximum=MaxPictureThatIsVisible();
+  if (maximum<minimum) { return 0; }
+
+  /* A whole band of margin on either side , so a camera that turns around finds its
+     neighbours still built , and so this stays well clear of what is being drawn */
+  unsigned int margin     = (maximum-minimum)+1;
+  unsigned int keep_from  = (minimum>margin) ? minimum-margin : 0;
+  unsigned int keep_until = maximum+margin;
+
+  unsigned int destroyed=0;
+  unsigned int album_traveler=0;
+  for (album_traveler=0; album_traveler<frame.total_images; album_traveler++)
+   {
+     if ( (album_traveler>=keep_from)&&(album_traveler<=keep_until) ) { album_traveler=keep_until; continue; }
+     if ( destroyed>=PICTURES_DESTROYED_PER_PASS )                    { break; }
+
+     struct Picture * pic=album[album_traveler];
+
+     if ( !PictureIsItsOwn(pic) )              { continue; } /* already back to a placeholder */
+     if ( pic->gpu.texture_loaded )            { continue; } /* the texture has to go first */
+     if ( pic->gpu.marked_for_texture_loading ){ continue; } /* about to become one */
+
+     album[album_traveler]=loading; /* nothing points at it any more .. */
+     DestroyPicture(pic);           /* .. so the memory can go back */
+     ++destroyed;
+   }
+
+  if (destroyed>0) { fprintf(stderr,"Destroyed %u picture structures ( band %u-%u , keeping %u-%u ) \n",destroyed,minimum,maximum,keep_from,keep_until); }
+  return destroyed;
 }
 
 
@@ -506,7 +552,7 @@ int LoadTexturesIfNeeded(int count_only)
 
 int ManagePicturesCreationMemory()
 {
-   DestroyPicturesIfNeeded();
+   /* DestroyPicturesIfNeeded lives on the OpenGL thread now , see the note on it */
    return CreatePicturesIfNeeded();
 }
 

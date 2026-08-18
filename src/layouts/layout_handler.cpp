@@ -41,7 +41,7 @@ int GetPictureGeometry(unsigned int place,float *x,float *y,float *z,float *size
      last drawn rather than where this slot belongs. Asking it gives the answer for some
      other picture entirely , so only a picture that is really its own answers for itself
      and everything else is told where the layout is going to put it. */
-  if ( (pic!=0) && (pic->position.ok!=0) && (pic!=loading) && (pic!=loading_texture) && (pic!=failed) )
+  if ( PictureIsItsOwn(pic) && (pic->position.ok!=0) )
    {
      *x=pic->position.x;      *y=pic->position.y;      *z=pic->position.z;
      *sizeX=pic->position.size_x; *sizeY=pic->position.size_y;
@@ -114,6 +114,55 @@ int ChangeLayout()
 
   return 1;
 }
+
+/* Anything past this and the grid is wider than the camera can usefully travel , one is
+   the narrowest that still is a grid */
+#define MAXIMUM_IMAGES_PER_LINE 20
+
+int ChangeImagesPerLine(int howmany)
+{
+  if ( (frame.total_images==0)||(album==0) ) { return 0; }
+
+  int new_images_per_line = (int) frame.images_per_line + howmany;
+  if (new_images_per_line<1)                       { new_images_per_line=1; }
+  if (new_images_per_line>MAXIMUM_IMAGES_PER_LINE) { new_images_per_line=MAXIMUM_IMAGES_PER_LINE; }
+  if ( (unsigned int) new_images_per_line == frame.images_per_line ) { return 0; }
+
+  /* A picture keeps its place in the album , only the grid the layout hands it changes ,
+     so the picture the camera is over is remembered by place and everything is rebuilt
+     around it. Doing it the other way round ( keeping x,y ) would leave the camera over a
+     different photo every time the grid was resized. */
+  unsigned int stay_over = frame.active_image_place;
+
+  fprintf(stderr,"Images per line %u -> %d , staying over picture %u\n",frame.images_per_line,new_images_per_line,stay_over);
+  frame.images_per_line = (unsigned int) new_images_per_line;
+
+  frame.active_image_x = PictureIDtoX(stay_over);
+  frame.active_image_y = PictureIDtoY(stay_over);
+  frame.active_image_place = stay_over;
+  frame.last_image_x = frame.active_image_x;
+  frame.last_image_y = frame.active_image_y;
+  frame.last_image_place = stay_over;
+
+  /* Every picture that owns its structure is carrying coordinates the old grid gave it ,
+     the shared placeholders answer from the layout anyway ( see GetPictureGeometry ) */
+  unsigned int album_traveler=0;
+  for (album_traveler=0; album_traveler<frame.total_images; album_traveler++)
+   {
+     if ( PictureIsItsOwn(album[album_traveler]) ) { PositionPicture(album[album_traveler],album_traveler); }
+   }
+
+  /* .. and the camera follows the picture it was looking at to wherever it landed */
+  float x=0.0,y=0.0,z=0.0;
+  GetLayoutCoordinatesForXY(frame.active_image_x,frame.active_image_y,&x,&y,&z);
+  frame.vx=x;         frame.vy=y;
+  frame.desired_x=x;  frame.desired_y=y;
+  frame.transitions.seek_move_activated=0;
+  frame.forceDrawOneMoreTime=1;
+
+  return 1;
+}
+
 
 char * GetLayoutName()
 {

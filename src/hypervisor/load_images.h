@@ -101,6 +101,7 @@ extern int OpenGL_is_making_textures;
 unsigned int GetWidthQuality(unsigned int quality);
 unsigned int GetHeightQuality(unsigned int quality);
 
+int PictureIsItsOwn(struct Picture * picturedata);
 int PictureCreationPending(struct Picture * picturedata);
 int PictureLoadingPending(struct Picture * picturedata);
 int PictureFailed(struct Picture * picturedata);

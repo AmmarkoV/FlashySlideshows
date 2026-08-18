@@ -295,6 +295,20 @@ int Controls_Handle_Keyboard(unsigned char key, int x, int y)
                      { SetTransitionTime(frame.time_ms_between_two_transitions-100);  }
                   break;
         case '+': SetTransitionTime(frame.time_ms_between_two_transitions+100); break;
+        /* How many pictures the grid puts on a line. - and + are already the transition
+           timing , so the columns sit on the brackets next to them */
+        case '[': if ( ChangeImagesPerLine(-1) )
+                     {
+                       sprintf(label," %u images per line",frame.images_per_line);
+                       NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                     } else { CameraBounced(); }
+                  break;
+        case ']': if ( ChangeImagesPerLine(+1) )
+                     {
+                       sprintf(label," %u images per line",frame.images_per_line);
+                       NewLabel(frame.desired_x,frame.desired_y,(char *) label);
+                     } else { CameraBounced(); }
+                  break;
         case 'z': frame.angle_x-=0.5; break;
         case 'c': frame.angle_x+=0.5; break;
         case 't': frame.angle_y-=0.5; break;

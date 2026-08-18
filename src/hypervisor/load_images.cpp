@@ -162,6 +162,27 @@ int FixOpenGLPictureSize(struct Picture * pic)
   return 1;
 }
 
+int PictureIsItsOwn(struct Picture * picturedata)
+{
+  /* Every slot that has not been created yet points at one of the shared stock
+     structures , so the same pointer answers for a lot of different places. Anything that
+     asks a picture about itself ( where it is , how big it is , whether its memory may be
+     given back ) has to be able to tell the difference first. */
+  if ( picturedata == 0 )               { return 0; }
+  if ( picturedata == loading )         { return 0; }
+  if ( picturedata == loading_texture ) { return 0; }
+  if ( picturedata == failed )          { return 0; }
+  if ( picturedata == label )           { return 0; }
+  if ( picturedata == star )            { return 0; }
+  if ( picturedata == heart )           { return 0; }
+  if ( picturedata == play_img )        { return 0; }
+  if ( picturedata == pause_img )       { return 0; }
+  if ( picturedata == background )      { return 0; }
+  if ( picturedata == picture_frame )   { return 0; }
+  return 1;
+}
+
+
 int PictureCreationPending(struct Picture * picturedata)
 {
   if ( picturedata == 0 ) return 1;

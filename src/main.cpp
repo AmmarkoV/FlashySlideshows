@@ -132,6 +132,10 @@ int ManageCreatingTexturesMemory_OpenGLThread(int count_only)
 {
   /* THIS FUNCITON BELONGS TO THE OPENGL THREAD AND LOADS/UNLOADS IMAGES
      FROM THE GPU AS TEXTURES!!!! THEY HAVE TO BE LOADED BY ManageLoadingPicturesMemory_Thread */
+  /* Giving back the structures of pictures the camera left far behind also happens on
+     this thread , so it cannot race the unloading that runs from here , see
+     DestroyPicturesIfNeeded */
+  if (!count_only) { DestroyPicturesIfNeeded(); }
   return LoadTexturesIfNeeded(count_only);
 }
 
