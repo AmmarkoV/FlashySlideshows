@@ -30,6 +30,22 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 int SignalGPUFull=0;
 
+/* The picture structure the loader thread is decoding into right now , or 0.
+
+   LoadPicture sits inside a JPEG decode for tens of milliseconds , and while it does the
+   OpenGL thread walks the very same album handing structures back to malloc
+   ( DestroyPicturesIfNeeded ) and releasing their rgb data ( UnLoadPicturesIfNeeded ) .
+   Both were safe only for as long as the loader stays inside the visible band and those
+   two stay outside it , but the band moves : page down a few times during a decode and
+   the picture being decoded is suddenly outside the band , gets freed , and the decode
+   carries on writing into memory that already belongs to somebody else ( the crash was a
+   free() of the eight spaces the reused block happened to hold ) .
+
+   The slot is published here under album_slot_lock , so the thread doing the reclaiming
+   can see that this one structure is not its to take. */
+static pthread_mutex_t album_slot_lock = PTHREAD_MUTEX_INITIALIZER;
+static struct Picture * picture_being_loaded = 0;
+
 
 inline int PictureIsLoadedInSystem(struct Picture * pic)
 {
@@ -340,13 +356,17 @@ int DestroyPicturesIfNeeded()
      if ( (album_traveler>=keep_from)&&(album_traveler<=keep_until) ) { album_traveler=keep_until; continue; }
      if ( destroyed>=PICTURES_DESTROYED_PER_PASS )                    { break; }
 
+     pthread_mutex_lock(&album_slot_lock);
      struct Picture * pic=album[album_traveler];
 
-     if ( !PictureIsItsOwn(pic) )              { continue; } /* already back to a placeholder */
-     if ( pic->gpu.texture_loaded )            { continue; } /* the texture has to go first */
-     if ( pic->gpu.marked_for_texture_loading ){ continue; } /* about to become one */
+     if ( ( !PictureIsItsOwn(pic) )               || /* already back to a placeholder */
+          ( pic->gpu.texture_loaded )             || /* the texture has to go first */
+          ( pic->gpu.marked_for_texture_loading ) || /* about to become one */
+          ( pic == picture_being_loaded ) )          /* the loader thread is inside it */
+      { pthread_mutex_unlock(&album_slot_lock); continue; }
 
      album[album_traveler]=loading; /* nothing points at it any more .. */
+     pthread_mutex_unlock(&album_slot_lock);
      DestroyPicture(pic);           /* .. so the memory can go back */
      ++destroyed;
    }
@@ -373,16 +393,28 @@ int LoadPicturesIfNeeded()
      /*-----------------------------------------------------------*/
 
     if (MakeRoomInSystemMemory(frame.gpu.lastTexture) ) //No point trying to load if it doesnt't fit
-    { if ( PictureLoadingPending(album[album_traveler]) )
+    {
+      /* Reading the slot and claiming it are one step , otherwise the structure can be
+         handed back to malloc in between the two */
+      pthread_mutex_lock(&album_slot_lock);
+      struct Picture * pic = album[album_traveler];
+      if ( PictureLoadingPending(pic) ) { picture_being_loaded=pic; } else { pic=0; }
+      pthread_mutex_unlock(&album_slot_lock);
+
+      if ( pic != 0 )
       {
           // THIS SHOULD LOAD THE PICTURE
           if ( GetViewableFilenameforFile(album_traveler,(char *) frame.album_directory,pictures_filename_shared_stack_mem_hyper) == 1 )
             {
               // fprintf(stderr,"directory_listing query for picture %u returned string `%s`\n",album_traveler,pictures_filename_shared_stack);
-               LoadPicture(pictures_filename_shared_stack_mem_hyper,album[album_traveler]);
-               PositionPicture(album[album_traveler],album_traveler);
+               LoadPicture(pictures_filename_shared_stack_mem_hyper,pic);
+               PositionPicture(pic,album_traveler);
                ++loaded_pictures_this_loop;
             } else { fprintf(stderr,"Could not retrieve filename for album item %u/%u\n",album_traveler, frame.total_images); }
+
+          pthread_mutex_lock(&album_slot_lock);
+          picture_being_loaded=0;
+          pthread_mutex_unlock(&album_slot_lock);
       }
     }
    }
@@ -424,8 +456,15 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
        }
        if (clear_system_ram)
        {
-         UnLoadPicture(album[album_traveler]);
-         ++unloaded_pictures_this_loop;
+         /* Same lock as DestroyPicturesIfNeeded : this frees the rgb data of a picture
+            the loader thread may be decoding into right now */
+         pthread_mutex_lock(&album_slot_lock);
+         if ( album[album_traveler] != picture_being_loaded )
+          {
+            UnLoadPicture(album[album_traveler]);
+            ++unloaded_pictures_this_loop;
+          }
+         pthread_mutex_unlock(&album_slot_lock);
        }
     }
     ++album_traveler;
@@ -451,8 +490,15 @@ int UnLoadPicturesIfNeeded(unsigned int clear_gpu_ram,unsigned int clear_system_
        }
        if (clear_system_ram)
        {
-         UnLoadPicture(album[album_traveler]);
-         ++unloaded_pictures_this_loop;
+         /* Same lock as DestroyPicturesIfNeeded : this frees the rgb data of a picture
+            the loader thread may be decoding into right now */
+         pthread_mutex_lock(&album_slot_lock);
+         if ( album[album_traveler] != picture_being_loaded )
+          {
+            UnLoadPicture(album[album_traveler]);
+            ++unloaded_pictures_this_loop;
+          }
+         pthread_mutex_unlock(&album_slot_lock);
        }
     }
     if ( album_traveler != 0 ) { --album_traveler; } else
